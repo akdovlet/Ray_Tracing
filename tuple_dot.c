@@ -1,35 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tuple_new.c                                        :+:      :+:    :+:   */
+/*   tuple_dot.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 16:15:30 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/17 18:00:11 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/12/17 14:49:46 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/12/17 14:51:40 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_tuple	tuple_new(float x, float y, float z, float w)
+float	tuple_dot(t_tuple a, t_tuple b)
 {
-	t_tuple	new;
-
-	new.x = x;
-	new.y = y;
-	new.z = z;
-	new.w = w;
-	return (new);
+	return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w));
 }
-
-t_tuple	vector_new(float x, float y, float z)
-{
-	return (tuple_new(x, y, z, 0));
-}
-
-t_tuple	point_new(float x, float y, float z)
-{
-	return (tuple_new(x, y, z, 1));
-}
-
