@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/17 18:17:56 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:48:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 # define MINIRT_H
 
 # include <stdio.h>
+# include <stdlib.h>
 # include <math.h>
 # include <unistd.h>
+# include "X11/keysym.h"
+# include "mlx.h"
+
+# define WIDTH 900
+# define HEIGHT 550
+
 typedef struct s_tuple
 {
 	float	x;
@@ -23,6 +30,28 @@ typedef struct s_tuple
 	float	z;
 	float	w;
 }	t_tuple;
+
+typedef struct s_mfour
+{
+	t_tuple	t1;
+	t_tuple	t2;
+	t_tuple	t3;
+	t_tuple	t4;
+}	t_mfour;
+
+typedef struct s_mthree
+{
+	t_tuple	t1;
+	t_tuple	t2;
+	t_tuple	t3;
+	t_tuple	t4;
+}	t_mthree;
+
+typedef struct s_mtwo
+{
+	t_tuple	t1;
+	t_tuple	t2;
+}	t_mtwo;
 
 typedef struct s_projectile
 {
@@ -36,6 +65,31 @@ typedef struct s_env
 	t_tuple	wind;
 }	t_env;
 
+typedef	struct s_canvas
+{
+	t_tuple	color;
+}	t_canvas;
+
+typedef struct s_img {
+	void	*img_ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_img;
+
+typedef struct s_mlx {
+	void	*mlx_ptr;
+	void	*win_ptr;
+}	t_mlx;
+
+/*	matrix	*/
+
+t_mfour		matrix_four_by_four(t_tuple t1, t_tuple t2, t_tuple t3, t_tuple t4);
+t_mthree	matrix_three_by_three(t_tuple t1, t_tuple t2, t_tuple t3);
+t_mtwo		matrix_two_by_two(t_tuple t1, t_tuple t2);
+
+/*	tuple	*/
 
 t_tuple	tuple_new(float x, float y, float z, float w);
 t_tuple	vector_new(float x, float y, float z);
@@ -62,5 +116,12 @@ t_projectile	tick(t_env env, t_projectile proj);
 /*	colors	*/
 
 t_tuple	color_new(float red, float green, float blue);
+t_tuple	color_hadamard(t_tuple c1, t_tuple c2);
 
+/*	mlx	*/
+
+int		init_mlx(t_mlx *mlx, t_img *img);
+void	mlx_clear(t_mlx *mlx, t_img *img);
+void	ak_mlx_pixel_put(t_img *data, float dx, float dy, unsigned int color);
+int		key_manager(int keysym, t_mlx *mlx);
 #endif

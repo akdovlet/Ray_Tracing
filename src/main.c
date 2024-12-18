@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tuple_test.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/17 18:58:40 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/18 18:49:48 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,23 +95,9 @@ int main()
 	new = tuple_cross(v2, v1);
 	fprintf(stderr, "cross product of v2 and v1 = %f, %f, %f, %f\n\n", new.x, new.y, new.z, new.w);
 
-	// fprintf(stderr, "Starting projectile simulation\n");
-
-	// proj.position = point_new(0, 1, 0),
-	// proj.velocity = tuple_normalize(vector_new(1, 1, 0));
-
-	// env.gravity = vector_new(0, -0.1, 0);
-	// env.wind = vector_new(-0.01, 0, 0);
-	// fprintf(stderr, "projectile position at start is: x: %f, y: %f, z: %f, w: %f\n", proj.position.x, proj.position.y, proj.position.z, proj.position.w);
-	// for(int i = 0; i < 10; i++)
-	// {
-	// 	proj = tick(env, proj);
-	// 	fprintf(stderr, "projectile position is: x: %f, y: %f, z: %f, w: %f\n", proj.position.x, proj.position.y, proj.position.z, proj.position.w);
-	// 	usleep(500 * 1000);
-	// }
 
 	fprintf(stderr, "color test\n");	
-	t_tuple color;
+	t_tuple	color;
 
 	color = color_new(0.5, 0.4, 1.7);
 	fprintf(stderr, "color is: x: %f, y: %f, z: %f, w: %f\n\n", color.x, color.y, color.z, color.w);
@@ -130,4 +116,58 @@ int main()
 	fprintf(stderr, "c3 is: x: %f, y: %f, z: %f, w: %f\n\n", c2.x, c2.y, c2.z, c2.w);
 	c_new = tuple_multiply(c3, 2);
 	fprintf(stderr, "c3 * 2 is: x: %f, y: %f, z: %f, w: %f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
+	
+	c1 = color_new(1, 0.2, 0.4);
+	c2 = color_new(0.9, 1, 0.1);
+	c_new = color_hadamard(c1, c2);
+	fprintf(stderr, "c1 * c2 is: x: %f, y: %f, z: %f, w: %f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
+	
+	t_img	img;
+	t_mlx	mlx;
+
+	init_mlx(&mlx, &img);
+	mlx_key_hook(mlx.win_ptr, &key_manager, &mlx);
+
+	fprintf(stderr, "Starting projectile simulation\n");
+
+	proj.position = point_new(0, 0, 0),
+	proj.velocity = tuple_multiply(tuple_normalize(vector_new(1, 1.8, 0)), 11.25);
+
+	env.gravity = vector_new(0, -0.1, 0);
+	env.wind = vector_new(-0.01, 0, 0);
+	fprintf(stderr, "projectile position at start is: x: %f, y: %f, z: %f, w: %f\n", proj.position.x, proj.position.y, proj.position.z, proj.position.w);
+	while(1)
+	{
+		proj = tick(env, proj);
+		ak_mlx_pixel_put(&img, proj.position.x, HEIGHT - proj.position.y, 16711680);
+		fprintf(stderr, "projectile position is: x: %f, y: %f, z: %f, w: %f\n", proj.position.x, proj.position.y, proj.position.z, proj.position.w);
+		if (proj.position.y <= 0)
+			break ;
+		usleep(10 * 1000);
+		mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
+	}
+	fprintf(stderr, "Finished simulation\n\n");
+
+	t_mfour		mf = matrix_four_by_four(v1, v2, c1, c2);
+	fprintf(stderr, "matrix 4x4: %f, %f, %f, %f\n", mf.t1.x, mf.t1.y, mf.t1.z, mf.t1.w);
+	fprintf(stderr, "matrix 4x4: %f, %f, %f, %f\n", mf.t2.x, mf.t2.y, mf.t2.z, mf.t2.w);
+	fprintf(stderr, "matrix 4x4: %f, %f, %f, %f\n", mf.t3.x, mf.t3.y, mf.t3.z, mf.t3.w);
+	fprintf(stderr, "matrix 4x4: %f, %f, %f, %f\n", mf.t4.x, mf.t4.y, mf.t4.z, mf.t4.w);
+	
+	t_mthree	mthree = matrix_three_by_three(v1, v2, c1);
+	fprintf(stderr, "matrix 3x3: %f, %f, %f, %f\n", mthree.t1.x, mthree.t1.y, mthree.t1.z, mthree.t1.w);
+	fprintf(stderr, "matrix 3x3: %f, %f, %f, %f\n", mthree.t2.x, mthree.t2.y, mthree.t2.z, mthree.t2.w);
+	fprintf(stderr, "matrix 3x3: %f, %f, %f, %f\n", mthree.t3.x, mthree.t3.y, mthree.t3.z, mthree.t3.w);
+	t_mtwo		mtwo = matrix_two_by_two(v1, v2);
+	fprintf(stderr, "matrix 2x2: %f, %f, %f, %f\n", mtwo.t1.x, mtwo.t1.y, mtwo.t1.z, mtwo.t1.w);
+	fprintf(stderr, "matrix 2x2: %f, %f, %f, %f\n", mtwo.t2.x, mtwo.t2.y, mtwo.t2.z, mtwo.t2.w);
+	
+	
+	
+	
+	
+	
+	
+	mlx_loop(mlx.mlx_ptr);
+	mlx_clear(&mlx, &img);
 }
