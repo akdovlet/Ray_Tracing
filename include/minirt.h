@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/18 18:48:14 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/19 15:15:34 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct s_mthree
 	t_tuple	t1;
 	t_tuple	t2;
 	t_tuple	t3;
-	t_tuple	t4;
 }	t_mthree;
 
 typedef struct s_mtwo
@@ -85,9 +84,14 @@ typedef struct s_mlx {
 
 /*	matrix	*/
 
-t_mfour		matrix_four_by_four(t_tuple t1, t_tuple t2, t_tuple t3, t_tuple t4);
-t_mthree	matrix_three_by_three(t_tuple t1, t_tuple t2, t_tuple t3);
-t_mtwo		matrix_two_by_two(t_tuple t1, t_tuple t2);
+float	**matrix_init(int row, int column);
+float	**matrix_four_by_four(t_tuple t1, t_tuple t2, t_tuple t3, t_tuple t4);
+float	**matrix_three_by_three(t_tuple t1, t_tuple t2, t_tuple t3);
+float	**matrix_two_by_two(t_tuple t1, t_tuple t2);
+
+float	**matrix_multiply(float **a, float **b);
+
+int		matrix_cmp_4(t_mfour m1, t_mfour m2);
 
 /*	tuple	*/
 

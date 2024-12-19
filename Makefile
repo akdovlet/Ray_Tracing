@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2024/12/18 18:44:03 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/12/19 15:15:54 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@
 NAME	:=	minirt
 
 SRC		:=	main.c						\
+			matrix/matrix_cmp.c			\
+			matrix/matrix_multiply.c	\
 			matrix/matrix.c				\
 			mlx/init_mlx.c				\
 			mlx/key_manager.c			\

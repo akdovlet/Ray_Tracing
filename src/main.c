@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/18 18:49:48 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:48:50 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main()
 	fprintf(stderr, "v(x: %f, y: %f, z: %f, w: %f)\n\n", v.x, v.y, v.z, v.w);
 
 	fprintf(stderr, "float_equal test\n");
-	fprintf(stderr, "float a: %f, float b: %f are equal if 0: %d\n\n", 4.1F, 4.1F, float_equal(4.1f, 4.1f));
+	fprintf(stderr, "float a: %f, float b: %f are equal if 0: %d\n\n", 4.2F, 4.1F, float_equal(4.2f, 4.1f));
 
 	fprintf(stderr, "tuple_cmp tests:\n");
 	fprintf(stderr, "tuple p and v are equal if 0: %d\n\n", tuple_cmp(p, v));
@@ -148,26 +148,38 @@ int main()
 	}
 	fprintf(stderr, "Finished simulation\n\n");
 
-	t_mfour		mf = matrix_four_by_four(v1, v2, c1, c2);
-	fprintf(stderr, "matrix 4x4: %f, %f, %f, %f\n", mf.t1.x, mf.t1.y, mf.t1.z, mf.t1.w);
-	fprintf(stderr, "matrix 4x4: %f, %f, %f, %f\n", mf.t2.x, mf.t2.y, mf.t2.z, mf.t2.w);
-	fprintf(stderr, "matrix 4x4: %f, %f, %f, %f\n", mf.t3.x, mf.t3.y, mf.t3.z, mf.t3.w);
-	fprintf(stderr, "matrix 4x4: %f, %f, %f, %f\n", mf.t4.x, mf.t4.y, mf.t4.z, mf.t4.w);
+	float **mfour = matrix_four_by_four(v1, v2, c1, c2);
+	for (int i = 0; i < 4; i++)
+	{
+		for(int j = 0; j < 4; j++)
+		{
+			fprintf(stderr, " 4x4 matrix[%d][%d]: %f", i, j, mfour[i][j]);
+		}
+		fprintf(stderr, "\n");
+	}
+
+	float	**mthree = matrix_three_by_three(v1, v2, c1);
+	for (int i = 0; i < 3; i++)
+	{
+		for(int j = 0; j < 3; j++)
+		{
+			fprintf(stderr, " 3x3 matrix[%d][%d]: %f", i, j, mthree[i][j]);
+		}
+		fprintf(stderr, "\n");
+	}
+	float	**mtwo = matrix_two_by_two(v1, v2);
+	for (int i = 0; i < 2; i++)
+	{
+		for(int j = 0; j < 2; j++)
+		{
+			fprintf(stderr, " 2x2 matrix[%d][%d]: %f", i, j, mtwo[i][j]);
+		}
+		fprintf(stderr, "\n");
+	}
 	
-	t_mthree	mthree = matrix_three_by_three(v1, v2, c1);
-	fprintf(stderr, "matrix 3x3: %f, %f, %f, %f\n", mthree.t1.x, mthree.t1.y, mthree.t1.z, mthree.t1.w);
-	fprintf(stderr, "matrix 3x3: %f, %f, %f, %f\n", mthree.t2.x, mthree.t2.y, mthree.t2.z, mthree.t2.w);
-	fprintf(stderr, "matrix 3x3: %f, %f, %f, %f\n", mthree.t3.x, mthree.t3.y, mthree.t3.z, mthree.t3.w);
-	t_mtwo		mtwo = matrix_two_by_two(v1, v2);
-	fprintf(stderr, "matrix 2x2: %f, %f, %f, %f\n", mtwo.t1.x, mtwo.t1.y, mtwo.t1.z, mtwo.t1.w);
-	fprintf(stderr, "matrix 2x2: %f, %f, %f, %f\n", mtwo.t2.x, mtwo.t2.y, mtwo.t2.z, mtwo.t2.w);
-	
-	
-	
-	
-	
-	
-	
+	fprintf(stderr, "c3 is: x: %f, y: %f, z: %f, w: %f\n\n", c3.x, c3.y, c3.z, c3.w);
+	fprintf(stderr, "c2 is: x: %f, y: %f, z: %f, w: %f\n\n", c2.x, c2.y, c2.z, c2.w);
+
 	mlx_loop(mlx.mlx_ptr);
 	mlx_clear(&mlx, &img);
 }
