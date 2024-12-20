@@ -1,33 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_cmp.c                                       :+:      :+:    :+:   */
+/*   matrix_cofactor.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 11:33:23 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:15 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/12/20 15:40:18 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/12/20 15:42:28 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	matrix_cmp(float **m1, float **m2, int row, int col)
+float	matrix_cofactor(float **m, int size)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < row)
-	{
-		j = 0;
-		while (j < col)
-		{
-			if (m1[i][j] != m2[i][j])
-				return (1);
-			j++;
-		}
-		i++;
-	}
-	return (0);
+	float	minor;
+	float	**sub; 
 }

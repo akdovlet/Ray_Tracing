@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_cmp.c                                       :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 11:33:23 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:15 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/01/07 22:05:40 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/10/31 13:47:06 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-int	matrix_cmp(float **m1, float **m2, int row, int col)
+char	*ft_strndup(char *src, int len)
 {
-	int	i;
-	int	j;
+	int		i;
+	char	*dest;
 
 	i = 0;
-	while (i < row)
+	dest = malloc(sizeof(char) * (len + 1));
+	if (!dest)
+		return (NULL);
+	while (i < len)
 	{
-		j = 0;
-		while (j < col)
-		{
-			if (m1[i][j] != m2[i][j])
-				return (1);
-			j++;
-		}
+		dest[i] = src[i];
 		i++;
 	}
-	return (0);
+	dest[i] = '\0';
+	return (dest);
 }

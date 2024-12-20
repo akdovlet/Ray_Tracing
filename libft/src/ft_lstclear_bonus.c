@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_cmp.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 11:33:23 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:15 by akdovlet         ###   ########.fr       */
+/*   Created: 2023/09/18 12:10:17 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/01/03 21:00:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-int	matrix_cmp(float **m1, float **m2, int row, int col)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	int	i;
-	int	j;
+	t_list	*tmp;
 
-	i = 0;
-	while (i < row)
+	while (*lst)
 	{
-		j = 0;
-		while (j < col)
-		{
-			if (m1[i][j] != m2[i][j])
-				return (1);
-			j++;
-		}
-		i++;
+		tmp = (*lst)->next;
+		del((*lst)->content);
+		free((*lst));
+		*lst = tmp;
 	}
-	return (0);
 }

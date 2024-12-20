@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_cmp.c                                       :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gschwand <gschwand@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 11:33:23 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:15 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/05/15 03:06:59 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/09/27 12:25:45 by gschwand         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-int	matrix_cmp(float **m1, float **m2, int row, int col)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < row)
+	while (*s1 || *s2)
 	{
-		j = 0;
-		while (j < col)
-		{
-			if (m1[i][j] != m2[i][j])
-				return (1);
-			j++;
-		}
-		i++;
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		s1++;
+		s2++;
 	}
 	return (0);
 }

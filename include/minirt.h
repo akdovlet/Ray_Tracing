@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/19 15:15:34 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/20 15:11:24 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include "X11/keysym.h"
 # include "mlx.h"
+# include "libft.h"
 
 # define WIDTH 900
 # define HEIGHT 550
@@ -85,13 +86,30 @@ typedef struct s_mlx {
 /*	matrix	*/
 
 float	**matrix_init(int row, int column);
+void	*matrix_free(float **matrix, int size);
 float	**matrix_four_by_four(t_tuple t1, t_tuple t2, t_tuple t3, t_tuple t4);
 float	**matrix_three_by_three(t_tuple t1, t_tuple t2, t_tuple t3);
 float	**matrix_two_by_two(t_tuple t1, t_tuple t2);
 
 float	**matrix_multiply(float **a, float **b);
+t_tuple	matrix_multiply_tuple(float **a, t_tuple t1);
 
-int		matrix_cmp_4(t_mfour m1, t_mfour m2);
+//	allocates and returns a 4x4 identity matrix
+float	**matrix_identity();
+
+//	turns rows into columns
+void	matrix_transpose(float	**m);
+
+int		matrix_cmp(float **m1, float **m2, int row, int col);
+
+//	using printf prints every data point in a given array
+void	matrix_print(float **m, int row, int col);
+
+float	matrix_determinant2x2(float **m);
+
+//	allocates and returns a copy of the given matrix with the given row
+//	and column removed
+float	**sub_matrix(float **m, int size, int row, int col);
 
 /*	tuple	*/
 

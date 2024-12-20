@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_cmp.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 11:33:23 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:15 by akdovlet         ###   ########.fr       */
+/*   Created: 2023/09/10 17:34:46 by adovleto          #+#    #+#             */
+/*   Updated: 2024/01/19 11:17:40 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-int	matrix_cmp(float **m1, float **m2, int row, int col)
+size_t	ft_strlen(const char *s)
 {
-	int	i;
-	int	j;
+	size_t	i;
 
 	i = 0;
-	while (i < row)
+	if (s)
 	{
-		j = 0;
-		while (j < col)
-		{
-			if (m1[i][j] != m2[i][j])
-				return (1);
-			j++;
-		}
-		i++;
+		while (s[i])
+			i++;
 	}
-	return (0);
+	return (i);
 }

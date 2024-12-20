@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_cmp.c                                       :+:      :+:    :+:   */
+/*   matrix_print.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 11:33:23 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:15 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/12/20 14:09:37 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/12/20 14:14:02 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	matrix_cmp(float **m1, float **m2, int row, int col)
+void	matrix_print(float **m, int row, int col)
 {
 	int	i;
 	int	j;
@@ -23,11 +23,10 @@ int	matrix_cmp(float **m1, float **m2, int row, int col)
 		j = 0;
 		while (j < col)
 		{
-			if (m1[i][j] != m2[i][j])
-				return (1);
+			printf("m[%d][%d]: %.2f\t", i, j, m[i][j]);
 			j++;
 		}
+		printf("\n");
 		i++;
 	}
-	return (0);
 }

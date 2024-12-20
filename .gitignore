@@ -1,4 +1,7 @@
-#executable
+# build foler
+.build
+
+# executable
 minirt
 
 # vscode bs

@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_cmp.c                                       :+:      :+:    :+:   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 11:33:23 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:15 by akdovlet         ###   ########.fr       */
+/*   Created: 2023/09/10 19:33:18 by adovleto          #+#    #+#             */
+/*   Updated: 2024/01/03 21:00:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-int	matrix_cmp(float **m1, float **m2, int row, int col)
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	int	i;
-	int	j;
+	unsigned char	*dst;
+	unsigned char	*source;
 
-	i = 0;
-	while (i < row)
+	dst = (unsigned char *) dest;
+	source = (unsigned char *) src;
+	if (!dest && !src)
+		return (NULL);
+	if (n == 0)
+		return (dest);
+	if (dest > src)
 	{
-		j = 0;
-		while (j < col)
-		{
-			if (m1[i][j] != m2[i][j])
-				return (1);
-			j++;
-		}
-		i++;
+		while (n--)
+			dst[n] = source[n];
 	}
-	return (0);
+	else
+	{
+		while (n--)
+			*dst++ = *source++;
+	}
+	return (dest);
 }

@@ -1,33 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_cmp.c                                       :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 11:33:23 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:15 by akdovlet         ###   ########.fr       */
+/*   Created: 2023/09/10 20:25:13 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/01/03 21:00:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-int	matrix_cmp(float **m1, float **m2, int row, int col)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	int	i;
-	int	j;
+	size_t	i;
 
 	i = 0;
-	while (i < row)
+	if (size > 0)
 	{
-		j = 0;
-		while (j < col)
+		while (src[i] && i < size - 1)
 		{
-			if (m1[i][j] != m2[i][j])
-				return (1);
-			j++;
+			dst[i] = src[i];
+			i++;
 		}
-		i++;
+		dst[i] = '\0';
 	}
-	return (0);
+	return (ft_strlen(src));
 }

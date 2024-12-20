@@ -1,33 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_cmp.c                                       :+:      :+:    :+:   */
+/*   ak_countword.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 11:33:23 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:15 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/01/07 22:03:19 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/01/07 22:03:32 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-int	matrix_cmp(float **m1, float **m2, int row, int col)
+int	ak_countword(char *str, char *sep, int **tab)
 {
 	int	i;
 	int	j;
+	int	count;
 
 	i = 0;
-	while (i < row)
+	count = 0;
+	*tab = malloc(sizeof(int) * (ft_strlen(str)));
+	if (!*tab)
+		return (-1);
+	while (str[i])
 	{
 		j = 0;
-		while (j < col)
+		if (!ft_ischarset(str[i], sep))
+			count++;
+		while (str[i] && !ft_ischarset(str[i], sep))
 		{
-			if (m1[i][j] != m2[i][j])
-				return (1);
-			j++;
+			(*tab)[count - 1] = j++;
+			i++;
 		}
+		if (!str[i])
+			break ;
 		i++;
 	}
-	return (0);
+	return (count);
 }

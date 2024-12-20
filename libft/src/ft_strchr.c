@@ -1,33 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_cmp.c                                       :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 11:33:23 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:15 by akdovlet         ###   ########.fr       */
+/*   Created: 2023/09/10 20:55:38 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/09/19 16:48:16 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-int	matrix_cmp(float **m1, float **m2, int row, int col)
+char	*ft_strchr(const char *s, int c)
 {
-	int	i;
-	int	j;
+	int		i;
+	char	*str;
 
+	if (!s)
+		return (NULL);
+	str = (char *)s;
 	i = 0;
-	while (i < row)
+	while (str[i] != (char)c)
 	{
-		j = 0;
-		while (j < col)
-		{
-			if (m1[i][j] != m2[i][j])
-				return (1);
-			j++;
-		}
+		if (str[i] == '\0')
+			return (NULL);
 		i++;
 	}
-	return (0);
+	return (str + i);
 }
+
+// #include <stdio.h>
+
+// int main()
+// {
+// 	printf("%s\n", ft_strchr("Hello how you doing", ' '));
+// }

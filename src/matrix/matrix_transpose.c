@@ -1,33 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_cmp.c                                       :+:      :+:    :+:   */
+/*   matrix_transpose.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 11:33:23 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:15 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/12/20 13:53:38 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/12/20 15:30:50 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	matrix_cmp(float **m1, float **m2, int row, int col)
+static void	transpose(float tmp[4][4], float **m)
 {
 	int	i;
 	int	j;
 
 	i = 0;
-	while (i < row)
+	while (i < 4)
 	{
 		j = 0;
-		while (j < col)
+		while (j < 4)
 		{
-			if (m1[i][j] != m2[i][j])
-				return (1);
+			tmp[j][i] = m[i][j];
 			j++;
 		}
 		i++;
 	}
-	return (0);
+}
+
+void	matrix_transpose(float	**m)
+{
+	float	tmp[4][4];
+	int		i;
+	int		j;
+
+	i = 0;
+	transpose(tmp, m);
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			m[i][j] = tmp[i][j];
+			j++;
+		}
+		i++;
+	}
 }

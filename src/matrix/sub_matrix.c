@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_cmp.c                                       :+:      :+:    :+:   */
+/*   sub_matrix.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 11:33:23 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:15 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/12/20 14:51:56 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/12/20 15:23:46 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	matrix_cmp(float **m1, float **m2, int row, int col)
+float	**sub_matrix(float **m, int size, int row, int col)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	int		k;
+	int		l;
+	float	**sub;
 
-	i = 0;
-	while (i < row)
+	i = -1;
+	k = 0;
+	sub = matrix_init(size - 1, size - 1);
+	if (!sub)
+		return (NULL);
+	while (++i < size)
 	{
 		j = 0;
-		while (j < col)
+		l = 0;
+		while (j < size)
 		{
-			if (m1[i][j] != m2[i][j])
-				return (1);
+			if (j != col && i != row)
+				sub[k][l++] = m[i][j];
 			j++;
 		}
-		i++;
+		if (i != row)
+			k++;
 	}
-	return (0);
+	return (sub);
 }

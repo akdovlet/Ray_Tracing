@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 18:34:32 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/19 15:23:00 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/20 12:05:04 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ float	**matrix_two_by_two(t_tuple t1, t_tuple t2)
 
 	i = 0;
 	mtwo = matrix_init(2, 2);
+	if (!mtwo)
+		return (NULL);
 	mtwo[0][0] = t1.x;
 	mtwo[0][1] = t1.y;
 	mtwo[1][0] = t2.x;

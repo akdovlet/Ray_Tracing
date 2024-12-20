@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_cmp.c                                       :+:      :+:    :+:   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/19 11:33:23 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:15 by akdovlet         ###   ########.fr       */
+/*   Created: 2023/09/18 12:19:42 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/01/03 21:00:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
 
-int	matrix_cmp(float **m1, float **m2, int row, int col)
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	int	i;
-	int	j;
+	t_list	*map;
+	t_list	*node;
 
-	i = 0;
-	while (i < row)
+	map = 0;
+	if (!lst || !f)
+		return (NULL);
+	while (lst)
 	{
-		j = 0;
-		while (j < col)
+		node = ft_lstnew(f(lst->content));
+		if (!node)
 		{
-			if (m1[i][j] != m2[i][j])
-				return (1);
-			j++;
+			ft_lstclear(&node, del);
+			return (NULL);
 		}
-		i++;
+		ft_lstadd_back(&map, node);
+		lst = lst->next;
 	}
-	return (0);
+	return (map);
 }
