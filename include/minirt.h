@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 15:11:24 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/21 17:09:15 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,11 @@ int		matrix_cmp(float **m1, float **m2, int row, int col);
 //	using printf prints every data point in a given array
 void	matrix_print(float **m, int row, int col);
 
-float	matrix_determinant2x2(float **m);
+// calculates the determinant of a 2x2 matrix
+float	matrix_determinant(float **m);
+// divide and conquer, creates sub matrix and calculates its determinant
+float	matrix_minor(float **m, int row, int col, int size);
+float	matrix_cofactor(float **m, int row, int col, int size);
 
 //	allocates and returns a copy of the given matrix with the given row
 //	and column removed

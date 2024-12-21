@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:27:07 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 14:29:02 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/21 15:43:58 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float	matrix_determinant2x2(float **m)
+float	matrix_determinant(float **m)
 {
 	return ((m[0][0] * m[1][1]) - (m[0][1] * m[1][0]));
 }

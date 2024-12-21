@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2024/12/20 15:11:57 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/12/21 17:10:33 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,9 @@ NAME	:=	minirt
 
 SRC		:=	main.c						\
 			matrix/matrix_cmp.c			\
+			matrix/matrix_cofactor.c	\
 			matrix/matrix_determinant.c	\
+			matrix/matrix_minor.c	\
 			matrix/matrix_multiply.c	\
 			matrix/matrix_print.c		\
 			matrix/matrix_transpose.c	\
