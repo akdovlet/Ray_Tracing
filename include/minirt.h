@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/21 17:09:15 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/22 18:01:52 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void	matrix_print(float **m, int row, int col);
 
 // calculates the determinant of a 2x2 matrix
 float	matrix_determinant(float **m);
+float	matrix_determinant_recursion(float **m, int size);
+
 // divide and conquer, creates sub matrix and calculates its determinant
 float	matrix_minor(float **m, int row, int col, int size);
 float	matrix_cofactor(float **m, int row, int col, int size);

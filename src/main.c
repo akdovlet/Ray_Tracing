@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/21 18:31:43 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/22 18:06:07 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,16 +235,28 @@ int main()
 	matrix_print(submatrix, 3, 3);
 	matrix_free(mfour, 4);
 	matrix_free(submatrix, 3);
-	
+
 	fprintf(stderr, "matrix cofactor test\n");
 	mthree = matrix_three_by_three(tuple_new(3, 5, 0, 0), tuple_new(2, -1, -7, 0), tuple_new(6, -1, 5, 0));
 	fprintf(stderr, "cofactor of mtrhee at row/col %d/%d: %f\n", 1, 0, matrix_cofactor(mthree, 1, 0, 3));
 	mfour	= matrix_four_by_four(tuple_new(-2, -8, 3, 5), tuple_new(-3, 1, 7, 3), tuple_new(1, 2, -9, 6), tuple_new(-6, 7 , 7, -9));
 	fprintf(stderr, "cofactor of mfour at row/col %d/%d: %f\n", 0, 0, matrix_cofactor(mfour, 0, 0, 4));
 	matrix_free(mthree, 3);
+	
+	fprintf(stderr, "matrix 3x3:\n");
+	fprintf(stderr, "|	1	|	2	|	6	|\n");
+	fprintf(stderr, "|	-5	|	8	|	-4	|\n");
+	fprintf(stderr, "|	2	|	6	|	4	|\n\n");
 	mthree = matrix_three_by_three(tuple_new(1, 2, 6, 0), tuple_new(-5, 8, -4, 0), tuple_new(2, 6, 4, 0));
-	fprintf(stderr, "cofactor of mfour at row/col %d/%d: %f\n", 0, 0, matrix_cofactor(mfour, 0, 0, 4));
+	fprintf(stderr, "cofactor of mthree at row/col %d/%d: %f\n", 0, 2, matrix_cofactor(mthree, 0, 2, 3));
 
+	fprintf(stderr, "matrix 4x4:\n");
+	fprintf(stderr, "|	-2	|	-8	|	3	|	5	|\n");
+	fprintf(stderr, "|	-3	|	1	|	7	|	3	|\n");
+	fprintf(stderr, "|	1	|	2	|	-9	|	6	|\n");
+	fprintf(stderr, "|	-6	|	7	|	7	|	-9	|\n\n");
+	mfour	= matrix_four_by_four(tuple_new(-2, -8, 3, 5), tuple_new(-3, 1, 7, 3), tuple_new(1, 2, -9, 6), tuple_new(-6, 7 , 7, -9));
+	fprintf(stderr, "determinant of mfour: %f\n", matrix_determinant_recursion(mfour, 4));
 
 	// mlx stuff
 	mlx_loop(mlx.mlx_ptr);
