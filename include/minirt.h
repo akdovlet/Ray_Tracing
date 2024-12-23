@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/22 18:01:52 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/23 12:29:26 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,6 @@ typedef struct s_tuple
 	float	z;
 	float	w;
 }	t_tuple;
-
-typedef struct s_mfour
-{
-	t_tuple	t1;
-	t_tuple	t2;
-	t_tuple	t3;
-	t_tuple	t4;
-}	t_mfour;
-
-typedef struct s_mthree
-{
-	t_tuple	t1;
-	t_tuple	t2;
-	t_tuple	t3;
-}	t_mthree;
-
-typedef struct s_mtwo
-{
-	t_tuple	t1;
-	t_tuple	t2;
-}	t_mtwo;
 
 typedef struct s_projectile
 {
@@ -112,6 +91,7 @@ float	matrix_determinant_recursion(float **m, int size);
 // divide and conquer, creates sub matrix and calculates its determinant
 float	matrix_minor(float **m, int row, int col, int size);
 float	matrix_cofactor(float **m, int row, int col, int size);
+float	matrix_cofactor_3x3(float **m, int row, int col);
 
 //	allocates and returns a copy of the given matrix with the given row
 //	and column removed

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:27:07 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/22 18:10:40 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/23 12:46:54 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,10 @@ float	matrix_determinant(float **m)
 
 float	matrix_determinant_recursion(float **m, int size)
 {
-	int	i;
+	int		i;
+	float	**sub;
 	float	determinant;
+	float	tmp;
 
 	determinant = 0;
 	i = 0;
@@ -28,10 +30,13 @@ float	matrix_determinant_recursion(float **m, int size)
 		return (matrix_determinant(m));
 	while (i < size)
 	{
-		fprintf(stderr, "m[0][%d]: %f\n", i, m[0][i]);
-		fprintf(stderr, "matrix cofac of m[0][%d]: %f\n", i, matrix_cofactor(m, 0, i, size));
-		determinant = (determinant + m[0][i]) * matrix_cofactor(m, 0, i, size);
+		sub = sub_matrix(m, size, 0, i);
+		tmp = matrix_determinant_recursion(sub, size - 1);
+		if (i % 2)
+			tmp = -tmp;
+		determinant = determinant + (m[0][i] * tmp);
 		i++;
+		matrix_free(sub, size - 1);
 	}
 	return (determinant);
 }

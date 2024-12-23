@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/22 18:06:07 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/23 11:05:09 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int main()
 	fprintf(stderr, "Starting projectile simulation\n");
 
 	proj.position = point_new(0, 0, 0),
-	proj.velocity = tuple_multiply(tuple_normalize(vector_new(1, 1.8, 0)), 11.25);
+	proj.velocity = tuple_multiply(tuple_normalize(vector_new(1, 1.8, 0)), 5.25);
 
 	env.gravity = vector_new(0, -0.1, 0);
 	env.wind = vector_new(-0.01, 0, 0);
@@ -139,7 +139,7 @@ int main()
 	while(1)
 	{
 		proj = tick(env, proj);
-		ak_mlx_pixel_put(&img, proj.position.x, HEIGHT - proj.position.y, 16711680);
+		ak_mlx_pixel_put(&img, proj.position.x, HEIGHT - proj.position.y, 0xFF0000);
 		fprintf(stderr, "projectile position is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n", proj.position.x, proj.position.y, proj.position.z, proj.position.w);
 		if (proj.position.y <= 0)
 			break ;
