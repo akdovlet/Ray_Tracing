@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_print.c                                     :+:      :+:    :+:   */
+/*   matrix_scaling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/20 14:09:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/23 14:55:39 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/12/23 17:57:53 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/12/23 18:06:21 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	matrix_print(float **m, int row, int col)
+float	**matrix_scaling(float x, float y, float z)
 {
-	int	i;
-	int	j;
+	float	**m;
 
-	i = 0;
-	while (i < row)
-	{
-		j = 0;
-		while (j < col)
-		{
-			printf("|\t%f\t", m[i][j]);
-			if (j == col - 1)
-				printf("|\n");
-			j++;
-		}
-		i++;
-	}
+	m = matrix_identity();
+	if (!m)
+		return (NULL);
+	m[0][0] = x;
+	m[1][1] = y;
+	m[2][2] = z;
+	return (m);
 }

@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2024/12/21 17:10:33 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/12/23 19:00:06 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,14 +15,19 @@
 NAME	:=	minirt
 
 SRC		:=	main.c						\
+			matrix/degrees_to_radians.c	\
 			matrix/matrix_cmp.c			\
 			matrix/matrix_cofactor.c	\
 			matrix/matrix_determinant.c	\
-			matrix/matrix_minor.c	\
+			matrix/matrix_inverse.c		\
+			matrix/matrix_minor.c		\
 			matrix/matrix_multiply.c	\
 			matrix/matrix_print.c		\
+			matrix/matrix_scaling.c		\
+			matrix/matrix_translate.c	\
 			matrix/matrix_transpose.c	\
 			matrix/matrix.c				\
+			matrix/rotate_x.c			\
 			matrix/sub_matrix.c			\
 			mlx/init_mlx.c				\
 			mlx/key_manager.c			\
@@ -39,6 +44,7 @@ SRC		:=	main.c						\
 			tuple/tuple_negate.c		\
 			tuple/tuple_new.c			\
 			tuple/tuple_normalize.c		\
+			tuple/tuple_print.c			\
 			tuple/tuple_scalar.c		\
 			tuple/tuple_substract.c
 
@@ -66,7 +72,7 @@ $(BUILD):
 	@mkdir -p $(BUILD)
 
 $(NAME): $(OBJ) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJ) -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME) $(LIBFT) $(MATH)
+	@$(CC) $(CFLAGS) $(OBJ) -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lz -o $(NAME) $(LIBFT) $(MATH)
 
 $(BUILD)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)

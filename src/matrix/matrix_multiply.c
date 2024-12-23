@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 12:05:06 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 15:31:06 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/23 17:59:01 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ float	**matrix_identity(void)
 	float	**id;
 
 	id = matrix_init(4, 4);
+	if (!id)
+		return (NULL);
 	id[0][0] = 1;
 	id[0][1] = 0;
 	id[0][2] = 0;

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/23 12:29:26 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/23 18:59:20 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,16 @@ float	matrix_determinant_recursion(float **m, int size);
 // divide and conquer, creates sub matrix and calculates its determinant
 float	matrix_minor(float **m, int row, int col, int size);
 float	matrix_cofactor(float **m, int row, int col, int size);
-float	matrix_cofactor_3x3(float **m, int row, int col);
+
+float	**matrix_inverse(float **m, int size);
+
+float	**matrix_translation(t_tuple tuple);
+float	**matrix_scaling(float x, float y, float z);
+
+t_tuple	rotate_x(float angle, t_tuple point);
+
+
+float	radians(float angle);
 
 //	allocates and returns a copy of the given matrix with the given row
 //	and column removed
@@ -114,7 +123,7 @@ float	tuple_magnitude(t_tuple a);
 t_tuple	tuple_normalize(t_tuple a);
 float	tuple_dot(t_tuple a, t_tuple b);
 t_tuple	tuple_cross(t_tuple a, t_tuple b);
-
+void	tuple_print(t_tuple t1);
 
 /*	simulation	*/
 
@@ -132,4 +141,5 @@ int		init_mlx(t_mlx *mlx, t_img *img);
 void	mlx_clear(t_mlx *mlx, t_img *img);
 void	ak_mlx_pixel_put(t_img *data, float dx, float dy, unsigned int color);
 int		key_manager(int keysym, t_mlx *mlx);
+
 #endif

@@ -1,33 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_print.c                                     :+:      :+:    :+:   */
+/*   degrees_to_radians.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/20 14:09:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/23 14:55:39 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/12/23 18:57:16 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/12/23 19:00:39 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include <math.h>
 
-void	matrix_print(float **m, int row, int col)
+float	radians(float angle)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < row)
-	{
-		j = 0;
-		while (j < col)
-		{
-			printf("|\t%f\t", m[i][j]);
-			if (j == col - 1)
-				printf("|\n");
-			j++;
-		}
-		i++;
-	}
+	return (angle * (M_PI / 180));
 }

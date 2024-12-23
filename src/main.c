@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/23 11:05:09 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/23 18:23:05 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ int main()
 	fprintf(stderr, "Starting projectile simulation\n");
 
 	proj.position = point_new(0, 0, 0),
-	proj.velocity = tuple_multiply(tuple_normalize(vector_new(1, 1.8, 0)), 5.25);
+	proj.velocity = tuple_multiply(tuple_normalize(vector_new(1, 1.8, 0)), 11.25);
 
 	env.gravity = vector_new(0, -0.1, 0);
 	env.wind = vector_new(-0.01, 0, 0);
@@ -143,7 +143,7 @@ int main()
 		fprintf(stderr, "projectile position is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n", proj.position.x, proj.position.y, proj.position.z, proj.position.w);
 		if (proj.position.y <= 0)
 			break ;
-		usleep(10 * 1000);
+		// usleep(10 * 1000);
 		mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
 	}
 	fprintf(stderr, "Finished simulation\n\n");
@@ -241,7 +241,11 @@ int main()
 	fprintf(stderr, "cofactor of mtrhee at row/col %d/%d: %f\n", 1, 0, matrix_cofactor(mthree, 1, 0, 3));
 	mfour	= matrix_four_by_four(tuple_new(-2, -8, 3, 5), tuple_new(-3, 1, 7, 3), tuple_new(1, 2, -9, 6), tuple_new(-6, 7 , 7, -9));
 	fprintf(stderr, "cofactor of mfour at row/col %d/%d: %f\n", 0, 0, matrix_cofactor(mfour, 0, 0, 4));
+	fprintf(stderr, "cofactor of mfour at row/col %d/%d: %f\n", 0, 1, matrix_cofactor(mfour, 0, 1, 4));
+	fprintf(stderr, "cofactor of mfour at row/col %d/%d: %f\n", 0, 2, matrix_cofactor(mfour, 0, 2, 4));
+	fprintf(stderr, "cofactor of mfour at row/col %d/%d: %f\n", 0, 3, matrix_cofactor(mfour, 0, 3, 4));
 	matrix_free(mthree, 3);
+	matrix_free(mfour, 4);
 	
 	fprintf(stderr, "matrix 3x3:\n");
 	fprintf(stderr, "|	1	|	2	|	6	|\n");
@@ -249,6 +253,7 @@ int main()
 	fprintf(stderr, "|	2	|	6	|	4	|\n\n");
 	mthree = matrix_three_by_three(tuple_new(1, 2, 6, 0), tuple_new(-5, 8, -4, 0), tuple_new(2, 6, 4, 0));
 	fprintf(stderr, "cofactor of mthree at row/col %d/%d: %f\n", 0, 2, matrix_cofactor(mthree, 0, 2, 3));
+	matrix_free(mthree, 3);
 
 	fprintf(stderr, "matrix 4x4:\n");
 	fprintf(stderr, "|	-2	|	-8	|	3	|	5	|\n");
@@ -257,7 +262,141 @@ int main()
 	fprintf(stderr, "|	-6	|	7	|	7	|	-9	|\n\n");
 	mfour	= matrix_four_by_four(tuple_new(-2, -8, 3, 5), tuple_new(-3, 1, 7, 3), tuple_new(1, 2, -9, 6), tuple_new(-6, 7 , 7, -9));
 	fprintf(stderr, "determinant of mfour: %f\n", matrix_determinant_recursion(mfour, 4));
+	matrix_free(mfour, 4);
 
+	fprintf(stderr, "matrix 4x4:\n");
+	fprintf(stderr, "|	6	|	4	|	4	|	4	|\n");
+	fprintf(stderr, "|	5	|	5	|	7	|	6	|\n");
+	fprintf(stderr, "|	4	|	-9	|	3	|	-7	|\n");
+	fprintf(stderr, "|	9	|	1	|	7	|	-6	|\n\n");
+	mfour	= matrix_four_by_four(tuple_new(6, 4, 4, 4), tuple_new(5, 5, 7, 6), tuple_new(4, -9, 3, -7), tuple_new(9, 1 , 7, -6));
+	fprintf(stderr, "determinant of mfour: %f\n", matrix_determinant_recursion(mfour, 4));
+	matrix_free(mfour, 4);
+
+	fprintf(stderr, "matrix 4x4:\n");
+	fprintf(stderr, "|	-4	|	2	|	-2	|	-3	|\n");
+	fprintf(stderr, "|	9	|	6	|	2	|	6	|\n");
+	fprintf(stderr, "|	0	|	-5	|	1	|	-5	|\n");
+	fprintf(stderr, "|	0	|	0	|	0	|	-0	|\n\n");
+	mfour	= matrix_four_by_four(tuple_new(-4, 2, -2, -3), tuple_new(9, 6, 2, 6), tuple_new(0, -5, 1, -5), tuple_new(0, 0 , 0, 0));
+	fprintf(stderr, "determinant of mfour: %f\n", matrix_determinant_recursion(mfour, 4));
+	matrix_free(mfour, 4);
+
+	float	**inverse;
+
+	fprintf(stderr, "Matrix inverse test\n");
+	mfour = matrix_four_by_four(tuple_new(8, -5, 9, 2),
+								tuple_new(7, 5, 6, 1),
+								tuple_new(-6, 0, 9, 6),
+								tuple_new(-3, 0, -9, -4));
+	fprintf(stderr, "mfour:\n");
+	matrix_print(mfour, 4, 4);
+	inverse = matrix_inverse(mfour, 4);
+	fprintf(stderr, "\nInverse:\n");
+	matrix_print(inverse, 4, 4);
+	matrix_free(mfour, 4);
+	matrix_free(inverse, 4);
+
+	mfour = matrix_four_by_four(tuple_new(-5, 2, 6, -8),
+								tuple_new(1, -5, 1, 8),
+								tuple_new(7, 7, -6, -7),
+								tuple_new(1, -3, 7, 4));
+	fprintf(stderr, "mfour:\n");								
+	matrix_print(mfour, 4, 4);
+	inverse = matrix_inverse(mfour, 4);
+	fprintf(stderr, "\nInverse:\n");
+	matrix_print(inverse, 4, 4);
+	matrix_free(mfour, 4);
+	matrix_free(inverse, 4);
+
+	mfour = matrix_four_by_four(tuple_new(9, 3, 0, 9),
+								tuple_new(-5, -2, -6, -3),
+								tuple_new(-4, 9, 6, 4),
+								tuple_new(-7, 6, 6, 2));
+	fprintf(stderr, "mfour:\n");								
+	matrix_print(mfour, 4, 4);
+	inverse = matrix_inverse(mfour, 4);
+	fprintf(stderr, "\nInverse:\n");
+	matrix_print(inverse, 4, 4);
+	matrix_free(mfour, 4);
+	matrix_free(inverse, 4);
+
+	float	**A;
+	float	**B;
+	float	**C;
+	float	**D;
+	fprintf(stderr, "matrix C = A * B\nFind A with C * inverse(B)\n");
+	A = matrix_four_by_four(tuple_new(3, -9, 7, 3),
+								tuple_new(-5, -8, 2, -9),
+								tuple_new(-4, 4, 4, 1),
+								tuple_new(-6, 5, -1, 1));
+	fprintf(stderr, "Matrix A:\n");								
+	matrix_print(A, 4, 4);
+	B = matrix_four_by_four(tuple_new(8, 2, 2, 2),
+								tuple_new(3, -1, 7, 0),
+								tuple_new(7, 0, 5, 4),
+								tuple_new(6, -2, 0, 5));
+	fprintf(stderr, "\nMatrix B:\n");								
+	matrix_print(B, 4, 4);
+	C = matrix_multiply(A, B);
+	fprintf(stderr, "\nMatrix C = A * B:\n");								
+	matrix_print(C, 4, 4);
+	inverse = matrix_inverse(B, 4);
+	fprintf(stderr, "\nInverse B:\n");
+	matrix_print(inverse, 4, 4);
+	D = matrix_multiply(C, inverse);
+	fprintf(stderr, "\nD = C * B = A:\n");
+	matrix_print(D, 4, 4);
+	matrix_free(A, 4);
+	matrix_free(B, 4);
+	matrix_free(C, 4);
+	matrix_free(D, 4);
+	matrix_free(inverse, 4);
+
+	t_tuple t2;
+
+	fprintf(stderr, "\nMatrix translation tests\n");
+	A = matrix_translation(tuple_new(5, -3, 2, 1));
+	inverse = matrix_inverse(A, 4);
+	t1 = point_new(-3, 4, 5);
+	t2 = matrix_multiply_tuple(inverse, t1);
+	v1 = vector_new(-3, 4, 5);
+	v2 = matrix_multiply_tuple(A, v1);
+	tuple_print(t2);
+	fprintf(stderr, "Vector translation has no effect:\n");
+	tuple_print(v1);
+	matrix_free(A, 4);
+	matrix_free(inverse, 4);
+
+	fprintf(stderr, "\nScaling tests\n");
+
+	fprintf(stderr, "point: -4, 6, 8 scaling to 2, 3, 4\n");
+	A = matrix_scaling(2, 3, 4);
+	p1 = point_new(-4, 6, 8);
+	p2 = matrix_multiply_tuple(A, p1);
+	tuple_print(p2);
+
+	fprintf(stderr, "scaling vector test\n");
+	fprintf(stderr, "vector -4, 6, 8 scaled with 2, 3, 4\n");
+	v1 = vector_new(-4, 6, 8);
+	v2 = matrix_multiply_tuple(A, v1);
+	tuple_print(v2);	
+
+	fprintf(stderr, "multiply vector by inverse test\n");
+	inverse = matrix_inverse(A, 4);
+	v2 = matrix_multiply_tuple(inverse, v1);
+	tuple_print(v2);
+	matrix_free(inverse, 4);
+	matrix_free(A, 4);
+
+	fprintf(stderr, "Reflection test\nReflection is scaling by a negative value\n");
+	fprintf(stderr, "Given scaling -1, 1, 1 and point 2, 3, 4\n");
+	p1 = point_new(2, 3, 4);
+	A = matrix_scaling(-1, 1, 1);
+	p2 = matrix_multiply_tuple(A, p1);
+	tuple_print(p2);
+	matrix_free(A, 4);
+	
 	// mlx stuff
 	mlx_loop(mlx.mlx_ptr);
 	mlx_clear(&mlx, &img);
