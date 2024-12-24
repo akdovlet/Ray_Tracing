@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/23 18:59:20 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/24 18:18:56 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,13 @@ typedef struct s_tuple
 	float	z;
 	float	w;
 }	t_tuple;
+
+typedef struct s_shear
+{
+	float	x;
+	float	y;
+	float	z;
+}	t_shear;
 
 typedef struct s_projectile
 {
@@ -72,7 +79,7 @@ float	**matrix_two_by_two(t_tuple t1, t_tuple t2);
 
 float	**matrix_multiply(float **a, float **b);
 t_tuple	matrix_multiply_tuple(float **a, t_tuple t1);
-
+t_tuple	multiply_tuple(float a[4][4], t_tuple t1);
 //	allocates and returns a 4x4 identity matrix
 float	**matrix_identity();
 
@@ -96,11 +103,16 @@ float	**matrix_inverse(float **m, int size);
 
 float	**matrix_translation(t_tuple tuple);
 float	**matrix_scaling(float x, float y, float z);
+float	**matrix_rotate_x(float angle);
 
 t_tuple	rotate_x(float angle, t_tuple point);
-
+t_tuple	rotate_y(float angle, t_tuple point);
+t_tuple	rotate_z(float angle, t_tuple point);
 
 float	radians(float angle);
+
+t_tuple	shearing(t_shear s1, t_shear s2, t_tuple t1);
+t_shear	shear_new(float x, float y, float z);
 
 //	allocates and returns a copy of the given matrix with the given row
 //	and column removed

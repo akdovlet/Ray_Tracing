@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 12:05:06 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/23 17:59:01 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/24 18:01:07 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,8 @@ float	**matrix_multiply(float **a, float **b)
 	return (m);
 }
 
-t_tuple	matrix_multiply_tuple(float **a, t_tuple t1)
+t_tuple	multiply_tuple(float a[4][4], t_tuple t1)
 {
-	t_tuple	new;
 	float	arr[4];
 	float	res[4];
 	int		i;
@@ -86,6 +85,31 @@ t_tuple	matrix_multiply_tuple(float **a, t_tuple t1)
 		}
 		i++;
 	}
-	return (new.x = res[0], new.y = res[1], new.z = res[2],
-		new.w = res[3], new);
+	return (tuple_new(res[0], res[1], res[2], res[3]));
+}
+
+t_tuple	matrix_multiply_tuple(float **a, t_tuple t1)
+{
+	float	arr[4];
+	float	res[4];
+	int		i;
+	int		j;
+
+	i = 0;
+	ft_memset(res, 0, sizeof(res));
+	arr[0] = t1.x;
+	arr[1] = t1.y;
+	arr[2] = t1.z;
+	arr[3] = t1.w;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			res[i] += (a[i][j] * arr[j]);
+			j++;
+		}
+		i++;
+	}
+	return (tuple_new(res[0], res[1], res[2], res[3]));
 }

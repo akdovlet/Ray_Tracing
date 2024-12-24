@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2024/12/23 19:00:06 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/12/24 16:54:40 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,10 @@ SRC		:=	main.c						\
 			matrix/matrix_translate.c	\
 			matrix/matrix_transpose.c	\
 			matrix/matrix.c				\
+			matrix/rotate_y.c			\
 			matrix/rotate_x.c			\
+			matrix/rotate_z.c			\
+			matrix/shearing.c			\
 			matrix/sub_matrix.c			\
 			mlx/init_mlx.c				\
 			mlx/key_manager.c			\

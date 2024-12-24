@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/23 18:23:05 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/24 19:16:21 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int main()
 
 	init_mlx(&mlx, &img);
 	mlx_key_hook(mlx.win_ptr, &key_manager, &mlx);
+	mlx_hook(mlx.win_ptr, 17, 0, mlx_loop_end, mlx.mlx_ptr);
 
 	fprintf(stderr, "Starting projectile simulation\n");
 
@@ -136,16 +137,16 @@ int main()
 	env.gravity = vector_new(0, -0.1, 0);
 	env.wind = vector_new(-0.01, 0, 0);
 	fprintf(stderr, "projectile position at start is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n", proj.position.x, proj.position.y, proj.position.z, proj.position.w);
-	while(1)
-	{
-		proj = tick(env, proj);
-		ak_mlx_pixel_put(&img, proj.position.x, HEIGHT - proj.position.y, 0xFF0000);
-		fprintf(stderr, "projectile position is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n", proj.position.x, proj.position.y, proj.position.z, proj.position.w);
-		if (proj.position.y <= 0)
-			break ;
-		// usleep(10 * 1000);
-		mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
-	}
+	// while(1)
+	// {
+	// 	proj = tick(env, proj);
+	// 	ak_mlx_pixel_put(&img, proj.position.x, HEIGHT - proj.position.y, 0xFF0000);
+	// 	fprintf(stderr, "projectile position is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n", proj.position.x, proj.position.y, proj.position.z, proj.position.w);
+	// 	if (proj.position.y <= 0)
+	// 		break ;
+	// 	// usleep(10 * 1000);
+	// }
+	// mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
 	fprintf(stderr, "Finished simulation\n\n");
 
 	float **mfour = matrix_four_by_four(v1, v2, c1, c2);
@@ -396,7 +397,73 @@ int main()
 	p2 = matrix_multiply_tuple(A, p1);
 	tuple_print(p2);
 	matrix_free(A, 4);
-	
+
+	fprintf(stderr, "\nrotate_x test\n");
+	p1 = point_new(0, 1, 0);
+	t_tuple half_quarter = rotate_x(M_PI / 4, p1);
+	fprintf(stderr, "half quarter rotation:\n");
+	tuple_print(half_quarter);
+	fprintf(stderr, "full quarter rotation:\n");
+	t_tuple full_quarter = rotate_x(M_PI / 2, p1);
+	tuple_print(full_quarter);
+
+	fprintf(stderr, "\nrotate_y test\n");
+	p1 = point_new(0, 0, 1);
+	half_quarter = rotate_y(M_PI / 4, p1);
+	fprintf(stderr, "half quarter rotation:\n");
+	tuple_print(half_quarter);
+	fprintf(stderr, "full quarter rotation:\n");
+	full_quarter = rotate_y(M_PI / 2, p1);
+	tuple_print(full_quarter);
+
+	fprintf(stderr, "\nrotate_z test\n");
+	p1 = point_new(0, 1, 0);
+	half_quarter = rotate_z(M_PI / 4, p1);
+	fprintf(stderr, "half quarter rotation:\n");
+	tuple_print(half_quarter);
+	fprintf(stderr, "full quarter rotation:\n");
+	full_quarter = rotate_z(M_PI / 2, p1);
+	tuple_print(full_quarter);
+
+
+	fprintf(stderr, "\nShearing test\n");
+	p1 = point_new(2, 3, 4);
+	p2 = shearing(shear_new(0, 0, 0), shear_new(0, 0, 1), p1);
+	tuple_print(p2);
+
+
+	fprintf(stderr, "\nTransformatin sequence\n");
+	p1 = point_new(1, 0, 1);
+	float **rx = matrix_rotate_x(M_PI / 2);
+	float **scale = matrix_scaling(5, 5, 5);
+	float **translation = matrix_translation(tuple_new(10, 5, 7, 0));
+	p2 = matrix_multiply_tuple(rx, p1);
+	tuple_print(p2);
+	p2 = matrix_multiply_tuple(scale, p2);
+	tuple_print(p2);
+	t_tuple p3 = matrix_multiply_tuple(translation, p2);
+	tuple_print(p3);
+
+	float	**T;
+	float	**F;
+	T = matrix_multiply(translation, scale);
+	F = matrix_multiply(T, A);
+	p3 = matrix_multiply_tuple(F, p1);
+	tuple_print(p3);
+
+	p1 = point_new(WIDTH / 2, HEIGHT / 2, 1);
+	for (int i = 0; i < 12; i++)
+	{
+		ak_mlx_pixel_put(&img, p1.x, p1.y, 0xFFFFFF);
+		p1 = rotate_y(3 * (M_PI / 6), p1);
+		translation = matrix_translation(tuple_new(WIDTH /2, HEIGHT /2, 0, 0));
+		p1 = matrix_multiply_tuple(translation, p1);
+		fprintf(stderr, "after rotate_y\n");
+		tuple_print(p1);
+		usleep(50 * 1000);
+		mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
+	}
+
 	// mlx stuff
 	mlx_loop(mlx.mlx_ptr);
 	mlx_clear(&mlx, &img);
