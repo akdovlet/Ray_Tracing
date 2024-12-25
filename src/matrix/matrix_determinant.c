@@ -6,37 +6,42 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:27:07 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/23 12:46:54 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/25 19:06:52 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float	matrix_determinant(float **m)
+float cofactor(t_matrice m, int index)
 {
-	return ((m[0][0] * m[1][1]) - (m[0][1] * m[1][0]));
+	float result;
+	int a;
+	int b;
+	int c;
+
+	a = (index + 1) % 4;
+	b = (index + 2) % 4;
+	c = (index + 3) % 4;
+	result = 0.0 
+	+ (m.raw[1][a] * m.raw[2][b] * m.raw[3][c])
+	+ (m.raw[1][b] * m.raw[2][c] * m.raw[3][a])
+	+ (m.raw[1][c] * m.raw[2][a] * m.raw[3][b])
+	- (m.raw[1][c] * m.raw[2][b] * m.raw[3][a])
+	- (m.raw[1][b] * m.raw[2][a] * m.raw[3][c])
+	- (m.raw[1][a] * m.raw[2][c] * m.raw[3][b]);
+	if (index % 2)
+		result *= -1;
+	return result;
 }
-
-float	matrix_determinant_recursion(float **m, int size)
+		
+float	determinant(t_matrice m)
 {
-	int		i;
-	float	**sub;
-	float	determinant;
-	float	tmp;
+	int i;
+	float result;
 
-	determinant = 0;
-	i = 0;
-	if (size == 2)
-		return (matrix_determinant(m));
-	while (i < size)
-	{
-		sub = sub_matrix(m, size, 0, i);
-		tmp = matrix_determinant_recursion(sub, size - 1);
-		if (i % 2)
-			tmp = -tmp;
-		determinant = determinant + (m[0][i] * tmp);
-		i++;
-		matrix_free(sub, size - 1);
-	}
-	return (determinant);
+	result = 0.0;
+	i = -1;
+	while (++i < 4)
+		result += m.raw[0][i] * cofactor(m, i);
+	return (result);
 }

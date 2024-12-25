@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/24 18:18:56 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/25 18:40:15 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,18 @@ typedef struct s_tuple
 	float	z;
 	float	w;
 }	t_tuple;
+//
+
+struct s_matrice {
+	t_tuple r1;
+	t_tuple r2;
+	t_tuple r3;
+	t_tuple r4;
+};
+typedef union u_matrice {
+	struct s_matrice	rows;
+	float				raw[4][4];
+} t_matrice;
 
 typedef struct s_shear
 {
@@ -38,6 +50,19 @@ typedef struct s_shear
 	float	y;
 	float	z;
 }	t_shear;
+
+t_matrice	identity(void);
+t_matrice	rotate_x(float angle);
+t_matrice	rotate_y(float angle);
+t_matrice	rotate_z(float angle);
+t_matrice	shear(t_shear s1, t_shear s2);
+t_matrice	scale(t_tuple t1);
+t_matrice	translate(t_tuple t1);
+
+///
+
+
+
 
 typedef struct s_projectile
 {
@@ -70,18 +95,15 @@ typedef struct s_mlx {
 }	t_mlx;
 
 /*	matrix	*/
+t_matrice multiply(t_matrice a, t_matrice b);
+t_matrice compose(size_t operation_count, t_matrice* ops);
+t_tuple transform(t_tuple t1, t_matrice m);
 
-float	**matrix_init(int row, int column);
-void	*matrix_free(float **matrix, int size);
-float	**matrix_four_by_four(t_tuple t1, t_tuple t2, t_tuple t3, t_tuple t4);
-float	**matrix_three_by_three(t_tuple t1, t_tuple t2, t_tuple t3);
-float	**matrix_two_by_two(t_tuple t1, t_tuple t2);
+void	ak_pixel_put(t_img *data, t_tuple t1, unsigned int color);
 
-float	**matrix_multiply(float **a, float **b);
-t_tuple	matrix_multiply_tuple(float **a, t_tuple t1);
-t_tuple	multiply_tuple(float a[4][4], t_tuple t1);
-//	allocates and returns a 4x4 identity matrix
-float	**matrix_identity();
+void	print_matrix(float m[4][4]);
+t_tuple	matrix_multiply_tuple(t_matrice m, t_tuple t1);
+
 
 //	turns rows into columns
 void	matrix_transpose(float	**m);
@@ -91,32 +113,17 @@ int		matrix_cmp(float **m1, float **m2, int row, int col);
 //	using printf prints every data point in a given array
 void	matrix_print(float **m, int row, int col);
 
-// calculates the determinant of a 2x2 matrix
-float	matrix_determinant(float **m);
-float	matrix_determinant_recursion(float **m, int size);
+
 
 // divide and conquer, creates sub matrix and calculates its determinant
-float	matrix_minor(float **m, int row, int col, int size);
-float	matrix_cofactor(float **m, int row, int col, int size);
+float	determinant(t_matrice m);
 
 float	**matrix_inverse(float **m, int size);
 
-float	**matrix_translation(t_tuple tuple);
-float	**matrix_scaling(float x, float y, float z);
-float	**matrix_rotate_x(float angle);
-
-t_tuple	rotate_x(float angle, t_tuple point);
-t_tuple	rotate_y(float angle, t_tuple point);
-t_tuple	rotate_z(float angle, t_tuple point);
-
 float	radians(float angle);
-
-t_tuple	shearing(t_shear s1, t_shear s2, t_tuple t1);
-t_shear	shear_new(float x, float y, float z);
 
 //	allocates and returns a copy of the given matrix with the given row
 //	and column removed
-float	**sub_matrix(float **m, int size, int row, int col);
 
 /*	tuple	*/
 

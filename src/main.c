@@ -6,19 +6,49 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/24 19:16:21 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/25 19:08:20 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int main()
+t_tuple center = {WIDTH / 2, HEIGHT /2, 0, 0};
+
+void	put_pixel(t_img *img, unsigned int color, t_tuple t1)
+{
+	ak_pixel_put(img, tuple_add(center, t1), color);
+}
+
+void simulation(t_img img, t_mlx mlx)
+{
+	t_env	env;
+	t_projectile proj;
+	
+	fprintf(stderr, "Starting projectile simulation\n");
+
+	proj.position = point_new(0, 0, 0),
+	proj.velocity = tuple_multiply(tuple_normalize(vector_new(1, 1.8, 0)), 11.25);
+
+	env.gravity = vector_new(0, -0.1, 0);
+	env.wind = vector_new(-0.01, 0, 0);
+	fprintf(stderr, "projectile position at start is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n", proj.position.x, proj.position.y, proj.position.z, proj.position.w);
+	while(1)
+	{
+		proj = tick(env, proj);
+		ak_mlx_pixel_put(&img, proj.position.x, HEIGHT - proj.position.y, 0xFF0000);
+		fprintf(stderr, "projectile position is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n", proj.position.x, proj.position.y, proj.position.z, proj.position.w);
+		if (proj.position.y <= 0)
+			break ;
+		// usleep(10 * 1000);
+	}
+	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
+	fprintf(stderr, "Finished simulation\n\n");	
+}
+	
+void test_init_tuple()
 {
 	t_tuple	p;
 	t_tuple	v;
-	t_tuple	new;
-	t_env	env;
-	t_projectile proj;
 
 	p = point_new(4, -4, 3);
 	v = vector_new(4, -4, 3);
@@ -31,124 +61,11 @@ int main()
 
 	fprintf(stderr, "tuple_cmp tests:\n");
 	fprintf(stderr, "tuple p and v are equal if 0: %d\n\n", tuple_cmp(p, v));
+}
 
-	new = tuple_add(p, v);
-	fprintf(stderr, "tuple_add test\n");
-	fprintf(stderr, "tuple p + v = tuple(%.2f, %.2f, %.2f, %.2f)\n\n", \
-	new.x, new.y, new.z, new.w);
-
-	t_tuple	p1 = point_new(3, 2, 1);
-	t_tuple	p2 = point_new(5, 6, 7);
-	new = tuple_substract(p1, p2);
-	fprintf(stderr, "tuple_substract test\n");
-	fprintf(stderr, "p1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", p1.x, p1.y, p1.z, p1.w);
-	fprintf(stderr, "p2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n\n", p2.x, p2.y, p2.z, p2.w);
-	fprintf(stderr, "tuple p1 - p2 = tuple(%.2f, %.2f, %.2f, %.2f)\n\n", new.x, new.y, new.z, new.w);
-
-	t_tuple	v1 = vector_new(5, 6, 7);
-	new = tuple_substract(p1, v1);
-	fprintf(stderr, "substracting a vector from a point\n");
-	fprintf(stderr, "v1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v1.x, v1.y, v1.z, v1.w);
-	fprintf(stderr, "tuple p1 - v1 = tuple(%.2f, %.2f, %.2f, %.2f)\n", new.x, new.y, new.z, new.w);
-
-	t_tuple	v2 = vector_new(3, 2, 1);
-	new = tuple_substract(v2, v1);
-	fprintf(stderr, "substracting a vector from a vector\n");
-	fprintf(stderr, "v2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v2.x, v2.y, v2.z, v2.w);
-	fprintf(stderr, "tuple v1 - v2 = vector(%.2f, %.2f, %.2f, %.2f)\n\n", new.x, new.y, new.z, new.w);
-
-	t_tuple	t1 = tuple_new(1, -2, 3, -4);
-	new = tuple_negate(t1);
-	fprintf(stderr, "Negating a tuple\n");
-	fprintf(stderr, "t1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", t1.x, t1.y, t1.z, t1.w);
-	fprintf(stderr, "negated tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n\n", new.x, new.y, new.z, new.w);
-
-	new = tuple_multiply(t1, 3.5);
-	fprintf(stderr, "tuple scalar test\n");
-	fprintf(stderr, "scaled by 3.5 tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n", new.x, new.y, new.z, new.w);
-	new = tuple_multiply(t1, 0.5);
-	fprintf(stderr, "scaled by 0.5 tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n", new.x, new.y, new.z, new.w);
-	new = tuple_divide(t1, 2);
-	fprintf(stderr, "divided by 2 tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n\n", new.x, new.y, new.z, new.w);
-	
-	fprintf(stderr, "magnitude test\n");
-	fprintf(stderr, "magnite is: %.2f\n\n", tuple_magnitude(vector_new(0, 1, 0)));
-	fprintf(stderr, "magnite is: %.2f\n\n", tuple_magnitude(vector_new(1, 2, 3)));
-
-	v2 = vector_new(1, 2, 3);
-	new = tuple_normalize(v2);
-	fprintf(stderr, "normalize test\n");
-	fprintf(stderr, "normalized vector v2:1.2.3 is: %.2f, %.2f, %.2f, %.2f\n\n", new.x, new.y, new.z, new.w);
-	
-	fprintf(stderr, "dot factor test\n");
-	fprintf(stderr, "v1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v1.x, v1.y, v1.z, v1.w);
-	fprintf(stderr, "v2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v2.x, v2.y, v2.z, v2.w);
-	fprintf(stderr, "dot factor of v1 and v2 is: %.2f\n\n", tuple_dot(v1, v2));
-
-	v1 = vector_new(1, 2, 3);
-	v2 = vector_new(2, 3, 4);
-	fprintf(stderr, "v1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v1.x, v1.y, v1.z, v1.w);
-	fprintf(stderr, "v2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v2.x, v2.y, v2.z, v2.w);
-	new = tuple_cross(v1, v2);
-	fprintf(stderr, "cross product test\n");
-	fprintf(stderr, "cross product of v1 and v2 = %.2f, %.2f, %.2f, %.2f\n", new.x, new.y, new.z, new.w);
-	new = tuple_cross(v2, v1);
-	fprintf(stderr, "cross product of v2 and v1 = %.2f, %.2f, %.2f, %.2f\n\n", new.x, new.y, new.z, new.w);
-
-
-	fprintf(stderr, "color test\n");	
-	t_tuple	color;
-
-	color = color_new(0.5, 0.4, 1.7);
-	fprintf(stderr, "color is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", color.x, color.y, color.z, color.w);
-	
-	t_tuple	c1 = color_new(0.9, 0.6, 0.75);
-	t_tuple c2 = color_new(0.7, 0.1, 0.25);
-	t_tuple	c_new = tuple_add(c1, c2);
-	fprintf(stderr, "c1 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c1.x, c1.y, c1.z, c1.w);
-	fprintf(stderr, "c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c2.x, c2.y, c2.z, c2.w);
-	fprintf(stderr, "c1 + c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
-
-	c_new = tuple_substract(c1, c2);
-	fprintf(stderr, "c1 - c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
-	
-	t_tuple	c3 = color_new(0.2, 0.3, 0.4);
-	fprintf(stderr, "c3 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c2.x, c2.y, c2.z, c2.w);
-	c_new = tuple_multiply(c3, 2);
-	fprintf(stderr, "c3 * 2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
-	
-	c1 = color_new(1, 0.2, 0.4);
-	c2 = color_new(0.9, 1, 0.1);
-	c_new = color_hadamard(c1, c2);
-	fprintf(stderr, "c1 * c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
-	
-	t_img	img;
-	t_mlx	mlx;
-
-	init_mlx(&mlx, &img);
-	mlx_key_hook(mlx.win_ptr, &key_manager, &mlx);
-	mlx_hook(mlx.win_ptr, 17, 0, mlx_loop_end, mlx.mlx_ptr);
-
-	fprintf(stderr, "Starting projectile simulation\n");
-
-	proj.position = point_new(0, 0, 0),
-	proj.velocity = tuple_multiply(tuple_normalize(vector_new(1, 1.8, 0)), 11.25);
-
-	env.gravity = vector_new(0, -0.1, 0);
-	env.wind = vector_new(-0.01, 0, 0);
-	fprintf(stderr, "projectile position at start is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n", proj.position.x, proj.position.y, proj.position.z, proj.position.w);
-	// while(1)
-	// {
-	// 	proj = tick(env, proj);
-	// 	ak_mlx_pixel_put(&img, proj.position.x, HEIGHT - proj.position.y, 0xFF0000);
-	// 	fprintf(stderr, "projectile position is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n", proj.position.x, proj.position.y, proj.position.z, proj.position.w);
-	// 	if (proj.position.y <= 0)
-	// 		break ;
-	// 	// usleep(10 * 1000);
-	// }
-	// mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
-	fprintf(stderr, "Finished simulation\n\n");
-
+void test_matrix_determinant()
+{
+	/*
 	float **mfour = matrix_four_by_four(v1, v2, c1, c2);
 	for (int i = 0; i < 4; i++)
 	{
@@ -282,6 +199,13 @@ int main()
 	mfour	= matrix_four_by_four(tuple_new(-4, 2, -2, -3), tuple_new(9, 6, 2, 6), tuple_new(0, -5, 1, -5), tuple_new(0, 0 , 0, 0));
 	fprintf(stderr, "determinant of mfour: %f\n", matrix_determinant_recursion(mfour, 4));
 	matrix_free(mfour, 4);
+*/
+}
+
+void test_matrix_operation()
+{
+	/*
+
 
 	float	**inverse;
 
@@ -426,48 +350,174 @@ int main()
 	tuple_print(full_quarter);
 
 
-	fprintf(stderr, "\nShearing test\n");
-	p1 = point_new(2, 3, 4);
-	p2 = shearing(shear_new(0, 0, 0), shear_new(0, 0, 1), p1);
-	tuple_print(p2);
+	// fprintf(stderr, "\nShearing test\n");
+	// p1 = point_new(2, 3, 4);
+	// p2 = shearing(shear_new(0, 0, 0), shear_new(0, 0, 1), p1);
+	// tuple_print(p2);
+
+	// fprintf(stderr, "\nTransformatin sequence\n");
+	// p1 = point_new(1, 0, 1);
+	// float **rx = matrix_rotate_x(M_PI / 2);
+	// float **scale = matrix_scaling(5, 5, 5);
+	// float **translation = matrix_translation(tuple_new(10, 5, 7, 0));
+	// p2 = matrix_multiply_tuple(rx, p1);
+	// tuple_print(p2);
+	// p2 = matrix_multiply_tuple(scale, p2);
+	// tuple_print(p2);
+	// t_tuple p3 = matrix_multiply_tuple(translation, p2);
+	// tuple_print(p3);
+	// T = matrix_multiply(translation, scale);
+	// F = matrix_multiply(T, A);
+	// p3 = matrix_multiply_tuple(F, p1);
+	// tuple_print(p3);
+	*/
+}
+
+void test_color()
+{
+	/*
+	t_tuple	p;
+	t_tuple	v;
+	t_tuple	new;
+
+	p = point_new(4, -4, 3);
+	v = vector_new(4, -4, 3);
+	test_init_tuple(p, v);
 
 
-	fprintf(stderr, "\nTransformatin sequence\n");
-	p1 = point_new(1, 0, 1);
-	float **rx = matrix_rotate_x(M_PI / 2);
-	float **scale = matrix_scaling(5, 5, 5);
-	float **translation = matrix_translation(tuple_new(10, 5, 7, 0));
-	p2 = matrix_multiply_tuple(rx, p1);
-	tuple_print(p2);
-	p2 = matrix_multiply_tuple(scale, p2);
-	tuple_print(p2);
-	t_tuple p3 = matrix_multiply_tuple(translation, p2);
-	tuple_print(p3);
+	new = tuple_add(p, v);
+	fprintf(stderr, "tuple_add test\n");
+	fprintf(stderr, "tuple p + v = tuple(%.2f, %.2f, %.2f, %.2f)\n\n", \
+	new.x, new.y, new.z, new.w);
 
-	float	**T;
-	float	**F;
-	T = matrix_multiply(translation, scale);
-	F = matrix_multiply(T, A);
-	p3 = matrix_multiply_tuple(F, p1);
-	tuple_print(p3);
+	t_tuple	p1 = point_new(3, 2, 1);
+	t_tuple	p2 = point_new(5, 6, 7);
+	new = tuple_substract(p1, p2);
+	fprintf(stderr, "tuple_substract test\n");
+	fprintf(stderr, "p1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", p1.x, p1.y, p1.z, p1.w);
+	fprintf(stderr, "p2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n\n", p2.x, p2.y, p2.z, p2.w);
+	fprintf(stderr, "tuple p1 - p2 = tuple(%.2f, %.2f, %.2f, %.2f)\n\n", new.x, new.y, new.z, new.w);
 
-	p1 = point_new(WIDTH / 2, HEIGHT / 2, 1);
-	for (int i = 0; i < 12; i++)
-	{
-		ak_mlx_pixel_put(&img, p1.x, p1.y, 0xFFFFFF);
-		p1 = rotate_y(3 * (M_PI / 6), p1);
-		translation = matrix_translation(tuple_new(WIDTH /2, HEIGHT /2, 0, 0));
-		p1 = matrix_multiply_tuple(translation, p1);
-		fprintf(stderr, "after rotate_y\n");
-		tuple_print(p1);
-		usleep(50 * 1000);
-		mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
-	}
+	t_tuple	v1 = vector_new(5, 6, 7);
+	new = tuple_substract(p1, v1);
+	fprintf(stderr, "substracting a vector from a point\n");
+	fprintf(stderr, "v1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v1.x, v1.y, v1.z, v1.w);
+	fprintf(stderr, "tuple p1 - v1 = tuple(%.2f, %.2f, %.2f, %.2f)\n", new.x, new.y, new.z, new.w);
 
-	// mlx stuff
+	t_tuple	v2 = vector_new(3, 2, 1);
+	new = tuple_substract(v2, v1);
+	fprintf(stderr, "substracting a vector from a vector\n");
+	fprintf(stderr, "v2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v2.x, v2.y, v2.z, v2.w);
+	fprintf(stderr, "tuple v1 - v2 = vector(%.2f, %.2f, %.2f, %.2f)\n\n", new.x, new.y, new.z, new.w);
+
+	t_tuple	t1 = tuple_new(1, -2, 3, -4);
+	new = tuple_negate(t1);
+	fprintf(stderr, "Negating a tuple\n");
+	fprintf(stderr, "t1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", t1.x, t1.y, t1.z, t1.w);
+	fprintf(stderr, "negated tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n\n", new.x, new.y, new.z, new.w);
+
+	new = tuple_multiply(t1, 3.5);
+	fprintf(stderr, "tuple scalar test\n");
+	fprintf(stderr, "scaled by 3.5 tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n", new.x, new.y, new.z, new.w);
+	new = tuple_multiply(t1, 0.5);
+	fprintf(stderr, "scaled by 0.5 tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n", new.x, new.y, new.z, new.w);
+	new = tuple_divide(t1, 2);
+	fprintf(stderr, "divided by 2 tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n\n", new.x, new.y, new.z, new.w);
+	
+	fprintf(stderr, "magnitude test\n");
+	fprintf(stderr, "magnite is: %.2f\n\n", tuple_magnitude(vector_new(0, 1, 0)));
+	fprintf(stderr, "magnite is: %.2f\n\n", tuple_magnitude(vector_new(1, 2, 3)));
+
+	v2 = vector_new(1, 2, 3);
+	new = tuple_normalize(v2);
+	fprintf(stderr, "normalize test\n");
+	fprintf(stderr, "normalized vector v2:1.2.3 is: %.2f, %.2f, %.2f, %.2f\n\n", new.x, new.y, new.z, new.w);
+	
+	fprintf(stderr, "dot factor test\n");
+	fprintf(stderr, "v1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v1.x, v1.y, v1.z, v1.w);
+	fprintf(stderr, "v2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v2.x, v2.y, v2.z, v2.w);
+	fprintf(stderr, "dot factor of v1 and v2 is: %.2f\n\n", tuple_dot(v1, v2));
+
+	v1 = vector_new(1, 2, 3);
+	v2 = vector_new(2, 3, 4);
+	fprintf(stderr, "v1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v1.x, v1.y, v1.z, v1.w);
+	fprintf(stderr, "v2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v2.x, v2.y, v2.z, v2.w);
+	new = tuple_cross(v1, v2);
+	fprintf(stderr, "cross product test\n");
+	fprintf(stderr, "cross product of v1 and v2 = %.2f, %.2f, %.2f, %.2f\n", new.x, new.y, new.z, new.w);
+	new = tuple_cross(v2, v1);
+	fprintf(stderr, "cross product of v2 and v1 = %.2f, %.2f, %.2f, %.2f\n\n", new.x, new.y, new.z, new.w);
+
+
+	fprintf(stderr, "color test\n");	
+	t_tuple	color;
+
+	color = color_new(0.5, 0.4, 1.7);
+	fprintf(stderr, "color is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", color.x, color.y, color.z, color.w);
+	
+	t_tuple	c1 = color_new(0.9, 0.6, 0.75);
+	t_tuple c2 = color_new(0.7, 0.1, 0.25);
+	t_tuple	c_new = tuple_add(c1, c2);
+	fprintf(stderr, "c1 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c1.x, c1.y, c1.z, c1.w);
+	fprintf(stderr, "c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c2.x, c2.y, c2.z, c2.w);
+	fprintf(stderr, "c1 + c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
+
+	c_new = tuple_substract(c1, c2);
+	fprintf(stderr, "c1 - c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
+	
+	t_tuple	c3 = color_new(0.2, 0.3, 0.4);
+	fprintf(stderr, "c3 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c2.x, c2.y, c2.z, c2.w);
+	c_new = tuple_multiply(c3, 2);
+	fprintf(stderr, "c3 * 2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
+	
+	c1 = color_new(1, 0.2, 0.4);
+	c2 = color_new(0.9, 1, 0.1);
+	c_new = color_hadamard(c1, c2);
+	fprintf(stderr, "c1 * c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
+	*/
+}
+
+int main()
+{
+	t_img	img;
+	t_mlx	mlx;
+	init_mlx(&mlx, &img);
+	mlx_key_hook(mlx.win_ptr, &key_manager, &mlx);
+	mlx_hook(mlx.win_ptr, 17, 0, mlx_loop_end, mlx.mlx_ptr);
+	// simulation(img, mlx);
+	//test_matrix_determinant();
+	//test_matrix_operation();
+	
+	fprintf(stderr, "\nClock test\n");
+	t_tuple	center = {};
+	put_pixel(&img, 0xFF0000, center);
+		
+	t_tuple	translation = point_new(1, -HEIGHT * 0.375, 1);
+	t_tuple twelve = tuple_add(center, translation);
+	fprintf(stderr, "twelve\n");
+	tuple_print(twelve);
+	fprintf(stderr, "translation\n");
+	tuple_print(translation);
+	
+
+
+	t_matrice l = {{
+		{ -2, -8 , 3 , 5 },
+		{ -3, 1 , 7 , 3 },
+		{ 1 , 2 , -9 , 6 },
+		{ -6, 7 , 7 , -9 },
+	}};
+	fprintf(stderr, "determinant is: %f\n", determinant(l));
+	
+	put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(0))));
+	put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(90))));
+	put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(180))));
+	put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(270))));
+	put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(90))));
+
+	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
+
+
 	mlx_loop(mlx.mlx_ptr);
 	mlx_clear(&mlx, &img);
-	// mlx stuff
-
-	matrix_free(midentity, 4);
 }

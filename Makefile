@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2024/12/24 16:54:40 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/12/25 18:35:38 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,21 +17,14 @@ NAME	:=	minirt
 SRC		:=	main.c						\
 			matrix/degrees_to_radians.c	\
 			matrix/matrix_cmp.c			\
-			matrix/matrix_cofactor.c	\
 			matrix/matrix_determinant.c	\
 			matrix/matrix_inverse.c		\
 			matrix/matrix_minor.c		\
 			matrix/matrix_multiply.c	\
 			matrix/matrix_print.c		\
-			matrix/matrix_scaling.c		\
-			matrix/matrix_translate.c	\
 			matrix/matrix_transpose.c	\
 			matrix/matrix.c				\
-			matrix/rotate_y.c			\
-			matrix/rotate_x.c			\
-			matrix/rotate_z.c			\
-			matrix/shearing.c			\
-			matrix/sub_matrix.c			\
+			matrix/operations/rotate.c			\
 			mlx/init_mlx.c				\
 			mlx/key_manager.c			\
 			mlx/mlx_clear.c				\
