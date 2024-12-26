@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2024/12/25 18:35:38 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/12/26 10:23:08 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,34 +14,34 @@
 
 NAME	:=	minirt
 
-SRC		:=	main.c						\
-			matrix/degrees_to_radians.c	\
-			matrix/matrix_cmp.c			\
-			matrix/matrix_determinant.c	\
-			matrix/matrix_inverse.c		\
-			matrix/matrix_minor.c		\
-			matrix/matrix_multiply.c	\
-			matrix/matrix_print.c		\
-			matrix/matrix_transpose.c	\
-			matrix/matrix.c				\
-			matrix/operations/rotate.c			\
-			mlx/init_mlx.c				\
-			mlx/key_manager.c			\
-			mlx/mlx_clear.c				\
-			mlx/mlx_pixel_put.c			\
-			tuple/color_new.c			\
-			tuple/hadamard_product.c	\
-			tuple/simulation.c			\
-			tuple/tuple_add.c			\
-			tuple/tuple_cmp.c			\
-			tuple/tuple_cross.c			\
-			tuple/tuple_dot.c			\
-			tuple/tuple_magnitude.c		\
-			tuple/tuple_negate.c		\
-			tuple/tuple_new.c			\
-			tuple/tuple_normalize.c		\
-			tuple/tuple_print.c			\
-			tuple/tuple_scalar.c		\
+SRC		:=	main.c							\
+			matrix/operations/rotate.c		\
+			matrix/operations/transform.c	\
+			matrix/degrees_to_radians.c		\
+			matrix/matrix_cmp.c				\
+			matrix/matrix_determinant.c		\
+			matrix/matrix_inverse.c			\
+			matrix/matrix_multiply.c		\
+			matrix/matrix_print.c			\
+			matrix/matrix_transpose.c		\
+			matrix/matrix.c					\
+			mlx/init_mlx.c					\
+			mlx/key_manager.c				\
+			mlx/mlx_clear.c					\
+			mlx/mlx_pixel_put.c				\
+			tuple/color_new.c				\
+			tuple/hadamard_product.c		\
+			tuple/simulation.c				\
+			tuple/tuple_add.c				\
+			tuple/tuple_cmp.c				\
+			tuple/tuple_cross.c				\
+			tuple/tuple_dot.c				\
+			tuple/tuple_magnitude.c			\
+			tuple/tuple_negate.c			\
+			tuple/tuple_new.c				\
+			tuple/tuple_normalize.c			\
+			tuple/tuple_print.c				\
+			tuple/tuple_scalar.c			\
 			tuple/tuple_substract.c
 
 SRC_DIR	:=	src

@@ -6,25 +6,28 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 18:34:32 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/25 18:40:22 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/26 09:35:15 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_matrice compose(size_t operation_count, t_matrice* ops)
+t_matrix compose(size_t operation_count, t_matrix* ops)
 {
-	int index;
-	t_matrice result;
+	int			index;
+	t_matrix	result;
 
-	index = operation_count - 1;
-	result = ops[index];
-	while(--index)
-		result = multiply(result, ops[index]);
-	return result;
+	index = operation_count;
+	result = identity();
+	while (index)
+	{
+		result = multiply_matrix(result, ops[index]);
+		index -= 1;
+	}
+	return (result);
 }
 
-t_tuple transform(t_tuple t1, t_matrice m)
+t_tuple transform(t_tuple t1, t_matrix m)
 {
 	return matrix_multiply_tuple(m, t1);
 }

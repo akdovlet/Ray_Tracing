@@ -6,19 +6,19 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 12:05:06 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/25 18:34:07 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/26 09:34:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_matrice multiply(t_matrice a, t_matrice b)
+t_matrix multiply_matrix(t_matrix a, t_matrix b)
 {
 	int		i;
 	int		j;
-	t_matrice result;
+	t_matrix result;
 	
-	result = (t_matrice){};
+	result = (t_matrix){};
 	i = 0;
 	while (i < 4)
 	{
@@ -36,7 +36,7 @@ t_matrice multiply(t_matrice a, t_matrice b)
 	return (result);
 }
 
-t_tuple	matrix_multiply_tuple(t_matrice m, t_tuple t1)
+t_tuple	matrix_multiply_tuple(t_matrix m, t_tuple t1)
 {
 	float	arr[4];
 	float	res[4];

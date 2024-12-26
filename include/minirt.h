@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/25 18:40:15 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/26 10:33:59 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,30 @@ typedef struct s_tuple
 	float	z;
 	float	w;
 }	t_tuple;
-//
 
-struct s_matrice {
+typedef	union u_vec
+{
+	t_tuple	t1;
+	float	v[4];
+}	t_vec;
+
+struct s_matrix {
 	t_tuple r1;
 	t_tuple r2;
 	t_tuple r3;
 	t_tuple r4;
 };
-typedef union u_matrice {
-	struct s_matrice	rows;
-	float				raw[4][4];
-} t_matrice;
+
+typedef union u_matrix {
+	struct
+	{
+		t_tuple r1;
+		t_tuple r2;
+		t_tuple r3;
+		t_tuple r4;	
+	};
+	float	raw[4][4];
+}	t_matrix;
 
 typedef struct s_shear
 {
@@ -50,19 +62,6 @@ typedef struct s_shear
 	float	y;
 	float	z;
 }	t_shear;
-
-t_matrice	identity(void);
-t_matrice	rotate_x(float angle);
-t_matrice	rotate_y(float angle);
-t_matrice	rotate_z(float angle);
-t_matrice	shear(t_shear s1, t_shear s2);
-t_matrice	scale(t_tuple t1);
-t_matrice	translate(t_tuple t1);
-
-///
-
-
-
 
 typedef struct s_projectile
 {
@@ -94,36 +93,39 @@ typedef struct s_mlx {
 	void	*win_ptr;
 }	t_mlx;
 
+t_matrix	identity(void);
+t_matrix	rotate_x(float angle);
+t_matrix	rotate_y(float angle);
+t_matrix	rotate_z(float angle);
+t_matrix	shear(t_shear s1, t_shear s2);
+t_matrix	scale(t_tuple t1);
+t_matrix	translate(t_tuple t1);
+
 /*	matrix	*/
-t_matrice multiply(t_matrice a, t_matrice b);
-t_matrice compose(size_t operation_count, t_matrice* ops);
-t_tuple transform(t_tuple t1, t_matrice m);
+t_matrix multiply_matrix(t_matrix a, t_matrix b);
+t_matrix compose(size_t operation_count, t_matrix* ops);
+t_tuple transform(t_tuple t1, t_matrix m);
 
 void	ak_pixel_put(t_img *data, t_tuple t1, unsigned int color);
 
 void	print_matrix(float m[4][4]);
-t_tuple	matrix_multiply_tuple(t_matrice m, t_tuple t1);
+t_tuple	matrix_multiply_tuple(t_matrix m, t_tuple t1);
 
 
 //	turns rows into columns
 void	matrix_transpose(float	**m);
 
-int		matrix_cmp(float **m1, float **m2, int row, int col);
+int		matrix_cmp(t_matrix m1, t_matrix m2, int row, int col);
 
 //	using printf prints every data point in a given array
 void	matrix_print(float **m, int row, int col);
 
 
-
-// divide and conquer, creates sub matrix and calculates its determinant
-float	determinant(t_matrice m);
+float	determinant(t_matrix m);
 
 float	**matrix_inverse(float **m, int size);
 
 float	radians(float angle);
-
-//	allocates and returns a copy of the given matrix with the given row
-//	and column removed
 
 /*	tuple	*/
 
@@ -153,6 +155,7 @@ t_projectile	tick(t_env env, t_projectile proj);
 
 t_tuple	color_new(float red, float green, float blue);
 t_tuple	color_hadamard(t_tuple c1, t_tuple c2);
+
 
 /*	mlx	*/
 

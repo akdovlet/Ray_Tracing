@@ -6,38 +6,38 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:27:07 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/25 19:06:52 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/26 11:40:39 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float cofactor(t_matrice m, int index)
+float	cofactor(t_matrix m, int index)
 {
-	float result;
-	int a;
-	int b;
-	int c;
+	float	result;
+	int		a;
+	int		b;
+	int		c;
 
 	a = (index + 1) % 4;
 	b = (index + 2) % 4;
 	c = (index + 3) % 4;
-	result = 0.0 
-	+ (m.raw[1][a] * m.raw[2][b] * m.raw[3][c])
-	+ (m.raw[1][b] * m.raw[2][c] * m.raw[3][a])
-	+ (m.raw[1][c] * m.raw[2][a] * m.raw[3][b])
-	- (m.raw[1][c] * m.raw[2][b] * m.raw[3][a])
-	- (m.raw[1][b] * m.raw[2][a] * m.raw[3][c])
-	- (m.raw[1][a] * m.raw[2][c] * m.raw[3][b]);
+	result = 0.0
+		+ (m.raw[1][a] * m.raw[2][b] * m.raw[3][c]) \
+		+ (m.raw[1][b] * m.raw[2][c] * m.raw[3][a]) \
+		+ (m.raw[1][c] * m.raw[2][a] * m.raw[3][b]) \
+		- (m.raw[1][c] * m.raw[2][b] * m.raw[3][a]) \
+		- (m.raw[1][b] * m.raw[2][a] * m.raw[3][c]) \
+		- (m.raw[1][a] * m.raw[2][c] * m.raw[3][b]);
 	if (index % 2)
 		result *= -1;
-	return result;
+	return (result);
 }
-		
-float	determinant(t_matrice m)
+
+float	determinant(t_matrix m)
 {
-	int i;
-	float result;
+	int		i;
+	float	result;
 
 	result = 0.0;
 	i = -1;

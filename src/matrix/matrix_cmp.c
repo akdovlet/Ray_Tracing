@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:33:23 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/20 14:04:15 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/26 10:24:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	matrix_cmp(float **m1, float **m2, int row, int col)
+int	matrix_cmp(t_matrix m1, t_matrix m2, int row, int col)
 {
 	int	i;
 	int	j;
@@ -23,7 +23,7 @@ int	matrix_cmp(float **m1, float **m2, int row, int col)
 		j = 0;
 		while (j < col)
 		{
-			if (m1[i][j] != m2[i][j])
+			if (m1.raw[i][j] != m2.raw[i][j])
 				return (1);
 			j++;
 		}

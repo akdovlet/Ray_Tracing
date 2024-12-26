@@ -6,16 +6,17 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/25 19:08:20 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/26 10:37:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_tuple center = {WIDTH / 2, HEIGHT /2, 0, 0};
-
 void	put_pixel(t_img *img, unsigned int color, t_tuple t1)
 {
+	t_tuple center;
+	
+	center = (t_tuple){WIDTH / 2, HEIGHT / 2, 0, 1};
 	ak_pixel_put(img, tuple_add(center, t1), color);
 }
 
@@ -98,7 +99,7 @@ void test_matrix_determinant()
 	matrix_free(mthree, 3);
 	matrix_free(mtwo, 2);
 
-	fprintf(stderr, "\nMatrix multiply tests\n");
+	fprintf(stderr, "\nMatrix multiply_matrix tests\n");
 	mfour = matrix_four_by_four(tuple_new(1, 2, 3, 4), tuple_new(5, 6, 7, 8), tuple_new(9, 8, 7 ,6), tuple_new(5, 4, 3, 2));
 	float	**mfour2 = matrix_four_by_four(tuple_new(-2, 1, 2, 3), tuple_new(3, 2, 1, -1), tuple_new(4, 3, 6 ,5), tuple_new(1, 2, 7, 8));
 	float	**mfour3 = matrix_multiply(mfour, mfour2);
@@ -113,7 +114,7 @@ void test_matrix_determinant()
 	matrix_free(mfour2, 4);
 	matrix_free(mfour3, 4);
 	t_tuple result = matrix_multiply_tuple(mfour, tuple_new(1, 2, 3, 1));
-	fprintf(stderr, "matrix multiply by tuple result: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", result.x, result.y, result.z, result.w);
+	fprintf(stderr, "matrix multiply_matrix by tuple result: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", result.x, result.y, result.z, result.w);
 	fprintf(stderr, "c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c2.x, c2.y, c2.z, c2.w);
 	matrix_free(mfour, 4);
 	mfour = matrix_four_by_four(tuple_new(0, 1, 2, 4), tuple_new(1, 2, 4 ,8), tuple_new(2, 4, 8, 16), tuple_new(4, 8, 16, 32)); 
@@ -477,6 +478,37 @@ void test_color()
 	*/
 }
 
+void	test_clock(t_img *img)
+{
+	fprintf(stderr, "\nClock test\n");
+	t_tuple	center = {};
+	put_pixel(img, 0xFF0000, center);
+		
+	t_tuple	translation = point_new(1, -HEIGHT * 0.375, 1);
+	t_tuple twelve = tuple_add(center, translation);
+	fprintf(stderr, "twelve\n");
+	tuple_print(twelve);
+	fprintf(stderr, "translation\n");
+	tuple_print(translation);
+
+	// t_matrix l = {{
+	// 	{ -2, -8 , 3 , 5 },
+	// 	{ -3, 1 , 7 , 3 },
+	// 	{ 1 , 2 , -9 , 6 },
+	// 	{ -6, 7 , 7 , -9 },
+	// }};
+	// fprintf(stderr, "determinant is: %f\n", determinant(l));
+
+	t_matrix t = compose(2, (t_matrix[]){
+		rotate_z(radians(90)),
+		translate(translation),
+	});
+	fprintf(stderr, "compose matrix:\n");
+	print_matrix(t.raw);
+	put_pixel(img, 0x00FF00, transform(twelve, t));
+	// put_pixel(img, 0xFFFFFF, transform(twelve, rotate_z(radians(0))));
+}
+
 int main()
 {
 	t_img	img;
@@ -487,33 +519,11 @@ int main()
 	// simulation(img, mlx);
 	//test_matrix_determinant();
 	//test_matrix_operation();
-	
-	fprintf(stderr, "\nClock test\n");
-	t_tuple	center = {};
-	put_pixel(&img, 0xFF0000, center);
-		
-	t_tuple	translation = point_new(1, -HEIGHT * 0.375, 1);
-	t_tuple twelve = tuple_add(center, translation);
-	fprintf(stderr, "twelve\n");
-	tuple_print(twelve);
-	fprintf(stderr, "translation\n");
-	tuple_print(translation);
-	
-
-
-	t_matrice l = {{
-		{ -2, -8 , 3 , 5 },
-		{ -3, 1 , 7 , 3 },
-		{ 1 , 2 , -9 , 6 },
-		{ -6, 7 , 7 , -9 },
-	}};
-	fprintf(stderr, "determinant is: %f\n", determinant(l));
-	
-	put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(0))));
-	put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(90))));
-	put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(180))));
-	put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(270))));
-	put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(90))));
+	test_clock(&img);
+	// put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(90))));
+	// put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(180))));
+	// put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(270))));
+	// put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(90))));
 
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
 
