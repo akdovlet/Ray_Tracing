@@ -6,30 +6,43 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:27:07 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/26 11:40:39 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/26 15:07:22 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float	cofactor(t_matrix m, int index)
+typedef struct s_vec3 {
+	int x;	
+	int y;	
+	int z;	
+} t_vec3;
+
+t_vec3 sliding_window(size_t index, size_t window_size)
+{
+	return ((t_vec3){
+		.x = (index + 1) % window_size,
+		.y = (index + 2) % window_size,
+		.z = (index + 3) % window_size,
+	});
+}
+
+float	cofactor(t_matrix m, size_t x, size_t y)
 {
 	float	result;
-	int		a;
-	int		b;
-	int		c;
-
-	a = (index + 1) % 4;
-	b = (index + 2) % 4;
-	c = (index + 3) % 4;
+	t_vec3	col;
+	t_vec3	row;
+	
+	col = sliding_window(y, 4);
+	row = sliding_window(x, 4);
 	result = 0.0
-		+ (m.raw[1][a] * m.raw[2][b] * m.raw[3][c]) \
-		+ (m.raw[1][b] * m.raw[2][c] * m.raw[3][a]) \
-		+ (m.raw[1][c] * m.raw[2][a] * m.raw[3][b]) \
-		- (m.raw[1][c] * m.raw[2][b] * m.raw[3][a]) \
-		- (m.raw[1][b] * m.raw[2][a] * m.raw[3][c]) \
-		- (m.raw[1][a] * m.raw[2][c] * m.raw[3][b]);
-	if (index % 2)
+		+ (m.raw[row.x][col.x] * m.raw[row.y][col.y] * m.raw[row.z][col.z]) \
+		+ (m.raw[row.x][col.y] * m.raw[row.y][col.z] * m.raw[row.z][col.x]) \
+		+ (m.raw[row.x][col.z] * m.raw[row.y][col.x] * m.raw[row.z][col.y]) \
+		- (m.raw[row.x][col.z] * m.raw[row.y][col.y] * m.raw[row.z][col.x]) \
+		- (m.raw[row.x][col.y] * m.raw[row.y][col.x] * m.raw[row.z][col.z]) \
+		- (m.raw[row.x][col.x] * m.raw[row.y][col.z] * m.raw[row.z][col.y]);
+	if ((x +y) % 2)
 		result *= -1;
 	return (result);
 }
@@ -42,6 +55,6 @@ float	determinant(t_matrix m)
 	result = 0.0;
 	i = -1;
 	while (++i < 4)
-		result += m.raw[0][i] * cofactor(m, i);
+		result += m.raw[0][i] * cofactor(m, i, 0);
 	return (result);
 }

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/26 10:33:59 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/26 15:45:09 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ struct s_matrix {
 	t_tuple r4;
 };
 
-typedef union u_matrix {
+typedef union u_matrix t_matrix;
+union u_matrix
+{
 	struct
 	{
 		t_tuple r1;
@@ -54,7 +56,7 @@ typedef union u_matrix {
 		t_tuple r4;	
 	};
 	float	raw[4][4];
-}	t_matrix;
+} __attribute__((__transparent_union__));
 
 typedef struct s_shear
 {
@@ -93,6 +95,14 @@ typedef struct s_mlx {
 	void	*win_ptr;
 }	t_mlx;
 
+typedef struct s_ray
+{
+	t_tuple origin;
+	t_tuple	direction;
+}	t_ray;
+
+void	put_pixel(t_img *img, unsigned int color, t_tuple t1);
+void main_test();
 t_matrix	identity(void);
 t_matrix	rotate_x(float angle);
 t_matrix	rotate_y(float angle);
@@ -100,6 +110,8 @@ t_matrix	rotate_z(float angle);
 t_matrix	shear(t_shear s1, t_shear s2);
 t_matrix	scale(t_tuple t1);
 t_matrix	translate(t_tuple t1);
+float		cofactor(t_matrix m, size_t x, size_t y);
+
 
 /*	matrix	*/
 t_matrix multiply_matrix(t_matrix a, t_matrix b);
@@ -111,7 +123,6 @@ void	ak_pixel_put(t_img *data, t_tuple t1, unsigned int color);
 void	print_matrix(float m[4][4]);
 t_tuple	matrix_multiply_tuple(t_matrix m, t_tuple t1);
 
-
 //	turns rows into columns
 void	matrix_transpose(float	**m);
 
@@ -119,7 +130,6 @@ int		matrix_cmp(t_matrix m1, t_matrix m2, int row, int col);
 
 //	using printf prints every data point in a given array
 void	matrix_print(float **m, int row, int col);
-
 
 float	determinant(t_matrix m);
 
@@ -145,7 +155,7 @@ t_tuple	tuple_normalize(t_tuple a);
 float	tuple_dot(t_tuple a, t_tuple b);
 t_tuple	tuple_cross(t_tuple a, t_tuple b);
 void	tuple_print(t_tuple t1);
-
+t_tuple	position(t_tuple point, t_tuple direction, float factor);
 /*	simulation	*/
 
 t_projectile	tick(t_env env, t_projectile proj);

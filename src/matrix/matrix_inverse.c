@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:00:05 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/26 11:46:15 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/26 15:15:52 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ float	**matrix_inverse(float **m, int size)
 	int		j;
 	float	determinant;
 	float	**m2;
+	
 
 
 	i = 0;
@@ -47,7 +48,7 @@ float	**matrix_inverse(float **m, int size)
 	return(NULL);
 }
 
-t_matrix	inverse(t_matrix m)
-{
+// t_matrix	inverse(t_matrix m)
+// {
 	
-}
+// }
