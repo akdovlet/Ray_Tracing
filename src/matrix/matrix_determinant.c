@@ -6,19 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:27:07 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/26 15:07:22 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/27 15:09:46 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-typedef struct s_vec3 {
-	int x;	
-	int y;	
-	int z;	
-} t_vec3;
-
-t_vec3 sliding_window(size_t index, size_t window_size)
+t_vec3	sliding_window(size_t index, size_t window_size)
 {
 	return ((t_vec3){
 		.x = (index + 1) % window_size,
@@ -27,7 +21,7 @@ t_vec3 sliding_window(size_t index, size_t window_size)
 	});
 }
 
-float	cofactor(t_matrix m, size_t x, size_t y)
+float	cofactor(t_matrix m, size_t y, size_t x)
 {
 	float	result;
 	t_vec3	col;
@@ -55,6 +49,8 @@ float	determinant(t_matrix m)
 	result = 0.0;
 	i = -1;
 	while (++i < 4)
+	{
 		result += m.raw[0][i] * cofactor(m, i, 0);
+	}
 	return (result);
 }

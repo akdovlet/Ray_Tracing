@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/26 15:35:17 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/27 15:40:06 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	put_pixel(t_img *img, unsigned int color, t_tuple t1)
 void simulation(t_img img, t_mlx mlx)
 {
 	t_env	env;
-	t_projectile proj;
+	t_proj proj;
 	
 	fprintf(stderr, "Starting projectile simulation\n");
 
@@ -45,8 +45,6 @@ void simulation(t_img img, t_mlx mlx)
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
 	fprintf(stderr, "Finished simulation\n\n");	
 }
-	
-
 
 int main()
 {
@@ -56,15 +54,8 @@ int main()
 	mlx_key_hook(mlx.win_ptr, &key_manager, &mlx);
 	mlx_hook(mlx.win_ptr, 17, 0, mlx_loop_end, mlx.mlx_ptr);
 
-	// simulation(img, mlx);
-	//test_matrix_determinant();
-	//test_matrix_operation();
-	// test_clock(&img);
-	// put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(90))));
-	// put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(180))));
-	// put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(270))));
-	// put_pixel(&img, 0xFFFFFF, transform(twelve, rotate_z(radians(90))));
-	main_test();
+	position_test();
+
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
 
 

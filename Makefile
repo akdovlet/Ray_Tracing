@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2024/12/26 15:45:22 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/12/26 19:04:56 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRC		:=	main.c							\
 			mlx/mlx_pixel_put.c				\
 			tuple/color_new.c				\
 			tuple/hadamard_product.c		\
-			tuple/ray.c		\
+			tuple/ray.c						\
 			tuple/simulation.c				\
 			tuple/tuple_add.c				\
 			tuple/tuple_cmp.c				\

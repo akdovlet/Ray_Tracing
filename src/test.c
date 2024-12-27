@@ -331,6 +331,7 @@ void test_matrix_operation()
 
 void test_color()
 {
+
 	/*
 	t_tuple	p;
 	t_tuple	v;
@@ -430,7 +431,7 @@ void test_color()
 	c2 = color_new(0.9, 1, 0.1);
 	c_new = color_hadamard(c1, c2);
 	fprintf(stderr, "c1 * c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
-	*/
+ */
 }
 
 
@@ -454,6 +455,26 @@ void test_cofactor(t_matrix m, t_matrix expected)
 			" The expected cofactor doesn't match with result "
 			"at {%d, %d}, result = %f, expected = %f\n",
 			x, y, cofac, expected.raw[x][y]);
+		}
+	}
+}
+
+void	test_cofactor2(t_matrix m, t_matrix expected)
+{
+	int	i;
+	int	j;
+	float	cofac;
+
+	i = -1;
+	while (++i < 4)
+	{
+		j = -1;
+		while (++j < 4)
+		{
+			cofac = cofactor(m, j, i);
+			if (cofac != expected.raw[i][j])
+				fprintf(stderr, "error: wrong cofactor: %f; expected: %f\n"
+					, cofac, expected.raw[i][j]);
 		}
 	}
 }
@@ -491,11 +512,45 @@ void	test_clock(t_img *img)
 	// put_pixel(img, 0xFFFFFF, transform(twelve, rotate_z(radians(0))));
 }
 
+void	inverse_test()
+{
+	printf("\nInverse test\n");
+	t_matrix matrix = {{
+		{ -5, 2 , 6 , -8 },
+		{ 1, -5 , 1 , 8},
+		{ 7 , 7 , -6 , -7 },
+		{ 1, -3 , 7 , 4 },
+	}};
+	t_matrix	id;
 
+	id = identity();
+	inverse(matrix, &id);
+	print_matrix(id.raw);
+}
+
+void	determinant_test()
+{
+	float	deter;
+	float	cof;
+
+	printf("\ndeterminant test\n");
+	t_matrix matrix = {{
+		{ -2, -8 , 3 , 5 },
+		{ -3, 1 , 7 , 3},
+		{ 1 , 2 , -9 , 6 },
+		{ -6, 7 , 7 , -9 },
+	}};
+	cof = cofactor(matrix, 1, 0);
+	printf("cofactor of 0,1 is: %f\n", cof);
+	deter = determinant(matrix);
+	if (deter != -4071)
+		fprintf(stderr, "Error: wrong determinant: %f, expected: -4071\n", deter);
+	else
+		printf("Determinant OK\n");
+}
 
 void main_test()
 {
-
 	t_matrix matrice = {{
 		{ -2, -8 , 3 , 5 },
 		{ -3, 1 , 7 , 3 },
@@ -509,9 +564,79 @@ void main_test()
 		{667, 25 ,203 ,185}
 	}};
 	test_cofactor(matrice, expected_cofactor);
+	test_cofactor2(matrice, expected_cofactor);
 }
 
+void	position_test(void)
+{
+	printf("\nPosition test\n");
 
+	t_ray ray;
+	t_tuple	result;
+	t_tuple expected;
 
+	ray = ray_new(point_new(2, 3, 4), vector_new(1, 0, 0));
+	result = position(ray, 0);
+	expected = point_new(2, 3, 4);
+	if (tuple_cmp(result, expected))
+	{
+		fprintf(stderr, "Error: result: ");
+		tuple_print(result);
+		fprintf(stderr, "expected: ");
+		tuple_print(expected);
+	}
+	else
+	{
+		printf("OK\n");
+	}
+	result = position(ray, 1);
+	expected = point_new(3, 3, 4);
+	if (tuple_cmp(result, expected))
+	{
+		fprintf(stderr, "Error: result: ");
+		tuple_print(result);
+		fprintf(stderr, "expected: ");
+		tuple_print(expected);
+	}
+	else
+	{
+		printf("OK\n");
+	}
+	result = position(ray, -1);
+	expected = point_new(1, 3, 4);
+	if (tuple_cmp(result, expected))
+	{
+		fprintf(stderr, "Error: result: ");
+		tuple_print(result);
+		fprintf(stderr, "expected: ");
+		tuple_print(expected);
+	}
+	else
+	{
+		printf("OK\n");
+	}
+	result = position(ray, 2.5);
+	expected = point_new(4.5, 3, 4);
+	if (tuple_cmp(result, expected))
+	{
+		fprintf(stderr, "Error: result: ");
+		tuple_print(result);
+		fprintf(stderr, "expected: ");
+		tuple_print(expected);
+	}
+	else
+	{
+		printf("OK\n");
+	}
+}
 
+void	sphere_test(void)
+{
+	t_sphere sphere;
+	t_ray	ray;
+	t_vec2;
 
+	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
+	sphere.coordinates = point_new(0, 0, 0);
+	vec2 = inter
+}

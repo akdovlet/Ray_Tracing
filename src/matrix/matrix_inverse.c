@@ -6,49 +6,32 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:00:05 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/26 15:15:52 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/27 13:19:29 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-float	**matrix_inverse(float **m, int size)
+int	inverse(t_matrix m, t_matrix *m2)
 {
-/*
-	int		i;
-	int		j;
-	float	determinant;
-	float	**m2;
-	
+	int			i;
+	int			j;
+	float		deter;
 
-
+	deter = determinant(m);
+	fprintf(stderr, "deter is: %f\n", deter);
+	if (!deter)
+		return (1);
 	i = 0;
-	determinant = matrix_determinant_recursion(m, size);
-	if (!determinant)
-		return (fprintf(stderr, "not possible\n"), NULL);
-	m2 = matrix_four_by_four(tuple_new(0, 0, 0, 0), tuple_new(0, 0, 0, 0), \
-							tuple_new(0, 0, 0, 0), \
-							tuple_new(0, 0, 0, 0));
-	if (!m2)
-		return (NULL);
-	while (i < size)
+	while (i < 4)
 	{
 		j = 0;
-		while (j < size)
+		while (j < 4)
 		{
-			m2[j][i] = matrix_cofactor(m, i, j, size) / determinant;
+			m2->raw[j][i] = cofactor(m, j, i) / deter;
 			j++;
 		}
 		i++;
 	}
-	return (m2);
-	*/
-	(void)m;
-	(void)size;
-	return(NULL);
+	return (0);
 }
-
-// t_matrix	inverse(t_matrix m)
-// {
-	
-// }
