@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:42:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/27 19:32:35 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/28 17:06:40 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_tuple	position(t_ray ray, float factor)
 	return (tuple_add(ray.origin, tuple_multiply(ray.direction, factor)));
 }
 
-float	intersection(t_ray ray, t_sphere sphere, t_vec2 *vec)
+float	intersection(t_ray ray, t_sphere sphere, t_intersection *inter)
 {
 	float	a;
 	float	b;
@@ -39,9 +39,10 @@ float	intersection(t_ray ray, t_sphere sphere, t_vec2 *vec)
 	c = tuple_dot(sphere_to_ray, sphere_to_ray) - 1;
 	dis = pow(b, 2) - 4 * a * c;
 	if (dis < 0)
-		return (1);
-	vec->x = (-b - sqrt(dis)) / (2 * a);
-	vec->y = (-b + sqrt(dis)) / (2 * a);
+		return (inter->count = 0, 1);
+	inter->vec.x = (-b - sqrt(dis)) / (2 * a);
+	inter->vec.y = (-b + sqrt(dis)) / (2 * a);
+	inter->object.sphere = sphere;
 	return (0);
 }
 

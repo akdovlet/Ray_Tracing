@@ -632,11 +632,30 @@ void	position_test(void)
 
 void	sphere_test(void)
 {
-	t_sphere sphere;
-	t_ray	ray;
-	t_vec2;
+	t_sphere	sph;
+	t_ray		ray;
+	t_intersection	inter;
 
-	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
-	sphere.coordinates = point_new(0, 0, 0);
-	vec2 = inter
+	ray = ray_new(point_new(0, 0, 5), vector_new(0, 0, 1));
+	sph = sphere(point_new(0, 0, 0), 1);
+	if (intersection(ray, sph, &inter))
+		fprintf(stderr, "No interesection possible\n");
+	else
+	{
+		printf("interest at %f and %f\n", inter.vec.x, inter.vec.y);
+	}
+	
+}
+
+void	object_test(void)
+{
+	t_object		obj;
+	t_intersection	i;
+	t_ray			ray;
+	t_sphere		sph;
+	t_vec2			vec;
+
+	ray = ray_new(point_new(0, 0, 5), vector_new(0, 0, 1));
+	sph = sphere(point_new(0, 0, 0), 1);
+	i =
 }
