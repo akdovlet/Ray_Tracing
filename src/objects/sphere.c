@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   sphere.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/29 10:23:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/29 10:26:52 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/12/29 10:09:08 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/12/29 16:24:25 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "objects.h"
 
-#include "data_struct.h"
+t_object	sphere(t_tuple point, float radius)
+{
+	t_object	new;
 
-void		main_test();
-void		inverse_test();
-void		determinant_test();
-void		position_test(void);
-
-#endif
+	new = (t_object){
+		.coordinates = point,
+		.radius = radius,
+		.id = (uintptr_t) &new,
+		.type = SPHERE
+	};
+	return (new);
+}

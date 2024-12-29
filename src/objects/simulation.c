@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 18:01:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/28 19:47:16 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/29 10:09:03 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct s_env
 	t_tuple	wind;
 }	t_env;
 
-
 t_proj	tick(t_env env, t_proj proj)
 {
 	proj.position = tuple_add(proj.position, proj.velocity);
@@ -33,10 +32,3 @@ t_proj	tick(t_env env, t_proj proj)
 	return (proj);
 }
 
-t_sphere	sphere(t_tuple point, float radius)
-{
-	return ((t_sphere){
-		.coordinates = point,
-		.radius = radius
-	});
-}

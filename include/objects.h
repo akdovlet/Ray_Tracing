@@ -1,59 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   objects.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/12/29 18:43:34 by akdovlet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef OBJECTS_H
+# define OBJECTS_H
+
 #include "minirt.h"
-
-typedef uintptr_t				t_object_id;
-typedef enum e_type				t_object_type;
-typedef struct s_shape			t_shape;
-typedef struct s_vtable_shape	t_vtable_shape;
+#include "data_struct.h"
 
 
-enum	e_type
-{
-	SPHERE,
-};
+t_object	sphere(t_tuple point, float radius);
+void		sphere_test(void);
 
-struct s_shape {
-	t_object_type	type;
-	t_object_id		id;
-};
-
-struct s_vtable_shape {
-	void (*intersection)(t_shape*, t_ray*);
-};
+float			intersect(t_ray ray, t_object object, t_vec2 *vec);
+t_intersection	interesection(float t, t_object obj, t_vec2 vec, float dis);
 
 
-// typedef	struct s_object
-// {
-// 	enum e_type type;
-// 	union
-// 	{
-// 		t_sphere	sphere;
-// 	};
-// }	t_object;
+// struct s_vtable_shape {
+// 	void (*intersection)(t_object*, t_ray*);
+// };
+
 
 /// IMPLEMENTATION
 
-typedef struct s_sphere
-{
-	t_shape	header;
-	t_tuple	coordinates;
-	float	radius;
-}	t_sphere;
 
-t_sphere	sphere(t_tuple point, float radius);
-void		sphere_test(void);
+// void intersection_sphere(t_shape *d, t_ray* r)
+// {
+// 	t_sphere* s = d;
+// 	return;
+// }
 
-void intersection_sphere(t_shape *d, t_ray* r)
-{
-	t_sphere* s = d;
-	return;
-}
-
-t_vtable_shape v_table_sphere = {
-	.intersection = intersection_sphere,
-};
+// t_vtable_shape v_table_sphere = {
+// 	.intersection = intersection_sphere,
+// };
 
 
-void intersection(t_shape *s, t_ray* r)
-{
-	v_table_shape[s->type].intersection(s, r);
-}
+// void intersection(t_shape *s, t_ray* r)
+// {
+// 	v_table_shape[s->type].intersection(s, r);
+// }
+
+#endif

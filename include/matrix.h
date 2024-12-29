@@ -1,25 +1,19 @@
-typedef union u_matrix t_matrix;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   matrix.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/12/29 10:12:26 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/12/29 10:25:31 by akdovlet         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef struct s_vec2
-{
-	float	x;
-	float	y;
-}	t_vec2;
+#ifndef MATRIX_H
+# define MATRIX_H
 
-typedef struct s_vec3 
-{
-	int x;	
-	int y;	
-	int z;	
-} t_vec3;
-
-typedef struct s_tuple
-{
-	float	x;
-	float	y;
-	float	z;
-	float	w;
-}	t_tuple;
+#include "data_struct.h"
 
 /*	tuple	*/
 t_tuple		tuple_new(float x, float y, float z, float w);
@@ -39,24 +33,6 @@ float		tuple_dot(t_tuple a, t_tuple b);
 t_tuple		tuple_cross(t_tuple a, t_tuple b);
 void		tuple_print(t_tuple t1);
 
-typedef	union u_vec
-{
-	t_tuple	t1;
-	float	v[4];
-}	t_vec;
-
-union u_matrix
-{
-	struct
-	{
-		t_tuple r1;
-		t_tuple r2;
-		t_tuple r3;
-		t_tuple r4;	
-	};
-	float	raw[4][4];
-} __attribute__((__transparent_union__));
-
 t_matrix	identity(void);
 t_matrix	rotate_x(float angle);
 t_matrix	rotate_y(float angle);
@@ -66,7 +42,25 @@ t_matrix	scale(t_tuple t1);
 t_matrix	translate(t_tuple t1);
 float		cofactor(t_matrix m, size_t x, size_t y);
 int			inverse(t_matrix m, t_matrix *m2);
+
 /*	matrix	*/
 t_matrix	multiply_matrix(t_matrix a, t_matrix b);
 t_matrix	compose(size_t operation_count, t_matrix* ops);
 t_tuple		transform(t_tuple t1, t_matrix m);
+
+void		print_matrix(float m[4][4]);
+t_tuple		matrix_multiply_tuple(t_matrix m, t_tuple t1);
+
+//	turns rows into columns
+void		matrix_transpose(float	**m);
+
+int			matrix_cmp(t_matrix m1, t_matrix m2, int row, int col);
+
+//	using printf prints every data point in a given array
+void		matrix_print(float **m, int row, int col);
+
+float		determinant(t_matrix m);
+
+float		radians(float angle);
+
+#endif

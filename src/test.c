@@ -1,5 +1,6 @@
 #include "minirt.h"
-
+#include "objects.h"
+#include "matrix.h"
 
 void test_init_tuple()
 {
@@ -632,13 +633,13 @@ void	position_test(void)
 
 void	sphere_test(void)
 {
-	t_sphere	sph;
-	t_ray		ray;
+	t_object		sph;
+	t_ray			ray;
 	t_intersection	inter;
 
 	ray = ray_new(point_new(0, 0, 5), vector_new(0, 0, 1));
 	sph = sphere(point_new(0, 0, 0), 1);
-	if (intersection(ray, sph, &inter))
+	if (intersect(ray, sph, &inter.vec))
 		fprintf(stderr, "No interesection possible\n");
 	else
 	{
@@ -650,12 +651,18 @@ void	sphere_test(void)
 void	object_test(void)
 {
 	t_object		obj;
-	t_intersection	i;
 	t_ray			ray;
-	t_sphere		sph;
+	t_object		sph;
 	t_vec2			vec;
+	t_intersection	i;
+	t_intersection	j;
+	float			dis;
 
 	ray = ray_new(point_new(0, 0, 5), vector_new(0, 0, 1));
 	sph = sphere(point_new(0, 0, 0), 1);
-	i =
+	dis = intersect(ray, sph, &vec);
+	if (dis >= 0)
+		i = interesection(vec.x, sph, vec);
+	if (dis > 0)
+		j = interesection(vec.y, sph, vec);
 }
