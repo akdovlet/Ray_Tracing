@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 16:41:45 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/25 15:05:50 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/30 18:54:11 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	ak_mlx_pixel_put(t_img *data, float dx, float dy, unsigned int color)
 	int		x;
 	int		y;
 
-	if (!is_within_bounds(dx, dy))
-		return ;
+	// if (!is_within_bounds(dx, dy))
+	// 	return ;
 	x = (int)round(dx);
 	y = (int)round(dy);
 	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));

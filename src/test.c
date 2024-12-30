@@ -705,9 +705,115 @@ void	object_transform_test(void)
 	t_ray			ray;
 	t_object		sph;
 	float			dis;
+	t_vec2			vec;
+	t_intersection	i;
+	t_intersection	j;
 
+	printf("object transform test\n");
 	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
 	sph = sphere(point_new(0, 0, 0), 1);
 	set_transform(&sph, scale(point_new(2, 2, 2)));
-	dis = interesect()
+	dis = intersect(ray, sph, &vec);
+	if (dis < 0)
+		fprintf(stderr, "\tno intersection possible\n");
+	if (dis >= 0)
+		i = interesection(vec.x, sph, vec, dis);
+	if (dis > 0)
+		j = interesection(vec.y, sph, vec, dis);
+	printf("\tintersect at %f and %f\n", vec.x, vec.y);
+
+
+
+	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
+	sph = sphere(point_new(0, 0, 0), 1);
+	set_transform(&sph, translate(point_new(5, 0, 0)));
+	dis = intersect(ray, sph, &vec);
+	if (dis < 0)
+		printf("\tdiscriminant is: %f, no intersection possible\n", dis);
+	else
+	{
+		fprintf(stderr, "\tno intersection possible\n");
+		if (dis >= 0)
+			i = interesection(vec.x, sph, vec, dis);
+		if (dis > 0)
+			j = interesection(vec.y, sph, vec, dis);
+		printf("\tintersect at %f and %f\n", vec.x, vec.y);
+	}
+}
+
+// void	draw_sphere(t_img *img)
+// {
+// 	t_ray	ray;
+// 	float	wall_z;
+// 	float	wall_size;
+// 	int		y;
+// 	int		x;
+// 	t_tuple	position;
+// 	t_intersection inter;
+// 	t_object	sph;
+
+// 	sph = sphere(point_new(0, 0, 1), 1);
+// 	set_transform(&sph, scale(point_new(10, 10, 10)));
+
+// 	y = 0;
+// 	wall_z = 10;
+// 	wall_size = 7;
+// 	while (y < HEIGHT - 1)
+// 	{
+// 		x = 0;
+// 		while (x < WIDTH - 1)
+// 		{
+// 			position = point_new(x + -HEIGHT / 2, y - WIDTH /2, wall_z);
+// 			ray = ray_new(point_new(x, y, -5), tuple_normalize(tuple_substract(position, ray.origin)));
+// 			if (intersect(ray, sph, &inter.vec) >= 0)
+// 				ak_mlx_pixel_put(img, x, y, 0xFF0000);
+// 			x++;
+// 		}
+// 		y++;
+// 	}
+// }
+
+void	draw_sphere(t_img *img, t_mlx *mlx)
+{
+	float			y;
+	float			x;
+	float			world_x;
+	float			world_y;
+	float			wall_z;
+	float			wall_size;
+	float			canvas_pixel;
+	float			pixel_size;
+	float			half;
+	t_tuple			position;
+	t_ray			ray;
+	t_ray			r;
+	t_object 		sph;
+	t_intersection	inter;
+
+	y = 0;
+	ray.origin = point_new(0, 0, -5);
+	wall_z = 10;
+	wall_size = 7;
+	canvas_pixel = 500;
+	pixel_size = wall_size / canvas_pixel;
+	half = wall_size / 2;
+	sph = sphere(point_new(0, 0, 1.0f), 1.0f);
+	// set_transform(&sph, scale(point_new(100000, 100000, 100000)));
+	while (y < canvas_pixel - 1)
+	{
+		x = 0;
+		world_y = half - pixel_size * y;
+		while (x < canvas_pixel - 1)
+		{
+			world_x = -half + pixel_size * x;
+			position = point_new(world_x, world_y, wall_z);
+			r = ray_new(ray.origin, tuple_normalize(tuple_substract(position, ray.origin)));
+			if (intersect(r, sph, &inter.vec) >= 0)
+				ak_mlx_pixel_put(img, x, HEIGHT - y / 2, 0xFF0000);
+				// put_pixel(img, 0xFF0000, point_new(x, y, 1));
+			x++;
+		}
+		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
+		y++;
+	}
 }
