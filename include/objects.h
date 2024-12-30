@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/29 18:43:34 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/30 12:44:12 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@
 #include "data_struct.h"
 
 
-t_object	sphere(t_tuple point, float radius);
-void		sphere_test(void);
+t_object		sphere(t_tuple point, float radius);
+void			sphere_test(void);
 
 float			intersect(t_ray ray, t_object object, t_vec2 *vec);
 t_intersection	interesection(float t, t_object obj, t_vec2 vec, float dis);
-
+float			hit(t_vec2 vec);
+t_ray			ray_transform(t_ray ray, t_matrix m);
+void			set_transform(t_object *obj, t_matrix m);
 
 // struct s_vtable_shape {
 // 	void (*intersection)(t_object*, t_ray*);

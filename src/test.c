@@ -513,21 +513,21 @@ void	test_clock(t_img *img)
 	// put_pixel(img, 0xFFFFFF, transform(twelve, rotate_z(radians(0))));
 }
 
-void	inverse_test()
-{
-	printf("\nInverse test\n");
-	t_matrix matrix = {{
-		{ -5, 2 , 6 , -8 },
-		{ 1, -5 , 1 , 8},
-		{ 7 , 7 , -6 , -7 },
-		{ 1, -3 , 7 , 4 },
-	}};
-	t_matrix	id;
+// void	inverse_test()
+// {
+// 	printf("\nInverse test\n");
+// 	t_matrix matrix = {{
+// 		{ -5, 2 , 6 , -8 },
+// 		{ 1, -5 , 1 , 8},
+// 		{ 7 , 7 , -6 , -7 },
+// 		{ 1, -3 , 7 , 4 },
+// 	}};
+// 	t_matrix	id;
 
-	id = identity();
-	inverse(matrix, &id);
-	print_matrix(id.raw);
-}
+// 	id = identity();
+// 	inverse(matrix, &id);
+// 	print_matrix(id.raw);
+// }
 
 void	determinant_test()
 {
@@ -650,7 +650,6 @@ void	sphere_test(void)
 
 void	object_test(void)
 {
-	t_object		obj;
 	t_ray			ray;
 	t_object		sph;
 	t_vec2			vec;
@@ -662,7 +661,53 @@ void	object_test(void)
 	sph = sphere(point_new(0, 0, 0), 1);
 	dis = intersect(ray, sph, &vec);
 	if (dis >= 0)
-		i = interesection(vec.x, sph, vec);
+		i = interesection(vec.x, sph, vec, dis);
 	if (dis > 0)
-		j = interesection(vec.y, sph, vec);
+		j = interesection(vec.y, sph, vec, dis);
+}
+
+void	transform_test()
+{
+	t_ray	ray;
+	t_ray	new;
+	t_tuple	expected;
+
+	printf("Ray transform test\n");
+	ray = ray_new(point_new(1, 2, 3), vector_new(0, 1, 0));
+	new = ray_transform(ray, translate(point_new(3, 4, 5)));
+	expected = point_new(4, 6, 8);
+	printf("\tRay translate:\n");
+	if (tuple_cmp(new.origin, expected))
+	{
+		fprintf(stderr, "\ttransform_test: error: expected:\n");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\n");
+		tuple_print(ray.origin);
+	}
+	else
+		printf("\tOK\n");
+	printf("\tRay scale:\n");
+	new = ray_transform(ray, scale(point_new(2, 3, 4)));
+	expected = point_new(2, 6, 12);
+	if (tuple_cmp(new.origin, expected) || tuple_cmp(new.direction, vector_new(0, 3, 0)))
+	{
+		fprintf(stderr, "\ttransform_test: error: expected:\n");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\n");
+		tuple_print(ray.origin);
+	}
+	else
+		printf("\tOK\n");
+}
+
+void	object_transform_test(void)
+{
+	t_ray			ray;
+	t_object		sph;
+	float			dis;
+
+	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
+	sph = sphere(point_new(0, 0, 0), 1);
+	set_transform(&sph, scale(point_new(2, 2, 2)));
+	dis = interesect()
 }

@@ -1,24 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   ray_transform.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/29 10:23:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/30 11:53:43 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/12/30 12:12:29 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/12/30 12:13:46 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "minirt.h"
+#include "matrix.h"
 
-#include "data_struct.h"
-
-void		main_test();
-void		inverse_test();
-void		determinant_test();
-void		position_test(void);
-void		transform_test();
-
-#endif
+t_ray	ray_transform(t_ray ray, t_matrix m)
+{
+	return ((t_ray)
+	{
+		.direction = transform(ray.direction, m),
+		.origin = transform(ray.origin, m)
+	});
+}

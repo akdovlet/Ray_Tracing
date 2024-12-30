@@ -6,32 +6,32 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:00:05 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/27 13:19:29 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/30 12:52:31 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	inverse(t_matrix m, t_matrix *m2)
+t_matrix	inverse(t_matrix m)
 {
 	int			i;
 	int			j;
 	float		deter;
+	t_matrix	m2;
 
 	deter = determinant(m);
-	fprintf(stderr, "deter is: %f\n", deter);
 	if (!deter)
-		return (1);
+		return (m);
 	i = 0;
 	while (i < 4)
 	{
 		j = 0;
 		while (j < 4)
 		{
-			m2->raw[j][i] = cofactor(m, j, i) / deter;
+			m2.raw[j][i] = cofactor(m, j, i) / deter;
 			j++;
 		}
 		i++;
 	}
-	return (0);
+	return (m2);
 }

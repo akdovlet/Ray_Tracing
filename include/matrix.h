@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:12:26 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/29 10:25:31 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/30 12:54:36 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_matrix	shear(t_shear s1, t_shear s2);
 t_matrix	scale(t_tuple t1);
 t_matrix	translate(t_tuple t1);
 float		cofactor(t_matrix m, size_t x, size_t y);
-int			inverse(t_matrix m, t_matrix *m2);
+t_matrix	inverse(t_matrix m);
 
 /*	matrix	*/
 t_matrix	multiply_matrix(t_matrix a, t_matrix b);
