@@ -79,12 +79,7 @@ void test_matrix_determinant()
 	matrix_print(mresult, 4, 4);
 	matrix_free(mfour, 4);
 	matrix_free(mresult, 4);
-	
-	fprintf(stderr, "\nmatrix transpose test\n");
-	mfour = matrix_four_by_four(tuple_new(0, 9, 3, 0), tuple_new(9, 8, 0, 8), tuple_new(1, 8, 5 , 3), tuple_new(0, 0, 5, 8));
-	matrix_transpose(mfour);
-	matrix_print(mfour, 4, 4);
-	matrix_free(mfour, 4);
+
 
 	mtwo = matrix_two_by_two(tuple_new(1, 5, 0, 0), tuple_new(-3, 2, 0, 0));
 	fprintf(stderr, "\ndeterminant of 2x2 matrix is: %.2f\n", matrix_determinant(mtwo));
@@ -798,7 +793,7 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 	pixel_size = wall_size / canvas_pixel;
 	half = wall_size / 2;
 	sph = sphere(point_new(0, 0, 1.0f), 1.0f);
-	// set_transform(&sph, scale(point_new(100000, 100000, 100000)));
+	// set_transform(&sph, scale(point_new(100, 100, 100)));
 	while (y < canvas_pixel - 1)
 	{
 		x = 0;
@@ -809,7 +804,7 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 			position = point_new(world_x, world_y, wall_z);
 			r = ray_new(ray.origin, tuple_normalize(tuple_substract(position, ray.origin)));
 			if (intersect(r, sph, &inter.vec) >= 0)
-				ak_mlx_pixel_put(img, x, HEIGHT - y / 2, 0xFF0000);
+				ak_mlx_pixel_put(img, x, HEIGHT - y, 0xFF0000);
 				// put_pixel(img, 0xFF0000, point_new(x, y, 1));
 			x++;
 		}
@@ -817,3 +812,111 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 		y++;
 	}
 }
+
+void	normal_at_test(void)
+{
+	t_object	sph;
+	t_tuple		normal;
+	t_tuple		expected;
+
+	printf("\nnormal at test\n");
+	sph = sphere(point_new(0, 0, 0), 1);
+	set_transform(&sph, translate(point_new(0, 1, 0)));
+	normal = normal_at(sph, point_new(0, 1.70711, -0.70711));
+	expected = vector_new(0, 0.70711, -0.70711);
+	if (tuple_cmp(normal, expected))
+	{
+		fprintf(stderr, "\terror:\texpected:\t");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(normal);
+	}
+
+	sph = sphere(point_new(0, 0, 0), 1);
+	set_transform(&sph, multiply_matrix(scale(point_new(1, 0.5, 1)), rotate_z(M_PI / 5)));
+	normal = normal_at(sph, point_new(0, sqrt(2) / 2, -sqrt(2) / 2));
+	expected = vector_new(0, 0.97014, -0.24254);
+	if (tuple_cmp(normal, expected))
+	{
+		fprintf(stderr, "\terror:\texpected:\t");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(normal);
+	}
+}
+
+void	transpose_test(void)
+{
+	t_matrix	original;
+	t_matrix	new;
+	t_matrix	expected;
+	fprintf(stderr, "\nmatrix transpose test\n");
+	original = (t_matrix){{
+		{0, 9, 3, 0},
+		{9, 8, 0, 8},
+		{1, 8, 5, 3},
+		{0, 0, 5, 8}
+	}};
+	new = matrix_transpose(original);
+	expected = (t_matrix){{
+		{0, 9, 1, 0},
+		{9, 8, 8, 0},
+		{3, 0, 5, 5},
+		{0, 8, 3, 8}
+	}};
+	if (matrix_cmp(new, expected, 4, 4))
+	{
+		fprintf(stderr, "\terror:\texpected:\n");
+		print_matrix(expected.raw);
+		fprintf(stderr, "\tgot:\n");
+		print_matrix(new.raw);
+	}
+	else
+		printf("\tOK");
+}
+
+void	reflect_test(void)
+{
+	t_tuple	v;
+	t_tuple	n;
+	t_tuple	r;
+	t_tuple	expected;
+
+	printf("\nreflect test\n");
+	v = vector_new(1, -1, 0);
+	n = vector_new(0, 1, 0);
+	r = reflect(v, n);
+	expected = vector_new(1, 1, 0);
+	if (tuple_cmp(r, expected))
+	{
+		fprintf(stderr, "\terror:\texpected:\t");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(r);
+	}
+	else
+		printf("\tOK\n");
+
+
+	v = vector_new(0, -1, 0);
+	n = vector_new(sqrt(2)/2, sqrt(2)/2, 0);
+	r = reflect(v, n);
+	expected = vector_new(1, 0, 0);
+	if (tuple_cmp(r, expected))
+	{
+		fprintf(stderr, "\terror:\texpected:\t");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(r);
+	}
+	else
+		printf("\tOK\n");
+}
+
+// void	test_light(void)
+// {
+// 	t_object sph;
+// 	t_material mat;
+
+// 	mat = material();
+// }

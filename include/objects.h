@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/30 12:44:12 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/31 19:12:28 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@ t_intersection	interesection(float t, t_object obj, t_vec2 vec, float dis);
 float			hit(t_vec2 vec);
 t_ray			ray_transform(t_ray ray, t_matrix m);
 void			set_transform(t_object *obj, t_matrix m);
+t_tuple			normal_at(t_object obj, t_tuple world_point);
+t_tuple			reflect(t_tuple in, t_tuple normal);
+t_material		material(void);
 
 // struct s_vtable_shape {
 // 	void (*intersection)(t_object*, t_ray*);

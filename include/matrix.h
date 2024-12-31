@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:12:26 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/30 18:08:06 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/31 16:07:48 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void		print_matrix(float m[4][4]);
 t_tuple		matrix_multiply_tuple(t_matrix m, t_tuple t1);
 
 //	turns rows into columns
-void		matrix_transpose(float	**m);
+t_matrix	matrix_transpose(t_matrix m);
 
 int			matrix_cmp(t_matrix m1, t_matrix m2, int row, int col);
 

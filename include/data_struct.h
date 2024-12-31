@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/30 12:42:07 by akdovlet         ###   ########.fr       */
+/*   Updated: 2024/12/31 19:16:16 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,15 @@ enum	e_type
 	SPHERE,
 };
 
+typedef struct s_material
+{
+	t_tuple	color;
+	float	ambient;
+	float	diffuse;
+	float	specular;
+	float	shininess;
+}	t_material;
+
 typedef struct s_object
 {
 	t_type			type;
@@ -76,6 +85,7 @@ typedef struct s_object
 	uintptr_t		id;
 	t_tuple			coordinates;
 	t_matrix		transform;
+	t_material		matter;
 }	t_object;
 
 typedef struct s_ray

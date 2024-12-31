@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2024/12/30 12:15:51 by akdovlet         ###   ########.fr        #
+#    Updated: 2024/12/31 19:12:50 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,8 +30,11 @@ SRC		:=	main.c							\
 			mlx/key_manager.c				\
 			mlx/mlx_clear.c					\
 			mlx/mlx_pixel_put.c				\
+			objects/material.c				\
+			objects/normal.c				\
 			objects/ray_transform.c			\
 			objects/ray.c					\
+			objects/reflect.c				\
 			objects/simulation.c			\
 			objects/sphere.c				\
 			tuple/color_new.c				\

@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   material.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/29 10:23:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/31 19:07:16 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/12/31 19:10:10 by akdovlet          #+#    #+#             */
+/*   Updated: 2024/12/31 19:13:39 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "minirt.h"
 
-#include "data_struct.h"
-
-void		main_test();
-void		determinant_test();
-void		position_test(void);
-void		transform_test();
-void		object_transform_test(void);
-void		draw_sphere(t_img *img, t_mlx *mlx);
-void		normal_at_test(void);
-void		transpose_test(void);
-void		reflect_test(void);
-void		test_light(void);
-
-#endif
+t_material	material(void)
+{
+	return ((t_material)
+	{
+		.color = (t_tuple) {1, 1, 1, 1},
+		.ambient = 0.1,
+		.diffuse = 0.9,
+		.specular = 0.9,
+		.shininess = 200.0
+	});
+}
