@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2024/12/31 19:12:50 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/01/01 19:48:42 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME	:=	minirt
 
 SRC		:=	main.c							\
 			test.c							\
+			light/light.c					\
 			matrix/rotate.c					\
 			matrix/transform.c				\
 			matrix/degrees_to_radians.c		\

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:42:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/30 15:26:50 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/01 21:23:59 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ float	intersect(t_ray ray, t_object object, t_vec2 *vec)
 	return (dis);
 }
 
-t_intersection	interesection(float t, t_object obj, t_vec2 vec, float dis)
+t_intersection	intersection(float t, t_object obj, t_vec2 vec, float dis)
 {
 	t_intersection	new;
 	float			tmp;
@@ -69,15 +69,22 @@ t_intersection	interesection(float t, t_object obj, t_vec2 vec, float dis)
 	return (new);
 }
 
-float	hit(t_vec2 vec)
+float	hit(t_ray ray, t_object obj, t_intersection *inter)
 {
+	float			t;
+	float			dis;
+	t_vec2			vec;
+	t_intersection inter;
+
+	dis = intersect(ray, obj, &vec);
 	if (vec.x < 0 && vec.y < 0)
 		return (-1);
 	if (vec.x < 0)
-		return (vec.y);
+		t = vec.y;
 	else if (vec.y < 0)
-		return (vec.x);
-	return (fmin(vec.x, vec.y));
+		t = vec.x;
+	t = fmin(vec.x, vec.y);
+	*inter = intersection(t, obj, vec, dis);
 }
 
 

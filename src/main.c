@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/31 17:42:59 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/01 19:56:43 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int main()
 {
 	t_img	img;
 	t_mlx	mlx;
+
 	init_mlx(&mlx, &img);
 	mlx_key_hook(mlx.win_ptr, &key_manager, &mlx);
 	mlx_hook(mlx.win_ptr, 17, 0, mlx_loop_end, mlx.mlx_ptr);
@@ -37,6 +38,7 @@ int main()
 	normal_at_test();
 	transpose_test();
 	reflect_test();
+	test_light();
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
 
 	mlx_loop(mlx.mlx_ptr);

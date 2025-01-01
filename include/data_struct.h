@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/31 19:16:16 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/01 20:39:40 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ enum	e_type
 {
 	SPHERE,
 };
+
+typedef struct s_light
+{
+	t_tuple	intensity;
+	t_tuple	position;
+}	t_light;
 
 typedef struct s_material
 {

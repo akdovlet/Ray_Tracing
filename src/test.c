@@ -1,6 +1,10 @@
 #include "minirt.h"
 #include "objects.h"
 #include "matrix.h"
+#include "light.h"
+#include "tuple.h"
+#include "mlx_utils.h"
+#include "test.h"
 
 void test_init_tuple()
 {
@@ -635,7 +639,7 @@ void	sphere_test(void)
 	ray = ray_new(point_new(0, 0, 5), vector_new(0, 0, 1));
 	sph = sphere(point_new(0, 0, 0), 1);
 	if (intersect(ray, sph, &inter.vec))
-		fprintf(stderr, "No interesection possible\n");
+		fprintf(stderr, "No intersection possible\n");
 	else
 	{
 		printf("interest at %f and %f\n", inter.vec.x, inter.vec.y);
@@ -656,9 +660,9 @@ void	object_test(void)
 	sph = sphere(point_new(0, 0, 0), 1);
 	dis = intersect(ray, sph, &vec);
 	if (dis >= 0)
-		i = interesection(vec.x, sph, vec, dis);
+		i = intersection(vec.x, sph, vec, dis);
 	if (dis > 0)
-		j = interesection(vec.y, sph, vec, dis);
+		j = intersection(vec.y, sph, vec, dis);
 }
 
 void	transform_test()
@@ -712,9 +716,9 @@ void	object_transform_test(void)
 	if (dis < 0)
 		fprintf(stderr, "\tno intersection possible\n");
 	if (dis >= 0)
-		i = interesection(vec.x, sph, vec, dis);
+		i = intersection(vec.x, sph, vec, dis);
 	if (dis > 0)
-		j = interesection(vec.y, sph, vec, dis);
+		j = intersection(vec.y, sph, vec, dis);
 	printf("\tintersect at %f and %f\n", vec.x, vec.y);
 
 
@@ -729,9 +733,9 @@ void	object_transform_test(void)
 	{
 		fprintf(stderr, "\tno intersection possible\n");
 		if (dis >= 0)
-			i = interesection(vec.x, sph, vec, dis);
+			i = intersection(vec.x, sph, vec, dis);
 		if (dis > 0)
-			j = interesection(vec.y, sph, vec, dis);
+			j = intersection(vec.y, sph, vec, dis);
 		printf("\tintersect at %f and %f\n", vec.x, vec.y);
 	}
 }
@@ -784,6 +788,7 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 	t_ray			r;
 	t_object 		sph;
 	t_intersection	inter;
+	t_light			light;
 
 	y = 0;
 	ray.origin = point_new(0, 0, -5);
@@ -793,6 +798,9 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 	pixel_size = wall_size / canvas_pixel;
 	half = wall_size / 2;
 	sph = sphere(point_new(0, 0, 1.0f), 1.0f);
+	sph.matter = material();
+	sph.matter.color = color_new(1, 0.2, 1);
+	light = point_light(point_new(-10, 10, -10), color_new(1, 1, 1));
 	// set_transform(&sph, scale(point_new(100, 100, 100)));
 	while (y < canvas_pixel - 1)
 	{
@@ -913,10 +921,110 @@ void	reflect_test(void)
 		printf("\tOK\n");
 }
 
-// void	test_light(void)
-// {
-// 	t_object sph;
-// 	t_material mat;
 
-// 	mat = material();
-// }
+void	test_light(void)
+{
+	printf("\nLighting test\n");
+
+	t_material	mat;
+	t_tuple		point;
+	t_tuple		eyev;
+	t_tuple		normalv;
+	t_light		light;
+	t_tuple		result;
+	t_tuple		expected;
+
+	mat = material();
+	point = point_new(0, 0, 0);
+
+
+	eyev = vector_new(0, 0, -1);
+	normalv = vector_new(0, 0, -1);
+	light = point_light(point_new(0, 0, -10), color_new(1, 1, 1));
+	result = lighting(mat, light, eyev, normalv, point);
+	expected = color_new(1.9, 1.9, 1.9);
+	if (tuple_cmp(expected, result))
+	{
+		fprintf(stderr, "\terror:\texpected:\t");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(result);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+
+
+	eyev = vector_new(0, sqrt(2)/2, sqrt(2)/2);
+	normalv = vector_new(0, 0, -1);
+	light = point_light(point_new(0, 0, -10), color_new(1, 1, 1));
+	result = lighting(mat, light, eyev, normalv, point);
+	expected = color_new(1.0, 1.0, 1.0);
+	if (tuple_cmp(expected, result))
+	{
+		fprintf(stderr, "\terror:\texpected:\t");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(result);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+
+
+	eyev = vector_new(0, 0, 0);
+	normalv = vector_new(0, 0, -1);
+	light = point_light(point_new(0, 10, -10), color_new(1, 1, 1));
+	result = lighting(mat, light, eyev, normalv, point);
+	expected = color_new(0.7364, 0.7364, 0.7364);
+	if (tuple_cmp(expected, result))
+	{
+		fprintf(stderr, "\terror:\texpected:\t");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(result);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+
+
+
+	eyev = vector_new(0, -sqrt(2)/2, -sqrt(2)/2);
+	normalv = vector_new(0, 0, -1);
+	light = point_light(point_new(0, 10, -10), color_new(1, 1, 1));
+	result = lighting(mat, light, eyev, normalv, point);
+	expected = color_new(1.6364, 1.6364, 1.6364);
+	if (tuple_cmp(expected, result))
+	{
+		fprintf(stderr, "\terror:\texpected:\t");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(result);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+
+
+	eyev = vector_new(0, 0, -1);
+	normalv = vector_new(0, 0, -1);
+	light = point_light(point_new(0, 0, 10), color_new(1, 1, 1));
+	result = lighting(mat, light, eyev, normalv, point);
+	expected = color_new(0.1, 0.1, 0.1);
+	if (tuple_cmp(expected, result))
+	{
+		fprintf(stderr, "\terror:\texpected:\t");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(result);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+}
