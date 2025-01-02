@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/01 19:56:43 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/02 19:02:43 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,11 @@ int main()
 	// transform_test();
 	// object_transform_test();
 	draw_sphere(&img, &mlx);
-	normal_at_test();
-	transpose_test();
-	reflect_test();
 	test_light();
+	position_test();
+	normal_at_test();
+	// transpose_test();
+	reflect_test();
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
 
 	mlx_loop(mlx.mlx_ptr);

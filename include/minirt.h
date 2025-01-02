@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/30 18:12:07 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/02 18:12:21 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "libft.h"
 #include "data_struct.h"
 
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 1000
+# define HEIGHT 1000
 
 # include "matrix.h"
 # include "objects.h"

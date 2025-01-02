@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/01 20:39:40 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/02 15:10:12 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define DATA_STRUCT_H
 
 typedef union u_matrix			t_matrix;
+typedef	union u_color			t_color;
 typedef enum e_type				t_type;
 typedef struct s_object			t_object;
 typedef struct s_vtable_shape	t_vtable_shape;
@@ -93,6 +94,12 @@ typedef struct s_object
 	t_matrix		transform;
 	t_material		matter;
 }	t_object;
+
+union	u_color
+{
+	unsigned char	bytes[4];
+	unsigned int	color;
+};
 
 typedef struct s_ray
 {

@@ -632,37 +632,37 @@ void	position_test(void)
 
 void	sphere_test(void)
 {
-	t_object		sph;
-	t_ray			ray;
-	t_intersection	inter;
+	// t_object		sph;
+	// t_ray			ray;
+	// t_intersection	inter;
 
-	ray = ray_new(point_new(0, 0, 5), vector_new(0, 0, 1));
-	sph = sphere(point_new(0, 0, 0), 1);
-	if (intersect(ray, sph, &inter.vec))
-		fprintf(stderr, "No intersection possible\n");
-	else
-	{
-		printf("interest at %f and %f\n", inter.vec.x, inter.vec.y);
-	}
+	// ray = ray_new(point_new(0, 0, 5), vector_new(0, 0, 1));
+	// sph = sphere(point_new(0, 0, 0), 1);
+	// if (intersect(ray, sph, &inter.vec))
+	// 	fprintf(stderr, "No intersection possible\n");
+	// else
+	// {
+	// 	printf("interest at %f and %f\n", inter.vec.x, inter.vec.y);
+	// }
 	
 }
 
 void	object_test(void)
 {
-	t_ray			ray;
-	t_object		sph;
-	t_vec2			vec;
-	t_intersection	i;
-	t_intersection	j;
-	float			dis;
+	// t_ray			ray;
+	// t_object		sph;
+	// t_vec2			vec;
+	// t_intersection	i;
+	// t_intersection	j;
+	// float			dis;
 
-	ray = ray_new(point_new(0, 0, 5), vector_new(0, 0, 1));
-	sph = sphere(point_new(0, 0, 0), 1);
-	dis = intersect(ray, sph, &vec);
-	if (dis >= 0)
-		i = intersection(vec.x, sph, vec, dis);
-	if (dis > 0)
-		j = intersection(vec.y, sph, vec, dis);
+	// ray = ray_new(point_new(0, 0, 5), vector_new(0, 0, 1));
+	// sph = sphere(point_new(0, 0, 0), 1);
+	// dis = intersect(ray, sph, &vec);
+	// if (dis >= 0)
+	// 	i = intersection(vec.x, sph, vec, dis);
+	// if (dis > 0)
+	// 	j = intersection(vec.y, sph, vec, dis);
 }
 
 void	transform_test()
@@ -701,43 +701,43 @@ void	transform_test()
 
 void	object_transform_test(void)
 {
-	t_ray			ray;
-	t_object		sph;
-	float			dis;
-	t_vec2			vec;
-	t_intersection	i;
-	t_intersection	j;
+	// t_ray			ray;
+	// t_object		sph;
+	// float			dis;
+	// t_vec2			vec;
+	// t_intersection	i;
+	// t_intersection	j;
 
-	printf("object transform test\n");
-	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
-	sph = sphere(point_new(0, 0, 0), 1);
-	set_transform(&sph, scale(point_new(2, 2, 2)));
-	dis = intersect(ray, sph, &vec);
-	if (dis < 0)
-		fprintf(stderr, "\tno intersection possible\n");
-	if (dis >= 0)
-		i = intersection(vec.x, sph, vec, dis);
-	if (dis > 0)
-		j = intersection(vec.y, sph, vec, dis);
-	printf("\tintersect at %f and %f\n", vec.x, vec.y);
+	// printf("object transform test\n");
+	// ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
+	// sph = sphere(point_new(0, 0, 0), 1);
+	// set_transform(&sph, scale(point_new(2, 2, 2)));
+	// dis = intersect(ray, sph, &vec);
+	// if (dis < 0)
+	// 	fprintf(stderr, "\tno intersection possible\n");
+	// if (dis >= 0)
+	// 	i = intersection(vec.x, sph, vec, dis);
+	// if (dis > 0)
+	// 	j = intersection(vec.y, sph, vec, dis);
+	// printf("\tintersect at %f and %f\n", vec.x, vec.y);
 
 
 
-	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
-	sph = sphere(point_new(0, 0, 0), 1);
-	set_transform(&sph, translate(point_new(5, 0, 0)));
-	dis = intersect(ray, sph, &vec);
-	if (dis < 0)
-		printf("\tdiscriminant is: %f, no intersection possible\n", dis);
-	else
-	{
-		fprintf(stderr, "\tno intersection possible\n");
-		if (dis >= 0)
-			i = intersection(vec.x, sph, vec, dis);
-		if (dis > 0)
-			j = intersection(vec.y, sph, vec, dis);
-		printf("\tintersect at %f and %f\n", vec.x, vec.y);
-	}
+	// ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
+	// sph = sphere(point_new(0, 0, 0), 1);
+	// set_transform(&sph, translate(point_new(5, 0, 0)));
+	// dis = intersect(ray, sph, &vec);
+	// if (dis < 0)
+	// 	printf("\tdiscriminant is: %f, no intersection possible\n", dis);
+	// else
+	// {
+	// 	fprintf(stderr, "\tno intersection possible\n");
+	// 	if (dis >= 0)
+	// 		i = intersection(vec.x, sph, vec, dis);
+	// 	if (dis > 0)
+	// 		j = intersection(vec.y, sph, vec, dis);
+	// 	printf("\tintersect at %f and %f\n", vec.x, vec.y);
+	// }
 }
 
 // void	draw_sphere(t_img *img)
@@ -772,6 +772,32 @@ void	object_transform_test(void)
 // 	}
 // }
 
+unsigned int	tuple_tocolor(t_tuple tcolor)
+{
+	t_color	color;
+
+	if (tcolor.x > 1.0f)
+		color.bytes[0] = 255;
+	else if (tcolor.x < 0.0f)
+		color.bytes[0] = 0;
+	else
+		color.bytes[0] = roundf(tcolor.x * 255);
+	if (tcolor.y > 1.0f)
+		color.bytes[1] = 255;
+	else if (tcolor.y < 0.0f)
+		color.bytes[1] = 0;
+	else
+		color.bytes[1]= roundf(tcolor.y * 255);
+	if (tcolor.z > 1.0f)
+		color.bytes[2] = 255;
+	else if (tcolor.z < 0.0f)
+		color.bytes[2] = 0;
+	else
+		color.bytes[2] = roundf(tcolor.z * 255);
+	color.bytes[3] = 0;
+	return (color.color);
+}
+
 void	draw_sphere(t_img *img, t_mlx *mlx)
 {
 	float			y;
@@ -783,25 +809,29 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 	float			canvas_pixel;
 	float			pixel_size;
 	float			half;
-	t_tuple			position;
-	t_ray			ray;
+	t_tuple			pos;
+	t_tuple			point;
 	t_ray			r;
 	t_object 		sph;
 	t_intersection	inter;
 	t_light			light;
+	t_tuple			normalv;
+	t_tuple			eyev;
+	t_tuple			color;
+	t_tuple			origin;
 
 	y = 0;
-	ray.origin = point_new(0, 0, -5);
+	origin = point_new(0, 0, -5);
 	wall_z = 10;
 	wall_size = 7;
-	canvas_pixel = 500;
+	canvas_pixel = 1000;
 	pixel_size = wall_size / canvas_pixel;
 	half = wall_size / 2;
 	sph = sphere(point_new(0, 0, 1.0f), 1.0f);
 	sph.matter = material();
 	sph.matter.color = color_new(1, 0.2, 1);
 	light = point_light(point_new(-10, 10, -10), color_new(1, 1, 1));
-	// set_transform(&sph, scale(point_new(100, 100, 100)));
+	// set_transform(&sph, scale(point_new(1, 1, 1)));
 	while (y < canvas_pixel - 1)
 	{
 		x = 0;
@@ -809,13 +839,24 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 		while (x < canvas_pixel - 1)
 		{
 			world_x = -half + pixel_size * x;
-			position = point_new(world_x, world_y, wall_z);
-			r = ray_new(ray.origin, tuple_normalize(tuple_substract(position, ray.origin)));
-			if (intersect(r, sph, &inter.vec) >= 0)
-				ak_mlx_pixel_put(img, x, HEIGHT - y, 0xFF0000);
-				// put_pixel(img, 0xFF0000, point_new(x, y, 1));
+			pos = point_new(world_x, world_y, wall_z);
+			r = ray_new(origin, tuple_normalize(tuple_substract(pos, origin)));
+			inter = hit(intersect(r, sph, &inter.vec));
+			if (inter.count > 0)
+			{
+				point = position(r, inter.t);
+				// tuple_print(point);
+				eyev = tuple_negate(r.direction);
+				tuple_print(eyev);
+				normalv = normal_at(inter.object, point);
+				color = lighting(inter.object.matter, light, point, eyev, normalv);
+				// fprintf(stderr, "material link: %f %f %f %f", inter.object.matter.ambient, inter.object.matter.diffuse, inter.object.matter.shininess, inter.object.matter.specular);
+				// tuple_print(inter.object.matter.);
+				ak_mlx_pixel_put(img, x, HEIGHT - y, tuple_tocolor(color));
+			}
 			x++;
 		}
+		printf("color is: %u\n", tuple_tocolor(color_new(1, 0.2, 1)));
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
 		y++;
 	}

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:42:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/01 21:23:59 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/02 19:53:07 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ t_ray	ray_new(t_tuple origin, t_tuple direction)
 
 t_tuple	position(t_ray ray, float factor)
 {
-	return (tuple_add(ray.origin, tuple_multiply(ray.direction, factor)));
+	return (tuple_add(ray.origin, (tuple_multiply(tuple_normalize(ray.direction), factor))));
 }
 
-float	intersect(t_ray ray, t_object object, t_vec2 *vec)
+t_intersection intersect(t_ray ray, t_object object, t_vec2 *vec)
 {
 	float	a;
 	float	b;
@@ -39,24 +39,25 @@ float	intersect(t_ray ray, t_object object, t_vec2 *vec)
 	b = 2 * tuple_dot(ray.direction, sphere_to_ray);
 	c = tuple_dot(sphere_to_ray, sphere_to_ray) - 1;
 	dis = pow(b, 2) - 4 * a * c;
-	if (dis < 0)
-		return (dis);
 	vec->x = (-b - sqrt(dis)) / (2 * a);
 	vec->y = (-b + sqrt(dis)) / (2 * a);
-	return (dis);
+	return (intersection(object, *vec, dis));
 }
 
-t_intersection	intersection(float t, t_object obj, t_vec2 vec, float dis)
+t_intersection	intersection(t_object obj, t_vec2 vec, float dis)
 {
 	t_intersection	new;
 	float			tmp;
 
 	new = (t_intersection){
-		.t = t,
 		.object = obj,
-		.vec = vec
+		.vec = vec,
+		.count = 0,
+		.t = 0
 	};
-	if (!dis)
+	if (dis < 0)
+		return (new);
+	else if (!dis)
 		new.count = 1;
 	else
 		new.count = 2;
@@ -66,25 +67,20 @@ t_intersection	intersection(float t, t_object obj, t_vec2 vec, float dis)
 		new.vec.x = new.vec.y;
 		new.vec.y = tmp;
 	}
+	new.t = new.vec.x;
 	return (new);
 }
 
-float	hit(t_ray ray, t_object obj, t_intersection *inter)
+t_intersection	hit(t_intersection inter)
 {
-	float			t;
-	float			dis;
-	t_vec2			vec;
-	t_intersection inter;
-
-	dis = intersect(ray, obj, &vec);
-	if (vec.x < 0 && vec.y < 0)
-		return (-1);
-	if (vec.x < 0)
-		t = vec.y;
-	else if (vec.y < 0)
-		t = vec.x;
-	t = fmin(vec.x, vec.y);
-	*inter = intersection(t, obj, vec, dis);
+	if (inter.vec.x < 0 && inter.vec.y < 0)
+		return (inter);
+	if (inter.vec.x < 0)
+		inter.t = inter.vec.y;
+	else if (inter.vec.y < 0)
+		inter.t = inter.vec.x;
+	inter.t = fmin(inter.vec.x, inter.vec.y);
+	return (inter);
 }
 
 

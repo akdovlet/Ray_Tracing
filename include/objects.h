@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/01 21:18:09 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/02 13:55:22 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@
 t_object		sphere(t_tuple point, float radius);
 void			sphere_test(void);
 
-float			intersect(t_ray ray, t_object object, t_vec2 *vec);
-t_intersection	intersection(float t, t_object obj, t_vec2 vec, float dis);
-float			hit(t_vec2 vec);
+t_intersection	intersect(t_ray ray, t_object object, t_vec2 *vec);
+t_intersection	intersection(t_object obj, t_vec2 vec, float dis);
+t_intersection	hit(t_intersection inter);
+
 t_ray			ray_transform(t_ray ray, t_matrix m);
 void			set_transform(t_object *obj, t_matrix m);
 t_tuple			normal_at(t_object obj, t_tuple world_point);
