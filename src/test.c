@@ -904,8 +904,7 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 			world_x = -half + pixel_size * x;
 			pos = point_new(world_x, world_y, wall_z);
 			r = ray_new(origin, tuple_normalize(tuple_substract(pos, origin)));
-			inter.xs = intersect(r, sph);
-			inter = hit(intersection(sph, inter.xs));
+			inter = hit(intersection(sph, intersect(r, sph)));
 			if (inter.count > 0)
 			{
 				// fprintf(stderr, "hit is: ");
