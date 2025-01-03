@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:23:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/31 19:07:16 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:15:27 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,7 @@ void		normal_at_test(void);
 void		transpose_test(void);
 void		reflect_test(void);
 void		test_light(void);
+void		test_color();
+void	intersection_test(void);
 
 #endif

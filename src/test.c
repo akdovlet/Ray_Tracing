@@ -331,15 +331,12 @@ void test_matrix_operation()
 
 void test_color()
 {
-
-	/*
 	t_tuple	p;
 	t_tuple	v;
 	t_tuple	new;
 
 	p = point_new(4, -4, 3);
 	v = vector_new(4, -4, 3);
-	test_init_tuple(p, v);
 
 
 	new = tuple_add(p, v);
@@ -391,6 +388,8 @@ void test_color()
 	fprintf(stderr, "normalized vector v2:1.2.3 is: %.2f, %.2f, %.2f, %.2f\n\n", new.x, new.y, new.z, new.w);
 	
 	fprintf(stderr, "dot factor test\n");
+	v1 = vector_new(1, 2, 3);
+	v2 = vector_new(2, 3, 4);
 	fprintf(stderr, "v1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v1.x, v1.y, v1.z, v1.w);
 	fprintf(stderr, "v2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v2.x, v2.y, v2.z, v2.w);
 	fprintf(stderr, "dot factor of v1 and v2 is: %.2f\n\n", tuple_dot(v1, v2));
@@ -431,7 +430,7 @@ void test_color()
 	c2 = color_new(0.9, 1, 0.1);
 	c_new = color_hadamard(c1, c2);
 	fprintf(stderr, "c1 * c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
- */
+
 }
 
 
@@ -722,7 +721,6 @@ void	object_transform_test(void)
 	// printf("\tintersect at %f and %f\n", vec.x, vec.y);
 
 
-
 	// ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
 	// sph = sphere(point_new(0, 0, 0), 1);
 	// set_transform(&sph, translate(point_new(5, 0, 0)));
@@ -771,6 +769,71 @@ void	object_transform_test(void)
 // 		y++;
 // 	}
 // }
+
+void	intersection_test(void)
+{
+	printf("\nIntersection test\n");
+
+	t_ray ray;
+	t_object sph;
+	t_intersection inter;
+
+	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
+	sph = sphere(point_new(0, 0, 0), 1);
+	inter.xs = intersect(ray, sph);
+	if (inter.xs.x != 4 || inter.xs.y != 6)
+		fprintf(stderr, "\tError: expected 4, 6; got: %f, %f\n", inter.xs.x, inter.xs.y);
+	else
+		printf("\tOk\n");
+	inter = hit(inter);
+	if (inter.t != 4)
+		fprintf(stderr, "inter t is: %f, expected 4\n", inter.t);
+
+	ray = ray_new(point_new(0, 1, -5), vector_new(0, 0, 1));
+	sph = sphere(point_new(0, 0, 0), 1);
+	inter.xs = intersect(ray, sph);
+	if (inter.xs.x != 5 || inter.xs.y != 5)
+		fprintf(stderr, "\tError: expected 4, 6; got: %f, %f\n", inter.xs.x, inter.xs.y);
+	else
+		printf("\tOk\n");
+	inter = hit(inter);
+	if (inter.t != 5)
+		fprintf(stderr, "inter t is: %f, expected 5\n", inter.t);
+
+	ray = ray_new(point_new(0, 2, -5), vector_new(0, 0, 1));
+	sph = sphere(point_new(0, 0, 0), 1);
+	inter.xs = intersect(ray, sph);
+	if (inter.xs.dis >= 0)
+		fprintf(stderr, "\tError: expected 0; got: %f", inter.xs.dis);
+	else
+		printf("\tOk\n");
+	inter = hit(inter);
+	if (inter.count != 0)
+		fprintf(stderr, "inter count is: %d, expected 0\n", inter.count);
+
+	ray = ray_new(point_new(0, 0, 0), vector_new(0, 0, 1));
+	sph = sphere(point_new(0, 0, 0), 1);
+	inter.xs = intersect(ray, sph);
+	if (inter.xs.x != -1.0 || inter.xs.y != 1)
+		fprintf(stderr, "\tError: expected -1, 1; got: %f, %f", inter.xs.x, inter.xs.y);
+	else
+		printf("\tOk\n");
+	inter = hit(inter);
+	if (inter.t != 1)
+		fprintf(stderr, "inter t is: %f, expected 1\n", inter.t);
+
+
+	ray = ray_new(point_new(0, 0, 5), vector_new(0, 0, 1));
+	sph = sphere(point_new(0, 0, 0), 1);
+	inter.xs = intersect(ray, sph);
+	if (inter.xs.x != -6.0 || inter.xs.y != -4.0)
+		fprintf(stderr, "\tError: expected -6, -4; got: %f, %f", inter.xs.x, inter.xs.y);
+	else
+		printf("\tOk\n");
+	inter = hit(inter);
+	if (inter.t != 0)
+		fprintf(stderr, "inter t is: %f, expected 0\n", inter.t);
+}
 
 unsigned int	tuple_tocolor(t_tuple tcolor)
 {
@@ -827,7 +890,7 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 	canvas_pixel = 1000;
 	pixel_size = wall_size / canvas_pixel;
 	half = wall_size / 2;
-	sph = sphere(point_new(0, 0, 1.0f), 1.0f);
+	sph = sphere(point_new(0, 0, 0), 1.0f);
 	sph.matter = material();
 	sph.matter.color = color_new(1, 0.2, 1);
 	light = point_light(point_new(-10, 10, -10), color_new(1, 1, 1));
@@ -841,14 +904,16 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 			world_x = -half + pixel_size * x;
 			pos = point_new(world_x, world_y, wall_z);
 			r = ray_new(origin, tuple_normalize(tuple_substract(pos, origin)));
-			inter = hit(intersect(r, sph, &inter.vec));
+			inter.xs = intersect(r, sph);
+			inter = hit(intersection(sph, inter.xs));
 			if (inter.count > 0)
 			{
+				// fprintf(stderr, "hit is: ");
 				point = position(r, inter.t);
 				// tuple_print(point);
 				eyev = tuple_negate(r.direction);
-				tuple_print(eyev);
 				normalv = normal_at(inter.object, point);
+				// tuple_print(normalvv);
 				color = lighting(inter.object.matter, light, point, eyev, normalv);
 				// fprintf(stderr, "material link: %f %f %f %f", inter.object.matter.ambient, inter.object.matter.diffuse, inter.object.matter.shininess, inter.object.matter.specular);
 				// tuple_print(inter.object.matter.);
@@ -856,7 +921,7 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 			}
 			x++;
 		}
-		printf("color is: %u\n", tuple_tocolor(color_new(1, 0.2, 1)));
+		// printf("color is: %u\n", tuple_tocolor(color_new(1, 0.2, 1)));
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
 		y++;
 	}
@@ -944,7 +1009,9 @@ void	reflect_test(void)
 		tuple_print(r);
 	}
 	else
+	{
 		printf("\tOK\n");
+	}
 
 
 	v = vector_new(0, -1, 0);

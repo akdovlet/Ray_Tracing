@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/02 15:10:12 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:56:06 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_vtable_shape	t_vtable_shape;
 
 typedef struct s_vec2
 {
+	float	dis;
 	float	x;
 	float	y;
 }	t_vec2;
@@ -112,7 +113,7 @@ typedef struct s_interesection
 	float		t;
 	int			count;
 	t_object	object;
-	t_vec2		vec;
+	t_vec2		xs;
 }	t_intersection;
 
 #endif
