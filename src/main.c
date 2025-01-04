@@ -6,12 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/03 20:56:55 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/04 15:03:13 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "test.h"
+#include "tuple.h"
 
 void	put_pixel(t_img *img, unsigned int color, t_tuple t1)
 {
@@ -35,15 +36,17 @@ int main()
 	// transform_test();
 	// object_transform_test();
 	draw_sphere(&img, &mlx);
-	test_light();
-	position_test();
-	normal_at_test();
+	// test_light();
+	// position_test();
+	// normal_at_test();
 	// transpose_test();
-	reflect_test();
+	// reflect_test();
 	// test_color();
-	intersection_test();
+	// intersection_test();
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
 
 	mlx_loop(mlx.mlx_ptr);
 	mlx_clear(&mlx, &img);
+	printf("AK out!\n");
+	return (0);
 }

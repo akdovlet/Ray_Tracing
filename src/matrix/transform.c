@@ -6,28 +6,28 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 10:22:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/26 10:38:41 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/04 15:12:33 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_matrix	scale(t_tuple t1)
+t_matrix	scale(float x, float y, float z)
 {
 	return ((t_matrix){{
-			{t1.x, 0, 0, 0}, \
-			{0, t1.y, 0, 0}, \
-			{0, 0, t1.z, 0}, \
+			{x, 0, 0, 0}, \
+			{0, y, 0, 0}, \
+			{0, 0, z, 0}, \
 			{0, 0, 0, 1} \
 	}});
 }
 
-t_matrix	translate(t_tuple t1)
+t_matrix	translate(float x, float y, float z)
 {
 	return ((t_matrix){{
-			{1, 0, 0, t1.x}, \
-			{0, 1, 0, t1.y}, \
-			{0, 0, 1, t1.z}, \
+			{1, 0, 0, x}, \
+			{0, 1, 0, y}, \
+			{0, 0, 1, z}, \
 			{0, 0, 0, 1} \
 	}});
 }

@@ -503,7 +503,7 @@ void	test_clock(t_img *img)
 
 	t_matrix t = compose(2, (t_matrix[]){
 		rotate_z(radians(90)),
-		translate(translation),
+		translate(1, -HEIGHT * 0.375, 1),
 	});
 	fprintf(stderr, "compose matrix:\n");
 	print_matrix(t.raw);
@@ -672,7 +672,7 @@ void	transform_test()
 
 	printf("Ray transform test\n");
 	ray = ray_new(point_new(1, 2, 3), vector_new(0, 1, 0));
-	new = ray_transform(ray, translate(point_new(3, 4, 5)));
+	new = ray_transform(ray, translate(3, 4, 5));
 	expected = point_new(4, 6, 8);
 	printf("\tRay translate:\n");
 	if (tuple_cmp(new.origin, expected))
@@ -685,7 +685,7 @@ void	transform_test()
 	else
 		printf("\tOK\n");
 	printf("\tRay scale:\n");
-	new = ray_transform(ray, scale(point_new(2, 3, 4)));
+	new = ray_transform(ray, scale(2, 3, 4));
 	expected = point_new(2, 6, 12);
 	if (tuple_cmp(new.origin, expected) || tuple_cmp(new.direction, vector_new(0, 3, 0)))
 	{
@@ -887,13 +887,13 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 	origin = point_new(0, 0, -5);
 	wall_z = 10;
 	wall_size = 7;
-	canvas_pixel = 1000;
+	canvas_pixel = 500;
 	pixel_size = wall_size / canvas_pixel;
 	half = wall_size / 2;
 	sph = sphere(point_new(0, 0, 0), 1.0f);
 	sph.matter = material();
 	sph.matter.color = color_new(1, 0.2, 1);
-	light = point_light(point_new(-10, 10, -10), color_new(1, 1, 1));
+	light = point_light(point_new(-10, -10, -10), color_new(1, 1, 1));
 	// set_transform(&sph, scale(point_new(1, 1, 1)));
 	while (y < canvas_pixel - 1)
 	{
@@ -913,7 +913,7 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 				eyev = tuple_negate(r.direction);
 				normalv = normal_at(inter.object, point);
 				// tuple_print(normalvv);
-				color = lighting(inter.object.matter, light, point, eyev, normalv);
+				color = lighting(inter.object.matter, light, eyev, normalv, point);
 				// fprintf(stderr, "material link: %f %f %f %f", inter.object.matter.ambient, inter.object.matter.diffuse, inter.object.matter.shininess, inter.object.matter.specular);
 				// tuple_print(inter.object.matter.);
 				ak_mlx_pixel_put(img, x, HEIGHT - y, tuple_tocolor(color));
@@ -934,7 +934,7 @@ void	normal_at_test(void)
 
 	printf("\nnormal at test\n");
 	sph = sphere(point_new(0, 0, 0), 1);
-	set_transform(&sph, translate(point_new(0, 1, 0)));
+	set_transform(&sph, translate(0, 1, 0));
 	normal = normal_at(sph, point_new(0, 1.70711, -0.70711));
 	expected = vector_new(0, 0.70711, -0.70711);
 	if (tuple_cmp(normal, expected))
@@ -946,7 +946,7 @@ void	normal_at_test(void)
 	}
 
 	sph = sphere(point_new(0, 0, 0), 1);
-	set_transform(&sph, multiply_matrix(scale(point_new(1, 0.5, 1)), rotate_z(M_PI / 5)));
+	set_transform(&sph, multiply_matrix(scale(1, 0.5, 1), rotate_z(M_PI / 5)));
 	normal = normal_at(sph, point_new(0, sqrt(2) / 2, -sqrt(2) / 2));
 	expected = vector_new(0, 0.97014, -0.24254);
 	if (tuple_cmp(normal, expected))

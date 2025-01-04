@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 19:46:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/04 10:45:12 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/04 14:43:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,10 @@ t_tuple	lighting(t_material mat, t_light light, t_tuple eyev, t_tuple normalv, t
 		diffuse = tuple_multiply(tmp, light_dot_normal);
 		reflectv = reflect(tuple_negate(lightv), normalv);
 		reflect_dot_eye = tuple_dot(reflectv, eyev);
-		// printf("reflect_dot_eye is: %f\n", reflect_dot_eye);
 		if (reflect_dot_eye <= 0.0f)
 			specular = color_new(0, 0, 0);
 		else
 		{
-			// printf("reflect.eye is: %f and mat.shininess is: %f\n", reflect_dot_eye, mat.shininess);
-			// if (reflect_dot_eye >=1)
-			// 	printf("factor is: %f\n", factor);
 			specular = tuple_multiply(light.intensity, mat.specular);
 			specular = tuple_multiply(specular, reflect_dot_eye);
 			specular = tuple_multiply(specular, factor);

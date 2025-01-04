@@ -6,11 +6,12 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 12:05:06 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/26 09:34:08 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/04 14:54:23 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "tuple.h"
 
 t_matrix multiply_matrix(t_matrix a, t_matrix b)
 {

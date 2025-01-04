@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/03 16:33:58 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/04 14:55:40 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@
 # include "X11/keysym.h"
 # include "mlx.h"
 # include "libft.h"
-#include "data_struct.h"
+# include "data_struct.h"
+# include "tuple.h"
 
-# define WIDTH 1000
-# define HEIGHT 1000
+# define WIDTH 500
+# define HEIGHT 500
 
 # include "matrix.h"
 # include "objects.h"

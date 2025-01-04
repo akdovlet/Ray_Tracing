@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/03 18:56:06 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/04 14:44:56 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,5 +115,12 @@ typedef struct s_interesection
 	t_object	object;
 	t_vec2		xs;
 }	t_intersection;
+
+typedef struct s_world
+{
+	int			obj_count;
+	t_object	*obj;
+	t_light		light;
+}	t_world;
 
 #endif
