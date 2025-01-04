@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/04 14:44:56 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/04 15:37:42 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,11 @@ typedef struct s_ray
 
 typedef struct s_interesection
 {
-	float		t;
-	int			count;
-	t_object	object;
-	t_vec2		xs;
+	float					t;
+	int						count;
+	t_object				object;
+	t_vec2					xs;
+	struct s_intersection	*next;
 }	t_intersection;
 
 typedef struct s_world

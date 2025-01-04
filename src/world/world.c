@@ -6,14 +6,14 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/04 15:26:35 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/04 15:59:29 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "light.h"
 #include "tuple.h"
-
+#include "objects.h"
 
 t_world	default_world(void)
 {
@@ -29,6 +29,8 @@ t_world	default_world(void)
 		};
 	objects[1] = sphere(point_new(0.0, 0.0, 0.0), 1.0);
 	objects[1].transform = (scale(0.5, 0.5 , 0.5));
+	world.obj = objects;
+	world.obj_count = 2;
 	return (world);
 }
 
@@ -40,7 +42,20 @@ t_world	new_world(t_light light, t_object *obj)
 	});
 }
 
-void	intersect_world(t_world world, t_ray ray)
+t_intersection	*intersect_world(t_world world, t_ray ray)
 {
-	
+	int				i;
+	t_intersection	*lst;
+	t_intersection	inter;
+
+	i = 0;
+	lst = NULL;
+	while (i < world.obj_count)
+	{
+		inter = hit(intersection(world.obj[i], intersect(ray, world.obj[i])));
+		if (inter.count)
+			inter_addback(&lst, inter_new(inter));
+		i++;
+	}
+	return (lst);
 }
