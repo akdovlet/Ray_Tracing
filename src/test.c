@@ -840,11 +840,11 @@ unsigned int	tuple_tocolor(t_tuple tcolor)
 	t_color	color;
 
 	if (tcolor.x > 1.0f)
-		color.bytes[0] = 255;
+		color.bytes[2] = 255;
 	else if (tcolor.x < 0.0f)
-		color.bytes[0] = 0;
+		color.bytes[2] = 0;
 	else
-		color.bytes[0] = roundf(tcolor.x * 255);
+		color.bytes[2] = roundf(tcolor.x * 255);
 	if (tcolor.y > 1.0f)
 		color.bytes[1] = 255;
 	else if (tcolor.y < 0.0f)
@@ -852,11 +852,11 @@ unsigned int	tuple_tocolor(t_tuple tcolor)
 	else
 		color.bytes[1]= roundf(tcolor.y * 255);
 	if (tcolor.z > 1.0f)
-		color.bytes[2] = 255;
+		color.bytes[0] = 255;
 	else if (tcolor.z < 0.0f)
-		color.bytes[2] = 0;
+		color.bytes[0] = 0;
 	else
-		color.bytes[2] = roundf(tcolor.z * 255);
+		color.bytes[0] = roundf(tcolor.z * 255);
 	color.bytes[3] = 0;
 	return (color.color);
 }
