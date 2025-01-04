@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/04 15:44:30 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/04 18:40:09 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 #include "minirt.h"
 #include "data_struct.h"
-
 
 t_object		sphere(t_tuple point, float radius);
 void			sphere_test(void);
@@ -30,9 +29,8 @@ t_tuple			normal_at(t_object obj, t_tuple world_point);
 t_tuple			reflect(t_tuple in, t_tuple normal);
 t_material		material(void);
 
-t_intersection	*inter_new(t_intersection inter);
-void			inter_addback(t_intersection **lst, t_intersection *new);
-
+t_world			default_world(void);
+t_junction		intersect_world(t_world world, t_ray ray);
 
 // struct s_vtable_shape {
 // 	void (*intersection)(t_object*, t_ray*);

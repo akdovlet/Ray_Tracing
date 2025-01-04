@@ -894,7 +894,6 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 	sph.matter = material();
 	sph.matter.color = color_new(1, 0.2, 1);
 	light = point_light(point_new(-10, -10, -10), color_new(1, 1, 1));
-	// set_transform(&sph, scale(point_new(1, 1, 1)));
 	while (y < canvas_pixel - 1)
 	{
 		x = 0;
@@ -907,20 +906,14 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 			inter = hit(intersection(sph, intersect(r, sph)));
 			if (inter.count > 0)
 			{
-				// fprintf(stderr, "hit is: ");
 				point = position(r, inter.t);
-				// tuple_print(point);
 				eyev = tuple_negate(r.direction);
 				normalv = normal_at(inter.object, point);
-				// tuple_print(normalvv);
 				color = lighting(inter.object.matter, light, eyev, normalv, point);
-				// fprintf(stderr, "material link: %f %f %f %f", inter.object.matter.ambient, inter.object.matter.diffuse, inter.object.matter.shininess, inter.object.matter.specular);
-				// tuple_print(inter.object.matter.);
 				ak_mlx_pixel_put(img, x, HEIGHT - y, tuple_tocolor(color));
 			}
 			x++;
 		}
-		// printf("color is: %u\n", tuple_tocolor(color_new(1, 0.2, 1)));
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
 		y++;
 	}
@@ -1133,5 +1126,23 @@ void	test_light(void)
 	else
 	{
 		printf("\tOK\n");
+	}
+}
+
+void	test_intersect_world(void)
+{
+	int			i;
+	t_ray		ray;
+	t_world		world;
+	t_junction	hits;
+
+	i = 0;
+	world = default_world();
+	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
+	hits = intersect_world(world, ray);
+	while (i < hits.count)
+	{
+		printf("hits[%d].t: %f\n", i, hits.t[i]);
+		i++;
 	}
 }

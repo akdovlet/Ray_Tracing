@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/01/01 19:48:42 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/01/04 18:27:03 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ SRC		:=	main.c							\
 			tuple/tuple_normalize.c			\
 			tuple/tuple_print.c				\
 			tuple/tuple_scalar.c			\
-			tuple/tuple_substract.c
+			tuple/tuple_substract.c			\
+			world/world.c
 
 SRC_DIR	:=	src
 BUILD	:=	.build
