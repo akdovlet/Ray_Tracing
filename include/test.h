@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:23:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/04 18:44:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/05 18:46:11 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,11 @@ void		test_light(void);
 void		test_color();
 void		intersection_test(void);
 void		test_intersect_world(void);
+void		test_pre_compute(void);
+void		test_shading(void);
+void		test_color_at(void);
+void		test_view_transform(void);
+void		test_camera(void);
+void		test_ray_for_pixel(void);
 
 #endif

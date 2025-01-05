@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/04 18:21:32 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/05 18:06:09 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,17 +116,45 @@ typedef struct s_intersection
 	t_vec2					xs;
 }	t_intersection;
 
+typedef struct s_crossing
+{
+	float	t;
+	t_object	obj;
+}	t_crossing;
+
 typedef struct s_junction
 {
-	int		count;
-	float	t[1024];
+	int			count;
+	t_crossing	cross[1024];
 }	t_junction;
 
 typedef struct s_world
 {
 	int			obj_count;
-	t_object	*obj;
+	t_object	obj[2];
 	t_light		light;
 }	t_world;
+
+typedef struct s_comps
+{
+	float		t;
+	bool		inside;
+	t_object	obj;
+	t_tuple		world_point;
+	t_tuple		eyev;
+	t_tuple		normalv;
+}	t_comps;
+
+typedef struct s_camera
+{
+	float		hsize;
+	float		vsize;
+	float		fov;
+	float		psize;
+	float		half_view;
+	float		half_width;
+	float		half_height;
+	t_matrix	transform;
+}	t_camera;
 
 #endif

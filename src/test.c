@@ -1140,9 +1140,361 @@ void	test_intersect_world(void)
 	world = default_world();
 	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
 	hits = intersect_world(world, ray);
+	printf("hits count is: %d\n", hits.count);
 	while (i < hits.count)
 	{
-		printf("hits[%d].t: %f\n", i, hits.t[i]);
+		printf("hits[%d].t: %f\n", i, hits.cross[i].t);
 		i++;
+	}
+}
+
+void	test_pre_compute(void)
+{
+	t_ray		ray;
+	t_crossing	cross;
+	t_comps		comps;
+
+	printf("\nPre_compute test\n");
+
+	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
+	cross.obj = sphere(point_new(0, 0, 0), 1);
+	cross.t = 4;
+	comps = pre_compute(cross, ray);
+	if (tuple_cmp(comps.world_point, point_new(0, 0, -1)))
+	{
+		fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
+		tuple_print(comps.world_point);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+	if (tuple_cmp(comps.eyev, vector_new(0, 0, -1)))
+	{
+		fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
+		tuple_print(comps.eyev);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+	if (tuple_cmp(comps.normalv, vector_new(0, 0, -1)))
+	{
+		fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
+		tuple_print(comps.normalv);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+
+
+	ray = ray_new(point_new(0, 0, 0), vector_new(0, 0, 1));
+	cross.obj = sphere(point_new(0, 0, 0), 1);
+	cross.t = 1;
+	comps = pre_compute(cross, ray);
+	if (tuple_cmp(comps.world_point, point_new(0, 0, 1)))
+	{
+		fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
+		tuple_print(comps.world_point);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+	if (tuple_cmp(comps.eyev, vector_new(0, 0, -1)))
+	{
+		fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
+		tuple_print(comps.eyev);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+	if (tuple_cmp(comps.normalv, vector_new(0, 0, -1)))
+	{
+		fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
+		tuple_print(comps.normalv);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+	if (!comps.inside)
+		printf("\tError: expected comps.inside = true\n");
+	else
+		printf("\tOK\n");
+}
+
+void	test_shading(void)
+{
+	t_world		world;
+	t_ray		ray;
+	t_crossing	cross;
+	t_comps		comps;
+	t_tuple		color;
+
+	printf("\nShading test\n");
+	world = default_world();
+	// tuple_print(world.light.position);
+	// tuple_print(world.light.intensity);
+	// tuple_print(world.obj[0].coordinates);
+	// tuple_print(world.obj[0].matter.color);
+	// printf("object diffuse: %f, specular: %f, ambient: %f, shininess: %f\n", world.obj[0].matter.diffuse, world.obj[0].matter.specular,
+	// 		world.obj[0].matter.ambient, world.obj[0].matter.shininess);
+	// tuple_print(world.obj[0].coordinates);
+	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
+	cross.t = 4;
+	cross.obj = world.obj[0];
+	comps = pre_compute(cross, ray);
+	color = shade_hit(world, comps);
+	if (tuple_cmp(color, color_new(0.380f, 0.475f, 0.285f)))
+	{
+		fprintf(stderr, "\tError:\texpected:\t");
+		tuple_print(color_new(0.380f, 0.475f, 0.285f));
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(color);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+
+
+	ray = ray_new(point_new(0, 0, 0), vector_new(0, 0, 1));
+	world.light = point_light(point_new(0, 0.25, 0), color_new(1, 1, 1));
+	cross.obj = world.obj[1];
+	cross.t = 0.5;
+	comps = pre_compute(cross, ray);
+	color = shade_hit(world, comps);
+	t_tuple expected = color_new(0.90498, 0.90498, 0.90498);
+	if (tuple_cmp(color, expected))
+	{
+		fprintf(stderr, "\tError:\texpected:\t");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(color);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+}
+
+void	test_color_at(void)
+{
+	t_world	world;
+	t_ray	ray;
+	t_tuple	color;
+	t_tuple	expected;
+
+	printf("\nColor at test\n");
+	world = default_world();
+	ray = ray_new(point_new(0, 0, -5), vector_new(0, 1, 0));
+	color = color_at(world, ray);
+	expected = color_new(0, 0, 0);
+	if (tuple_cmp(color, expected))
+	{
+		fprintf(stderr, "\tError:\texpected:\t");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(color);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+
+
+	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
+	color = color_at(world, ray);
+	expected = color_new(0.38066, 0.47583, 0.2855);
+	if (tuple_cmp(color, expected))
+	{
+		fprintf(stderr, "\tError:\texpected:\t");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(color);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+
+	t_object tmp;
+	world.obj[1].matter.ambient = 1;
+	world.obj[0].matter.ambient = 1;
+	tmp = world.obj[0];
+	world.obj[0] = world.obj[1];
+	world.obj[1] = tmp;
+	ray = ray_new(point_new(0, 0, 0.75), vector_new(0, 0, -1));
+	color = color_at(world, ray);
+	expected = world.obj[1].matter.color;
+	if (tuple_cmp(color, expected))
+	{
+		fprintf(stderr, "\tError:\texpected:\t");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(color);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+}
+
+void	test_view_transform(void)
+{
+	t_tuple		from;
+	t_tuple		to;
+	t_tuple		up;
+	t_matrix	m;
+	t_matrix	expected;
+
+	printf("\nTest view transform\n");
+	from = point_new(0, 0, 0); 
+	to = point_new(0, 0, -1);
+	up = vector_new(0, 1, 0);
+	m = view_transform(from, to, up);
+	if (matrix_cmp(m, identity(), 4, 4))
+	{
+		fprintf(stderr, "\tError:\texpected:\n");
+		print_matrix(identity().raw);
+		fprintf(stderr, "\tgot:\n");
+		print_matrix(m.raw);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+
+	from = point_new(1, 3, 2); 
+	to = point_new(4, -2, 8);
+	up = vector_new(1, 1, 0);
+	m = view_transform(from, to, up);
+	expected = (t_matrix){{
+		{-0.507093,	0.507093,	0.676123,	-2.366432},
+		{0.767716,	0.606091,	0.121218,	-2.828427},
+		{-0.358569,	0.597614,	-0.71713,7	-0.000000},
+		{0.000000,	0.000000,	0.000000,	1.000000}
+	}};
+	if (matrix_cmp(m, expected, 4, 4))
+	{
+		fprintf(stderr, "\tError:\texpected:\n");
+		print_matrix(expected.raw);
+		fprintf(stderr, "\tgot:\n");
+		print_matrix(m.raw);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+}
+
+
+void	test_camera(void)
+{
+	t_camera	cam;
+
+
+	printf("\nCamera test\n");
+	cam = camera_new(200, 125, M_PI / 2);
+	// printf("camera hsize: %f, vsize: %f, fov: %f\n", cam.hsize, cam.vsize, cam.fov);
+	// print_matrix(cam.transform.raw);
+	if (float_equal(0.01, cam.psize))
+	{
+		fprintf(stderr, "\tError: expected: 0.01, got: %f\n", cam.psize);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+	
+	cam = camera_new(125, 200, M_PI / 2);
+	// printf("camera hsize: %f, vsize: %f, fov: %f\n", cam.hsize, cam.vsize, cam.fov);
+	// print_matrix(cam.transform.raw);
+	if (float_equal(0.01, cam.psize))
+	{
+		fprintf(stderr, "\tError: expected: 0.01, got: %f\n", cam.psize);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+}
+
+t_ray	ray_for_pixel(t_camera cam, float x, float y)
+{
+	float	world_y;
+	float	world_x;
+	t_tuple	pixel;
+	t_ray	ray;
+
+	world_x = cam.half_width - ((x + 0.5) * cam.psize);
+	world_y = cam.half_height - ((y + 0.5) * cam.psize);
+	pixel = matrix_multiply_tuple(inverse(cam.transform), point_new(world_x, world_y, -1));
+	ray.origin = matrix_multiply_tuple(inverse(cam.transform), point_new(0, 0, 0));
+	ray.direction = tuple_normalize(tuple_substract(pixel, ray.origin));
+	return (ray);
+}
+
+void	test_ray_for_pixel(void)
+{
+	t_camera cam;
+	t_ray	ray;
+	t_ray	expected;
+
+	printf("\nTest ray for pixel\n");
+	cam = camera_new(201, 101, M_PI / 2);
+	ray = ray_for_pixel(cam, 100, 50);
+	expected = ray_new(point_new(0, 0, 0), vector_new(0, 0, -1));
+	if (tuple_cmp(ray.direction, expected.direction) || tuple_cmp(ray.origin, expected.origin))
+	{
+		fprintf(stderr, "\tError:\texpected:\n");
+		tuple_print(expected.origin);
+		tuple_print(expected.direction);
+		fprintf(stderr, "\tgot:\n");
+		tuple_print(ray.origin);
+		tuple_print(ray.direction);
+		fprintf(stderr, "\n");
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+
+	ray = ray_for_pixel(cam, 0, 0);
+	expected = ray_new(point_new(0, 0, 0), vector_new(0.66519, 0.33259, -0.66851));
+	if (tuple_cmp(ray.direction, expected.direction) || tuple_cmp(ray.origin, expected.origin))
+	{
+		fprintf(stderr, "\tError:\texpected:\n");
+		tuple_print(expected.origin);
+		tuple_print(expected.direction);
+		fprintf(stderr, "\tgot:\n");
+		tuple_print(ray.origin);
+		tuple_print(ray.direction);
+		fprintf(stderr, "\n");
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+
+	cam.transform = multiply_matrix(rotate_y(M_PI / 4), translate(0, -2, 5));
+	ray = ray_for_pixel(cam, 100, 50);
+	expected = ray_new(point_new(0, 2, -5), vector_new(sqrt(2)/2, 0, sqrt(2)/2));
+	if (tuple_cmp(ray.direction, expected.direction) || tuple_cmp(ray.origin, expected.origin))
+	{
+		fprintf(stderr, "\tError:\texpected:\n");
+		tuple_print(expected.origin);
+		tuple_print(expected.direction);
+		fprintf(stderr, "\tgot:\n");
+		tuple_print(ray.origin);
+		tuple_print(ray.direction);
+		fprintf(stderr, "\n");
+	}
+	else
+	{
+		printf("\tOK\n");
 	}
 }

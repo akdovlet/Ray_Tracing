@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tuple_cmp.c                                        :+:      :+:    :+:   */
+/*   pre_compute.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 16:48:59 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/05 17:05:56 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/01/05 14:52:44 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/01/05 15:25:21 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	float_equal(float a, float b)
+t_comps	pre_compute(t_crossing cross, t_ray ray)
 {
-	if (fabs(a - b) < __FLT_EPSILON__)
-		return (0);
-	return (1);
-}
+	t_comps	new;
 
-int	tuple_cmp(t_tuple a, t_tuple b)
-{
-	if (float_equal(a.x, b.x))
-		return (1);
-	if (float_equal(a.y, b.y))
-		return (1);
-	if (float_equal(a.z, b.z))
-		return (1);
-	return (0);
+	new.t = cross.t;
+	new.obj = cross.obj;
+	new.world_point = position(ray, cross.t);
+	new.eyev = tuple_negate(ray.direction);
+	new.normalv = normal_at(new.obj, new.world_point);
+	if (tuple_dot(new.normalv, new.eyev) < 0.0f)
+	{
+		new.inside = true;
+		new.normalv = tuple_negate(new.normalv);
+	}
+	else
+		new.inside = false;
+	return (new);
 }
