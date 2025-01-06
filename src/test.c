@@ -835,17 +835,6 @@ void	intersection_test(void)
 		fprintf(stderr, "inter t is: %f, expected 0\n", inter.t);
 }
 
-unsigned int	tuple_tocolor(t_tuple tcolor)
-{
-	t_color	color;
-
-	color.bytes[2] = fmin(roundf(tcolor.x * 255), 255);
-	color.bytes[1]= fmin(roundf(tcolor.y * 255), 255);
-	color.bytes[0] = fmin(roundf(tcolor.z * 255), 255);
-	color.bytes[3] = 0;
-	return (color.color);
-}
-
 void	draw_sphere(t_img *img, t_mlx *mlx)
 {
 	float			y;
@@ -1407,21 +1396,6 @@ void	test_camera(void)
 	}
 }
 
-t_ray	ray_for_pixel(t_camera cam, float x, float y)
-{
-	float	world_y;
-	float	world_x;
-	t_tuple	pixel;
-	t_ray	ray;
-
-	world_x = cam.half_width - ((x + 0.5) * cam.psize);
-	world_y = cam.half_height - ((y + 0.5) * cam.psize);
-	pixel = matrix_multiply_tuple(inverse(cam.transform), point_new(world_x, world_y, -1));
-	ray.origin = matrix_multiply_tuple(inverse(cam.transform), point_new(0, 0, 0));
-	ray.direction = tuple_normalize(tuple_substract(pixel, ray.origin));
-	return (ray);
-}
-
 void	test_ray_for_pixel(void)
 {
 	t_camera cam;
@@ -1480,29 +1454,6 @@ void	test_ray_for_pixel(void)
 	else
 	{
 		printf("\tOK\n");
-	}
-}
-
-void	render(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
-{
-	int	y;
-	int	x;
-	t_ray	ray;
-	t_tuple	color;
-
-	y = 0;
-	while (y < cam.vsize)
-	{
-		x = 0;
-		while (x < cam.hsize)
-		{
-			ray = ray_for_pixel(cam, x, y);
-			color = color_at(world, ray);
-			ak_mlx_pixel_put(img, x, y, tuple_tocolor(color));
-			x++;
-		}
-		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
-		y++;
 	}
 }
 
@@ -1587,4 +1538,62 @@ void	test_scene(t_img *img, t_mlx *mlx)
 									point_new(0, 1, 0),
 									vector_new(0, 1, 0));
 	render(cam, world, img, mlx);
+}
+
+bool	is_shadowed(t_world world, t_tuple point)
+{
+	t_tuple	v;
+	float	distance;
+	t_tuple	direction;
+	t_ray	ray;
+	t_junction	hits;
+
+	v = tuple_substract(world.light.position, point);
+	distance = tuple_magnitude(v);
+	direction = tuple_normalize(v);
+	ray = ray_new(point, direction);
+	hits = intersect_world(world, ray);
+	if (hits.count && hits.cross[0].t < distance)
+		return (true);
+	return (false);
+}
+
+void	test_is_shadowed(void)
+{
+	t_world	world;
+
+
+	printf("\nTest is_shadowed\n");
+
+	world = default_world();
+	if (!is_shadowed(world, point_new(0, 10, 0)))
+		printf("\tOK\n");
+	else
+	{
+		fprintf(stderr, "\tError: should false\n");
+	}
+	
+
+	if (is_shadowed(world, point_new(10, -10, 10)))
+		printf("\tOK\n");
+	else
+	{
+		fprintf(stderr, "\tError: should be true\n");
+	}
+
+
+	if (!is_shadowed(world, point_new(-20, 20, -20)))
+		printf("\tOK\n");
+	else
+	{
+		fprintf(stderr, "\tError: should be false\n");
+	}
+
+
+	if (!is_shadowed(world, point_new(-2, 2, -2)))
+		printf("\tOK\n");
+	else
+	{
+		fprintf(stderr, "\tError: should be false\n");
+	}
 }

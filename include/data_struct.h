@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/06 13:48:58 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/06 19:28:41 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ typedef struct s_comps
 	t_tuple		world_point;
 	t_tuple		eyev;
 	t_tuple		normalv;
+	t_tuple		overz;
 }	t_comps;
 
 typedef struct s_camera

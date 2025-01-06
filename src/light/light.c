@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 19:46:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/06 17:53:36 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/06 20:03:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_light	point_light(t_tuple point, t_tuple intensity)
 	});
 }
 
-t_tuple	blinn_phong(t_material mat, t_light light, t_tuple eyev, t_tuple normalv, t_tuple point)
+t_tuple	blinn_phong(t_material mat, t_light light, t_tuple overz, t_tuple eyev, t_tuple normalv, bool shadowed)
 {
 	t_tuple	e_color;
 	t_tuple	lightv;
@@ -36,8 +36,10 @@ t_tuple	blinn_phong(t_material mat, t_light light, t_tuple eyev, t_tuple normalv
 	float	factor;
 
 	e_color = color_hadamard(mat.color, light.intensity);
-	lightv = tuple_normalize(tuple_substract(light.position, point));
+	lightv = tuple_normalize(tuple_substract(light.position, overz));
 	ambient = tuple_multiply(e_color, mat.ambient);
+	if (shadowed)
+		return (ambient);
 	light_dot_normal = fmax(tuple_dot(lightv, normalv), 0.0f);
 	halfway = tuple_normalize(tuple_add(lightv, tuple_normalize(eyev)));
 	factor = powf(fmax(tuple_dot(normalv, halfway), 0.0), mat.shininess);

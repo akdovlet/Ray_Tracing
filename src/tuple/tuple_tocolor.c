@@ -1,23 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shading.c                                          :+:      :+:    :+:   */
+/*   tuple_tocolor.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/05 15:32:02 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/06 20:02:02 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/01/06 18:26:07 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/01/06 18:26:13 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "light.h"
 
-t_tuple	shade_hit(t_world world, t_comps comps)
+unsigned int	tuple_tocolor(t_tuple tcolor)
 {
-	bool	shadowed;
+	t_color	color;
 
-	shadowed = is_shadowed(world, comps.overz);
-	return (blinn_phong(comps.obj.matter, world.light, comps.overz, comps.eyev, comps.normalv,
-			shadowed));
+	color.bytes[2] = fmin(roundf(tcolor.x * 255), 255);
+	color.bytes[1]= fmin(roundf(tcolor.y * 255), 255);
+	color.bytes[0] = fmin(roundf(tcolor.z * 255), 255);
+	color.bytes[3] = 0;
+	return (color.color);
 }

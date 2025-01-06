@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/06 16:42:54 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/06 19:33:25 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_junction	intersect_world(t_world world, t_ray ray)
 	hits.count = 0;
 	while (i < world.obj_count)
 	{
-		inter = intersection(world.obj[i], intersect(ray, world.obj[i]));
+		inter = hit(intersection(world.obj[i], intersect(ray, world.obj[i])));
 		if (inter.count)
 		{
 			hits.count += inter.count;

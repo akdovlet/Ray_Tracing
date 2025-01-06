@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/01/05 18:18:58 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/01/06 18:26:29 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC		:=	main.c							\
 			objects/reflect.c				\
 			objects/simulation.c			\
 			objects/sphere.c				\
+			render/render.c					\
 			tuple/color_new.c				\
 			tuple/hadamard_product.c		\
 			tuple/tuple_add.c				\
@@ -53,6 +54,7 @@ SRC		:=	main.c							\
 			tuple/tuple_print.c				\
 			tuple/tuple_scalar.c			\
 			tuple/tuple_substract.c			\
+			tuple/tuple_tocolor.c			\
 			world/pre_compute.c				\
 			world/view_transform.c			\
 			world/world.c
