@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 09:59:31 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/05 15:23:05 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:25:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_mlx {
 
 int			init_mlx(t_mlx *mlx, t_img *img);
 void		mlx_clear(t_mlx *mlx, t_img *img);
-void		ak_mlx_pixel_put(t_img *data, float dx, float dy, unsigned int color);
+void		ak_mlx_pixel_put(t_img *data, int dx, int dy, unsigned int color);
 int			key_manager(int keysym, t_mlx *mlx);
 void		put_pixel(t_img *img, unsigned int color, t_tuple t1);
 void		ak_pixel_put(t_img *data, t_tuple t1, unsigned int color);

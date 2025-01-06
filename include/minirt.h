@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/05 15:23:19 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/06 14:57:03 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include "objects.h"
 # include "mlx_utils.h"
 
-# define WIDTH 500
+# define WIDTH 1000
 # define HEIGHT 500
 
 t_ray		ray_new(t_tuple origin, t_tuple direction);

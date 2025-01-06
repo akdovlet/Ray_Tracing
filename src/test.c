@@ -839,24 +839,9 @@ unsigned int	tuple_tocolor(t_tuple tcolor)
 {
 	t_color	color;
 
-	if (tcolor.x > 1.0f)
-		color.bytes[2] = 255;
-	else if (tcolor.x < 0.0f)
-		color.bytes[2] = 0;
-	else
-		color.bytes[2] = roundf(tcolor.x * 255);
-	if (tcolor.y > 1.0f)
-		color.bytes[1] = 255;
-	else if (tcolor.y < 0.0f)
-		color.bytes[1] = 0;
-	else
-		color.bytes[1]= roundf(tcolor.y * 255);
-	if (tcolor.z > 1.0f)
-		color.bytes[0] = 255;
-	else if (tcolor.z < 0.0f)
-		color.bytes[0] = 0;
-	else
-		color.bytes[0] = roundf(tcolor.z * 255);
+	color.bytes[2] = fmin(roundf(tcolor.x * 255), 255);
+	color.bytes[1]= fmin(roundf(tcolor.y * 255), 255);
+	color.bytes[0] = fmin(roundf(tcolor.z * 255), 255);
 	color.bytes[3] = 0;
 	return (color.color);
 }
@@ -1409,7 +1394,6 @@ void	test_camera(void)
 	{
 		printf("\tOK\n");
 	}
-	
 	cam = camera_new(125, 200, M_PI / 2);
 	// printf("camera hsize: %f, vsize: %f, fov: %f\n", cam.hsize, cam.vsize, cam.fov);
 	// print_matrix(cam.transform.raw);
@@ -1445,7 +1429,7 @@ void	test_ray_for_pixel(void)
 	t_ray	expected;
 
 	printf("\nTest ray for pixel\n");
-	cam = camera_new(201, 101, M_PI / 2);
+	cam = camera_new(201, 101, M_PI / 2.0f);
 	ray = ray_for_pixel(cam, 100, 50);
 	expected = ray_new(point_new(0, 0, 0), vector_new(0, 0, -1));
 	if (tuple_cmp(ray.direction, expected.direction) || tuple_cmp(ray.origin, expected.origin))
@@ -1462,7 +1446,7 @@ void	test_ray_for_pixel(void)
 	{
 		printf("\tOK\n");
 	}
-
+	cam = camera_new(201, 101, M_PI / 2.0f);
 	ray = ray_for_pixel(cam, 0, 0);
 	expected = ray_new(point_new(0, 0, 0), vector_new(0.66519, 0.33259, -0.66851));
 	if (tuple_cmp(ray.direction, expected.direction) || tuple_cmp(ray.origin, expected.origin))
@@ -1479,10 +1463,10 @@ void	test_ray_for_pixel(void)
 	{
 		printf("\tOK\n");
 	}
-
-	cam.transform = multiply_matrix(rotate_y(M_PI / 4), translate(0, -2, 5));
+	cam = camera_new(201, 101, M_PI / 2.0f);
+	cam.transform = multiply_matrix(rotate_y(M_PI / 4.0f), translate(0, -2, 5));
 	ray = ray_for_pixel(cam, 100, 50);
-	expected = ray_new(point_new(0, 2, -5), vector_new(sqrt(2)/2, 0, sqrt(2)/2));
+	expected = ray_new(point_new(0, 2, -5), vector_new(sqrt(2)/2, 0, -sqrt(2)/2));
 	if (tuple_cmp(ray.direction, expected.direction) || tuple_cmp(ray.origin, expected.origin))
 	{
 		fprintf(stderr, "\tError:\texpected:\n");
@@ -1497,4 +1481,110 @@ void	test_ray_for_pixel(void)
 	{
 		printf("\tOK\n");
 	}
+}
+
+void	render(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
+{
+	int	y;
+	int	x;
+	t_ray	ray;
+	t_tuple	color;
+
+	y = 0;
+	while (y < cam.vsize)
+	{
+		x = 0;
+		while (x < cam.hsize)
+		{
+			ray = ray_for_pixel(cam, x, y);
+			color = color_at(world, ray);
+			ak_mlx_pixel_put(img, x, y, tuple_tocolor(color));
+			x++;
+		}
+		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
+		y++;
+	}
+}
+
+void	test_render_world(t_img *img, t_mlx *mlx)
+{
+	t_world		world;
+	t_camera	cam;
+	t_tuple		from;
+	t_tuple		to;
+	t_tuple		up;
+
+	world = default_world();
+	cam = camera_new(11, 11, M_PI / 2.0f);
+	from = point_new(0, 0, -5);
+	to = point_new(0, 0, 0);
+	up = vector_new(0, 1, 0);
+	cam.transform = view_transform(from, to, up);
+	render(cam, world, img, mlx);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
+}
+
+void	test_scene(t_img *img, t_mlx *mlx)
+{
+	t_world		world;
+	t_camera	cam;
+	t_object	floor;
+	t_object	left_wall;
+	t_object	right_wall;
+	t_object	middle_sph;
+	t_object	right_sph;
+	t_object	left_sph;
+
+	floor = sphere_default();
+	floor.transform = scale(10, 0.01, 10);
+	floor.matter = material();
+	floor.matter.color = color_new(1, 0.9, 0.9);
+	floor.matter.specular = 0;
+
+	left_wall = sphere_default();
+	left_wall.transform = multiply_matrix(
+							multiply_matrix(translate(0, 0, 5), rotate_y(-M_PI / 4)),
+							multiply_matrix(rotate_x(M_PI / 2), scale(10, 0.01, 10)));
+	left_wall.matter = floor.matter;
+
+	right_wall = sphere_default();
+	right_wall.transform = multiply_matrix(
+							multiply_matrix(translate(0, 0, 5), rotate_y(M_PI / 4)),
+							multiply_matrix(rotate_x(M_PI / 2), scale(10, 0.01, 10)));
+	right_wall.matter = floor.matter;
+
+	middle_sph = sphere_default();
+	middle_sph.transform = translate(-0.5, 1, 0.5);
+	middle_sph.matter = material();
+	middle_sph.matter.color = color_new(0.1, 1, 0.5);
+	middle_sph.matter.diffuse = 0.7;
+	middle_sph.matter.specular = 0.3;
+
+	right_sph = sphere_default();
+	right_sph.transform = multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.5, 0.5, 0.5));
+	right_sph.matter = material();
+	right_sph.matter.color = color_new(0.5, 1, 0.1);
+	right_sph.matter.diffuse = 0.7;
+	right_sph.matter.specular = 0.3;
+
+	left_sph = sphere_default();
+	left_sph.transform = multiply_matrix(translate(-1.5, 0.33, 0), scale(0.33, 0.33, 0.33));
+	left_sph.matter = material();
+	left_sph.matter.color = color_new(1, 0.8, 0.1);
+	left_sph.matter.diffuse = 0.7;
+	left_sph.matter.specular = 0.3;
+
+	world.light = point_light(point_new(-10, 10, -10), color_new(1, 1, 1));
+	world.obj[0] = floor;
+	world.obj[1] = left_wall;
+	world.obj[2] = right_wall;
+	world.obj[3] = middle_sph;
+	world.obj[4] = right_sph;
+	world.obj[5] = left_sph;
+	world.obj_count = 6;
+	cam = camera_new(WIDTH, HEIGHT, M_PI / 3);
+	cam.transform = view_transform(point_new(0, 1.5, -5),
+									point_new(0, 1, 0),
+									vector_new(0, 1, 0));
+	render(cam, world, img, mlx);
 }

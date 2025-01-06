@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/05 18:06:09 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/06 13:48:58 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ typedef struct s_junction
 typedef struct s_world
 {
 	int			obj_count;
-	t_object	obj[2];
+	t_object	obj[20];
 	t_light		light;
 }	t_world;
 
