@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/06 19:28:41 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/07 10:32:04 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,15 @@ typedef struct s_camera
 	float		half_height;
 	t_matrix	transform;
 }	t_camera;
+
+typedef struct s_shape
+{
+	t_type			type;
+	float			radius;
+	uintptr_t		id;
+	t_tuple			coordinates;
+	t_matrix		transform;
+	t_material		matter;
+}	t_shape;
 
 #endif

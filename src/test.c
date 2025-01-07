@@ -1597,3 +1597,20 @@ void	test_is_shadowed(void)
 		fprintf(stderr, "\tError: should be false\n");
 	}
 }
+
+t_shape	test_shape(void)
+{
+	return ((t_shape){
+		.matter = material(),
+		.transform = identity(),
+	});
+}
+
+void	test_shape_obj(void)
+{
+	t_shape	s;
+	s = test_shape();
+	s.transform = translate(2, 3, 4);
+	s.matter.ambient = 1;
+	print_matrix(s.transform.raw);
+}
