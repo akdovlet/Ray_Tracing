@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:42:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/03 19:12:07 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/07 19:05:16 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,47 +25,33 @@ t_tuple	position(t_ray ray, float factor)
 	return (tuple_add(ray.origin, (tuple_multiply(tuple_normalize(ray.direction), factor))));
 }
 
-t_vec2	intersect(t_ray ray, t_object object)
+t_vec2	intersect(t_ray ray, t_shape shape)
 {
-	float	a;
-	float	b;
-	float	c;
-	float	dis;
-	t_tuple	sphere_to_ray;
-
-	ray = ray_transform(ray, inverse(object.transform));
-	sphere_to_ray = tuple_substract(ray.origin, object.coordinates);
-	a = tuple_dot(ray.direction, ray.direction);
-	b = 2 * tuple_dot(ray.direction, sphere_to_ray);
-	c = tuple_dot(sphere_to_ray, sphere_to_ray) - 1;
-	dis = pow(b, 2) - 4 * a * c;
-	return ((t_vec2){
-		.dis = dis,
-		.x = (-b - sqrt(dis)) / (2 * a),
-		.y = (-b + sqrt(dis)) / (2 * a)
-	});
+	return (shape.local_interesct(ray, shape));
 }
 
-t_intersection	intersection(t_object obj, t_vec2 vec)
+t_intersection	intersection(t_shape shape, t_vec2 vec)
 {
 	t_intersection	new;
 	float			tmp;
 
 	new = (t_intersection){
-		.object = obj,
+		.object = shape,
 		.xs = vec,
 		.t = 0
 	};
 	if (vec.dis < 0)
 	{
 		new.count = 0;
+		new.xs.x = -1;
+		new.xs.y = -1;
 		return (new);
 	}
 	if (!vec.dis)
 		new.count = 1;
 	else
 		new.count = 2;
-	if (new.xs.x > new.xs.y)
+	if (new.count > 1 && new.xs.x > new.xs.y)
 	{
 		tmp = new.xs.x;
 		new.xs.x = new.xs.y;
@@ -77,8 +63,11 @@ t_intersection	intersection(t_object obj, t_vec2 vec)
 
 t_intersection	hit(t_intersection inter)
 {
+	// if (!inter.count)
+	// 	return (inter);
 	if (inter.xs.x < 0 && inter.xs.y < 0)
 	{
+		printf("here\n");
 		inter.count = 0;
 		inter.t = 0;
 		return (inter);
@@ -91,6 +80,3 @@ t_intersection	hit(t_intersection inter)
 		inter.t = fmin(inter.xs.x, inter.xs.y);
 	return (inter);
 }
-
-
-

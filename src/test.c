@@ -631,7 +631,7 @@ void	position_test(void)
 
 void	sphere_test(void)
 {
-	// t_object		sph;
+	// t_shape		sph;
 	// t_ray			ray;
 	// t_intersection	inter;
 
@@ -649,7 +649,7 @@ void	sphere_test(void)
 void	object_test(void)
 {
 	// t_ray			ray;
-	// t_object		sph;
+	// t_shape		sph;
 	// t_vec2			vec;
 	// t_intersection	i;
 	// t_intersection	j;
@@ -701,7 +701,7 @@ void	transform_test()
 void	object_transform_test(void)
 {
 	// t_ray			ray;
-	// t_object		sph;
+	// t_shape		sph;
 	// float			dis;
 	// t_vec2			vec;
 	// t_intersection	i;
@@ -747,7 +747,7 @@ void	object_transform_test(void)
 // 	int		x;
 // 	t_tuple	position;
 // 	t_intersection inter;
-// 	t_object	sph;
+// 	t_shape	sph;
 
 // 	sph = sphere(point_new(0, 0, 1), 1);
 // 	set_transform(&sph, scale(point_new(10, 10, 10)));
@@ -775,7 +775,7 @@ void	intersection_test(void)
 	printf("\nIntersection test\n");
 
 	t_ray ray;
-	t_object sph;
+	t_shape sph;
 	t_intersection inter;
 
 	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
@@ -849,7 +849,7 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 	t_tuple			pos;
 	t_tuple			point;
 	t_ray			r;
-	t_object 		sph;
+	t_shape 		sph;
 	t_intersection	inter;
 	t_light			light;
 	t_tuple			normalv;
@@ -895,7 +895,7 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 
 void	normal_at_test(void)
 {
-	t_object	sph;
+	t_shape	sph;
 	t_tuple		normal;
 	t_tuple		expected;
 
@@ -1295,7 +1295,7 @@ void	test_color_at(void)
 		printf("\tOK\n");
 	}
 
-	t_object tmp;
+	t_shape tmp;
 	world.obj[1].matter.ambient = 1;
 	world.obj[0].matter.ambient = 1;
 	tmp = world.obj[0];
@@ -1479,18 +1479,18 @@ void	test_scene(t_img *img, t_mlx *mlx)
 {
 	t_world		world;
 	t_camera	cam;
-	t_object	floor;
-	t_object	left_wall;
-	t_object	right_wall;
-	t_object	middle_sph;
-	t_object	right_sph;
-	t_object	left_sph;
+	t_shape	floor;
+	t_shape	left_wall;
+	t_shape	right_wall;
+	t_shape	middle_sph;
+	t_shape	right_sph;
+	t_shape	left_sph;
 
-	floor = sphere_default();
-	floor.transform = scale(10, 0.01, 10);
-	floor.matter = material();
-	floor.matter.color = color_new(1, 0.9, 0.9);
-	floor.matter.specular = 0;
+	floor = plane_new();
+	floor.transform = translate(0, HEIGHT + 20, 0);
+	// floor.matter = material();
+	// floor.matter.color = color_new(1, 0.9, 0.9);
+	// floor.matter.specular = 0;
 
 	left_wall = sphere_default();
 	left_wall.transform = multiply_matrix(
@@ -1512,7 +1512,7 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	middle_sph.matter.specular = 0.3;
 
 	right_sph = sphere_default();
-	right_sph.transform = multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.5, 0.5, 0.5));
+	right_sph.transform = multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.7, 0.5, 0.2));
 	right_sph.matter = material();
 	right_sph.matter.color = color_new(0.5, 1, 0.1);
 	right_sph.matter.diffuse = 0.7;
@@ -1606,11 +1606,44 @@ t_shape	test_shape(void)
 	});
 }
 
-void	test_shape_obj(void)
+// void	test_shape_obj(void)
+// {
+// 	t_shape	s;
+// 	s = test_shape();
+// 	s.transform = translate(2, 3, 4);
+// 	s.matter.ambient = 1;
+// 	print_matrix(s.transform.raw);
+// }
+
+void	test_intersect_plane(void)
 {
-	t_shape	s;
-	s = test_shape();
-	s.transform = translate(2, 3, 4);
-	s.matter.ambient = 1;
-	print_matrix(s.transform.raw);
+	t_shape	plane;
+	t_ray	ray;
+	t_intersection	hit;
+
+	printf("\n Intersect plane test\n");
+	plane = plane_new();
+	ray = ray_new(point_new(0, 1, 0), vector_new(0, -1, 0));
+	hit = intersection(plane, plane.local_interesct(ray, plane));
+	if (hit.count != 1 || hit.t != 1)
+	{
+		fprintf(stderr, "\tError: expected hit count 1, got: %d, expected t: 1, got: %f\n", hit.count, hit.t);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+
+	ray = ray_new(point_new(0, -1, 0), vector_new(0, 1, 0));
+	hit = intersection(plane, plane.local_interesct(ray, plane));
+	if (hit.count != 1 || hit.t != 1)
+	{
+		fprintf(stderr, "\tError: expected hit count 1, got: %d, expected t: 1, got: %f\n", hit.count, hit.t);
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+
+	
 }

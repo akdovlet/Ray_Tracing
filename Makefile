@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/01/06 18:26:29 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/01/07 14:56:25 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC		:=	main.c							\
 			mlx/mlx_pixel_put.c				\
 			objects/material.c				\
 			objects/normal.c				\
+			objects/plane.c					\
 			objects/ray_transform.c			\
 			objects/ray.c					\
 			objects/reflect.c				\
