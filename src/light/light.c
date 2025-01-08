@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 19:46:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/06 20:03:08 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/08 17:21:47 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,14 @@ t_tuple	blinn_phong(t_material mat, t_light light, t_tuple overz, t_tuple eyev, 
 	diffuse = tuple_multiply(tmp, light_dot_normal);
 	reflectv = reflect(tuple_negate(lightv), normalv);
 	reflect_dot_eye = fmax(tuple_dot(reflectv, eyev), 0.0f);
-	specular = tuple_multiply(light.intensity, mat.specular);
-	specular = tuple_multiply(specular, reflect_dot_eye);
-	specular = tuple_multiply(specular, factor);
+	if (reflect_dot_eye > 0)
+	{
+		specular = tuple_multiply(light.intensity, mat.specular);
+		specular = tuple_multiply(specular, reflect_dot_eye);
+		specular = tuple_multiply(specular, factor);
+	}
+	else
+		specular = color_new(0, 0, 0);
 	return (tuple_add(tuple_add(diffuse, ambient), specular));
 }
 

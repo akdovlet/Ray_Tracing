@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   material.c                                         :+:      :+:    :+:   */
+/*   stripe.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/31 19:10:10 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/08 19:01:47 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/01/08 18:43:57 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/01/08 18:58:52 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "tuple.h"
 
-t_material	material(void)
+t_pattern	stripe_pattern(t_tuple c1, t_tuple c2)
 {
-	return ((t_material)
-	{
-		.pattern.exists = 0,
-		.color = color_new(1, 1, 1),
-		.ambient = 0.1,
-		.diffuse = 0.9,
-		.specular = 0.9,
-		.shininess = 200
+	return ((t_pattern){
+		.exists = 1,
+		.color1 = c1,
+		.color2 = c2,
 	});
+}
+
+t_tuple	stripe_at(t_pattern pattern, t_tuple point)
+{
+	if (!fmod(point.x, 2))
+		return (pattern.color1);
+	return (pattern.color2);
 }

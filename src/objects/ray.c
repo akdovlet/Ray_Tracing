@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:42:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/07 19:05:16 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/08 14:59:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ t_tuple	position(t_ray ray, float factor)
 
 t_vec2	intersect(t_ray ray, t_shape shape)
 {
-	return (shape.local_interesct(ray, shape));
+	t_ray	transformed_ray;
+
+	transformed_ray = ray_transform(ray, inverse(shape.transform));
+	return (shape.local_interesct(transformed_ray, shape));
 }
 
 t_intersection	intersection(t_shape shape, t_vec2 vec)
@@ -35,11 +38,10 @@ t_intersection	intersection(t_shape shape, t_vec2 vec)
 	t_intersection	new;
 	float			tmp;
 
-	new = (t_intersection){
-		.object = shape,
-		.xs = vec,
-		.t = 0
-	};
+	new = (t_intersection){};
+	new.object = shape;
+	new.xs = vec;
+	new.t = 0;
 	if (vec.dis < 0)
 	{
 		new.count = 0;
@@ -67,7 +69,6 @@ t_intersection	hit(t_intersection inter)
 	// 	return (inter);
 	if (inter.xs.x < 0 && inter.xs.y < 0)
 	{
-		printf("here\n");
 		inter.count = 0;
 		inter.t = 0;
 		return (inter);

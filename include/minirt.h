@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/06 19:21:04 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:59:19 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include "matrix.h"
 # include "objects.h"
 # include "mlx_utils.h"
+# include "pattern.h"
 
 # define WIDTH 1000
 # define HEIGHT 500

@@ -1479,24 +1479,23 @@ void	test_scene(t_img *img, t_mlx *mlx)
 {
 	t_world		world;
 	t_camera	cam;
-	t_shape	floor;
-	t_shape	left_wall;
-	t_shape	right_wall;
-	t_shape	middle_sph;
-	t_shape	right_sph;
-	t_shape	left_sph;
+	t_shape		floor;
+	t_shape		left_wall;
+	t_shape		right_wall;
+	t_shape		middle_sph;
+	t_shape		right_sph;
+	t_shape		left_sph;
 
 	floor = plane_new();
-	floor.transform = translate(0, HEIGHT + 20, 0);
-	// floor.matter = material();
-	// floor.matter.color = color_new(1, 0.9, 0.9);
+	floor.transform = translate(1, 0, 3);
+	floor.matter = material();
+	floor.matter.color = color_new(1, 0.2, 1);
 	// floor.matter.specular = 0;
 
-	left_wall = sphere_default();
-	left_wall.transform = multiply_matrix(
-							multiply_matrix(translate(0, 0, 5), rotate_y(-M_PI / 4)),
-							multiply_matrix(rotate_x(M_PI / 2), scale(10, 0.01, 10)));
+	left_wall = plane_new();
+	left_wall.transform = translate(0, 10, 3);
 	left_wall.matter = floor.matter;
+	left_wall.matter.color = color_new(221.0f / 255.0f, 51.0f /255.0f, 102.0f / 255.0f);
 
 	right_wall = sphere_default();
 	right_wall.transform = multiply_matrix(
@@ -1505,34 +1504,33 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	right_wall.matter = floor.matter;
 
 	middle_sph = sphere_default();
-	middle_sph.transform = translate(-0.5, 1, 0.5);
+	middle_sph.transform = translate(-0.5, 0, 0.5);
 	middle_sph.matter = material();
 	middle_sph.matter.color = color_new(0.1, 1, 0.5);
 	middle_sph.matter.diffuse = 0.7;
 	middle_sph.matter.specular = 0.3;
 
 	right_sph = sphere_default();
-	right_sph.transform = multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.7, 0.5, 0.2));
+	right_sph.transform = multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.5, 0.5, 0.5));
 	right_sph.matter = material();
 	right_sph.matter.color = color_new(0.5, 1, 0.1);
 	right_sph.matter.diffuse = 0.7;
 	right_sph.matter.specular = 0.3;
 
 	left_sph = sphere_default();
-	left_sph.transform = multiply_matrix(translate(-1.5, 0.33, 0), scale(0.33, 0.33, 0.33));
+	left_sph.transform = multiply_matrix(translate(-1.5, 0.33, -0.5), scale(0.33, 0.33, 0.33));
 	left_sph.matter = material();
 	left_sph.matter.color = color_new(1, 0.8, 0.1);
 	left_sph.matter.diffuse = 0.7;
 	left_sph.matter.specular = 0.3;
 
-	world.light = point_light(point_new(-10, 10, -10), color_new(1, 1, 1));
+	world.light = point_light(point_new(-10, 1.5, -5), color_new(1, 1, 1));
 	world.obj[0] = floor;
 	world.obj[1] = left_wall;
-	world.obj[2] = right_wall;
-	world.obj[3] = middle_sph;
-	world.obj[4] = right_sph;
-	world.obj[5] = left_sph;
-	world.obj_count = 6;
+	world.obj[2] = middle_sph;
+	world.obj[3] = right_sph;
+	world.obj[4] = left_sph;
+	world.obj_count = 5;
 	cam = camera_new(WIDTH, HEIGHT, M_PI / 3);
 	cam.transform = view_transform(point_new(0, 1.5, -5),
 									point_new(0, 1, 0),
@@ -1623,6 +1621,29 @@ void	test_intersect_plane(void)
 
 	printf("\n Intersect plane test\n");
 	plane = plane_new();
+
+	ray = ray_new(point_new(0, 10, 0), vector_new(0, 0, 1));
+	hit = intersection(plane, plane.local_interesct(ray, plane));
+	if (plane.local_interesct(ray, plane).dis >= 0)
+	{
+		fprintf(stderr, "\tError: expected hit count 0\n");
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+
+	ray = ray_new(point_new(0, 0, 0), vector_new(0, 0, 1));
+	hit = intersection(plane, plane.local_interesct(ray, plane));
+	if (plane.local_interesct(ray, plane).dis >= 0)
+	{
+		fprintf(stderr, "\tError: expected hit count 0\n");
+	}
+	else
+	{
+		printf("\tOK\n");
+	}
+
 	ray = ray_new(point_new(0, 1, 0), vector_new(0, -1, 0));
 	hit = intersection(plane, plane.local_interesct(ray, plane));
 	if (hit.count != 1 || hit.t != 1)
@@ -1643,7 +1664,32 @@ void	test_intersect_plane(void)
 	else
 	{
 		printf("\tOK\n");
-	}
+	}	
+}
 
-	
+void	test_stripe_at(void)
+{
+	t_pattern	pattern;
+	t_tuple		color;
+	t_tuple		expected;
+
+	pattern = stripe_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
+	expected = color_new(0, 0, 0);
+	color = stripe_at(pattern, expected);
+	if (tuple_cmp(color, expected))
+	{
+		fprintf(stderr, "\tError: expected:\t");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(color);
+	}
+	expected = color_new(0, 1, 0);
+	color = stripe_at(pattern, point_new(0, 1, 0));
+	if (tuple_cmp(color, expected))
+	{
+		fprintf(stderr, "\tError: expected:\t");
+		tuple_print(expected);
+		fprintf(stderr, "\tgot:\t\t\t");
+		tuple_print(color);
+	}
 }

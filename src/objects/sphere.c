@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:09:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/07 18:53:29 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/08 12:14:46 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static t_vec2	local_intersect(t_ray ray, t_shape shape)
 	float	dis;
 	t_tuple	local_ray;
 
-	ray = ray_transform(ray, inverse(shape.transform));
 	local_ray = tuple_substract(ray.origin, shape.coordinates);
 	a = tuple_dot(ray.direction, ray.direction);
 	b = 2 * tuple_dot(ray.direction, local_ray);

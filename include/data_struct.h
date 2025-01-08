@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/07 18:15:58 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/08 18:51:13 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,21 @@ typedef struct s_light
 	t_tuple	position;
 }	t_light;
 
+typedef struct	s_pattern
+{
+	int		exists;
+	t_tuple	color1;
+	t_tuple	color2;
+}	t_pattern;
+
 typedef struct s_material
 {
-	t_tuple	color;
-	float	ambient;
-	float	diffuse;
-	float	specular;
-	float	shininess;
+	float		ambient;
+	float		diffuse;
+	float		specular;
+	float		shininess;
+	t_tuple		color;
+	t_pattern	pattern;
 }	t_material;
 
 union	u_color
@@ -164,6 +172,7 @@ typedef struct s_camera
 	float		half_height;
 	t_matrix	transform;
 }	t_camera;
+
 
 
 #endif

@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/01/07 14:56:25 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/01/08 19:00:46 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC		:=	main.c							\
 			objects/reflect.c				\
 			objects/simulation.c			\
 			objects/sphere.c				\
+			pattern/stripe.c				\
 			render/render.c					\
 			tuple/color_new.c				\
 			tuple/hadamard_product.c		\

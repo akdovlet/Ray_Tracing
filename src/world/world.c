@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/07 19:03:21 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/08 16:54:49 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ t_tuple	color_at(t_world world, t_ray ray)
 	color = color_new(0, 0, 0);
 	if (hits.count)
 	{
-		printf("hit is: %f\n", hits.cross[0].t);
-		printf("hit count is: %d\n", hits.count);
+		// printf("hit is: %f\n", hits.cross[0].t);
+		// printf("hit count is: %d\n", hits.count);
 		comps = pre_compute(hits.cross[0], ray);
 		color = shade_hit(world, comps);
 	}
