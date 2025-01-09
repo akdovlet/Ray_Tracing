@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:48:59 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/06 13:24:03 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:34:54 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,12 @@ int	float_equal(float a, float b)
 
 int	tuple_cmp(t_tuple a, t_tuple b)
 {
-	if (float_equal(a.x, b.x))
-		return (1);
-	if (float_equal(a.y, b.y))
-		return (1);
-	if (float_equal(a.z, b.z))
-		return (1);
-	if (float_equal(a.w, b.w)	)
-		return (1);
-	return (0);
+	t_tuple tmp = a - b;
+	
+	return (1 
+		&& fabs(tmp[0]) > __FLT_MIN__
+		&& fabs(tmp[1]) > __FLT_MIN__
+		&& fabs(tmp[2]) > __FLT_MIN__
+		&& fabs(tmp[3]) > __FLT_MIN__
+	);
 }

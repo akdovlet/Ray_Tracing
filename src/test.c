@@ -6,6 +6,8 @@
 #include "mlx_utils.h"
 #include "test.h"
 
+// #define TEST
+#ifdef TEST
 void test_init_tuple()
 {
 	t_tuple	p;
@@ -1473,90 +1475,6 @@ void	test_render_world(t_img *img, t_mlx *mlx)
 	render(cam, world, img, mlx);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
 }
-
-void	test_scene(t_img *img, t_mlx *mlx)
-{
-	t_world		world;
-	t_camera	cam;
-	t_shape		floor;
-	t_shape		left_wall;
-	t_shape		right_wall;
-	t_shape		middle_sph;
-	t_shape		right_sph;
-	t_shape		left_sph;
-
-	floor = plane_new();
-	floor.transform = translate(1, 0, 3);
-	floor.matter = material();
-	floor.matter.color = color_new(1, 0.2, 1);
-	// floor.matter.specular = 0;
-
-	left_wall = plane_new();
-	left_wall.transform = translate(0, 10, 3);
-	left_wall.matter = floor.matter;
-	left_wall.matter.color = color_new(221.0f / 255.0f, 51.0f /255.0f, 102.0f / 255.0f);
-
-	right_wall = sphere_default();
-	right_wall.transform = multiply_matrix(
-							multiply_matrix(translate(0, 0, 5), rotate_y(M_PI / 4)),
-							multiply_matrix(rotate_x(M_PI / 2), scale(10, 0.01, 10)));
-	right_wall.matter = floor.matter;
-
-	middle_sph = sphere_default();
-	middle_sph.transform = translate(-0.5, 0, 0.5);
-	middle_sph.matter = material();
-	middle_sph.matter.color = color_new(0.1, 1, 0.5);
-	middle_sph.matter.diffuse = 0.7;
-	middle_sph.matter.specular = 0.3;
-
-	right_sph = sphere_default();
-	right_sph.transform = multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.5, 0.5, 0.5));
-	right_sph.matter = material();
-	right_sph.matter.color = color_new(0.5, 1, 0.1);
-	right_sph.matter.diffuse = 0.7;
-	right_sph.matter.specular = 0.3;
-
-	left_sph = sphere_default();
-	left_sph.transform = multiply_matrix(translate(-1.5, 0.33, -0.5), scale(0.33, 0.33, 0.33));
-	left_sph.matter = material();
-	left_sph.matter.color = color_new(1, 0.8, 0.1);
-	left_sph.matter.diffuse = 0.7;
-	left_sph.matter.specular = 0.3;
-
-	world.light = point_light(point_new(-10, 1.5, -5), color_new(1, 1, 1));
-	world.obj[0] = floor;
-	world.obj[1] = left_wall;
-	world.obj[2] = middle_sph;
-	world.obj[3] = right_sph;
-	world.obj[4] = left_sph;
-	world.obj_count = 5;
-	for (int i = 0; i < world.obj_count; i++)
-		world.obj[i].transform = inverse(world.obj[i].transform);
-	cam = camera_new(WIDTH, HEIGHT, M_PI / 3);
-	camera_update_transform(&cam, point_new(0, 1.5, -5),
-									point_new(0, 1, 0),
-									vector_new(0, 1, 0));
-	render(cam, world, img, mlx);
-}
-
-bool	is_shadowed(t_world world, t_tuple point)
-{
-	t_tuple	v;
-	float	distance;
-	t_tuple	direction;
-	t_ray	ray;
-	t_junction	hits;
-
-	v = tuple_substract(world.light.position, point);
-	distance = tuple_magnitude(v);
-	direction = tuple_normalize(v);
-	ray = ray_new(point, direction);
-	intersect_world(world, ray, &hits);
-	if (hits.count && hits.cross[0].t < distance)
-		return (true);
-	return (false);
-}
-
 void	test_is_shadowed(void)
 {
 	t_world	world;
@@ -1895,3 +1813,90 @@ void	test_stripe_at(void)
 	else
 		printf("\tOK\n");
 }
+
+
+#endif
+
+void	test_scene(t_img *img, t_mlx *mlx)
+{
+	t_world		world;
+	t_camera	cam;
+	t_shape		floor;
+	t_shape		left_wall;
+	t_shape		right_wall;
+	t_shape		middle_sph;
+	t_shape		right_sph;
+	t_shape		left_sph;
+
+	floor = plane_new();
+	floor.transform = translate(1, 0, 3);
+	floor.matter = material();
+	floor.matter.color = color_new(1, 0.2, 1);
+	// floor.matter.specular = 0;
+
+	left_wall = plane_new();
+	left_wall.transform = translate(0, 10, 3);
+	left_wall.matter = floor.matter;
+	left_wall.matter.color = color_new(221.0f / 255.0f, 51.0f /255.0f, 102.0f / 255.0f);
+
+	right_wall = sphere_default();
+	right_wall.transform = multiply_matrix(
+							multiply_matrix(translate(0, 0, 5), rotate_y(M_PI / 4)),
+							multiply_matrix(rotate_x(M_PI / 2), scale(10, 0.01, 10)));
+	right_wall.matter = floor.matter;
+
+	middle_sph = sphere_default();
+	middle_sph.transform = translate(-0.5, 0, 0.5);
+	middle_sph.matter = material();
+	middle_sph.matter.color = color_new(0.1, 1, 0.5);
+	middle_sph.matter.diffuse = 0.7;
+	middle_sph.matter.specular = 0.3;
+
+	right_sph = sphere_default();
+	right_sph.transform = multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.5, 0.5, 0.5));
+	right_sph.matter = material();
+	right_sph.matter.color = color_new(0.5, 1, 0.1);
+	right_sph.matter.diffuse = 0.7;
+	right_sph.matter.specular = 0.3;
+
+	left_sph = sphere_default();
+	left_sph.transform = multiply_matrix(translate(-1.5, 0.33, -0.5), scale(0.33, 0.33, 0.33));
+	left_sph.matter = material();
+	left_sph.matter.color = color_new(1, 0.8, 0.1);
+	left_sph.matter.diffuse = 0.7;
+	left_sph.matter.specular = 0.3;
+
+	world.light = point_light(point_new(-10, 1.5, -5), color_new(1, 1, 1));
+	world.obj[0] = floor;
+	world.obj[1] = left_wall;
+	world.obj[2] = middle_sph;
+	world.obj[3] = right_sph;
+	world.obj[4] = left_sph;
+	world.obj_count = 5;
+	for (int i = 0; i < world.obj_count; i++)
+		world.obj[i].transform = inverse(world.obj[i].transform);
+	cam = camera_new(WIDTH, HEIGHT, M_PI / 3);
+	camera_update_transform(&cam, point_new(0, 1.5, -5),
+									point_new(0, 1, 0),
+									vector_new(0, 1, 0));
+	render(cam, world, img, mlx);
+}
+
+bool	is_shadowed(t_world world, t_tuple point)
+{
+	t_tuple	v;
+	float	distance;
+	t_tuple	direction;
+	t_ray	ray;
+	t_junction	hits;
+
+	v = tuple_substract(world.light.position, point);
+	distance = tuple_magnitude(v);
+	direction = tuple_normalize(v);
+	ray = ray_new(point, direction);
+	intersect_world(world, ray, &hits);
+	if (hits.count && hits.cross[0].t < distance)
+		return (true);
+	return (false);
+}
+

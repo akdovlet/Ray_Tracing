@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 18:05:30 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/16 18:07:30 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:40:03 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,5 @@
 
 t_tuple	tuple_negate(t_tuple a)
 {
-	t_tuple	new;
-
-	new.x = -a.x;
-	new.y = -a.y;
-	new.z = -a.z;
-	new.w = -a.w;
-	return (new);
+	return (a * -1);
 }

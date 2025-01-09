@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:15:30 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/19 15:24:17 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:40:35 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,7 @@
 
 t_tuple	tuple_new(float x, float y, float z, float w)
 {
-	t_tuple	new;
-
-	new.x = x;
-	new.y = y;
-	new.z = z;
-	new.w = w;
-	return (new);
+	return ((t_tuple){x, y,z,w});
 }
 
 t_tuple	vector_new(float x, float y, float z)

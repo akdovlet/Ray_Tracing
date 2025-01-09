@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:09:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/09 15:56:31 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:28:12 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static t_tuple	local_normal_at(t_shape obj, t_tuple world_point)
 	object_point = matrix_multiply_tuple(obj.transform, world_point);
 	object_normal = tuple_substract(object_point, obj.coordinates);
 	world_normal = matrix_multiply_tuple(matrix_transpose(obj.transform), object_normal);
-	world_normal.w = 0;
+	world_normal[3] = 0;
 	return (tuple_normalize(world_normal));
 }
 

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 14:49:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/17 14:51:40 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:38:18 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,7 @@
 
 float	tuple_dot(t_tuple a, t_tuple b)
 {
-	return ((a.x * b.x) + (a.y * b.y) + (a.z * b.z) + (a.w * b.w));
+	t_tuple new = a * b;
+	
+	return (new[0] + new[1] + new[2] + new[3]);
 }

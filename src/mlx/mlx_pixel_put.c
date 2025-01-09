@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 16:41:45 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/06 14:24:57 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:27:26 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void	ak_mlx_pixel_put(t_img *data, int dx, int dy, unsigned int color)
 
 void	ak_pixel_put(t_img *data, t_tuple t1, unsigned int color)
 {
-	ak_mlx_pixel_put(data, t1.x, t1.y, color);
+	ak_mlx_pixel_put(data, t1[0], t1[1], color);
 }

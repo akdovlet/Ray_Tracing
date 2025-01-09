@@ -6,14 +6,19 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/09 17:58:14 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:54:53 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_STRUCT_H
 # define DATA_STRUCT_H
 
-typedef union u_matrix			t_matrix;
+typedef float t_tuple __attribute__((vector_size(16)));
+typedef struct s_matrix
+{
+	t_tuple	raw[4];
+}	t_matrix;
+
 typedef	union u_color			t_color;
 typedef enum e_type				t_type;
 typedef struct s_shape			t_shape;
@@ -34,39 +39,17 @@ typedef struct s_vec3
 	int z;	
 } t_vec3;
 
-typedef struct s_tuple
-{
-	float	x;
-	float	y;
-	float	z;
-	float	w;
-}	t_tuple;
 
-typedef struct s_shear
-{
-	float	x;
-	float	y;
-	float	z;
-}	t_shear;
-
-typedef float v4 __attribute__((vector_size(16)));
 typedef	union u_vec
 {
 	t_tuple	t1;
-	v4		v;
 }	t_vec;
 
 union u_matrix
 {
-	struct
-	{
-		t_tuple r1;
-		t_tuple r2;
-		t_tuple r3;
-		t_tuple r4;	
-	};
-	float	raw[4][4];
-} __attribute__((__transparent_union__));
+
+	
+};// __attribute__((__transparent_union__));
 
 enum	e_type
 {

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 18:38:02 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/30 18:07:40 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/09 18:26:41 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,22 @@ t_matrix	rotate_z(float angle)
 	}});
 }
 
+// t_matrix	shear(t_tuple s1, t_tuple s2)
+// {
+// 	return ((t_matrix){{
+// 			{1, s1.x, s1.y, 0}, \
+// 			{s1.z, 1, s2.x, 0}, \
+// 			{s2.y, s2.z, 1, 0}, \
+// 			{0, 0, 0, 1} \
+// 	}});
+// }
+
 t_matrix	shear(t_tuple s1, t_tuple s2)
 {
 	return ((t_matrix){{
-			{1, s1.x, s1.y, 0}, \
-			{s1.z, 1, s2.x, 0}, \
-			{s2.y, s2.z, 1, 0}, \
+			{1, s1[0], s1[1], 0}, \
+			{s1[2], 1, s2[0], 0}, \
+			{s2[1], s2[2], 1, 0}, \
 			{0, 0, 0, 1} \
 	}});
 }
