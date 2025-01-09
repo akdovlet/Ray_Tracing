@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 19:46:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/08 17:21:47 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/09 10:21:36 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,11 @@ t_tuple	blinn_phong(t_material mat, t_light light, t_tuple overz, t_tuple eyev, 
 	float	reflect_dot_eye;
 	float	light_dot_normal;
 	float	factor;
-
-	e_color = color_hadamard(mat.color, light.intensity);
+	
+	if (mat.pattern.exists)
+		e_color = color_hadamard(stripe_at(mat.pattern, overz), light.intensity);
+	else
+		e_color = color_hadamard(mat.color, light.intensity);
 	lightv = tuple_normalize(tuple_substract(light.position, overz));
 	ambient = tuple_multiply(e_color, mat.ambient);
 	if (shadowed)

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/07 17:55:06 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:47:37 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ t_tuple			reflect(t_tuple in, t_tuple normal);
 t_material		material(void);
 
 t_world			default_world(void);
-t_junction		intersect_world(t_world world, t_ray ray);
+void			intersect_world(t_world world, t_ray ray, t_junction *hits);
 t_comps			pre_compute(t_crossing cross, t_ray ray);
 t_tuple			color_at(t_world world, t_ray ray);
 t_matrix		view_transform(t_tuple from, t_tuple to, t_tuple up);
 t_shape			sphere_default(void);
 
 t_camera		camera_new(float hsize, float vsize, float fov);
+void 			camera_update_transform(t_camera *cam, t_tuple from, t_tuple to, t_tuple up);
+
 
 t_shape			plane_new(void);
 

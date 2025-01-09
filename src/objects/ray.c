@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:42:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/08 14:59:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:16:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_vec2	intersect(t_ray ray, t_shape shape)
 {
 	t_ray	transformed_ray;
 
-	transformed_ray = ray_transform(ray, inverse(shape.transform));
+	transformed_ray = ray_transform(ray, shape.transform);
 	return (shape.local_interesct(transformed_ray, shape));
 }
 
@@ -38,7 +38,6 @@ t_intersection	intersection(t_shape shape, t_vec2 vec)
 	t_intersection	new;
 	float			tmp;
 
-	new = (t_intersection){};
 	new.object = shape;
 	new.xs = vec;
 	new.t = 0;

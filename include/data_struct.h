@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/08 18:51:13 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/09 17:58:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,11 @@ typedef struct s_shear
 	float	z;
 }	t_shear;
 
+typedef float v4 __attribute__((vector_size(16)));
 typedef	union u_vec
 {
 	t_tuple	t1;
-	float	v[4];
+	v4		v;
 }	t_vec;
 
 union u_matrix

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:17:18 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/05 18:24:31 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:47:12 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,9 @@ t_camera	camera_new(float hsize, float vsize, float fov)
 	cam.psize = (cam.half_width * 2) / cam.hsize;
 	cam.transform = identity();
 	return (cam);
+}
+void camera_update_transform(t_camera *cam, t_tuple from, t_tuple to, t_tuple up)
+{
+	cam->transform = view_transform(from, to, up);
+	cam->transform = inverse(cam->transform);
 }

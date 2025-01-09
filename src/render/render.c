@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/08 18:40:27 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:45:00 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ t_ray	ray_for_pixel(t_camera cam, float x, float y)
 
 	world_x = cam.half_width - ((x + 0.5) * cam.psize);
 	world_y = cam.half_height - ((y + 0.5) * cam.psize);
-	pixel = matrix_multiply_tuple(inverse(cam.transform), point_new(world_x, world_y, -1));
-	ray.origin = matrix_multiply_tuple(inverse(cam.transform), point_new(0, 0, 0));
+	pixel = matrix_multiply_tuple(cam.transform, point_new(world_x, world_y, -1));
+	ray.origin = matrix_multiply_tuple(cam.transform, point_new(0, 0, 0));
 	ray.direction = tuple_normalize(tuple_substract(pixel, ray.origin));
 	return (ray);
 }
@@ -47,7 +47,7 @@ void	render(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
 			ak_mlx_pixel_put(img, x, y, tuple_tocolor(color));
 			x++;
 		}
-		y++;
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
+		y++;
 	}
 }

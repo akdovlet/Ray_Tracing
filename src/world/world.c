@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/08 16:54:49 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/09 16:45:36 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,58 +32,64 @@ t_world	default_world(void)
 	return (world);
 }
 
-t_junction	sort_hits(t_junction hits)
+void	sort_hits(t_junction *hits)
 {
 	int			i;
 	int			j;
 	t_crossing	tmp;
 
+	if (hits->count <= 1)
+		return;
 	i = 0;
-	while (i < hits.count)
+	while (i < hits->count)
 	{
 		j = i + 1;
-		while (j < hits.count)
+		while (j < hits->count)
 		{
-			if (hits.cross[i].t > hits.cross[j].t)
+			if (hits->cross[i].t > hits->cross[j].t)
 			{
-				tmp = hits.cross[i];
-				hits.cross[i] = hits.cross[j];
-				hits.cross[j] = tmp;
+				tmp = hits->cross[i];
+				hits->cross[i] = hits->cross[j];
+				hits->cross[j] = tmp;
 			}
 			j++;
 		}
 		i++;
 	}
-	return (hits);
+	// return (hits);
 }
+// static int a = 0;
 
-t_junction	intersect_world(t_world world, t_ray ray)
+void intersect_world(t_world world, t_ray ray, t_junction *hits)
 {
 	int				i;
 	int				j;
 	t_intersection	inter;
-	t_junction		hits;
 
 	i = 0;
 	j = 0;
-	hits.count = 0;
+	hits->count = 0;
 	while (i < world.obj_count)
 	{
 		inter = hit(intersection(world.obj[i], intersect(ray, world.obj[i])));
 		if (inter.count)
 		{
-			hits.count += inter.count;
-			hits.cross[j].t = inter.xs.x;
-			hits.cross[j++].obj = world.obj[i];
+			hits->count += inter.count;
+			hits->cross[j].t = inter.xs.x;
+			hits->cross[j++].obj = world.obj[i];
 			if (inter.count == 2)
 			{
-				hits.cross[j].t = inter.xs.y;
-				hits.cross[j++].obj = world.obj[i];
+				hits->cross[j].t = inter.xs.y;
+				hits->cross[j++].obj = world.obj[i];
 			}
 		}
 		i++;
 	}
-	return (sort_hits(hits));
+	// if (a < hits->count) {
+	// 	a = hits->count;
+	// 	fprintf(stderr, "amount of hits: %d\n", a);
+	// }
+	sort_hits(hits);
 }
 
 t_tuple	color_at(t_world world, t_ray ray)
@@ -92,7 +98,7 @@ t_tuple	color_at(t_world world, t_ray ray)
 	t_comps		comps;
 	t_junction	hits;
 
-	hits = intersect_world(world, ray);
+	intersect_world(world, ray, &hits);
 	color = color_new(0, 0, 0);
 	if (hits.count)
 	{
