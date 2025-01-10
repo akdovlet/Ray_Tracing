@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 18:43:57 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/09 13:42:47 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/10 14:16:16 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_pattern	stripe_pattern(t_tuple c1, t_tuple c2)
 
 t_tuple	stripe_at(t_pattern pattern, t_tuple point)
 {
-	if (!fmodf(point.x, 2))
+	if (fabs(fmodf(point.x, 2.0f)) < 1.0f)
 		return (pattern.color1);
 	return (pattern.color2);
 }

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/09 17:58:14 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:29:15 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,9 +82,10 @@ typedef struct s_light
 
 typedef struct	s_pattern
 {
-	int		exists;
-	t_tuple	color1;
-	t_tuple	color2;
+	int			exists;
+	t_tuple		color1;
+	t_tuple		color2;
+	t_matrix	transform;
 }	t_pattern;
 
 typedef struct s_material

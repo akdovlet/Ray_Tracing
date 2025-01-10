@@ -1488,6 +1488,7 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	floor = plane_new();
 	floor.transform = translate(1, 0, 3);
 	floor.matter = material();
+	floor.matter.pattern = stripe_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
 	floor.matter.color = color_new(1, 0.2, 1);
 	// floor.matter.specular = 0;
 
@@ -1505,6 +1506,7 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	middle_sph = sphere_default();
 	middle_sph.transform = translate(-0.5, 0, 0.5);
 	middle_sph.matter = material();
+	middle_sph.matter.pattern = stripe_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
 	middle_sph.matter.color = color_new(0.1, 1, 0.5);
 	middle_sph.matter.diffuse = 0.7;
 	middle_sph.matter.specular = 0.3;
@@ -1895,3 +1897,25 @@ void	test_stripe_at(void)
 	else
 		printf("\tOK\n");
 }
+
+// t_tuple	stripe_at_object(t_pattern pattern, t_shape shape, t_tuple point)
+// {
+
+// }
+
+// void	test_stripes_with_object(void)
+// {
+// 	t_shape	sph;
+// 	t_pattern	pattern;
+// 	t_tuple		color;
+// 	t_tuple		expected;
+
+// 	printf("\n Stripe with object test\n");
+	
+// 	sph = sphere_default();
+// 	sph.transform = scale(2, 2, 2);
+// 	pattern = stripe_pattern((t_tuple){1, 1, 1}, (t_tuple){0, 0, 0});
+// 	color = stripe_at_object(pattern, sph, point_new(1.5, 0, 0));
+
+// 	pattern.transform =
+// }
