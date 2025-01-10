@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/10 15:29:15 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/10 19:57:32 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct s_shear
 }	t_shear;
 
 typedef float v4 __attribute__((vector_size(16)));
+
 typedef	union u_vec
 {
 	t_tuple	t1;
@@ -86,6 +87,7 @@ typedef struct	s_pattern
 	t_tuple		color1;
 	t_tuple		color2;
 	t_matrix	transform;
+	t_tuple		(*pattern_at)(struct s_pattern pattern, t_tuple point);
 }	t_pattern;
 
 typedef struct s_material

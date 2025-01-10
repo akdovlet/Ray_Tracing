@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:09:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/09 15:56:31 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:15:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,5 @@ t_shape	sphere_default(void)
 
 void	set_transform(t_shape *obj, t_matrix m)
 {
-	obj->transform = m;
+	obj->transform = inverse(m);
 }

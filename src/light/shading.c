@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:32:02 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/09 16:38:48 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:25:02 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ t_tuple	shade_hit(t_world world, t_comps comps)
 
 	shadowed = is_shadowed(world, comps.overz);
 	return (blinn_phong(comps.obj.matter, world.light, comps.overz, comps.eyev, comps.normalv,
-			shadowed));
+			shadowed, comps.obj));
 }

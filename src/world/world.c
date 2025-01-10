@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/09 16:45:36 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:43:30 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	sort_hits(t_junction *hits)
 	}
 	// return (hits);
 }
-// static int a = 0;
 
 void intersect_world(t_world world, t_ray ray, t_junction *hits)
 {
@@ -85,10 +84,6 @@ void intersect_world(t_world world, t_ray ray, t_junction *hits)
 		}
 		i++;
 	}
-	// if (a < hits->count) {
-	// 	a = hits->count;
-	// 	fprintf(stderr, "amount of hits: %d\n", a);
-	// }
 	sort_hits(hits);
 }
 

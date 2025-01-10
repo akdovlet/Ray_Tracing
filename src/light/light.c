@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 19:46:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/09 10:21:36 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/10 20:09:25 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_light	point_light(t_tuple point, t_tuple intensity)
 	});
 }
 
-t_tuple	blinn_phong(t_material mat, t_light light, t_tuple overz, t_tuple eyev, t_tuple normalv, bool shadowed)
+t_tuple	blinn_phong(t_material mat, t_light light, t_tuple overz, t_tuple eyev, t_tuple normalv, bool shadowed, t_shape shape)
 {
 	t_tuple	e_color;
 	t_tuple	lightv;
@@ -36,7 +36,7 @@ t_tuple	blinn_phong(t_material mat, t_light light, t_tuple overz, t_tuple eyev, 
 	float	factor;
 	
 	if (mat.pattern.exists)
-		e_color = color_hadamard(stripe_at(mat.pattern, overz), light.intensity);
+		e_color = pattern_at_shape(mat.pattern, shape, overz);
 	else
 		e_color = color_hadamard(mat.color, light.intensity);
 	lightv = tuple_normalize(tuple_substract(light.position, overz));

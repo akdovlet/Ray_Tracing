@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stripe.c                                           :+:      :+:    :+:   */
+/*   gradient.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/08 18:43:57 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/10 20:23:48 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/01/10 20:19:49 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/01/10 20:29:20 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_tuple	stripe_at(t_pattern pattern, t_tuple point)
+static t_tuple	gradient_at(t_pattern pattern, t_tuple point)
 {
-	if (fabs(fmodf(point.x, 2.0f)) < 1.0f)
-		return (pattern.color1);
-	return (pattern.color2);
+	t_tuple	distance;
+	float	fraction;
+	
+	distance = tuple_substract(pattern.color2, pattern.color1);
+	fraction = point.x - floor(point.x);
+	return (tuple_add(pattern.color1, tuple_multiply(distance, fraction)));
 }
 
-t_pattern	stripe_pattern(t_tuple c1, t_tuple c2)
+t_pattern	gradient_pattern(t_tuple c1, t_tuple c2)
 {
 	return ((t_pattern){
 		.exists = 1,
 		.color1 = c1,
 		.color2 = c2,
+		.pattern_at = &gradient_at,
 		.transform = identity(),
-		.pattern_at = &stripe_at
 	});
 }
-

@@ -1488,14 +1488,16 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	floor = plane_new();
 	floor.transform = translate(1, 0, 3);
 	floor.matter = material();
-	floor.matter.pattern = stripe_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
+	floor.matter.pattern = gradient_pattern(color_new(1, 0, 0), color_new(0, 0, 1));
+	// floor.matter.pattern.transform = rotate_y(radians(30));
 	floor.matter.color = color_new(1, 0.2, 1);
-	// floor.matter.specular = 0;
+	floor.matter.specular = 0;
+	floor.matter.ambient = 0.1;
 
 	left_wall = plane_new();
-	left_wall.transform = translate(0, 10, 3);
-	left_wall.matter = floor.matter;
-	left_wall.matter.color = color_new(221.0f / 255.0f, 51.0f /255.0f, 102.0f / 255.0f);
+	left_wall.transform = translate(0, 5, 10);
+	left_wall.matter = material();
+	left_wall.matter.color = color_new(1, 0.2, 1);
 
 	right_wall = sphere_default();
 	right_wall.transform = multiply_matrix(
@@ -1504,9 +1506,11 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	right_wall.matter = floor.matter;
 
 	middle_sph = sphere_default();
-	middle_sph.transform = translate(-0.5, 0, 0.5);
+	// middle_sph.transform = translate(-0.5, 0, 0.5);
+	middle_sph.coordinates = point_new(-0.5, 1, 0.5);
 	middle_sph.matter = material();
 	middle_sph.matter.pattern = stripe_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
+	middle_sph.matter.pattern.transform = scale(30, 0, 0);
 	middle_sph.matter.color = color_new(0.1, 1, 0.5);
 	middle_sph.matter.diffuse = 0.7;
 	middle_sph.matter.specular = 0.3;
@@ -1525,7 +1529,7 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	left_sph.matter.diffuse = 0.7;
 	left_sph.matter.specular = 0.3;
 
-	world.light = point_light(point_new(-10, 1.5, -5), color_new(1, 1, 1));
+	world.light = point_light(point_new(-10, 3, -10), color_new(1, 1, 1));
 	world.obj[0] = floor;
 	world.obj[1] = left_wall;
 	world.obj[2] = middle_sph;
@@ -1672,250 +1676,236 @@ void	test_intersect_plane(void)
 
 void	test_stripe_at(void)
 {
-	t_pattern	pattern;
-	t_tuple		color;
-	t_tuple		expected;
-	t_material	mat;
-	t_tuple		eyev;
-	t_tuple		normalv;
-	t_light		light;
-
-	printf("\n Stripe at test\n");
-
-	//expect white 1, 1, 1
-	pattern = stripe_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
-	expected = color_new(1, 1, 1);
-	color = stripe_at(pattern, point_new(0, 0, 0));
-	if (tuple_cmp(color, expected))
-	{
-		fprintf(stderr, "\tError: expected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-	
-	//expect white 1, 1, 1
-	expected = color_new(1, 1, 1);
-	color = stripe_at(pattern, point_new(0, 1, 0));
-	if (tuple_cmp(color, expected))
-	{
-		fprintf(stderr, "\tError: expected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-
-	//expect white 1, 1, 1
-	expected = color_new(1, 1, 1);
-	color = stripe_at(pattern, point_new(0, 2, 0));
-	if (tuple_cmp(color, expected))
-	{
-		fprintf(stderr, "\tError: expected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-	
-/* --------------------------------------------------------------------------- */
-
-
-	expected = color_new(1, 1, 1);
-	color = stripe_at(pattern, point_new(0, 0, 0));
-	if (tuple_cmp(color, expected))
-	{
-		fprintf(stderr, "\tError: expected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-	
-	expected = color_new(1, 1, 1);
-	color = stripe_at(pattern, point_new(0, 0, 1));
-	if (tuple_cmp(color, expected))
-	{
-		fprintf(stderr, "\tError: expected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-	
-	expected = color_new(1, 1, 1);
-	color = stripe_at(pattern, point_new(0, 0, 2));
-	if (tuple_cmp(color, expected))
-	{
-		fprintf(stderr, "\tError: expected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-
-/* --------------------------------------------------------------------------- */
-
-	//expect white 1, 1, 1
-	expected = color_new(1, 1, 1);
-	color = stripe_at(pattern, point_new(0, 0, 0));
-	if (tuple_cmp(color, expected))
-	{
-		fprintf(stderr, "\tError: expected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-	
-	expected = color_new(1, 1, 1);
-	color = stripe_at(pattern, point_new(0.9, 0, 0));
-	if (tuple_cmp(color, expected))
-	{
-		fprintf(stderr, "\tError: expected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-	
-	expected = color_new(0, 0, 0);
-	color = stripe_at(pattern, point_new(1, 0, 0));
-	if (tuple_cmp(color, expected))
-	{
-		fprintf(stderr, "\tError: expected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-	expected = color_new(0, 0, 0);
-	color = stripe_at(pattern, point_new(-0.1, 0, 0));
-	if (tuple_cmp(color, expected))
-	{
-		fprintf(stderr, "\tError: expected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-	expected = color_new(0, 0, 0);
-	color = stripe_at(pattern, point_new(-1, 0, 0));
-	if (tuple_cmp(color, expected))
-	{
-		fprintf(stderr, "\tError: expected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-	expected = color_new(1, 1, 1);
-	color = stripe_at(pattern, point_new(-1.1, 0, 0));
-	if (tuple_cmp(color, expected))
-	{
-		fprintf(stderr, "\tError: expected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-
-/* --------------------------------------------------------------------------- */
-
-
-
-	printf("\n Test stripe at with blinn-phong\n");
-
-	mat = material();
-	mat.pattern = stripe_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
-	mat.ambient = 1;
-	mat.diffuse = 0;
-	mat.specular = 0;
-	eyev = vector_new(0, 0, -1);
-	normalv = vector_new(0, 0, -1);	
-	light = point_light(point_new(0, 0, -10), color_new(1, 1, 1));
-	color = blinn_phong(mat, light, point_new(0.9, 0, 0), eyev, normalv, false);
-	expected = color_new(1, 1, 1);
-	if (tuple_cmp(color, expected))
-	{
-		fprintf(stderr, "\tError:\texpected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t:");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-
-	color = blinn_phong(mat, light, point_new(1.1, 0, 0), eyev, normalv, false);
-	expected = color_new(0, 0, 0);
-	if (tuple_cmp(color, expected))
-	{
-		fprintf(stderr, "\tError:\texpected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t:");
-		tuple_print(color);
-	}
-	else
-		printf("\tOK\n");
-}
-
-// t_tuple	stripe_at_object(t_pattern pattern, t_shape shape, t_tuple point)
-// {
-
-// }
-
-// void	test_stripes_with_object(void)
-// {
-// 	t_shape	sph;
 // 	t_pattern	pattern;
+// 	t_shape		sph;
 // 	t_tuple		color;
 // 	t_tuple		expected;
+// 	t_material	mat;
+// 	t_tuple		eyev;
+// 	t_tuple		normalv;
+// 	t_light		light;
 
-// 	printf("\n Stripe with object test\n");
-	
+// 	printf("\n Stripe at test\n");
+
 // 	sph = sphere_default();
-// 	sph.transform = scale(2, 2, 2);
-// 	pattern = stripe_pattern((t_tuple){1, 1, 1}, (t_tuple){0, 0, 0});
-// 	color = stripe_at_object(pattern, sph, point_new(1.5, 0, 0));
+// 	//expect white 1, 1, 1
+// 	pattern = stripe_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
+// 	expected = color_new(1, 1, 1);
+// 	color = stripe_at(pattern, point_new(0, 0, 0));
+// 	if (tuple_cmp(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError: expected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
+	
+// 	//expect white 1, 1, 1
+// 	expected = color_new(1, 1, 1);
+// 	color = stripe_at(pattern, point_new(0, 1, 0));
+// 	if (tuple_cmp(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError: expected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
 
-// 	pattern.transform =
+// 	//expect white 1, 1, 1
+// 	expected = color_new(1, 1, 1);
+// 	color = stripe_at(pattern, point_new(0, 2, 0));
+// 	if (tuple_cmp(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError: expected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
+	
+// /* --------------------------------------------------------------------------- */
+
+// 	expected = color_new(1, 1, 1);
+// 	color = stripe_at(pattern, point_new(0, 0, 0));
+// 	if (tuple_cmp(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError: expected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
+	
+// 	expected = color_new(1, 1, 1);
+// 	color = stripe_at(pattern, point_new(0, 0, 1));
+// 	if (tuple_cmp(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError: expected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
+	
+// 	expected = color_new(1, 1, 1);
+// 	color = stripe_at(pattern, point_new(0, 0, 2));
+// 	if (tuple_cmp(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError: expected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
+
+// /* --------------------------------------------------------------------------- */
+
+// 	//expect white 1, 1, 1
+// 	expected = color_new(1, 1, 1);
+// 	color = stripe_at(pattern, point_new(0, 0, 0));
+// 	if (tuple_cmp(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError: expected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
+	
+// 	expected = color_new(1, 1, 1);
+// 	color = stripe_at(pattern, point_new(0.9, 0, 0));
+// 	if (tuple_cmp(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError: expected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
+	
+// 	expected = color_new(0, 0, 0);
+// 	color = stripe_at(pattern, point_new(1, 0, 0));
+// 	if (tuple_cmp(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError: expected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
+// 	expected = color_new(0, 0, 0);
+// 	color = stripe_at(pattern, point_new(-0.1, 0, 0));
+// 	if (tuple_cmp(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError: expected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
+// 	expected = color_new(0, 0, 0);
+// 	color = stripe_at(pattern, point_new(-1, 0, 0));
+// 	if (tuple_cmp(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError: expected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
+// 	expected = color_new(1, 1, 1);
+// 	color = stripe_at(pattern, point_new(-1.1, 0, 0));
+// 	if (tuple_cmp(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError: expected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
+
+// /* --------------------------------------------------------------------------- */
+
+// 	printf("\n Test stripe at with blinn-phong\n");
+
+// 	mat = material();
+// 	mat.pattern = stripe_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
+// 	mat.ambient = 1;
+// 	mat.diffuse = 0;
+// 	mat.specular = 0;
+// 	eyev = vector_new(0, 0, -1);
+// 	normalv = vector_new(0, 0, -1);	
+// 	light = point_light(point_new(0, 0, -10), color_new(1, 1, 1));
+// 	color = blinn_phong(mat, light, point_new(0.9, 0, 0), eyev, normalv, false, sph);
+// 	expected = color_new(1, 1, 1);
+// 	if (tuple_cmp(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError:\texpected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t:");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
+
+// 	color = blinn_phong(mat, light, point_new(1.1, 0, 0), eyev, normalv, false, sph);
+// 	expected = color_new(0, 0, 0);
+// 	if (tuple_cmp(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError:\texpected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t:");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 		printf("\tOK\n");
+}
+
+// void	test_gradient(void)
+// {
+// 	t_pattern pat;
+// 	t_tuple		expected;
+
+// 	pat = gradient_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
+// 	if (tuple_cmp())
 // }
