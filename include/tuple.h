@@ -34,6 +34,5 @@ void			tuple_print(t_tuple t1);
 
 t_tuple			color_new(float red, float green, float blue);
 t_tuple			color_hadamard(t_tuple c1, t_tuple c2);
-unsigned int	tuple_tocolor(t_tuple tcolor);
 
 #endif

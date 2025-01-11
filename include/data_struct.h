@@ -13,8 +13,10 @@
 #ifndef DATA_STRUCT_H
 # define DATA_STRUCT_H
 
+# include <stdint.h>
+# include <stdbool.h>
+
 typedef union u_matrix			t_matrix;
-typedef	union u_color			t_color;
 typedef enum e_type				t_type;
 typedef struct s_shape			t_shape;
 typedef struct s_vtable_shape	t_vtable_shape;
@@ -100,11 +102,7 @@ typedef struct s_material
 	t_pattern	pattern;
 }	t_material;
 
-union	u_color
-{
-	unsigned char	bytes[4];
-	unsigned int	color;
-};
+
 
 typedef struct s_ray
 {

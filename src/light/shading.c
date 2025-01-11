@@ -13,6 +13,24 @@
 #include "minirt.h"
 #include "light.h"
 
+bool	is_shadowed(t_world world, t_tuple point)
+{
+	t_tuple	v;
+	float	distance;
+	t_tuple	direction;
+	t_ray	ray;
+	t_junction	hits;
+
+	v = tuple_substract(world.light.position, point);
+	distance = tuple_magnitude(v);
+	direction = tuple_normalize(v);
+	ray = ray_new(point, direction);
+	intersect_world(world, ray, &hits);
+	if (hits.count && hits.cross[0].t < distance)
+		return (true);
+	return (false);
+}
+
 t_tuple	shade_hit(t_world world, t_comps comps)
 {
 	bool	shadowed;

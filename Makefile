@@ -15,8 +15,9 @@
 NAME	:=	minirt
 
 SRC		:=	main.c							\
-			test.c							\
+			scene.c							\
 			camera/camera.c					\
+			graphics/graphics.c				\
 			light/light.c					\
 			light/shading.c					\
 			matrix/rotate.c					\
@@ -29,17 +30,12 @@ SRC		:=	main.c							\
 			matrix/matrix_print.c			\
 			matrix/matrix_transpose.c		\
 			matrix/matrix.c					\
-			mlx/init_mlx.c					\
-			mlx/key_manager.c				\
-			mlx/mlx_clear.c					\
-			mlx/mlx_pixel_put.c				\
 			objects/material.c				\
 			objects/normal.c				\
 			objects/plane.c					\
 			objects/ray_transform.c			\
 			objects/ray.c					\
 			objects/reflect.c				\
-			objects/simulation.c			\
 			objects/sphere.c				\
 			pattern/gradient.c				\
 			pattern/pattern.c				\
@@ -58,7 +54,6 @@ SRC		:=	main.c							\
 			tuple/tuple_print.c				\
 			tuple/tuple_scalar.c			\
 			tuple/tuple_substract.c			\
-			tuple/tuple_tocolor.c			\
 			world/pre_compute.c				\
 			world/view_transform.c			\
 			world/world.c
@@ -70,11 +65,25 @@ SRC		:=	$(addprefix $(SRC_DIR)/, $(SRC))
 OBJ 	:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD)/%.o, $(SRC))
 DEP		:=	$(OBJ:.o=.d)
 
-LIBFT	:=	libft/libft.a
+LIBFT	:=	libs/libft/libft.a
+RAYLIB	?=	libs/raylib/src/
 
 CC		:=	cc
-CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -Ilibft/include -g -Imlx_linux -O3
-MATH	:=	-lm
+
+CFLAGS				:= -Wall  -Wextra -Werror
+DEBUG_FLAGS			:= -MMD -MP -g 
+OPTI_FLAGS			:= -O3
+FLAGS				:= $(CFLAGS) $(DEBUG_FLAGS) #$(OPTI_FLAGS)
+
+INCLUDES_BASIC		:= -I include -I libs/libft/include
+INCLUDES_MANDATORY	:= -Imlx_linux
+INCLUDES_BONUS		:= -I $(RAYLIB)
+INCLUDES			:= $(INCLUDES_BASIC) $(INCLUDES_BONUS)
+
+LINK_BASIC			:= -lm
+LINK_MANDATORY		:= -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lz
+LINKK_BONUS			:= -L $(RAYLIB) -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+LINK				:= $(LINK_BASIC) $(LINKK_BONUS)
 
 all: create_dir $(NAME)
 
@@ -87,15 +96,15 @@ $(BUILD):
 	@mkdir -p $(BUILD)
 
 $(NAME): $(MLX) $(OBJ) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJ) -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lz -o $(NAME) $(LIBFT) $(MATH)
+	@$(CC) $(FLAGS) $(INCLUDES) $(OBJ) $(LINK) -o $(NAME) $(LIBFT) $(MATH)
 
 $(BUILD)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
 	@printf "\033[1;32%sm\tCompiled: $(<F)\033[0m\n";
 
 $(LIBFT):
-	@$(MAKE) --no-print-directory -C libft
+	@$(MAKE) --no-print-directory -C libs/libft
 
 clean:
 	@if [ -d $(BUILD) ]; then $(RM) -rf $(BUILD) && printf "\033[1;31m\tDeleted: $(NAME) $(BUILD)\033[0m\n"; fi
@@ -116,6 +125,9 @@ re:
 	@make --no-print-directory fclean
 	@make --no-print-directory all
 
+build_raylib:
+	cd libs/raylib/src
+	make PLATFORM=PLATFORM_DESKTOP
 -include $(DEP)
 
 .PHONY: all clean fclean re create_dir

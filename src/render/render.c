@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "graphics.h"
 #include "tuple.h"
 #include "objects.h"
 
@@ -29,25 +30,29 @@ t_ray	ray_for_pixel(t_camera cam, float x, float y)
 	return (ray);
 }
 
-void	render(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
+static float yy = 0;
+void	render(t_camera* camera, t_world* world)
 {
 	int	y;
 	int	x;
 	t_ray	ray;
-	t_tuple	color;
-
+	t_color	color;
 	y = 0;
-	while (y < cam.vsize)
+	while (y < camera->vsize)
 	{
 		x = 0;
-		while (x < cam.hsize)
+		while (x < camera->hsize)
 		{
-			ray = ray_for_pixel(cam, x, y);
-			color = color_at(world, ray);
-			ak_mlx_pixel_put(img, x, y, tuple_tocolor(color));
+			ray = ray_for_pixel(*camera, x, y);
+			color = tuple_tocolor(color_at(*world, ray));
+			put_pixel(x, y, color);
 			x++;
 		}
-		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
 		y++;
+		float tmp = y/camera->vsize;
+		if (tmp > yy + 0.1) {
+			yy = tmp;
+			printf("%f/100\n", (yy) * 100);
+		}
 	}
 }

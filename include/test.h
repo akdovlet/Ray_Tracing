@@ -35,7 +35,6 @@ void		test_view_transform(void);
 void		test_camera(void);
 void		test_ray_for_pixel(void);
 void		test_render_world(t_img *img, t_mlx *mlx);
-void		test_scene(t_img *img, t_mlx *mlx);
 void		test_is_shadowed(void);
 void		test_intersect_plane(void);
 void		test_stripe_at(void);

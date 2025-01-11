@@ -11,47 +11,18 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "test.h"
-#include "tuple.h"
 
 int main()
 {
-	t_img	img;
-	t_mlx	mlx;
-		
-	init_mlx(&mlx, &img);
-	mlx_key_hook(mlx.win_ptr, &key_manager, &mlx);
-	mlx_hook(mlx.win_ptr, 17, 0, mlx_loop_end, mlx.mlx_ptr);
+	t_env		env;
 
-	// position_test();
-	// sphere_test();
-	// transform_test();
-	// object_transform_test();
-	// draw_sphere(&img, &mlx);
-	// test_intersect_world();
-	// test_light();
-	// position_test();
-	// normal_at_test();
-	// transpose_test();
-	// reflect_test();
-	// test_color();
-	// intersection_test();
-	// test_pre_compute();
-	// test_shading();
-	// test_color_at();
-	// test_view_transform();
-	// test_camera();
-	// test_ray_for_pixel();
-	// test_render_world(&img, &mlx);
-	test_scene(&img, &mlx);
-	// test_is_shadowed();
-	// test_shape_obj();
-	// test_intersect_plane();
-	// test_stripe_at();
-	// mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
+	env = (t_env){
+		.height = HEIGHT,
+		.width = WIDTH,
+		.title = "minirt",
+	};
 
-	mlx_loop(mlx.mlx_ptr);
-	mlx_clear(&mlx, &img);
-	printf("AK out!\n");
+	scene(&env.camera, &env.world);
+	loop(&env, render);
 	return (0);
 }

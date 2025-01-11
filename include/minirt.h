@@ -19,22 +19,23 @@
 # include <unistd.h>
 # include <stdbool.h>
 
-# include "X11/keysym.h"
-# include "mlx.h"
+#include "graphics.h"
+
 # include "libft.h"
 # include "data_struct.h"
 # include "tuple.h"
 # include "matrix.h"
 # include "objects.h"
-# include "mlx_utils.h"
 # include "pattern.h"
 
 # define WIDTH 1000
 # define HEIGHT 500
 
+void        scene(t_camera* camera, t_world* world);
+
 t_ray		ray_new(t_tuple origin, t_tuple direction);
 t_tuple		position(t_ray ray, float factor);
-void		render(t_camera cam, t_world world, t_img *img, t_mlx *mlx);
+void        render(t_camera* camera, t_world* world);
 t_ray		ray_for_pixel(t_camera cam, float x, float y);
 bool		is_shadowed(t_world world, t_tuple point);
 
