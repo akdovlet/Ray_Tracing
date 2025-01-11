@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shading.c                                          :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/05 15:32:02 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/11 14:43:36 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/01/11 16:56:58 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/01/11 17:21:16 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "light.h"
 
-t_tuple	shade_hit(t_world world, t_comps comps)
+t_tuple	checkers_at(t_pattern checkers, t_tuple point)
 {
-	bool	shadowed;
+	if (fabsf(fmodf(floor(point.x) + floor(point.y) + floor(point.z), 2.0f)) < 1.0f)
+		return (checkers.color1);
+	return (checkers.color2);
+}
 
-	shadowed = is_shadowed(world, comps.overz);
-	return (blinn_phong(comps.obj.matter, world.light, 
-			comps.overz, comps.eyev, comps.normalv,
-			shadowed, comps.obj));
+t_pattern checkers_pattern(t_tuple c1, t_tuple c2)
+{
+	return ((t_pattern){
+		.color1 = c1,
+		.color2 = c2,
+		.exists = 1,
+		.pattern_at = &checkers_at,
+		.transform = identity()
+	});
 }

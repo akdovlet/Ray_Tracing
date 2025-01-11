@@ -1486,13 +1486,15 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	t_shape		left_sph;
 
 	floor = plane_new();
-	floor.transform = translate(1, 0, 3);
+	set_transform(&floor, translate(1, 0, 3));
+	// floor.transform = translate(1, 0, 3);
 	floor.matter = material();
-	floor.matter.pattern = gradient_pattern(color_new(1, 0, 0), color_new(0, 0, 1));
-	// floor.matter.pattern.transform = rotate_y(radians(30));
+	floor.matter.pattern = checkers_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
+	// floor.matter.pattern.transform = rotate_y(radians(90));
+	set_transform_pattern(&floor.matter.pattern, rotate_y(radians(30)));
 	floor.matter.color = color_new(1, 0.2, 1);
 	floor.matter.specular = 0;
-	floor.matter.ambient = 0.1;
+	floor.matter.ambient = 0.7;
 
 	left_wall = plane_new();
 	left_wall.transform = translate(0, 5, 10);
@@ -1506,25 +1508,28 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	right_wall.matter = floor.matter;
 
 	middle_sph = sphere_default();
-	// middle_sph.transform = translate(-0.5, 0, 0.5);
-	middle_sph.coordinates = point_new(-0.5, 1, 0.5);
+	middle_sph.transform = translate(0.5, -1, -0.5);
+	// middle_sph.coordinates = point_new(-0.5, 1, 0.5);
 	middle_sph.matter = material();
-	middle_sph.matter.pattern = stripe_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
-	middle_sph.matter.pattern.transform = scale(30, 0, 0);
+	middle_sph.matter.pattern = ring_pattern(color_new(1, 0.2, 1), color_new(1, 1, 1));
+	// set_transform(&middle_sph, identity());
+	set_transform_pattern(&middle_sph.matter.pattern, scale(0.2, 0.1, 0.07));
+	// middle_sph.matter.pattern.transform = scale(, 0, 0);
 	middle_sph.matter.color = color_new(0.1, 1, 0.5);
 	middle_sph.matter.diffuse = 0.7;
 	middle_sph.matter.specular = 0.3;
 
 	right_sph = sphere_default();
-	right_sph.transform = multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.5, 0.5, 0.5));
+	set_transform(&right_sph, multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.5, 0.5, 0.5)));
 	right_sph.matter = material();
 	right_sph.matter.color = color_new(0.5, 1, 0.1);
 	right_sph.matter.diffuse = 0.7;
 	right_sph.matter.specular = 0.3;
 
 	left_sph = sphere_default();
-	left_sph.transform = multiply_matrix(translate(-1.5, 0.33, -0.5), scale(0.33, 0.33, 0.33));
+	set_transform(&left_sph, multiply_matrix(translate(-1.5, 0.33, -0.5), scale(0.33, 0.33, 0.33)));
 	left_sph.matter = material();
+	left_sph.matter.pattern = gradient_pattern(color_new(232.0f / 255.0f, 112.0f / 255.0f, 32.0f / 255.0f), color_new(32.0f / 255.0f, 215.0f / 255.0f, 232.0f / 255.0f));
 	left_sph.matter.color = color_new(1, 0.8, 0.1);
 	left_sph.matter.diffuse = 0.7;
 	left_sph.matter.specular = 0.3;
@@ -1536,8 +1541,8 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	world.obj[3] = right_sph;
 	world.obj[4] = left_sph;
 	world.obj_count = 5;
-	for (int i = 0; i < world.obj_count; i++)
-		world.obj[i].transform = inverse(world.obj[i].transform);
+	// for (int i = 0; i < world.obj_count; i++)
+	// 	world.obj[i].transform = inverse(world.obj[i].transform);
 	cam = camera_new(WIDTH, HEIGHT, M_PI / 3);
 	camera_update_transform(&cam, point_new(0, 1.5, -5),
 									point_new(0, 1, 0),

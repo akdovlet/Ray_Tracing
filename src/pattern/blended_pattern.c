@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   shading.c                                          :+:      :+:    :+:   */
+/*   blended_pattern.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/05 15:32:02 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/11 14:43:36 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/01/11 17:21:25 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/01/11 17:24:26 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "light.h"
 
-t_tuple	shade_hit(t_world world, t_comps comps)
+t_pattern	blended_pattern(t_pattern a, t_pattern b)
 {
-	bool	shadowed;
-
-	shadowed = is_shadowed(world, comps.overz);
-	return (blinn_phong(comps.obj.matter, world.light, 
-			comps.overz, comps.eyev, comps.normalv,
-			shadowed, comps.obj));
+	
 }
