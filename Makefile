@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/01/11 17:00:51 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/01/12 17:44:22 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC		:=	main.c							\
 			pattern/checker.c				\
 			pattern/gradient.c				\
 			pattern/pattern.c				\
+			pattern/radial.c				\
 			pattern/ring.c					\
 			pattern/stripe.c				\
 			render/render.c					\

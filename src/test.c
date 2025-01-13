@@ -1522,6 +1522,8 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	right_sph = sphere_default();
 	set_transform(&right_sph, multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.5, 0.5, 0.5)));
 	right_sph.matter = material();
+	right_sph.matter.pattern = radial_pattern(color_new(1, 0, 0), color_new(0, 0, 1));
+	set_transform_pattern(&right_sph.matter.pattern, scale(0.2, 0.4, 0.07));
 	right_sph.matter.color = color_new(0.5, 1, 0.1);
 	right_sph.matter.diffuse = 0.7;
 	right_sph.matter.specular = 0.3;
@@ -1529,7 +1531,8 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	left_sph = sphere_default();
 	set_transform(&left_sph, multiply_matrix(translate(-1.5, 0.33, -0.5), scale(0.33, 0.33, 0.33)));
 	left_sph.matter = material();
-	left_sph.matter.pattern = gradient_pattern(color_new(232.0f / 255.0f, 112.0f / 255.0f, 32.0f / 255.0f), color_new(32.0f / 255.0f, 215.0f / 255.0f, 232.0f / 255.0f));
+	left_sph.matter.pattern = gradient_pattern(color_new(1, 0, 0), color_new(0, 1, 0));
+	// set_transform_pattern(&left_sph.matter.pattern, scale(2.3, 2, 2));
 	left_sph.matter.color = color_new(1, 0.8, 0.1);
 	left_sph.matter.diffuse = 0.7;
 	left_sph.matter.specular = 0.3;
