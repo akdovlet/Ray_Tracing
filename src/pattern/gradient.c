@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 20:19:49 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/13 09:55:31 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/13 09:56:48 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@ t_tuple	gradient_at(t_pattern pattern, t_tuple point)
 	t_tuple	distance;
 	float	fraction;
 	t_tuple	color;
-
-	fraction = 2.0f * point.x - floorf(2.0f * point.x);
+	
+	point.x *= 2.0f;
+	fraction = point.x - floorf(point.x);
 	if(fabsf(point.x - floorf(point.x)) < 0.5f)
 	{
 		distance = tuple_substract(pattern.color2, pattern.color1);
