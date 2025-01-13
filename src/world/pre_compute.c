@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:52:44 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/10 16:46:20 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:51:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ t_comps	pre_compute(t_crossing cross, t_ray ray)
 		new.inside = false;
 	new.overz = tuple_multiply(new.normalv, 0.002);
 	new.overz = tuple_add(new.overz, new.world_point);
+	new.reflectv = reflect(ray.direction, new.normalv);
 	return (new);
 }

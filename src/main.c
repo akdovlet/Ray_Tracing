@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/10 20:13:59 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:53:16 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int main()
 	// test_ray_for_pixel();
 	// test_render_world(&img, &mlx);
 	test_scene(&img, &mlx);
+	test_reflection();
 	// test_is_shadowed();
 	// test_shape_obj();
 	// test_intersect_plane();

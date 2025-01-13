@@ -1220,7 +1220,7 @@ void	test_shading(void)
 	cross.t = 4;
 	cross.obj = world.obj[0];
 	comps = pre_compute(cross, ray);
-	color = shade_hit(world, comps);
+	color = shade_hit(world, comps, 5);
 	if (tuple_cmp(color, color_new(0.380f, 0.475f, 0.285f)))
 	{
 		fprintf(stderr, "\tError:\texpected:\t");
@@ -1239,7 +1239,7 @@ void	test_shading(void)
 	cross.obj = world.obj[1];
 	cross.t = 0.5;
 	comps = pre_compute(cross, ray);
-	color = shade_hit(world, comps);
+	color = shade_hit(world, comps, 5);
 	t_tuple expected = color_new(0.90498, 0.90498, 0.90498);
 	if (tuple_cmp(color, expected))
 	{
@@ -1264,7 +1264,7 @@ void	test_color_at(void)
 	printf("\nColor at test\n");
 	world = default_world();
 	ray = ray_new(point_new(0, 0, -5), vector_new(0, 1, 0));
-	color = color_at(world, ray);
+	color = color_at(world, ray, 5);
 	expected = color_new(0, 0, 0);
 	if (tuple_cmp(color, expected))
 	{
@@ -1280,7 +1280,7 @@ void	test_color_at(void)
 
 
 	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
-	color = color_at(world, ray);
+	color = color_at(world, ray, 5);
 	expected = color_new(0.38066, 0.47583, 0.2855);
 	if (tuple_cmp(color, expected))
 	{
@@ -1301,7 +1301,7 @@ void	test_color_at(void)
 	world.obj[0] = world.obj[1];
 	world.obj[1] = tmp;
 	ray = ray_new(point_new(0, 0, 0.75), vector_new(0, 0, -1));
-	color = color_at(world, ray);
+	color = color_at(world, ray, 5);
 	expected = world.obj[1].matter.color;
 	if (tuple_cmp(color, expected))
 	{
@@ -1480,7 +1480,6 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	t_camera	cam;
 	t_shape		floor;
 	t_shape		left_wall;
-	t_shape		right_wall;
 	t_shape		middle_sph;
 	t_shape		right_sph;
 	t_shape		left_sph;
@@ -1495,29 +1494,25 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	floor.matter.color = color_new(1, 0.2, 1);
 	floor.matter.specular = 0;
 	floor.matter.ambient = 0.7;
+	floor.matter.reflective = 0.5;
 
 	left_wall = plane_new();
-	left_wall.transform = translate(0, 5, 10);
+	set_transform(&left_wall, translate(0, 5, 10));
 	left_wall.matter = material();
 	left_wall.matter.color = color_new(1, 0.2, 1);
-
-	right_wall = sphere_default();
-	right_wall.transform = multiply_matrix(
-							multiply_matrix(translate(0, 0, 5), rotate_y(M_PI / 4)),
-							multiply_matrix(rotate_x(M_PI / 2), scale(10, 0.01, 10)));
-	right_wall.matter = floor.matter;
 
 	middle_sph = sphere_default();
 	middle_sph.transform = translate(0.5, -1, -0.5);
 	// middle_sph.coordinates = point_new(-0.5, 1, 0.5);
 	middle_sph.matter = material();
-	middle_sph.matter.pattern = ring_pattern(color_new(1, 0.2, 1), color_new(1, 1, 1));
+	// middle_sph.matter.pattern = ring_pattern(color_new(1, 0.2, 1), color_new(1, 1, 1));
 	// set_transform(&middle_sph, identity());
-	set_transform_pattern(&middle_sph.matter.pattern, scale(0.2, 0.1, 0.07));
+	// set_transform_pattern(&middle_sph.matter.pattern, scale(0.2, 0.1, 0.07));
 	// middle_sph.matter.pattern.transform = scale(, 0, 0);
-	middle_sph.matter.color = color_new(0.1, 1, 0.5);
+	middle_sph.matter.color = color_new(1, 1, 1);
 	middle_sph.matter.diffuse = 0.7;
 	middle_sph.matter.specular = 0.3;
+	middle_sph.matter.reflective = 0.5;
 
 	right_sph = sphere_default();
 	set_transform(&right_sph, multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.5, 0.5, 0.5)));
@@ -1917,3 +1912,31 @@ void	test_stripe_at(void)
 // 	pat = gradient_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
 // 	if (tuple_cmp())
 // }
+
+void	test_reflection(void)
+{
+	t_shape 		plane;
+	t_ray			ray;
+	t_crossing		cross;
+	t_comps			comps;
+	t_world			world;
+	t_tuple			color;
+
+	printf("\nTest reflection\n");
+
+	plane = plane_new();
+	ray = ray_new(point_new(0, 1, -1), vector_new(0, -sqrt(2)/2, sqrt(2)/2));
+	cross.t = sqrtf(2.0f);
+	cross.obj = plane;
+	comps = pre_compute(cross, ray);
+	tuple_print(comps.reflectv);
+
+	world = default_world();
+	plane.matter.reflective = 0.5;
+	plane.transform = translate(0, -1, 0);
+	ray = ray_new(point_new(0, 0, -3), vector_new(0, -sqrt(2)/2, sqrt(2)/2));
+	cross.t = sqrtf(2.0f);
+	comps = pre_compute(cross,ray);
+	color = shade_hit(world, comps, 5);
+	tuple_print(color);
+}

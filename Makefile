@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/01/12 17:44:22 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/01/13 16:14:41 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,10 +36,6 @@ SRC		:=	main.c							\
 			objects/material.c				\
 			objects/normal.c				\
 			objects/plane.c					\
-			objects/ray_transform.c			\
-			objects/ray.c					\
-			objects/reflect.c				\
-			objects/simulation.c			\
 			objects/sphere.c				\
 			pattern/checker.c				\
 			pattern/gradient.c				\
@@ -47,6 +43,9 @@ SRC		:=	main.c							\
 			pattern/radial.c				\
 			pattern/ring.c					\
 			pattern/stripe.c				\
+			ray/ray_transform.c				\
+			ray/ray.c						\
+			ray/reflect.c					\
 			render/render.c					\
 			tuple/color_new.c				\
 			tuple/hadamard_product.c		\

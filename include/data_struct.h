@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/10 19:57:32 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/13 17:35:37 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ typedef struct s_material
 	float		diffuse;
 	float		specular;
 	float		shininess;
+	float		reflective;
+	float		transparency;
+	float		refractive_index;
 	t_tuple		color;
 	t_pattern	pattern;
 }	t_material;
@@ -156,13 +159,15 @@ typedef struct s_world
 
 typedef struct s_comps
 {
-	float		t;
 	bool		inside;
-	t_shape	obj;
+	float		t;
 	t_tuple		world_point;
 	t_tuple		eyev;
 	t_tuple		normalv;
+	t_tuple		reflectv;
 	t_tuple		overz;
+	t_tuple		under_point;
+	t_shape		obj;
 }	t_comps;
 
 typedef struct s_camera
