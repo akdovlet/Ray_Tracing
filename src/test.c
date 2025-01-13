@@ -1479,7 +1479,7 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	t_world		world;
 	t_camera	cam;
 	t_shape		floor;
-	t_shape		left_wall;
+	t_shape		sky;
 	t_shape		middle_sph;
 	t_shape		right_sph;
 	t_shape		left_sph;
@@ -1491,15 +1491,17 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	floor.matter.pattern = checkers_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
 	// floor.matter.pattern.transform = rotate_y(radians(90));
 	set_transform_pattern(&floor.matter.pattern, rotate_y(radians(30)));
-	floor.matter.color = color_new(1, 0.2, 1);
+	// floor.matter.color = color_new(1, 0.2, 1);
 	floor.matter.specular = 0;
 	floor.matter.ambient = 0.7;
 	floor.matter.reflective = 0.5;
 
-	left_wall = plane_new();
-	set_transform(&left_wall, translate(0, 5, 10));
-	left_wall.matter = material();
-	left_wall.matter.color = color_new(1, 0.2, 1);
+	sky = plane_new();
+	set_transform(&sky, translate(0, 10, 0));
+	sky.matter = material();
+	sky.matter.color = color_new(0, 0.957, 1);
+	sky.matter.pattern = gradient_pattern(color_new(0, 0.957, 1), color_new(1, 1, 1));
+	set_transform_pattern(&sky.matter.pattern, scale(2, 2, 4));
 
 	middle_sph = sphere_default();
 	middle_sph.transform = translate(0.5, -1, -0.5);
@@ -1534,7 +1536,7 @@ void	test_scene(t_img *img, t_mlx *mlx)
 
 	world.light = point_light(point_new(-10, 3, -10), color_new(1, 1, 1));
 	world.obj[0] = floor;
-	world.obj[1] = left_wall;
+	world.obj[1] = sky;
 	world.obj[2] = middle_sph;
 	world.obj[3] = right_sph;
 	world.obj[4] = left_sph;
