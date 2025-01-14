@@ -407,7 +407,7 @@ void	object_transform_test(void)
 	t_ray			ray;
 	t_shape		sph;
 	float			dis;
-	t_vec2			vec;
+	t_vec2f			vec;
 	t_intersection	i;
 	t_intersection	j;
 

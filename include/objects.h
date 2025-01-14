@@ -19,9 +19,11 @@
 t_shape		sphere(t_tuple point, float radius);
 void			sphere_test(void);
 
-t_vec2			intersect(t_ray ray, t_shape object);
-t_intersection	intersection(t_shape obj, t_vec2 vec);
-t_intersection	hit(t_intersection inter);
+t_vec2f			intersect(t_ray ray, t_shape object);
+t_intersection	intersection(t_shape obj, t_vec2f vec);
+int	hit(t_intersection* inter);
+
+// t_intersection	hit(t_intersection inter);
 
 t_ray			ray_transform(t_ray ray, t_matrix m);
 void			set_transform(t_shape *obj, t_matrix m);
@@ -30,9 +32,11 @@ t_tuple			reflect(t_tuple in, t_tuple normal);
 t_material		material(void);
 
 t_world			default_world(void);
-void			intersect_world(t_world world, t_ray ray, t_junction *hits);
+bool			intersect_world(t_world world, t_ray ray, t_junction *hits);
 t_comps			pre_compute(t_crossing cross, t_ray ray);
-t_tuple			color_at(t_world world, t_ray ray);
+
+t_color			color_at(t_world world, t_ray ray);
+
 t_matrix		view_transform(t_tuple from, t_tuple to, t_tuple up);
 t_shape			sphere_default(void);
 

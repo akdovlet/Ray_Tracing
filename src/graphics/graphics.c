@@ -1,4 +1,5 @@
 #include "graphics.h"
+#include "minirt.h"
 #include <math.h>
 #include <stddef.h>
 
@@ -26,6 +27,14 @@ void	put_pixel(int dx, int dy, t_color color)
 
 	env = static_env(NULL);
 	put_pixel_to_image(&env->image, dx, dy, color);
+}
+
+void put_circle(int dx, int dy, t_color color)
+{
+	t_env*	env;
+
+	env = static_env(NULL);
+	ImageDrawCircle(&env->image, dx, dy, 6, color);
 }
 
 #ifdef RAYLIB
@@ -66,7 +75,7 @@ void    destroy_env(t_env* env)
     CloseWindow();
 }
 
-void	loop(t_env *env, t_fn_render render)
+void	loop(t_env *env)
 {
 	init_env(env);
 	static_env(env);
@@ -75,7 +84,7 @@ void	loop(t_env *env, t_fn_render render)
     // SetTargetFPS(1);
     while (!WindowShouldClose())
     {
-		render(&env->camera, &env->world);
+		render(env);
 		Color *pixels = LoadImageColors(env->image);
 
         UpdateTexture(texture, pixels);
@@ -99,6 +108,22 @@ t_color	tuple_tocolor(t_tuple tcolor)
 	color.a = 255;
 	return (color);
 }
+
+t_tuple	color_new(float red, float green, float blue)
+{
+	t_tuple	new;
+
+	new.x = red;
+	new.y = green;
+	new.z = blue;
+	new.w = 0;
+	return (new);
+}
+
+// t_color	color_new(float red, float green, float blue)
+// {
+// 	return ((t_color){red, green, blue, 255});
+// }
 
 #elif
 
@@ -180,9 +205,15 @@ t_color	tuple_tocolor(t_tuple tcolor)
 	t_color	color;
 
 	color.bytes[2] = fmin(roundf(tcolor.x * 255), 255);
-	color.bytes[1]= fmin(roundf(tcolor.y * 255), 255);
+	color.bytes[1] = fmin(roundf(tcolor.y * 255), 255);
 	color.bytes[0] = fmin(roundf(tcolor.z * 255), 255);
 	color.bytes[3] = 0;
 	return (color);
 }
+
+t_color	color_new(float red, float green, float blue)
+{
+	return ((t_color){{blue, green, red, 0}});
+}
+
 #endif

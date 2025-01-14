@@ -12,22 +12,22 @@
 
 #include "minirt.h"
 
-static t_vec2	local_intersect(t_ray ray, t_shape shape)
+static t_vec2f	local_intersect(t_ray ray, t_shape shape)
 {
 	float	dot;
 	float	t;
 	t_tuple	local_ray;
 
 	if (fabs(ray.direction.y) < __FLT_EPSILON__)
-		return ((t_vec2) {.dis = -1});
+		return ((t_vec2f) {.dis = -1});
 	local_ray = tuple_substract(ray.origin, shape.coordinates);
 	dot = tuple_dot(vector_new(0, 1, 0), local_ray);
 	if (!dot)
-		return ((t_vec2) {.dis = -1});
+		return ((t_vec2f) {.dis = -1});
 	t = -ray.origin.y / ray.direction.y;
 	if (t < 0)
-		return ((t_vec2) {.dis = -1});
-	return ((t_vec2) {
+		return ((t_vec2f) {.dis = -1});
+	return ((t_vec2f) {
 		.dis = 0,
 		.x = t,
 		.y = 0

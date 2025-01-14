@@ -26,16 +26,20 @@ bool	is_shadowed(t_world world, t_tuple point)
 	direction = tuple_normalize(v);
 	ray = ray_new(point, direction);
 	intersect_world(world, ray, &hits);
-	if (hits.count && hits.cross[0].t < distance)
-		return (true);
-	return (false);
+	return (hits.count && hits.cross[0].t < distance);
 }
 
 t_tuple	shade_hit(t_world world, t_comps comps)
 {
-	bool	shadowed;
+	// bool	shadowed;
 
-	shadowed = is_shadowed(world, comps.overz);
-	return (blinn_phong(comps.obj.matter, world.light, comps.overz, comps.eyev, comps.normalv,
-			shadowed, comps.obj));
+	// shadowed = is_shadowed(world, comps.overz);
+	return (blinn_phong(
+		comps.obj.matter,
+		world.light,
+		comps.overz,
+		comps.eyev,
+		comps.normalv,
+		false,
+		comps.obj));
 }

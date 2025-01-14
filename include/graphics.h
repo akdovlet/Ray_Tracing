@@ -2,6 +2,7 @@
 #define GRAPHICS_H
 
 # include "data_struct.h"
+# include "quadtree.h"
 
 typedef struct s_env t_env;
 
@@ -14,11 +15,14 @@ typedef Color t_color;
 typedef Image t_img;
 
 struct s_env {
-	int width;
-	int height;
+	int			width;
+	int			height;
 	const char* title;
 	t_camera	camera;
 	t_world		world;
+	t_quadtree* root;
+
+	t_ray*		precomputed_ray;
 
     t_img  image;
 };
@@ -27,7 +31,7 @@ struct s_env {
 #include "X11/keysym.h"
 #include "mlx.h"
 
-typedef	union u_color			t_color;
+typedef	union u_color	t_color;
 union	u_color
 {
 	unsigned char	bytes[4];
@@ -64,12 +68,21 @@ int     init_env(t_env *env);
 void	put_pixel_to_image(t_img *image, int dx, int dy, t_color color);
 int     put_image_to_window(t_env *env, t_img img, int x,int y);
 void    destroy_env(t_env* env);
+
 t_color	tuple_tocolor(t_tuple tcolor);
+t_tuple	color_new(float red, float green, float blue);
+t_ray	ray_for_pixel(t_camera cam, float x, float y);
+
+// t_color	color_new(float red, float green, float blue);
 
 void	put_pixel(int dx, int dy, t_color color);
+void put_circle(int dx, int dy, t_color color); //will be removed
 
-typedef void(*t_fn_render)(t_camera*, t_world*);
-void	loop(t_env *env, t_fn_render render);
+
+void	loop(t_env *env);
+
+void precompute_ray(t_env* env);
+
 
 #endif // GRAPHICS_H
 

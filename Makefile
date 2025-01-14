@@ -37,11 +37,17 @@ SRC		:=	main.c							\
 			objects/ray.c					\
 			objects/reflect.c				\
 			objects/sphere.c				\
+			optimizations/optimizations.c								\
+			optimizations/quadtree/configuration/assign_child_node.c	\
+			optimizations/quadtree/configuration/link_node.c			\
+			optimizations/quadtree/configuration/set_quadtree.c			\
+			optimizations/quadtree/configuration/compute_window_split.c	\
+			optimizations/quadtree/quadtree.c							\
 			pattern/gradient.c				\
 			pattern/pattern.c				\
 			pattern/stripe.c				\
 			render/render.c					\
-			tuple/color_new.c				\
+			render/ray_for_pixel.c			\
 			tuple/hadamard_product.c		\
 			tuple/tuple_add.c				\
 			tuple/tuple_cmp.c				\
@@ -100,7 +106,7 @@ $(NAME): $(MLX) $(OBJ) $(LIBFT)
 
 $(BUILD)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
-	$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(FLAGS) $(INCLUDES) -c $< -o $@
 	@printf "\033[1;32%sm\tCompiled: $(<F)\033[0m\n";
 
 $(LIBFT):

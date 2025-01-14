@@ -15,44 +15,35 @@
 #include "tuple.h"
 #include "objects.h"
 
-t_ray	ray_for_pixel(t_camera cam, float x, float y)
+static float yy = 0;
+void	progression(int progression, int max)
 {
-	float	world_y;
-	float	world_x;
-	t_tuple	pixel;
-	t_ray	ray;
-
-	world_x = cam.half_width - ((x + 0.5) * cam.psize);
-	world_y = cam.half_height - ((y + 0.5) * cam.psize);
-	pixel = matrix_multiply_tuple(cam.transform, point_new(world_x, world_y, -1));
-	ray.origin = matrix_multiply_tuple(cam.transform, point_new(0, 0, 0));
-	ray.direction = tuple_normalize(tuple_substract(pixel, ray.origin));
-	return (ray);
+	float percentage;
+	
+	percentage = progression/max;
+	if (percentage > yy + 0.1) {
+		yy = percentage;
+		printf("%f/100\n", (yy) * 100);
+	}
 }
 
-static float yy = 0;
-void	render(t_camera* camera, t_world* world)
+static int exec_one = 0;
+void	render(t_env* env)
 {
+	if (exec_one != 0)
+		return;
+	exec_one += 1;
+
 	int	y;
 	int	x;
-	t_ray	ray;
-	t_color	color;
-	y = 0;
-	while (y < camera->vsize)
+
+	y = -1;
+	while (y++ < env->camera.vsize)
 	{
-		x = 0;
-		while (x < camera->hsize)
-		{
-			ray = ray_for_pixel(*camera, x, y);
-			color = tuple_tocolor(color_at(*world, ray));
-			put_pixel(x, y, color);
-			x++;
-		}
-		y++;
-		float tmp = y/camera->vsize;
-		if (tmp > yy + 0.1) {
-			yy = tmp;
-			printf("%f/100\n", (yy) * 100);
-		}
+		x = -1;
+		while (x++ < env->camera.hsize)
+			put_pixel(x, y, color_at(env->world, ray_for_pixel(env->camera, x, y)));
+		progression(y, env->camera.vsize);
 	}
+	quadtree_find_object(env);
 }

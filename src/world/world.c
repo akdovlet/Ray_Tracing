@@ -59,7 +59,7 @@ void	sort_hits(t_junction *hits)
 	// return (hits);
 }
 
-void intersect_world(t_world world, t_ray ray, t_junction *hits)
+bool intersect_world(t_world world, t_ray ray, t_junction *hits)
 {
 	int				i;
 	int				j;
@@ -70,8 +70,8 @@ void intersect_world(t_world world, t_ray ray, t_junction *hits)
 	hits->count = 0;
 	while (i < world.obj_count)
 	{
-		inter = hit(intersection(world.obj[i], intersect(ray, world.obj[i])));
-		if (inter.count)
+		inter = intersection(world.obj[i], intersect(ray, world.obj[i]));
+		if (hit(&inter))
 		{
 			hits->count += inter.count;
 			hits->cross[j].t = inter.xs.x;
@@ -84,23 +84,25 @@ void intersect_world(t_world world, t_ray ray, t_junction *hits)
 		}
 		i++;
 	}
-	sort_hits(hits);
+	if (hits->count)
+	{
+		sort_hits(hits);
+		return (true);
+	}
+	return (false);
 }
 
-t_tuple	color_at(t_world world, t_ray ray)
+t_color	color_at(t_world world, t_ray ray)
 {
 	t_tuple		color;
 	t_comps		comps;
 	t_junction	hits;
 
-	intersect_world(world, ray, &hits);
 	color = color_new(0, 0, 0);
-	if (hits.count)
+	if (intersect_world(world, ray, &hits))
 	{
-		// printf("hit is: %f\n", hits.cross[0].t);
-		// printf("hit count is: %d\n", hits.count);
 		comps = pre_compute(hits.cross[0], ray);
 		color = shade_hit(world, comps);
 	}
-	return (color);
+	return (tuple_tocolor(color));
 }

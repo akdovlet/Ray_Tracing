@@ -32,7 +32,6 @@ float			tuple_dot(t_tuple a, t_tuple b);
 t_tuple			tuple_cross(t_tuple a, t_tuple b);
 void			tuple_print(t_tuple t1);
 
-t_tuple			color_new(float red, float green, float blue);
 t_tuple			color_hadamard(t_tuple c1, t_tuple c2);
 
 #endif

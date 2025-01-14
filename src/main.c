@@ -11,18 +11,29 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "optimizations.h"
 
 int main()
 {
 	t_env		env;
+	t_zbuffer	zbuffer;
 
 	env = (t_env){
-		.height = HEIGHT,
 		.width = WIDTH,
+		.height = HEIGHT,
 		.title = "minirt",
 	};
-
 	scene(&env.camera, &env.world);
-	loop(&env, render);
+	if (quadtree_new(&zbuffer, WIDTH, HEIGHT) == false)
+	{
+		fprintf(stderr, "ERROR: The quadtree fail to be instanciated\n");
+		exit(1);
+	}
+	env.root = &zbuffer.buffer[0];
+	// quadtree_find_object(&env);
+	loop(&env);
+
+	// precompute_ray(&env);
+	free(zbuffer.buffer);
 	return (0);
 }

@@ -22,12 +22,19 @@ typedef struct s_shape			t_shape;
 typedef struct s_vtable_shape	t_vtable_shape;
 typedef struct s_intersection	t_intersection;
 
-typedef struct s_vec2
+
+typedef struct s_vec2i
+{
+	int	x;
+	int	y;
+}	t_vec2i;
+
+typedef struct s_vec2f
 {
 	float	dis;
 	float	x;
 	float	y;
-}	t_vec2;
+}	t_vec2f;
 
 typedef struct s_vec3 
 {
@@ -120,7 +127,7 @@ typedef struct	s_shape
 	t_material		matter;
 	t_ray			local_ray;
 	t_tuple			local_normal;
-	t_vec2			(*local_interesct)(t_ray, struct s_shape);
+	t_vec2f			(*local_interesct)(t_ray, struct s_shape);
 	t_tuple			(*local_normalat)(struct s_shape, t_tuple point);
 }	t_shape;
 
@@ -129,7 +136,7 @@ struct s_intersection
 	float					t;
 	int						count;
 	t_shape				object;
-	t_vec2					xs;
+	t_vec2f					xs;
 };
 
 typedef struct s_crossing
@@ -156,7 +163,7 @@ typedef struct s_comps
 {
 	float		t;
 	bool		inside;
-	t_shape	obj;
+	t_shape		obj;
 	t_tuple		world_point;
 	t_tuple		eyev;
 	t_tuple		normalv;

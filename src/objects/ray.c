@@ -25,7 +25,7 @@ t_tuple	position(t_ray ray, float factor)
 	return (tuple_add(ray.origin, (tuple_multiply(tuple_normalize(ray.direction), factor))));
 }
 
-t_vec2	intersect(t_ray ray, t_shape shape)
+t_vec2f	intersect(t_ray ray, t_shape shape)
 {
 	t_ray	transformed_ray;
 
@@ -33,7 +33,7 @@ t_vec2	intersect(t_ray ray, t_shape shape)
 	return (shape.local_interesct(transformed_ray, shape));
 }
 
-t_intersection	intersection(t_shape shape, t_vec2 vec)
+t_intersection	intersection(t_shape shape, t_vec2f vec)
 {
 	t_intersection	new;
 	float			tmp;
@@ -62,21 +62,19 @@ t_intersection	intersection(t_shape shape, t_vec2 vec)
 	return (new);
 }
 
-t_intersection	hit(t_intersection inter)
+int	hit(t_intersection* inter)
 {
-	// if (!inter.count)
-	// 	return (inter);
-	if (inter.xs.x < 0 && inter.xs.y < 0)
+	if (inter->xs.x < 0 && inter->xs.y < 0)
 	{
-		inter.count = 0;
-		inter.t = 0;
-		return (inter);
+		inter->count = 0;
+		inter->t = 0;
+		return (inter->count);
 	}
-	if (inter.xs.x < 0)
-		inter.t = inter.xs.y;
-	else if (inter.xs.y < 0)
-		inter.t = inter.xs.x;
+	if (inter->xs.x < 0)
+		inter->t = inter->xs.y;
+	else if (inter->xs.y < 0)
+		inter->t = inter->xs.x;
 	else
-		inter.t = fmin(inter.xs.x, inter.xs.y);
-	return (inter);
+		inter->t = fmin(inter->xs.x, inter->xs.y);
+	return (inter->count);
 }

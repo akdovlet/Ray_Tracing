@@ -12,7 +12,7 @@
 
 #include "objects.h"
 
-static t_vec2	local_intersect(t_ray ray, t_shape shape)
+static t_vec2f	local_intersect(t_ray ray, t_shape shape)
 {
 	float	a;
 	float	b;
@@ -25,7 +25,7 @@ static t_vec2	local_intersect(t_ray ray, t_shape shape)
 	b = 2 * tuple_dot(ray.direction, local_ray);
 	c = tuple_dot(local_ray, local_ray) - 1;
 	dis = pow(b, 2) - 4 * a * c;
-	return ((t_vec2){
+	return ((t_vec2f){
 		.dis = dis,
 		.x = (-b - sqrt(dis)) / (2 * a),
 		.y = (-b + sqrt(dis)) / (2 * a)
@@ -64,18 +64,7 @@ t_shape	sphere(t_tuple point, float radius)
 
 t_shape	sphere_default(void)
 {
-	t_shape	new;
-
-	new = (t_shape){
-		.coordinates = point_new(0, 0, 0),
-		.radius = 1,
-		.id = (uintptr_t) &new,
-		.type = SPHERE,
-		.transform = identity(),
-		.local_interesct = &local_intersect,
-		.local_normalat = &local_normal_at
-	};
-	return (new);
+	return (sphere(point_new(0, 0, 0), 1));
 }
 
 void	set_transform(t_shape *obj, t_matrix m)
