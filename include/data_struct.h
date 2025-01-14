@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/13 17:35:37 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:16:32 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,8 +180,19 @@ typedef struct s_camera
 	float		half_width;
 	float		half_height;
 	t_matrix	transform;
+	t_tuple		from;
+	t_tuple		to;
+	t_tuple		up;
 }	t_camera;
 
+# include "mlx_utils.h"
 
+typedef struct	s_data
+{
+	t_camera	cam;
+	t_world		world;
+	t_img		img;
+	t_mlx		mlx;
+}	t_data;
 
 #endif

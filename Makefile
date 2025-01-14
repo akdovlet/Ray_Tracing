@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/01/13 16:14:41 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/01/14 18:36:05 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ SRC		:=	main.c							\
 			mlx/key_manager.c				\
 			mlx/mlx_clear.c					\
 			mlx/mlx_pixel_put.c				\
+			mlx/mouse_manager.c				\
+			objects/glass_sphere.c			\
 			objects/material.c				\
 			objects/normal.c				\
 			objects/plane.c					\

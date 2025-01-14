@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/13 18:21:51 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:35:24 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,8 @@ t_ray		ray_for_pixel(t_camera cam, float x, float y);
 bool		is_shadowed(t_world world, t_tuple point);
 t_tuple		ring_at(t_pattern ring, t_tuple point);
 t_tuple		gradient_at(t_pattern pattern, t_tuple point);
+int			render_and_move(t_data *data);
+int			key_manager(int keysym, t_data *data);
+int			mouse_manager(int button, int x, int y, t_data *data);
 
 #endif

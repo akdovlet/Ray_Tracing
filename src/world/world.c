@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/13 17:17:03 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/14 12:12:51 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	sort_hits(t_junction *hits)
 		}
 		i++;
 	}
-	// return (hits);
 }
 
 void intersect_world(t_world world, t_ray ray, t_junction *hits)

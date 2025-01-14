@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:09:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/10 16:15:14 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:43:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects.h"
 
-static t_vec2	local_intersect(t_ray ray, t_shape shape)
+t_vec2	sphere_intersect(t_ray ray, t_shape shape)
 {
 	float	a;
 	float	b;
@@ -32,8 +32,7 @@ static t_vec2	local_intersect(t_ray ray, t_shape shape)
 	});
 }
 
-
-static t_tuple	local_normal_at(t_shape obj, t_tuple world_point)
+t_tuple	sphere_normal_at(t_shape obj, t_tuple world_point)
 {
 	t_tuple object_point;
 	t_tuple	object_normal;
@@ -56,8 +55,9 @@ t_shape	sphere(t_tuple point, float radius)
 		.id = (uintptr_t) &new,
 		.type = SPHERE,
 		.transform = identity(),
-		.local_interesct = &local_intersect,
-		.local_normalat = &local_normal_at
+		.matter = material(),
+		.local_interesct = &sphere_intersect,
+		.local_normalat = &sphere_normal_at
 	};
 	return (new);
 }
@@ -72,8 +72,9 @@ t_shape	sphere_default(void)
 		.id = (uintptr_t) &new,
 		.type = SPHERE,
 		.transform = identity(),
-		.local_interesct = &local_intersect,
-		.local_normalat = &local_normal_at
+		.matter = material(),
+		.local_interesct = &sphere_intersect,
+		.local_normalat = &sphere_normal_at
 	};
 	return (new);
 }

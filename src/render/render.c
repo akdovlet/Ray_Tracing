@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/13 18:22:46 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/14 18:47:09 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,31 @@ void	render(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
 		y++;
 	}
+}
+
+int	render_and_move(t_data *data)
+{
+	int	y;
+	int	x;
+	t_ray	ray;
+	t_tuple	color;
+
+	y = 0;
+	camera_update_transform(&data->cam, data->cam.from,
+									data->cam.to,
+							data->cam.up);
+	while (y < data->cam.vsize)
+	{
+		x = 0;
+		while (x < data->cam.hsize)
+		{
+			ray = ray_for_pixel(data->cam, x, y);
+			color = color_at(data->world, ray, 5);
+			ak_mlx_pixel_put(&data->img, x, y, tuple_tocolor(color));
+			x++;
+		}
+		y++;
+	}
+	mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.win_ptr, data->img.img_ptr, 0, 0);
+	return (0);
 }

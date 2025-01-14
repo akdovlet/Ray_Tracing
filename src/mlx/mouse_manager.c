@@ -1,37 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   matrix_inverse.c                                   :+:      :+:    :+:   */
+/*   mouse_manager.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/23 13:00:05 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/14 17:56:58 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/01/14 18:28:04 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/01/14 18:35:09 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_matrix	inverse(t_matrix m)
+int	mouse_manager(int button, int x, int y, t_data *data)
 {
-	int			i;
-	int			j;
-	float		deter;
-	t_matrix	m2;
-
-	deter = determinant(m);
-	if (!deter)
-		return (m);
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			m2.raw[j][i] = cofactor(m, i, j) / deter;
-			j++;
-		}
-		i++;
-	}
-	return (m2);
+	(void)x;
+	(void)y;
+	if (button == 4)
+		data->cam.from.z += 0.1;
+	if (button == 5)
+		data->cam.from.z -= 0.1;
+	render_and_move(data);
+	return (0);
 }

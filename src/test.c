@@ -1474,7 +1474,7 @@ void	test_render_world(t_img *img, t_mlx *mlx)
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
 }
 
-void	test_scene(t_img *img, t_mlx *mlx)
+t_data	test_scene(t_img *img, t_mlx *mlx)
 {
 	t_world		world;
 	t_camera	cam;
@@ -1483,7 +1483,10 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	t_shape		middle_sph;
 	t_shape		right_sph;
 	t_shape		left_sph;
+	t_data		data;
 
+	(void)img;
+	(void)mlx;
 	floor = plane_new();
 	set_transform(&floor, translate(1, 0, 3));
 	// floor.transform = translate(1, 0, 3);
@@ -1493,8 +1496,8 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	set_transform_pattern(&floor.matter.pattern, rotate_y(radians(30)));
 	// floor.matter.color = color_new(1, 0.2, 1);
 	floor.matter.specular = 0;
-	floor.matter.ambient = 0.7;
-	floor.matter.reflective = 0.5;
+	floor.matter.ambient = 0.6;
+	floor.matter.reflective = 0.2;
 
 	sky = plane_new();
 	set_transform(&sky, translate(0, 10, 0));
@@ -1541,13 +1544,17 @@ void	test_scene(t_img *img, t_mlx *mlx)
 	world.obj[3] = right_sph;
 	world.obj[4] = left_sph;
 	world.obj_count = 5;
-	// for (int i = 0; i < world.obj_count; i++)
-	// 	world.obj[i].transform = inverse(world.obj[i].transform);
 	cam = camera_new(WIDTH, HEIGHT, M_PI / 3);
-	camera_update_transform(&cam, point_new(0, 1.5, -5),
-									point_new(0, 1, 0),
-									vector_new(0, 1, 0));
-	render(cam, world, img, mlx);
+	cam.from =  point_new(0, 1.5, -5);
+	cam.to =  point_new(0, 1, 0);
+	cam.up =  vector_new(0, 1, 0);
+	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	data.cam = cam;
+	data.world = world;
+	// render(cam, world, img, mlx);
+	// mlx_loop_hook(mlx->mlx_ptr, &render_and_move, &data);
+	// mlx_key_hook(mlx->win_ptr, &key_manager, &data);
+	return (data);
 }
 
 bool	is_shadowed(t_world world, t_tuple point)
@@ -1941,4 +1948,40 @@ void	test_reflection(void)
 	comps = pre_compute(cross,ray);
 	color = shade_hit(world, comps, 5);
 	tuple_print(color);
+}
+
+void	test_refraction(void)
+{
+	t_shape		a;
+	t_shape		b;
+	t_shape		c;
+	t_ray		ray;
+	t_comps		comps;
+	t_crossing	cross[6];
+
+	a = glass_sphere();
+	b = glass_sphere();
+	c = glass_sphere();
+
+	set_transform(&a, scale(2, 2, 2));
+	a.matter.refractive_index = 1.5;
+	set_transform(&b, translate(0, 0, -0.25));
+	b.matter.refractive_index = 2.0;
+	set_transform(&c, translate(0, 0, 0.25));
+	c.matter.refractive_index = 2.5;
+	
+	ray = ray_new(point_new(0, 0, -4), vector_new(0, 0, 1));
+	cross[0].t = 2;
+	cross[0].obj = a;
+	cross[1].t = 2.75;
+	cross[1].obj = b;
+	cross[2].t = 3.25;
+	cross[2].obj = c;
+	cross[3].t = 4.75;
+	cross[3].obj = b;
+	cross[4].t = 5.25;
+	cross[4].obj = c;
+	cross[5].t = 6;
+	cross[5].obj = a;
+	comps = pre_compute(cross[0], ray);
 }
