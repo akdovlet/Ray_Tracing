@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/14 16:16:32 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/15 17:13:15 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ typedef struct s_intersection	t_intersection;
 
 typedef struct s_vec2
 {
-	float	dis;
-	float	x;
-	float	y;
+	double	dis;
+	double	x;
+	double	y;
 }	t_vec2;
 
 typedef struct s_vec3 
@@ -36,20 +36,20 @@ typedef struct s_vec3
 
 typedef struct s_tuple
 {
-	float	x;
-	float	y;
-	float	z;
-	float	w;
+	double	x;
+	double	y;
+	double	z;
+	double	w;
 }	t_tuple;
 
 typedef struct s_shear
 {
-	float	x;
-	float	y;
-	float	z;
+	double	x;
+	double	y;
+	double	z;
 }	t_shear;
 
-typedef float v4 __attribute__((vector_size(16)));
+typedef double v4 __attribute__((vector_size(16)));
 
 typedef	union u_vec
 {
@@ -57,7 +57,7 @@ typedef	union u_vec
 	v4		v;
 }	t_vec;
 
-union u_matrix
+union	u_matrix
 {
 	struct
 	{
@@ -66,7 +66,7 @@ union u_matrix
 		t_tuple r3;
 		t_tuple r4;	
 	};
-	float	raw[4][4];
+	double	raw[4][4];
 } __attribute__((__transparent_union__));
 
 enum	e_type
@@ -75,7 +75,7 @@ enum	e_type
 	PLANE,
 };
 
-typedef struct s_light
+typedef struct	s_light
 {
 	t_tuple	intensity;
 	t_tuple	position;
@@ -92,13 +92,13 @@ typedef struct	s_pattern
 
 typedef struct s_material
 {
-	float		ambient;
-	float		diffuse;
-	float		specular;
-	float		shininess;
-	float		reflective;
-	float		transparency;
-	float		refractive_index;
+	double		ambient;
+	double		diffuse;
+	double		specular;
+	double		shininess;
+	double		reflective;
+	double		transparency;
+	double		refractive_index;
 	t_tuple		color;
 	t_pattern	pattern;
 }	t_material;
@@ -118,7 +118,7 @@ typedef struct s_ray
 typedef struct	s_shape
 {
 	t_type			type;
-	float			radius;
+	double			radius;
 	uintptr_t		id;
 	t_tuple			coordinates;
 	t_matrix		transform;
@@ -131,7 +131,7 @@ typedef struct	s_shape
 
 struct s_intersection
 {
-	float					t;
+	double					t;
 	int						count;
 	t_shape				object;
 	t_vec2					xs;
@@ -139,7 +139,7 @@ struct s_intersection
 
 typedef struct s_crossing
 {
-	float	t;
+	double	t;
 	t_shape	obj;
 }	t_crossing;
 
@@ -160,7 +160,9 @@ typedef struct s_world
 typedef struct s_comps
 {
 	bool		inside;
-	float		t;
+	double		t;
+	double		n1;
+	double		n2;
 	t_tuple		world_point;
 	t_tuple		eyev;
 	t_tuple		normalv;
@@ -172,13 +174,13 @@ typedef struct s_comps
 
 typedef struct s_camera
 {
-	float		hsize;
-	float		vsize;
-	float		fov;
-	float		psize;
-	float		half_view;
-	float		half_width;
-	float		half_height;
+	double		hsize;
+	double		vsize;
+	double		fov;
+	double		psize;
+	double		half_view;
+	double		half_width;
+	double		half_height;
 	t_matrix	transform;
 	t_tuple		from;
 	t_tuple		to;

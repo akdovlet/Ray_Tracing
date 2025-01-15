@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:27:07 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/14 17:54:15 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:09:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ t_vec3	sliding_window(size_t index, size_t window_size)
 	});
 }
 
-float	cofactor(t_matrix m, size_t y, size_t x)
+double	cofactor(t_matrix m, size_t y, size_t x)
 {
-	float	result;
+	double	result;
 	t_vec3	col;
 	t_vec3	row;
 	
@@ -41,10 +41,10 @@ float	cofactor(t_matrix m, size_t y, size_t x)
 	return (result);
 }
 
-float	determinant(t_matrix m)
+double	determinant(t_matrix m)
 {
 	int		i;
-	float	result;
+	double	result;
 
 	result = 0.0;
 	i = -1;

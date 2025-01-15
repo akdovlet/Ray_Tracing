@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:00:05 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/14 17:56:58 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:09:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_matrix	inverse(t_matrix m)
 {
 	int			i;
 	int			j;
-	float		deter;
+	double		deter;
 	t_matrix	m2;
 
 	deter = determinant(m);

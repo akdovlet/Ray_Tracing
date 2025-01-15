@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:37:49 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/13 10:02:59 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/15 18:33:39 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ t_tuple	radial_at(t_pattern radial, t_tuple point)
 {
 	t_tuple	distance;
 	t_tuple	color;
-	float	fraction;
-	float	magnitude;
+	double	fraction;
+	double	magnitude;
 
 	point.w = 0;
 	magnitude = tuple_magnitude(point);
-	fraction = magnitude - floorf(magnitude); 
+	fraction = magnitude - floor(magnitude); 
 	distance = tuple_substract(radial.color2, radial.color1);
 	color = tuple_add(radial.color1, tuple_multiply(distance, fraction));
 	return (color);

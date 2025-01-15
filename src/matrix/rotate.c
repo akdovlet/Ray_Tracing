@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 18:38:02 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/30 18:07:40 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:09:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_matrix	identity(void)
 	}});
 }
 
-t_matrix	rotate_x(float angle)
+t_matrix	rotate_x(double angle)
 {
 	return ((t_matrix){{\
 		{1, 0, 0, 0}, \
@@ -32,7 +32,7 @@ t_matrix	rotate_x(float angle)
 	}});
 }
 
-t_matrix	rotate_y(float angle)
+t_matrix	rotate_y(double angle)
 {
 	return ((t_matrix){{
 			{cos(angle), 0, sin(angle), 0}, \
@@ -42,7 +42,7 @@ t_matrix	rotate_y(float angle)
 	}});
 }
 
-t_matrix	rotate_z(float angle)
+t_matrix	rotate_z(double angle)
 {
 	return ((t_matrix){{
 			{cos(angle), -sin(angle), 0, 0}, \

@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 18:57:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/25 17:06:47 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:09:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 
-float	radians(float angle)
+double	radians(double angle)
 {
 	return (angle * (M_PI / 180));
 }

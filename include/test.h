@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:23:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/14 18:09:25 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/15 17:17:42 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ void		test_is_shadowed(void);
 void		test_intersect_plane(void);
 void		test_stripe_at(void);
 void		test_reflection(void);
+void		test_refraction(void);
 
 #endif

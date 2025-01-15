@@ -18,7 +18,7 @@ void test_init_tuple()
 	fprintf(stderr, "v(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n\n", v.x, v.y, v.z, v.w);
 
 	fprintf(stderr, "float_equal test\n");
-	fprintf(stderr, "float a: %.2f, float b: %.2f are equal if 0: %d\n\n", 4.2F, 4.1F, float_equal(4.2f, 4.1f));
+	fprintf(stderr, "double a: %.2f, double b: %.2f are equal if 0: %d\n\n", 4.2F, 4.1F, float_equal(4.2f, 4.1f));
 
 	fprintf(stderr, "tuple_cmp tests:\n");
 	fprintf(stderr, "tuple p and v are equal if 0: %d\n\n", tuple_cmp(p, v));
@@ -27,7 +27,7 @@ void test_init_tuple()
 void test_matrix_determinant()
 {
 	/*
-	float **mfour = matrix_four_by_four(v1, v2, c1, c2);
+	double **mfour = matrix_four_by_four(v1, v2, c1, c2);
 	for (int i = 0; i < 4; i++)
 	{
 		for(int j = 0; j < 4; j++)
@@ -37,7 +37,7 @@ void test_matrix_determinant()
 		fprintf(stderr, "\n");
 	}
 
-	float	**mthree = matrix_three_by_three(v1, v2, c1);
+	double	**mthree = matrix_three_by_three(v1, v2, c1);
 	for (int i = 0; i < 3; i++)
 	{
 		for(int j = 0; j < 3; j++)
@@ -46,7 +46,7 @@ void test_matrix_determinant()
 		}
 		fprintf(stderr, "\n");
 	}
-	float	**mtwo = matrix_two_by_two(v1, v2);
+	double	**mtwo = matrix_two_by_two(v1, v2);
 	for (int i = 0; i < 2; i++)
 	{
 		for(int j = 0; j < 2; j++)
@@ -61,8 +61,8 @@ void test_matrix_determinant()
 
 	fprintf(stderr, "\nMatrix multiply_matrix tests\n");
 	mfour = matrix_four_by_four(tuple_new(1, 2, 3, 4), tuple_new(5, 6, 7, 8), tuple_new(9, 8, 7 ,6), tuple_new(5, 4, 3, 2));
-	float	**mfour2 = matrix_four_by_four(tuple_new(-2, 1, 2, 3), tuple_new(3, 2, 1, -1), tuple_new(4, 3, 6 ,5), tuple_new(1, 2, 7, 8));
-	float	**mfour3 = matrix_multiply(mfour, mfour2);
+	double	**mfour2 = matrix_four_by_four(tuple_new(-2, 1, 2, 3), tuple_new(3, 2, 1, -1), tuple_new(4, 3, 6 ,5), tuple_new(1, 2, 7, 8));
+	double	**mfour3 = matrix_multiply(mfour, mfour2);
 	for (int i = 0; i < 4; i++)
 	{
 		for(int j = 0; j < 4; j++)
@@ -78,8 +78,8 @@ void test_matrix_determinant()
 	fprintf(stderr, "c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c2.x, c2.y, c2.z, c2.w);
 	matrix_free(mfour, 4);
 	mfour = matrix_four_by_four(tuple_new(0, 1, 2, 4), tuple_new(1, 2, 4 ,8), tuple_new(2, 4, 8, 16), tuple_new(4, 8, 16, 32)); 
-	float	**midentity = matrix_identity();
-	float	**mresult = matrix_multiply(mfour, midentity);
+	double	**midentity = matrix_identity();
+	double	**mresult = matrix_multiply(mfour, midentity);
 	matrix_print(mresult, 4, 4);
 	matrix_free(mfour, 4);
 	matrix_free(mresult, 4);
@@ -96,7 +96,7 @@ void test_matrix_determinant()
 	matrix_print(mthree, 3, 3);
 	
 	fprintf(stderr, "submatrix\n");
-	float **submatrix = sub_matrix(mthree, 3, 0, 2);
+	double **submatrix = sub_matrix(mthree, 3, 0, 2);
 	matrix_print(submatrix, 2, 2);
 
 	matrix_free(mthree, 3);
@@ -163,7 +163,7 @@ void test_matrix_operation()
 	/*
 
 
-	float	**inverse;
+	double	**inverse;
 
 	fprintf(stderr, "Matrix inverse test\n");
 	mfour = matrix_four_by_four(tuple_new(8, -5, 9, 2),
@@ -202,10 +202,10 @@ void test_matrix_operation()
 	matrix_free(mfour, 4);
 	matrix_free(inverse, 4);
 
-	float	**A;
-	float	**B;
-	float	**C;
-	float	**D;
+	double	**A;
+	double	**B;
+	double	**C;
+	double	**D;
 	fprintf(stderr, "matrix C = A * B\nFind A with C * inverse(B)\n");
 	A = matrix_four_by_four(tuple_new(3, -9, 7, 3),
 								tuple_new(-5, -8, 2, -9),
@@ -313,9 +313,9 @@ void test_matrix_operation()
 
 	// fprintf(stderr, "\nTransformatin sequence\n");
 	// p1 = point_new(1, 0, 1);
-	// float **rx = matrix_rotate_x(M_PI / 2);
-	// float **scale = matrix_scaling(5, 5, 5);
-	// float **translation = matrix_translation(tuple_new(10, 5, 7, 0));
+	// double **rx = matrix_rotate_x(M_PI / 2);
+	// double **scale = matrix_scaling(5, 5, 5);
+	// double **translation = matrix_translation(tuple_new(10, 5, 7, 0));
 	// p2 = matrix_multiply_tuple(rx, p1);
 	// tuple_print(p2);
 	// p2 = matrix_multiply_tuple(scale, p2);
@@ -437,7 +437,7 @@ void test_color()
 void test_cofactor(t_matrix m, t_matrix expected)
 {
 	int index;
-	float cofac;
+	double cofac;
 	int x, y;
 
 	index = -1;
@@ -462,7 +462,7 @@ void	test_cofactor2(t_matrix m, t_matrix expected)
 {
 	int	i;
 	int	j;
-	float	cofac;
+	double	cofac;
 
 	i = -1;
 	while (++i < 4)
@@ -529,8 +529,8 @@ void	test_clock(t_img *img)
 
 void	determinant_test()
 {
-	float	deter;
-	float	cof;
+	double	deter;
+	double	cof;
 
 	printf("\ndeterminant test\n");
 	t_matrix matrix = {{
@@ -653,7 +653,7 @@ void	object_test(void)
 	// t_vec2			vec;
 	// t_intersection	i;
 	// t_intersection	j;
-	// float			dis;
+	// double			dis;
 
 	// ray = ray_new(point_new(0, 0, 5), vector_new(0, 0, 1));
 	// sph = sphere(point_new(0, 0, 0), 1);
@@ -702,7 +702,7 @@ void	object_transform_test(void)
 {
 	// t_ray			ray;
 	// t_shape		sph;
-	// float			dis;
+	// double			dis;
 	// t_vec2			vec;
 	// t_intersection	i;
 	// t_intersection	j;
@@ -741,8 +741,8 @@ void	object_transform_test(void)
 // void	draw_sphere(t_img *img)
 // {
 // 	t_ray	ray;
-// 	float	wall_z;
-// 	float	wall_size;
+// 	double	wall_z;
+// 	double	wall_size;
 // 	int		y;
 // 	int		x;
 // 	t_tuple	position;
@@ -837,15 +837,15 @@ void	intersection_test(void)
 
 void	draw_sphere(t_img *img, t_mlx *mlx)
 {
-	float			y;
-	float			x;
-	float			world_x;
-	float			world_y;
-	float			wall_z;
-	float			wall_size;
-	float			canvas_pixel;
-	float			pixel_size;
-	float			half;
+	double			y;
+	double			x;
+	double			world_x;
+	double			world_y;
+	double			wall_z;
+	double			wall_size;
+	double			canvas_pixel;
+	double			pixel_size;
+	double			half;
 	t_tuple			pos;
 	t_tuple			point;
 	t_ray			r;
@@ -1126,13 +1126,14 @@ void	test_pre_compute(void)
 	t_ray		ray;
 	t_crossing	cross;
 	t_comps		comps;
+	t_junction	junc;
 
 	printf("\nPre_compute test\n");
 
 	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
 	cross.obj = sphere(point_new(0, 0, 0), 1);
 	cross.t = 4;
-	comps = pre_compute(cross, ray);
+	comps = pre_compute(cross, ray, junc.cross);
 	if (tuple_cmp(comps.world_point, point_new(0, 0, -1)))
 	{
 		fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
@@ -1165,7 +1166,7 @@ void	test_pre_compute(void)
 	ray = ray_new(point_new(0, 0, 0), vector_new(0, 0, 1));
 	cross.obj = sphere(point_new(0, 0, 0), 1);
 	cross.t = 1;
-	comps = pre_compute(cross, ray);
+	comps = pre_compute(cross, ray, junc.cross);
 	if (tuple_cmp(comps.world_point, point_new(0, 0, 1)))
 	{
 		fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
@@ -1206,6 +1207,7 @@ void	test_shading(void)
 	t_crossing	cross;
 	t_comps		comps;
 	t_tuple		color;
+	t_junction	junc;
 
 	printf("\nShading test\n");
 	world = default_world();
@@ -1219,7 +1221,7 @@ void	test_shading(void)
 	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
 	cross.t = 4;
 	cross.obj = world.obj[0];
-	comps = pre_compute(cross, ray);
+	comps = pre_compute(cross, ray, junc.cross);
 	color = shade_hit(world, comps, 5);
 	if (tuple_cmp(color, color_new(0.380f, 0.475f, 0.285f)))
 	{
@@ -1238,7 +1240,7 @@ void	test_shading(void)
 	world.light = point_light(point_new(0, 0.25, 0), color_new(1, 1, 1));
 	cross.obj = world.obj[1];
 	cross.t = 0.5;
-	comps = pre_compute(cross, ray);
+	comps = pre_compute(cross, ray, junc.cross);
 	color = shade_hit(world, comps, 5);
 	t_tuple expected = color_new(0.90498, 0.90498, 0.90498);
 	if (tuple_cmp(color, expected))
@@ -1479,6 +1481,7 @@ t_data	test_scene(t_img *img, t_mlx *mlx)
 	t_world		world;
 	t_camera	cam;
 	t_shape		floor;
+	t_shape		wall;
 	t_shape		sky;
 	t_shape		middle_sph;
 	t_shape		right_sph;
@@ -1499,6 +1502,16 @@ t_data	test_scene(t_img *img, t_mlx *mlx)
 	floor.matter.ambient = 0.6;
 	floor.matter.reflective = 0.2;
 
+	wall = plane_new();
+	set_transform(&wall, multiply_matrix(multiply_matrix(translate(0, 0, 5), rotate_x(radians(90))),
+											rotate_z(radians(50))));
+	wall.matter = material();
+	// wall.matter.pattern = checkers_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
+	wall.matter.specular = 0;
+	wall.matter.ambient = 0.6;
+	// wall.matter.reflective = 0.2;
+
+
 	sky = plane_new();
 	set_transform(&sky, translate(0, 10, 0));
 	sky.matter = material();
@@ -1517,13 +1530,13 @@ t_data	test_scene(t_img *img, t_mlx *mlx)
 	middle_sph.matter.color = color_new(1, 1, 1);
 	middle_sph.matter.diffuse = 0.7;
 	middle_sph.matter.specular = 0.3;
-	middle_sph.matter.reflective = 0.5;
+	// middle_sph.matter.reflective = 0.5;
 
 	right_sph = sphere_default();
 	set_transform(&right_sph, multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.5, 0.5, 0.5)));
 	right_sph.matter = material();
 	right_sph.matter.pattern = radial_pattern(color_new(1, 0, 0), color_new(0, 0, 1));
-	set_transform_pattern(&right_sph.matter.pattern, scale(0.2, 0.4, 0.07));
+	set_transform_pattern(&right_sph.matter.pattern, scale(0.2, 0.4, 0.1));
 	right_sph.matter.color = color_new(0.5, 1, 0.1);
 	right_sph.matter.diffuse = 0.7;
 	right_sph.matter.specular = 0.3;
@@ -1531,36 +1544,33 @@ t_data	test_scene(t_img *img, t_mlx *mlx)
 	left_sph = sphere_default();
 	set_transform(&left_sph, multiply_matrix(translate(-1.5, 0.33, -0.5), scale(0.33, 0.33, 0.33)));
 	left_sph.matter = material();
-	left_sph.matter.pattern = gradient_pattern(color_new(1, 0, 0), color_new(0, 1, 0));
-	// set_transform_pattern(&left_sph.matter.pattern, scale(2.3, 2, 2));
+	left_sph.matter.pattern = gradient_pattern(color_new(1, 0, 0), color_new(1, 0.988, 0));
+	set_transform_pattern(&left_sph.matter.pattern, multiply_matrix(translate(15, 1, 1), scale(1.5, 1, 1)));
 	left_sph.matter.color = color_new(1, 0.8, 0.1);
 	left_sph.matter.diffuse = 0.7;
 	left_sph.matter.specular = 0.3;
 
-	world.light = point_light(point_new(-10, 3, -10), color_new(1, 1, 1));
-	world.obj[0] = floor;
-	world.obj[1] = sky;
-	world.obj[2] = middle_sph;
+
+	world.light = point_light(point_new(5, 0, 0), color_new(1, 1, 1));
+	world.obj[0] = wall;
+	world.obj[1] = middle_sph;
 	world.obj[3] = right_sph;
 	world.obj[4] = left_sph;
-	world.obj_count = 5;
-	cam = camera_new(WIDTH, HEIGHT, M_PI / 3);
+	world.obj_count = 2;
+	cam = camera_new(WIDTH, HEIGHT, radians(70));
 	cam.from =  point_new(0, 1.5, -5);
 	cam.to =  point_new(0, 1, 0);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
-	// render(cam, world, img, mlx);
-	// mlx_loop_hook(mlx->mlx_ptr, &render_and_move, &data);
-	// mlx_key_hook(mlx->win_ptr, &key_manager, &data);
 	return (data);
 }
 
 bool	is_shadowed(t_world world, t_tuple point)
 {
 	t_tuple	v;
-	float	distance;
+	double	distance;
 	t_tuple	direction;
 	t_ray	ray;
 	t_junction	hits;
@@ -1930,6 +1940,7 @@ void	test_reflection(void)
 	t_comps			comps;
 	t_world			world;
 	t_tuple			color;
+	t_junction		hits;
 
 	printf("\nTest reflection\n");
 
@@ -1937,7 +1948,7 @@ void	test_reflection(void)
 	ray = ray_new(point_new(0, 1, -1), vector_new(0, -sqrt(2)/2, sqrt(2)/2));
 	cross.t = sqrtf(2.0f);
 	cross.obj = plane;
-	comps = pre_compute(cross, ray);
+	comps = pre_compute(cross, ray, hits.cross);
 	tuple_print(comps.reflectv);
 
 	world = default_world();
@@ -1945,7 +1956,7 @@ void	test_reflection(void)
 	plane.transform = translate(0, -1, 0);
 	ray = ray_new(point_new(0, 0, -3), vector_new(0, -sqrt(2)/2, sqrt(2)/2));
 	cross.t = sqrtf(2.0f);
-	comps = pre_compute(cross,ray);
+	comps = pre_compute(cross, ray, hits.cross);
 	color = shade_hit(world, comps, 5);
 	tuple_print(color);
 }
@@ -1958,6 +1969,7 @@ void	test_refraction(void)
 	t_ray		ray;
 	t_comps		comps;
 	t_crossing	cross[6];
+	t_junction	junc;
 
 	a = glass_sphere();
 	b = glass_sphere();
@@ -1983,5 +1995,9 @@ void	test_refraction(void)
 	cross[4].obj = c;
 	cross[5].t = 6;
 	cross[5].obj = a;
-	comps = pre_compute(cross[0], ray);
+	for(int i = 0; i < 6; i++)
+	{
+		comps = pre_compute(cross[i], ray, junc.cross);
+		printf("n1 is: %f, n2 is: %f\n", comps.n1, comps.n2);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 16:56:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/11 17:21:16 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/15 18:26:09 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_tuple	checkers_at(t_pattern checkers, t_tuple point)
 {
-	if (fabsf(fmodf(floor(point.x) + floor(point.y) + floor(point.z), 2.0f)) < 1.0f)
+	if ((fmod(floor(point.x) + floor(point.y) + floor(point.z), 2.0)))
 		return (checkers.color1);
 	return (checkers.color2);
 }

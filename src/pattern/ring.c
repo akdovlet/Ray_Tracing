@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 16:45:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/12 17:22:50 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/15 18:33:52 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_tuple	ring_at(t_pattern ring, t_tuple point)
 {
-	if (fmodf(floor(sqrt(powf(point.x, 2.0f) + pow(point.z, 2.0f))), 2.0f) < __FLT_EPSILON__)
+	if (fmod(floor(sqrt(pow(point.x, 2.0) + pow(point.z, 2.0))), 2.0) < __DBL_EPSILON__)
 		return (ring.color1);
 	return (ring.color2);
 }

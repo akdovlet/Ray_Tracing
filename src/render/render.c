@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/14 18:47:09 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:09:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include "tuple.h"
 #include "objects.h"
 
-t_ray	ray_for_pixel(t_camera cam, float x, float y)
+t_ray	ray_for_pixel(t_camera cam, double x, double y)
 {
-	float	world_y;
-	float	world_x;
+	double	world_y;
+	double	world_x;
 	t_tuple	pixel;
 	t_ray	ray;
 

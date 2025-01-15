@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 18:45:49 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/31 18:50:24 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:09:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_tuple	tuple_normalize(t_tuple a)
 {
 	t_tuple	new;
-	float	magnitude;
+	double	magnitude;
 
 	magnitude = tuple_magnitude(a);
 	new.x = a.x / magnitude;

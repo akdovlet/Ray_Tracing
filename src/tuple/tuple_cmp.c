@@ -6,15 +6,15 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:48:59 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/06 13:24:03 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/15 18:37:42 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	float_equal(float a, float b)
+int	float_equal(double a, double b)
 {
-	if (fabs(a - b) < __FLT_MIN__)
+	if (fabs(a - b) < __DBL_MIN__)
 		return (0);
 	return (1);
 }

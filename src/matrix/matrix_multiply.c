@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 12:05:06 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/09 16:32:28 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/15 14:09:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ t_matrix multiply_matrix(t_matrix a, t_matrix b)
 
 // t_tuple	matrix_multiply_tuple(t_matrix m, t_tuple t1)
 // {
-// 	float	arr[4];
-// 	float	res[4];
+// 	double	arr[4];
+// 	double	res[4];
 // 	int		i;
 // 	int		j;
 
