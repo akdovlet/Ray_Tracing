@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/15 17:13:15 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/16 14:55:32 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ union	u_matrix
 		t_tuple r1;
 		t_tuple r2;
 		t_tuple r3;
-		t_tuple r4;	
+		t_tuple r4;
 	};
 	double	raw[4][4];
 } __attribute__((__transparent_union__));
@@ -105,6 +105,11 @@ typedef struct s_material
 
 union	u_color
 {
+	struct
+	{
+			/* data */
+	};
+	
 	unsigned char	bytes[4];
 	unsigned int	color;
 };

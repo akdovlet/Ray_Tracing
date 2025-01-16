@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:46:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/15 14:32:20 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/16 16:50:26 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,15 @@ static t_tuple	local_normalat(t_shape shape, t_tuple point)
 {
 	(void)shape;
 	(void)point;
-	return (vector_new(0, 1, 0));
+	return (tuple_normalize(matrix_multiply_tuple(shape.transform, vector_new(0, 1, 0))));
 }
+
+// static t_tuple	local_normalat(t_shape shape, t_tuple point)
+// {
+// 	(void)shape;
+// 	(void)point;
+// 	return (vector_new(0, 1, 0));
+// }
 
 t_shape	plane_new(void)
 {

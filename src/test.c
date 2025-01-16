@@ -1482,6 +1482,7 @@ t_data	test_scene(t_img *img, t_mlx *mlx)
 	t_camera	cam;
 	t_shape		floor;
 	t_shape		wall;
+	t_shape		wall2;
 	t_shape		sky;
 	t_shape		middle_sph;
 	t_shape		right_sph;
@@ -1491,24 +1492,33 @@ t_data	test_scene(t_img *img, t_mlx *mlx)
 	(void)img;
 	(void)mlx;
 	floor = plane_new();
-	set_transform(&floor, translate(1, 0, 3));
+	set_transform(&floor, translate(0, -10, 0));
 	// floor.transform = translate(1, 0, 3);
 	floor.matter = material();
-	floor.matter.pattern = checkers_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
+	floor.matter.pattern = checkers_pattern(color_new(0.929, 0, 0), color_new(0, 0, 0));
 	// floor.matter.pattern.transform = rotate_y(radians(90));
-	set_transform_pattern(&floor.matter.pattern, rotate_y(radians(30)));
+	// set_transform_pattern(&floor.matter.pattern, rotate_y(radians(30)));
 	// floor.matter.color = color_new(1, 0.2, 1);
 	floor.matter.specular = 0;
-	floor.matter.ambient = 0.6;
-	floor.matter.reflective = 0.2;
+	floor.matter.ambient = 0.7;
+	// floor.matter.reflective = 0.5;
 
 	wall = plane_new();
-	set_transform(&wall, multiply_matrix(multiply_matrix(translate(0, 0, 5), rotate_x(radians(90))),
-											rotate_z(radians(50))));
+	set_transform(&wall, multiply_matrix(multiply_matrix(translate(0, 0, 10), rotate_x(radians(90))),
+											rotate_z(radians(60))));
 	wall.matter = material();
-	// wall.matter.pattern = checkers_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
+	wall.matter.pattern = stripe_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
 	wall.matter.specular = 0;
-	wall.matter.ambient = 0.6;
+	wall.matter.ambient = 0.3;
+
+
+	wall2 = plane_new();
+	set_transform(&wall2, multiply_matrix(multiply_matrix(translate(0, 0, 10), rotate_x(radians(90))),
+											rotate_z(radians(120))));
+	wall2.matter = material();
+	wall2.matter.pattern = stripe_pattern(color_new(0.929, 0.549, 0.071), color_new(0.071, 0.451, 0.929));
+	wall2.matter.specular = 0;
+	wall2.matter.ambient = 0.7;
 	// wall.matter.reflective = 0.2;
 
 
@@ -1520,17 +1530,17 @@ t_data	test_scene(t_img *img, t_mlx *mlx)
 	set_transform_pattern(&sky.matter.pattern, scale(2, 2, 4));
 
 	middle_sph = sphere_default();
-	middle_sph.transform = translate(0.5, -1, -0.5);
+	middle_sph.transform = translate(0, 0, 0);
 	// middle_sph.coordinates = point_new(-0.5, 1, 0.5);
 	middle_sph.matter = material();
 	// middle_sph.matter.pattern = ring_pattern(color_new(1, 0.2, 1), color_new(1, 1, 1));
 	// set_transform(&middle_sph, identity());
 	// set_transform_pattern(&middle_sph.matter.pattern, scale(0.2, 0.1, 0.07));
 	// middle_sph.matter.pattern.transform = scale(, 0, 0);
-	middle_sph.matter.color = color_new(1, 1, 1);
-	middle_sph.matter.diffuse = 0.7;
+	middle_sph.matter.color = color_new(0, 0, 0.1);
+	middle_sph.matter.diffuse = 0.3;
 	middle_sph.matter.specular = 0.3;
-	// middle_sph.matter.reflective = 0.5;
+	middle_sph.matter.reflective = 0.5;
 
 	right_sph = sphere_default();
 	set_transform(&right_sph, multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.5, 0.5, 0.5)));
@@ -1551,38 +1561,22 @@ t_data	test_scene(t_img *img, t_mlx *mlx)
 	left_sph.matter.specular = 0.3;
 
 
-	world.light = point_light(point_new(5, 0, 0), color_new(1, 1, 1));
-	world.obj[0] = wall;
+	world.light = point_light(point_new(2, 10, -5), color_new(1, 1, 1));
+	world.obj[0] = floor;
+	world.obj[3] = wall;
+	world.obj[2] = wall2;
 	world.obj[1] = middle_sph;
-	world.obj[3] = right_sph;
-	world.obj[4] = left_sph;
+	world.obj[4] = sky;
+	world.obj[5] = left_sph;
 	world.obj_count = 2;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
-	cam.from =  point_new(0, 1.5, -5);
-	cam.to =  point_new(0, 1, 0);
-	cam.up =  vector_new(0, 1, 0);
+	cam.from =  point_new(0, 2.5, 0);
+	cam.to =  point_new(0, 0, 0);
+	cam.up =  vector_new(1, 0, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
 	return (data);
-}
-
-bool	is_shadowed(t_world world, t_tuple point)
-{
-	t_tuple	v;
-	double	distance;
-	t_tuple	direction;
-	t_ray	ray;
-	t_junction	hits;
-
-	v = tuple_substract(world.light.position, point);
-	distance = tuple_magnitude(v);
-	direction = tuple_normalize(v);
-	ray = ray_new(point, direction);
-	intersect_world(world, ray, &hits);
-	if (hits.count && hits.cross[0].t < distance)
-		return (true);
-	return (false);
 }
 
 void	test_is_shadowed(void)
@@ -1607,8 +1601,6 @@ void	test_is_shadowed(void)
 	{
 		fprintf(stderr, "\tError: should be true\n");
 	}
-
-
 	if (!is_shadowed(world, point_new(-20, 20, -20)))
 		printf("\tOK\n");
 	else
