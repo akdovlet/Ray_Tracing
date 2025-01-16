@@ -20,7 +20,7 @@ struct s_env {
 	const char* title;
 	t_camera	camera;
 	t_world		world;
-	t_quadtree* root;
+	t_quadtree* quadtree;
 
 	t_ray*		precomputed_ray;
 
@@ -71,18 +71,13 @@ void    destroy_env(t_env* env);
 
 t_color	tuple_tocolor(t_tuple tcolor);
 t_tuple	color_new(float red, float green, float blue);
-t_ray	ray_for_pixel(t_camera cam, float x, float y);
 
 // t_color	color_new(float red, float green, float blue);
 
-void	put_pixel(int dx, int dy, t_color color);
-void put_circle(int dx, int dy, t_color color); //will be removed
-
+void	put_pixel(t_vec2i pixel_position, t_color color);
+void	put_circle(t_vec2i position, t_color color); //will be removed
 
 void	loop(t_env *env);
-
-void precompute_ray(t_env* env);
-
 
 #endif // GRAPHICS_H
 

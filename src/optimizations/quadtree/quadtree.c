@@ -11,13 +11,13 @@
  Source : https://anubhavp.dev/blog/qtree.html
     // return (floor(log(width * height) / 2));
 */
-static size_t quadtree_comptute_depth(size_t width, size_t height)
+static size_t quadtree_comptute_depth(t_vec2i window_size)
 {
     size_t min;
 
-    min = height;
-    if (height > width)
-        min = height;
+    min = window_size.y;
+    if (window_size.y > window_size.x)
+        min = window_size.y;
     return (ceil(log2(min)));
 }
 
@@ -36,22 +36,25 @@ bool zbuffer_alloc(t_zbuffer* zbuffer, size_t size)
     return(zbuffer->buffer != NULL);
 }
 
-bool quadtree_new(t_zbuffer* zbuffer, size_t width, size_t height)
+bool quadtree_new(t_zbuffer* zbuffer, t_vec2i window_size)
 {
     size_t      depth;
     size_t      node_count;
     t_quadtree* root;
 
-    depth = quadtree_comptute_depth(width, height);
+    depth = quadtree_comptute_depth(window_size);
     node_count = quadtree_compute_node_count(depth);
-    printf("width: %ld height: %ld depth: %ld node count: %ld\n", width, height, depth, node_count);
+    printf("width: %d height: %d depth: %ld node count: %ld\n", window_size.x, window_size.y, depth, node_count);
     if(zbuffer_alloc(zbuffer, node_count) == false)
         return (false);
     root = &zbuffer->buffer[0];
-    root->depth = depth - 1;
+    root->depth = depth;
     root->zbuffer.size = zbuffer->size - 1;
     root->zbuffer.buffer = &zbuffer->buffer[1];
-    root->window = (t_window){width, height, 0, 0, width / 2, height / 2};
+    root->window = (t_window){
+        .size = window_size,
+        .center = vec2f_floor(vec2i_scale(window_size, 0.5)),
+    };
     quadtree_set_children(root);
     return (true);
 }

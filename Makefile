@@ -37,12 +37,15 @@ SRC		:=	main.c							\
 			objects/ray.c					\
 			objects/reflect.c				\
 			objects/sphere.c				\
-			optimizations/optimizations.c								\
 			optimizations/quadtree/configuration/assign_child_node.c	\
 			optimizations/quadtree/configuration/link_node.c			\
 			optimizations/quadtree/configuration/set_quadtree.c			\
 			optimizations/quadtree/configuration/compute_window_split.c	\
 			optimizations/quadtree/quadtree.c							\
+			optimizations/quadtree/traverse.c							\
+			optimizations/optimizations.c								\
+			optimizations/find_ambiguity.c								\
+			optimizations/find_shape.c									\
 			pattern/gradient.c				\
 			pattern/pattern.c				\
 			pattern/stripe.c				\
@@ -60,6 +63,7 @@ SRC		:=	main.c							\
 			tuple/tuple_print.c				\
 			tuple/tuple_scalar.c			\
 			tuple/tuple_substract.c			\
+			vector/vector.c					\
 			world/pre_compute.c				\
 			world/view_transform.c			\
 			world/world.c

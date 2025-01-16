@@ -36,7 +36,8 @@ void	    render(t_env* env);
 
 t_ray		ray_new(t_tuple origin, t_tuple direction);
 t_tuple		position(t_ray ray, float factor);
-t_ray		ray_for_pixel(t_camera cam, float x, float y);
+t_ray	ray_for_pixel(t_camera cam, t_vec2i pixel_position);
+
 bool		is_shadowed(t_world world, t_tuple point);
 
 

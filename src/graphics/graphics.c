@@ -5,13 +5,6 @@
 
 #include <stdio.h>
 
-// int	is_within_bounds(float x, float y)
-// {
-// 	if (x < WIDTH && y < HEIGHT && x > 0 && y > 0)
-// 		return (1);
-// 	return (0);
-// }
-
 static t_env* static_env(t_env* env)
 {
 	static t_env* local_env = NULL;
@@ -21,20 +14,20 @@ static t_env* static_env(t_env* env)
 	return (local_env);
 }
 
-void	put_pixel(int dx, int dy, t_color color)
+void	put_pixel(t_vec2i pixel_position, t_color color)
 {
 	t_env*	env;
 
 	env = static_env(NULL);
-	put_pixel_to_image(&env->image, dx, dy, color);
+	put_pixel_to_image(&env->image, pixel_position.x, pixel_position.y, color);
 }
 
-void put_circle(int dx, int dy, t_color color)
+void put_circle(t_vec2i position, t_color color)
 {
 	t_env*	env;
 
 	env = static_env(NULL);
-	ImageDrawCircle(&env->image, dx, dy, 6, color);
+	ImageDrawCircle(&env->image, position.x, position.y, 6, color);
 }
 
 #ifdef RAYLIB

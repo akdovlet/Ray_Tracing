@@ -10,10 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
-#include "graphics.h"
+// #include "minirt.h"
 #include "tuple.h"
 #include "objects.h"
+
+#include "optimizations.h"
+
 
 static float yy = 0;
 void	progression(int progression, int max)
@@ -30,20 +32,23 @@ void	progression(int progression, int max)
 static int exec_one = 0;
 void	render(t_env* env)
 {
+	t_vec2i	pixel_position;
+
 	if (exec_one != 0)
 		return;
 	exec_one += 1;
 
-	int	y;
-	int	x;
-
-	y = -1;
-	while (y++ < env->camera.vsize)
+	pixel_position.y = 0;
+	while (pixel_position.y < env->camera.vsize)
 	{
-		x = -1;
-		while (x++ < env->camera.hsize)
-			put_pixel(x, y, color_at(env->world, ray_for_pixel(env->camera, x, y)));
-		progression(y, env->camera.vsize);
+		pixel_position.x = 0;
+		while (pixel_position.x < env->camera.hsize)
+		{
+			put_pixel(pixel_position, color_at(env->world, ray_for_pixel(env->camera, pixel_position)));
+			pixel_position.x += 1;
+		}
+		progression(pixel_position.y, env->camera.vsize);
+		pixel_position.y += 1;
 	}
-	quadtree_find_object(env);
+	quadtree_resolve_border(env);
 }

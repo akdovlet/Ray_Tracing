@@ -13,35 +13,13 @@
 #ifndef DATA_STRUCT_H
 # define DATA_STRUCT_H
 
-# include <stdint.h>
-# include <stdbool.h>
+# include "vector.h"
 
 typedef union u_matrix			t_matrix;
 typedef enum e_type				t_type;
 typedef struct s_shape			t_shape;
 typedef struct s_vtable_shape	t_vtable_shape;
 typedef struct s_intersection	t_intersection;
-
-
-typedef struct s_vec2i
-{
-	int	x;
-	int	y;
-}	t_vec2i;
-
-typedef struct s_vec2f
-{
-	float	dis;
-	float	x;
-	float	y;
-}	t_vec2f;
-
-typedef struct s_vec3 
-{
-	int x;	
-	int y;	
-	int z;	
-} t_vec3;
 
 typedef struct s_tuple
 {
@@ -108,8 +86,6 @@ typedef struct s_material
 	t_tuple		color;
 	t_pattern	pattern;
 }	t_material;
-
-
 
 typedef struct s_ray
 {
