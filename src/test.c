@@ -1492,7 +1492,7 @@ t_data	test_scene(t_img *img, t_mlx *mlx)
 	(void)img;
 	(void)mlx;
 	floor = plane_new();
-	set_transform(&floor, translate(0, -10, 0));
+	set_transform(&floor, translate(0, -2, 0));
 	// floor.transform = translate(1, 0, 3);
 	floor.matter = material();
 	floor.matter.pattern = checkers_pattern(color_new(0.929, 0, 0), color_new(0, 0, 0));
