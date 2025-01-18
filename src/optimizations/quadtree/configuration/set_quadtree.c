@@ -1,48 +1,39 @@
 #include "quadtree_configuration.h"
 
-t_quadtree* get_current_child(t_conf* conf)
+void quadtree_init(t_conf* conf)
 {
-    if (conf)
-        return (conf->root->childs[conf->pos.x][conf->pos.y]);
-    return (NULL);
-}
+    size_t          i;;
+    size_t          size;
+    size_t          global_index;
+    size_t          local_index;
+    t_quadtree*     node;
+    static t_vec2i  positions[4] = {{0,0}, {1,0}, {0,1}, {1,1}};
+    t_vec2i         pos;
 
-static void foreach_child(t_conf* conf, t_fp_quadtree_builder builder)
-{
-    conf->pos.x = 0;
-    while(conf->pos.x < 2)
+    size = 1;
+    node = conf->buffer;
+    global_index = 0;
+    i = 0;
+    while(i < conf->depth)
     {
-        conf->pos.y = 0;
-        while(conf->pos.y < 2)
+        local_index = 0;
+        conf->window.center = vec2i_scale(conf->window.size, 0.5);
+        while(local_index < size)
         {
-            builder(conf);
-            conf->pos.y += 1;
+            pos = positions[local_index % 4];
+            node[local_index].depth = conf->depth - i;
+            node[local_index].pos = pos;
+            node[local_index].childs[pos.x][pos.y] = &conf->buffer[1 + (global_index * 4)];
+            node[local_index].root = &conf->buffer[(global_index - 1) / 4];
+            node[local_index].window = conf->window;
+            node[local_index].window.offset = vec2i_multiply(vec2i_scale(pos, i), conf->window.size);
+            node[local_index].window.center = vec2i_add(node[local_index].window.offset, conf->window.center);
+            local_index += 1;
+            global_index += 1;
         }
-        conf->pos.x += 1;
+        conf->window.size = conf->window.center;
+        node += size;
+        size *= 4;
+        i += 1;
     }
-}
-
-static void set_children(t_conf* conf)
-{
-    quadtree_set_children(conf->root->childs[conf->pos.x][conf->pos.y]);
-}
-
-
-void quadtree_set_children(t_quadtree* root)
-{
-    t_conf conf;
-
-    if (root->depth == 0)
-        return;
-    conf = (t_conf){.root = root};
-
-    pre_compute_zbuffer_size(&conf);
-    foreach_child(&conf, quadtree_assign_child);
-
-    foreach_child(&conf, quadtree_link_node);
-
-    pre_compute_window_split(&conf);
-    foreach_child(&conf, quadtree_compute_window_child);
-
-    foreach_child(&conf, set_children);
 }

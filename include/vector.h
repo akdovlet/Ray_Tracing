@@ -20,7 +20,9 @@ typedef struct s_vec2f
 
 bool vec2i_equal(t_vec2i a, t_vec2i b);
 t_vec2i vec2i_add(t_vec2i a, t_vec2i b);
-t_vec2f vec2i_scale(t_vec2i a, float scale);
+t_vec2i vec2i_scale(t_vec2i a, float scale);
+
+t_vec2i vec2i_multiply(t_vec2i a, t_vec2i b);
 
 
 t_vec2i vec2f_floor(t_vec2f a);

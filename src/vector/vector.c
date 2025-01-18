@@ -16,9 +16,17 @@ t_vec2i vec2i_add(t_vec2i a, t_vec2i b)
     });
 }
 
-t_vec2f vec2i_scale(t_vec2i a, float scale)
+t_vec2i vec2i_multiply(t_vec2i a, t_vec2i b)
 {
-    return ((t_vec2f){
+    return ((t_vec2i){
+        .x = a.x * b.x,
+        .y = a.y * b.y,
+    });
+}
+
+t_vec2i vec2i_scale(t_vec2i a, float scale)
+{
+    return ((t_vec2i){
         .x = a.x * scale,
         .y = a.y * scale,
     });

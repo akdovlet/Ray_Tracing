@@ -13,7 +13,10 @@ static t_vec2f precompute_world(t_camera cam, t_vec2i pixel_position)
 		.x = cam.half_width,
 		.y = cam.half_height,
 	};
-	position = vec2i_scale(pixel_position, 1);
+	position = (t_vec2f){
+		.x = pixel_position.x,
+		.y = pixel_position.y,
+	};
 	camera_psize = vec2f_value(cam.psize);
 	position = vec2f_add(position, vec2f_value(0.5));
 	position = vec2f_multiply(position, camera_psize);

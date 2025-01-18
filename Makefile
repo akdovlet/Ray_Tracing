@@ -37,8 +37,6 @@ SRC		:=	main.c							\
 			objects/ray.c					\
 			objects/reflect.c				\
 			objects/sphere.c				\
-			optimizations/quadtree/configuration/assign_child_node.c	\
-			optimizations/quadtree/configuration/link_node.c			\
 			optimizations/quadtree/configuration/set_quadtree.c			\
 			optimizations/quadtree/configuration/compute_window_split.c	\
 			optimizations/quadtree/quadtree.c							\

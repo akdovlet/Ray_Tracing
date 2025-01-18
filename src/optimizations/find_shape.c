@@ -14,34 +14,6 @@ bool is_comps(t_comps* comps, t_env* env, t_quadtree* quadtree)
 	return (true);
 }
 
-static bool is_same_object(int* remain, int* found, uintptr_t object_id, t_shape* object, int max)
-{
-	int index;
-
-	index = 0;
-	while(index <= max)
-	{
-		if (object[index].id == object_id && found[index] == 0)
-		{
-			found[index] = 1;
-			(*remain) -= 1;
-			return true;
-		}
-		index += 1;
-	}
-	return false;
-}
-
-void debug_find_object(t_quadtree* quadtree)
-{
-	put_circle(quadtree->window.center,
-		tuple_tocolor(color_new(0, 0, 1)));
-
-	printf("\tpos[%d, %d] depth: %ld\n", 
-		quadtree->window.center.x, quadtree->window.center.y,
-		quadtree->depth);
-}
-
 typedef struct s_finder {
 	int object[20];
 	int object_seen;
@@ -49,6 +21,36 @@ typedef struct s_finder {
 
 	t_env* env;
 } t_finder;
+
+static bool is_same_object(t_finder* finder, uintptr_t object_id)
+{
+	int			index;
+	int			max;
+	t_shape*	object;
+
+	max = finder->env->world.obj_count;
+	object = finder->env->world.obj;
+	index = 0;
+	while(index <= max)
+	{
+		if (object[index].id == object_id && finder->object[index] == 0)
+		{
+			finder->object[index] = 1;
+			finder->object_seen -= 1;
+			return true;
+		}
+		index += 1;
+	}
+	return false;
+}
+
+void debug_find_object(t_quadtree* quadtree, t_color color)
+{
+	put_circle(quadtree->window.center, color);
+	// printf("\tpos[%d, %d] depth: %ld\n", 
+	// 	quadtree->window.center.x, quadtree->window.center.y,
+	// 	quadtree->depth);
+}
 
 bool find_object(t_quadtree* quadtree, void* data)
 {
@@ -59,10 +61,13 @@ bool find_object(t_quadtree* quadtree, void* data)
 
 	if (is_comps(&comps, finder->env, quadtree))
 	{
-		if(is_same_object(&finder->object_seen, finder->object, comps.obj.id, finder->env->world.obj, finder->env->world.obj_count))
+		if(is_same_object(finder, comps.obj.id))
 		{
-			debug_find_object(quadtree);
+			debug_find_object(quadtree, tuple_tocolor(color_new(0, 1, 0)));
 			quadtree->shape_id = comps.obj.id;
+		} else{
+
+			debug_find_object(quadtree, tuple_tocolor(color_new(0, 0, 1)));
 		}
 	}
 	finder->current_depth = quadtree->depth;
@@ -77,7 +82,6 @@ void quadtree_find_object(t_env* env)
 		.env = env,
 		.object_seen = env->world.obj_count,
 	};
-
 	quadtree_traverse(env->quadtree, find_object, &finder);
 	printf("end at depth %ld, object seen: %d\n", finder.current_depth, finder.object_seen);
 }

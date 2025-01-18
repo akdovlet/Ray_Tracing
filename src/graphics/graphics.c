@@ -30,6 +30,29 @@ void put_circle(t_vec2i position, t_color color)
 	ImageDrawCircle(&env->image, position.x, position.y, 6, color);
 }
 
+void put_rectangle(t_vec2i pos, t_vec2i size, t_color color)
+{
+	t_env*	env;
+
+	env = static_env(NULL);
+	ImageDrawRectangle(&env->image, pos.x, pos.y, size.x, size.y, color);
+}
+
+void put_rectangle_line(t_vec2i pos, t_vec2i size, t_color color)
+{
+	t_env*	env;
+	Rectangle rec;
+
+	env = static_env(NULL);
+	rec = (Rectangle){
+		.x = pos.x, .y = pos.y,
+		.width = size.x, .height = size.y,
+	};
+	ImageDrawRectangleLines(&env->image, rec, 1, color);
+}
+
+
+
 #ifdef RAYLIB
 
  int	new_image(t_img* img, t_env* env, int width, int height)

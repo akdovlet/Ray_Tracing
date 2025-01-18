@@ -57,7 +57,7 @@ t_shape init_right_sphere(void)
 	t_shape		right_sph;
 
 	right_sph = sphere_default();
-	right_sph.transform = multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.5, 0.5, 0.5));
+	right_sph.transform = multiply_matrix(translate(1.6, 0.5, -0.5), scale(0.5, 0.5, 0.5));
 	right_sph.matter = material();
 	right_sph.matter.color = color_new(0.5, 1, 0.1);
 	right_sph.matter.diffuse = 0.7;

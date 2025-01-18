@@ -16,7 +16,6 @@
 int main()
 {
 	t_env		env;
-	t_zbuffer	zbuffer;
 	t_vec2i		window_size;
 
 	window_size = (t_vec2i){
@@ -30,16 +29,27 @@ int main()
 		.title = "minirt",
 	};
 	scene(&env.camera, &env.world);
-	if (quadtree_new(&zbuffer, window_size) == false)
+	env.quadtree = quadtree_new(window_size);
+	if (env.quadtree == NULL)
 	{
 		fprintf(stderr, "ERROR: The quadtree fail to be instanciated\n");
 		exit(1);
 	}
-	env.quadtree = &zbuffer.buffer[0];
 	// quadtree_resolve_border(&env);
-	loop(&env);
 
-	// precompute_ray(&env);
-	free(zbuffer.buffer);
+	// size_t depth = env.quadtree->depth;
+	// int y = 0;
+	// for(int i = 0; i < 80000 ; i++)
+	// {
+	// 	if (depth != env.quadtree[i].depth)
+	// 	{
+	// 		printf("%d (%ld) [%d %d]\n", y, depth, env.quadtree[i].window.size.x, env.quadtree[i].window.size.y);
+	// 		depth = env.quadtree[i].depth;
+	// 		y = 0;
+	// 	}
+	// 	y += 1;
+	// }
+	loop(&env);
+	free(env.quadtree);
 	return (0);
 }

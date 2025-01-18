@@ -32,11 +32,12 @@ void	progression(int progression, int max)
 static int exec_one = 0;
 void	render(t_env* env)
 {
-	t_vec2i	pixel_position;
-
 	if (exec_one != 0)
 		return;
 	exec_one += 1;
+	
+	
+	t_vec2i	pixel_position;
 
 	pixel_position.y = 0;
 	while (pixel_position.y < env->camera.vsize)
