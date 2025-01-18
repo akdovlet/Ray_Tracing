@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/16 14:55:32 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:44:23 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ typedef struct s_crossing
 typedef struct s_junction
 {
 	int			count;
-	t_crossing	cross[1024];
+	t_crossing	cross[100];
 }	t_junction;
 
 typedef struct s_world
@@ -176,6 +176,12 @@ typedef struct s_comps
 	t_tuple		under_point;
 	t_shape		obj;
 }	t_comps;
+
+typedef struct s_container
+{
+	t_shape				shape;
+	struct s_container	*next;
+}	t_container;
 
 typedef struct s_camera
 {

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/15 14:09:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/18 16:23:05 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,15 @@ void	render(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
 
 int	render_and_move(t_data *data)
 {
-	int	y;
-	int	x;
+	int		y;
+	int		x;
 	t_ray	ray;
 	t_tuple	color;
 
 	y = 0;
 	camera_update_transform(&data->cam, data->cam.from,
 									data->cam.to,
-							data->cam.up);
+									data->cam.up);
 	while (y < data->cam.vsize)
 	{
 		x = 0;

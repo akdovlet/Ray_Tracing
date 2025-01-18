@@ -1543,13 +1543,14 @@ t_data	test_scene(t_img *img, t_mlx *mlx)
 	middle_sph.matter.reflective = 0.5;
 
 	right_sph = sphere_default();
-	set_transform(&right_sph, multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.5, 0.5, 0.5)));
+	set_transform(&right_sph, multiply_matrix(translate(0, 3.1, 0), scale(0.5, 0.5, 0.5)));
 	right_sph.matter = material();
-	right_sph.matter.pattern = radial_pattern(color_new(1, 0, 0), color_new(0, 0, 1));
-	set_transform_pattern(&right_sph.matter.pattern, scale(0.2, 0.4, 0.1));
-	right_sph.matter.color = color_new(0.5, 1, 0.1);
-	right_sph.matter.diffuse = 0.7;
+	// right_sph.matter.pattern = radial_pattern(color_new(1, 0, 0), color_new(0, 0, 1));
+	// set_transform_pattern(&right_sph.matter.pattern, scale(0.2, 0.4, 0.1));
+	right_sph.matter.color = color_new(0, 0, 0);
+	right_sph.matter.diffuse = 0.3;
 	right_sph.matter.specular = 0.3;
+	right_sph.matter.reflective = 0.5;
 
 	left_sph = sphere_default();
 	set_transform(&left_sph, multiply_matrix(translate(-1.5, 0.33, -0.5), scale(0.33, 0.33, 0.33)));
@@ -1563,14 +1564,14 @@ t_data	test_scene(t_img *img, t_mlx *mlx)
 
 	world.light = point_light(point_new(2, 10, -5), color_new(1, 1, 1));
 	world.obj[0] = floor;
-	world.obj[3] = wall;
-	world.obj[2] = wall2;
 	world.obj[1] = middle_sph;
+	world.obj[2] = right_sph;
+	world.obj[3] = wall;
 	world.obj[4] = sky;
 	world.obj[5] = left_sph;
-	world.obj_count = 2;
+	world.obj_count = 3;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
-	cam.from =  point_new(0, 2.5, 0);
+	cam.from =  point_new(0, 0.5, 0);
 	cam.to =  point_new(0, 0, 0);
 	cam.up =  vector_new(1, 0, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);
