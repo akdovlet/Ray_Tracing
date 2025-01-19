@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:42:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/15 14:09:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:21:07 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,10 @@ t_intersection	intersection(t_shape shape, t_vec2 vec)
 	new.object = shape;
 	new.xs = vec;
 	new.t = 0;
+	new.hit = false;
+	new.count = 0;
 	if (vec.dis < 0)
-	{
-		new.count = 0;
-		new.xs.x = -1;
-		new.xs.y = -1;
 		return (new);
-	}
 	if (!vec.dis)
 		new.count = 1;
 	else
@@ -58,7 +55,6 @@ t_intersection	intersection(t_shape shape, t_vec2 vec)
 		new.xs.x = new.xs.y;
 		new.xs.y = tmp;
 	}
-	new.t = new.xs.x;
 	return (new);
 }
 
@@ -66,17 +62,14 @@ t_intersection	hit(t_intersection inter)
 {
 	// if (!inter.count)
 	// 	return (inter);
-	if (inter.xs.x < 0 && inter.xs.y < 0)
-	{
-		inter.count = 0;
-		inter.t = 0;
+	if (inter.xs.x < 0.0 && inter.xs.y < 0.0)
 		return (inter);
-	}
 	if (inter.xs.x < 0)
 		inter.t = inter.xs.y;
 	else if (inter.xs.y < 0)
 		inter.t = inter.xs.x;
 	else
 		inter.t = fmin(inter.xs.x, inter.xs.y);
+	inter.hit = true;
 	return (inter);
 }

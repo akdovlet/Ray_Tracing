@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/18 16:44:23 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/19 15:38:45 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,9 +136,10 @@ typedef struct	s_shape
 
 struct s_intersection
 {
+	bool					hit;
 	double					t;
 	int						count;
-	t_shape				object;
+	t_shape					object;
 	t_vec2					xs;
 };
 
@@ -150,7 +151,9 @@ typedef struct s_crossing
 
 typedef struct s_junction
 {
+	bool		hit;
 	int			count;
+	t_crossing	closest;
 	t_crossing	cross[100];
 }	t_junction;
 

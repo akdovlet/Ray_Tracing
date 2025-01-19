@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/16 14:33:06 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/19 16:38:58 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ void	sort_hits(t_junction *hits)
 	int			j;
 	t_crossing	tmp;
 
-	if (hits->count <= 1)
-		return;
+
 	i = 0;
 	while (i < hits->count)
 	{
@@ -58,7 +57,25 @@ void	sort_hits(t_junction *hits)
 	}
 }
 
-void intersect_world(t_world world, t_ray ray, t_junction *hits)
+void	find_hit(t_junction *hits)
+{
+	int	i;
+	
+	i = 0;
+	hits->hit = false;
+	while (i < hits->count)
+	{
+		if (hits->cross[i].t >= 0.0)
+		{
+			hits->closest = hits->cross[i];
+			hits->hit = true;
+			break ;
+		}
+		i++;
+	}
+}
+
+void	intersect_world(t_world world, t_ray ray, t_junction *hits)
 {
 	int				i;
 	int				j;
@@ -84,6 +101,7 @@ void intersect_world(t_world world, t_ray ray, t_junction *hits)
 		i++;
 	}
 	sort_hits(hits);
+	find_hit(hits);
 }
 
 t_tuple	color_at(t_world world, t_ray ray, int depth)
@@ -94,9 +112,9 @@ t_tuple	color_at(t_world world, t_ray ray, int depth)
 
 	intersect_world(world, ray, &hits);
 	color = color_new(0, 0, 0);
-	if (hits.count)
+	if (hits.hit)
 	{
-		comps = pre_compute(hits.cross[0], ray, hits.cross);
+		comps = pre_compute(hits.closest, ray, hits);
 		color = shade_hit(world, comps, depth);
 	}
 	return (color);

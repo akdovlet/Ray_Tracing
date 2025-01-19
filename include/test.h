@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:23:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/15 17:17:42 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/19 12:24:20 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,15 @@ void		test_intersect_plane(void);
 void		test_stripe_at(void);
 void		test_reflection(void);
 void		test_refraction(void);
+
+
+
+
+
+
+
+
+t_data	default_scene(t_img *img, t_mlx *mlx);
+t_data	watchful_eye_scene(t_img *img, t_mlx *mlx);
 
 #endif

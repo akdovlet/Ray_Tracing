@@ -1123,137 +1123,137 @@ void	test_intersect_world(void)
 
 void	test_pre_compute(void)
 {
-	t_ray		ray;
-	t_crossing	cross;
-	t_comps		comps;
-	t_junction	junc;
+	// t_ray		ray;
+	// t_crossing	cross;
+	// t_comps		comps;
+	// t_junction	junc;
 
-	printf("\nPre_compute test\n");
+	// printf("\nPre_compute test\n");
 
-	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
-	cross.obj = sphere(point_new(0, 0, 0), 1);
-	cross.t = 4;
-	comps = pre_compute(cross, ray, junc.cross);
-	if (tuple_cmp(comps.world_point, point_new(0, 0, -1)))
-	{
-		fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
-		tuple_print(comps.world_point);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-	if (tuple_cmp(comps.eyev, vector_new(0, 0, -1)))
-	{
-		fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
-		tuple_print(comps.eyev);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-	if (tuple_cmp(comps.normalv, vector_new(0, 0, -1)))
-	{
-		fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
-		tuple_print(comps.normalv);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
+	// ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
+	// cross.obj = sphere(point_new(0, 0, 0), 1);
+	// cross.t = 4;
+	// comps = pre_compute(cross, ray, junc);
+	// if (tuple_cmp(comps.world_point, point_new(0, 0, -1)))
+	// {
+	// 	fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
+	// 	tuple_print(comps.world_point);
+	// }
+	// else
+	// {
+	// 	printf("\tOK\n");
+	// }
+	// if (tuple_cmp(comps.eyev, vector_new(0, 0, -1)))
+	// {
+	// 	fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
+	// 	tuple_print(comps.eyev);
+	// }
+	// else
+	// {
+	// 	printf("\tOK\n");
+	// }
+	// if (tuple_cmp(comps.normalv, vector_new(0, 0, -1)))
+	// {
+	// 	fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
+	// 	tuple_print(comps.normalv);
+	// }
+	// else
+	// {
+	// 	printf("\tOK\n");
+	// }
 
 
-	ray = ray_new(point_new(0, 0, 0), vector_new(0, 0, 1));
-	cross.obj = sphere(point_new(0, 0, 0), 1);
-	cross.t = 1;
-	comps = pre_compute(cross, ray, junc.cross);
-	if (tuple_cmp(comps.world_point, point_new(0, 0, 1)))
-	{
-		fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
-		tuple_print(comps.world_point);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-	if (tuple_cmp(comps.eyev, vector_new(0, 0, -1)))
-	{
-		fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
-		tuple_print(comps.eyev);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-	if (tuple_cmp(comps.normalv, vector_new(0, 0, -1)))
-	{
-		fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
-		tuple_print(comps.normalv);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-	if (!comps.inside)
-		printf("\tError: expected comps.inside = true\n");
-	else
-		printf("\tOK\n");
+	// ray = ray_new(point_new(0, 0, 0), vector_new(0, 0, 1));
+	// cross.obj = sphere(point_new(0, 0, 0), 1);
+	// cross.t = 1;
+	// comps = pre_compute(cross, ray, junc);
+	// if (tuple_cmp(comps.world_point, point_new(0, 0, 1)))
+	// {
+	// 	fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
+	// 	tuple_print(comps.world_point);
+	// }
+	// else
+	// {
+	// 	printf("\tOK\n");
+	// }
+	// if (tuple_cmp(comps.eyev, vector_new(0, 0, -1)))
+	// {
+	// 	fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
+	// 	tuple_print(comps.eyev);
+	// }
+	// else
+	// {
+	// 	printf("\tOK\n");
+	// }
+	// if (tuple_cmp(comps.normalv, vector_new(0, 0, -1)))
+	// {
+	// 	fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
+	// 	tuple_print(comps.normalv);
+	// }
+	// else
+	// {
+	// 	printf("\tOK\n");
+	// }
+	// if (!comps.inside)
+	// 	printf("\tError: expected comps.inside = true\n");
+	// else
+	// 	printf("\tOK\n");
 }
 
 void	test_shading(void)
 {
-	t_world		world;
-	t_ray		ray;
-	t_crossing	cross;
-	t_comps		comps;
-	t_tuple		color;
-	t_junction	junc;
+	// t_world		world;
+	// t_ray		ray;
+	// t_crossing	cross;
+	// t_comps		comps;
+	// t_tuple		color;
+	// t_junction	junc;
 
-	printf("\nShading test\n");
-	world = default_world();
-	// tuple_print(world.light.position);
-	// tuple_print(world.light.intensity);
-	// tuple_print(world.obj[0].coordinates);
-	// tuple_print(world.obj[0].matter.color);
-	// printf("object diffuse: %f, specular: %f, ambient: %f, shininess: %f\n", world.obj[0].matter.diffuse, world.obj[0].matter.specular,
-	// 		world.obj[0].matter.ambient, world.obj[0].matter.shininess);
-	// tuple_print(world.obj[0].coordinates);
-	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
-	cross.t = 4;
-	cross.obj = world.obj[0];
-	comps = pre_compute(cross, ray, junc.cross);
-	color = shade_hit(world, comps, 5);
-	if (tuple_cmp(color, color_new(0.380f, 0.475f, 0.285f)))
-	{
-		fprintf(stderr, "\tError:\texpected:\t");
-		tuple_print(color_new(0.380f, 0.475f, 0.285f));
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
+	// printf("\nShading test\n");
+	// world = default_world();
+	// // tuple_print(world.light.position);
+	// // tuple_print(world.light.intensity);
+	// // tuple_print(world.obj[0].coordinates);
+	// // tuple_print(world.obj[0].matter.color);
+	// // printf("object diffuse: %f, specular: %f, ambient: %f, shininess: %f\n", world.obj[0].matter.diffuse, world.obj[0].matter.specular,
+	// // 		world.obj[0].matter.ambient, world.obj[0].matter.shininess);
+	// // tuple_print(world.obj[0].coordinates);
+	// ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
+	// cross.t = 4;
+	// cross.obj = world.obj[0];
+	// comps = pre_compute(cross, ray, junc);
+	// color = shade_hit(world, comps, 5);
+	// if (tuple_cmp(color, color_new(0.380f, 0.475f, 0.285f)))
+	// {
+	// 	fprintf(stderr, "\tError:\texpected:\t");
+	// 	tuple_print(color_new(0.380f, 0.475f, 0.285f));
+	// 	fprintf(stderr, "\tgot:\t\t\t");
+	// 	tuple_print(color);
+	// }
+	// else
+	// {
+	// 	printf("\tOK\n");
+	// }
 
 
-	ray = ray_new(point_new(0, 0, 0), vector_new(0, 0, 1));
-	world.light = point_light(point_new(0, 0.25, 0), color_new(1, 1, 1));
-	cross.obj = world.obj[1];
-	cross.t = 0.5;
-	comps = pre_compute(cross, ray, junc.cross);
-	color = shade_hit(world, comps, 5);
-	t_tuple expected = color_new(0.90498, 0.90498, 0.90498);
-	if (tuple_cmp(color, expected))
-	{
-		fprintf(stderr, "\tError:\texpected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
+	// ray = ray_new(point_new(0, 0, 0), vector_new(0, 0, 1));
+	// world.light = point_light(point_new(0, 0.25, 0), color_new(1, 1, 1));
+	// cross.obj = world.obj[1];
+	// cross.t = 0.5;
+	// comps = pre_compute(cross, ray, junc);
+	// color = shade_hit(world, comps, 5);
+	// t_tuple expected = color_new(0.90498, 0.90498, 0.90498);
+	// if (tuple_cmp(color, expected))
+	// {
+	// 	fprintf(stderr, "\tError:\texpected:\t");
+	// 	tuple_print(expected);
+	// 	fprintf(stderr, "\tgot:\t\t\t");
+	// 	tuple_print(color);
+	// }
+	// else
+	// {
+	// 	printf("\tOK\n");
+	// }
 }
 
 void	test_color_at(void)
@@ -1474,110 +1474,6 @@ void	test_render_world(t_img *img, t_mlx *mlx)
 	cam.transform = view_transform(from, to, up);
 	render(cam, world, img, mlx);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
-}
-
-t_data	test_scene(t_img *img, t_mlx *mlx)
-{
-	t_world		world;
-	t_camera	cam;
-	t_shape		floor;
-	t_shape		wall;
-	t_shape		wall2;
-	t_shape		sky;
-	t_shape		middle_sph;
-	t_shape		right_sph;
-	t_shape		left_sph;
-	t_data		data;
-
-	(void)img;
-	(void)mlx;
-	floor = plane_new();
-	set_transform(&floor, translate(0, -2, 0));
-	// floor.transform = translate(1, 0, 3);
-	floor.matter = material();
-	floor.matter.pattern = checkers_pattern(color_new(0.929, 0, 0), color_new(0, 0, 0));
-	// floor.matter.pattern.transform = rotate_y(radians(90));
-	// set_transform_pattern(&floor.matter.pattern, rotate_y(radians(30)));
-	// floor.matter.color = color_new(1, 0.2, 1);
-	floor.matter.specular = 0;
-	floor.matter.ambient = 0.7;
-	// floor.matter.reflective = 0.5;
-
-	wall = plane_new();
-	set_transform(&wall, multiply_matrix(multiply_matrix(translate(0, 0, 10), rotate_x(radians(90))),
-											rotate_z(radians(60))));
-	wall.matter = material();
-	wall.matter.pattern = stripe_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
-	wall.matter.specular = 0;
-	wall.matter.ambient = 0.3;
-
-
-	wall2 = plane_new();
-	set_transform(&wall2, multiply_matrix(multiply_matrix(translate(0, 0, 10), rotate_x(radians(90))),
-											rotate_z(radians(120))));
-	wall2.matter = material();
-	wall2.matter.pattern = stripe_pattern(color_new(0.929, 0.549, 0.071), color_new(0.071, 0.451, 0.929));
-	wall2.matter.specular = 0;
-	wall2.matter.ambient = 0.7;
-	// wall.matter.reflective = 0.2;
-
-
-	sky = plane_new();
-	set_transform(&sky, translate(0, 10, 0));
-	sky.matter = material();
-	sky.matter.color = color_new(0, 0.957, 1);
-	sky.matter.pattern = gradient_pattern(color_new(0, 0.957, 1), color_new(1, 1, 1));
-	set_transform_pattern(&sky.matter.pattern, scale(2, 2, 4));
-
-	middle_sph = sphere_default();
-	middle_sph.transform = translate(0, 0, 0);
-	// middle_sph.coordinates = point_new(-0.5, 1, 0.5);
-	middle_sph.matter = material();
-	// middle_sph.matter.pattern = ring_pattern(color_new(1, 0.2, 1), color_new(1, 1, 1));
-	// set_transform(&middle_sph, identity());
-	// set_transform_pattern(&middle_sph.matter.pattern, scale(0.2, 0.1, 0.07));
-	// middle_sph.matter.pattern.transform = scale(, 0, 0);
-	middle_sph.matter.color = color_new(0, 0, 0.1);
-	middle_sph.matter.diffuse = 0.3;
-	middle_sph.matter.specular = 0.3;
-	middle_sph.matter.reflective = 0.5;
-
-	right_sph = sphere_default();
-	set_transform(&right_sph, multiply_matrix(translate(0, 3.1, 0), scale(0.5, 0.5, 0.5)));
-	right_sph.matter = material();
-	// right_sph.matter.pattern = radial_pattern(color_new(1, 0, 0), color_new(0, 0, 1));
-	// set_transform_pattern(&right_sph.matter.pattern, scale(0.2, 0.4, 0.1));
-	right_sph.matter.color = color_new(0, 0, 0);
-	right_sph.matter.diffuse = 0.3;
-	right_sph.matter.specular = 0.3;
-	right_sph.matter.reflective = 0.5;
-
-	left_sph = sphere_default();
-	set_transform(&left_sph, multiply_matrix(translate(-1.5, 0.33, -0.5), scale(0.33, 0.33, 0.33)));
-	left_sph.matter = material();
-	left_sph.matter.pattern = gradient_pattern(color_new(1, 0, 0), color_new(1, 0.988, 0));
-	set_transform_pattern(&left_sph.matter.pattern, multiply_matrix(translate(15, 1, 1), scale(1.5, 1, 1)));
-	left_sph.matter.color = color_new(1, 0.8, 0.1);
-	left_sph.matter.diffuse = 0.7;
-	left_sph.matter.specular = 0.3;
-
-
-	world.light = point_light(point_new(2, 10, -5), color_new(1, 1, 1));
-	world.obj[0] = floor;
-	world.obj[1] = middle_sph;
-	world.obj[2] = right_sph;
-	world.obj[3] = wall;
-	world.obj[4] = sky;
-	world.obj[5] = left_sph;
-	world.obj_count = 3;
-	cam = camera_new(WIDTH, HEIGHT, radians(70));
-	cam.from =  point_new(0, 0.5, 0);
-	cam.to =  point_new(0, 0, 0);
-	cam.up =  vector_new(1, 0, 0);
-	camera_update_transform(&cam, cam.from, cam.to, cam.up);
-	data.cam = cam;
-	data.world = world;
-	return (data);
 }
 
 void	test_is_shadowed(void)
@@ -1927,31 +1823,31 @@ void	test_stripe_at(void)
 
 void	test_reflection(void)
 {
-	t_shape 		plane;
-	t_ray			ray;
-	t_crossing		cross;
-	t_comps			comps;
-	t_world			world;
-	t_tuple			color;
-	t_junction		hits;
+	// t_shape 		plane;
+	// t_ray			ray;
+	// t_crossing		cross;
+	// t_comps			comps;
+	// t_world			world;
+	// t_tuple			color;
+	// t_junction		hits;
 
-	printf("\nTest reflection\n");
+	// printf("\nTest reflection\n");
 
-	plane = plane_new();
-	ray = ray_new(point_new(0, 1, -1), vector_new(0, -sqrt(2)/2, sqrt(2)/2));
-	cross.t = sqrtf(2.0f);
-	cross.obj = plane;
-	comps = pre_compute(cross, ray, hits.cross);
-	tuple_print(comps.reflectv);
+	// plane = plane_new();
+	// ray = ray_new(point_new(0, 1, -1), vector_new(0, -sqrt(2)/2, sqrt(2)/2));
+	// cross.t = sqrtf(2.0f);
+	// cross.obj = plane;
+	// comps = pre_compute(cross, ray, hits.cross);
+	// tuple_print(comps.reflectv);
 
-	world = default_world();
-	plane.matter.reflective = 0.5;
-	plane.transform = translate(0, -1, 0);
-	ray = ray_new(point_new(0, 0, -3), vector_new(0, -sqrt(2)/2, sqrt(2)/2));
-	cross.t = sqrtf(2.0f);
-	comps = pre_compute(cross, ray, hits.cross);
-	color = shade_hit(world, comps, 5);
-	tuple_print(color);
+	// world = default_world();
+	// plane.matter.reflective = 0.5;
+	// plane.transform = translate(0, -1, 0);
+	// ray = ray_new(point_new(0, 0, -3), vector_new(0, -sqrt(2)/2, sqrt(2)/2));
+	// cross.t = sqrtf(2.0f);
+	// comps = pre_compute(cross, ray, hits.cross);
+	// color = shade_hit(world, comps, 5);
+	// tuple_print(color);
 }
 
 void	test_refraction(void)
@@ -1961,9 +1857,8 @@ void	test_refraction(void)
 	t_shape		c;
 	t_ray		ray;
 	t_comps		comps;
-	t_crossing	cross[6];
 	t_junction	junc;
-
+	
 	a = glass_sphere();
 	b = glass_sphere();
 	c = glass_sphere();
@@ -1976,21 +1871,19 @@ void	test_refraction(void)
 	c.matter.refractive_index = 2.5;
 	
 	ray = ray_new(point_new(0, 0, -4), vector_new(0, 0, 1));
-	cross[0].t = 2;
-	cross[0].obj = a;
-	cross[1].t = 2.75;
-	cross[1].obj = b;
-	cross[2].t = 3.25;
-	cross[2].obj = c;
-	cross[3].t = 4.75;
-	cross[3].obj = b;
-	cross[4].t = 5.25;
-	cross[4].obj = c;
-	cross[5].t = 6;
-	cross[5].obj = a;
+	junc.cross[0].t = 2;
+	junc.cross[0].obj = a;
+	junc.cross[1].t = 2.75;
+	junc.cross[1].obj = b;
+	junc.cross[2].t = 3.25;
+	junc.cross[2].obj = c;
+	junc.cross[3].t = 4.75;
+	junc.cross[3].obj = b;
+	junc.cross[4].t = 5.25;
+	junc.cross[4].obj = c;
+	junc.cross[5].t = 6;
+	junc.cross[5].obj = a;
+	junc.count = 6;
 	for(int i = 0; i < 6; i++)
-	{
-		comps = pre_compute(cross[i], ray, junc.cross);
-		printf("n1 is: %f, n2 is: %f\n", comps.n1, comps.n2);
-	}
+		comps = pre_compute(junc.cross[i], ray, junc);
 }

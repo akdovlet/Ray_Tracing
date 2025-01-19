@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/01/14 18:36:05 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/01/19 12:25:17 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ NAME	:=	minirt
 
 SRC		:=	main.c							\
 			test.c							\
+			scenes.c						\
 			camera/camera.c					\
 			light/light.c					\
 			light/shading.c					\
