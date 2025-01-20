@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:23:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/19 12:24:20 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/20 19:40:48 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,9 @@ void		test_intersect_plane(void);
 void		test_stripe_at(void);
 void		test_reflection(void);
 void		test_refraction(void);
+void		test_negative_intersection(void);
 
-
-
-
+unsigned int		new_id(void);
 
 
 

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/19 16:38:44 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/20 11:41:39 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,14 @@ t_data	default_scene(t_img *img, t_mlx *mlx)
 	left_sph.matter.reflective = 0.2;
 
 
-	world.light = point_light(point_new(0, 10, 5), color_new(1, 1, 1));
+	world.light = point_light(point_new(-5, 10, -5), color_new(1, 1, 1));
 	world.obj[0] = floor;
 	world.obj[1] = wall;
 	world.obj[2] = wall2;
 	world.obj[3] = middle_sph;
 	world.obj[4] = right_sph;
 	world.obj[5] = left_sph;
-	world.obj_count = 6;
+	world.obj_count = 5;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
 	cam.from =  point_new(0, 0, -5);
 	cam.to =  point_new(0, -1, 0);

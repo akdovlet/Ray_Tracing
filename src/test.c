@@ -1850,18 +1850,35 @@ void	test_reflection(void)
 	// tuple_print(color);
 }
 
+unsigned int		new_id(void)
+{
+	static unsigned int	random;
+
+	return (random++);
+}
+
 void	test_refraction(void)
 {
 	t_shape		a;
 	t_shape		b;
 	t_shape		c;
+	t_shape		d;
 	t_ray		ray;
 	t_comps		comps;
 	t_junction	junc;
-	
+
+	// 0x5f3759dfs * i
+
 	a = glass_sphere();
 	b = glass_sphere();
 	c = glass_sphere();
+	d = sphere_default();
+
+	printf("a id is: %lu\n", a.id);
+	printf("b id is: %lu\n", b.id);
+	printf("c id is: %lu\n", c.id);
+	printf("d id is: %lu\n", d.id);
+
 
 	set_transform(&a, scale(2, 2, 2));
 	a.matter.refractive_index = 1.5;
@@ -1885,5 +1902,37 @@ void	test_refraction(void)
 	junc.cross[5].obj = a;
 	junc.count = 6;
 	for(int i = 0; i < 6; i++)
+	{
 		comps = pre_compute(junc.cross[i], ray, junc);
+		printf("n1 is:%f n2 is: %f\n", comps.n1, comps.n2);
+	}
+}
+
+void	test_negative_intersection(void)
+{
+	t_world		world;
+	t_ray		ray;
+	t_junction	junc;
+
+	world.obj[0] = glass_sphere();
+	world.obj[1] = glass_sphere();
+	world.obj[2] = glass_sphere();
+
+	set_transform(&world.obj[0], scale(2, 2, 2));
+	set_transform(&world.obj[1], translate(0, 0, -0.25));
+	set_transform(&world.obj[2], translate(0, 0, 0.25));
+
+	world.obj[0].matter.refractive_index = 1.5;
+	world.obj[1].matter.refractive_index = 2.0;
+	world.obj[2].matter.refractive_index = 2.5;
+
+	world.obj_count = 3;
+
+	ray = ray_new(point_new(0, 0, -4), vector_new(0, 0, 1)); 
+	intersect_world(world, ray, &junc);
+	for (int i = 0; i < junc.count; i++)
+	{
+		printf("interestction is: %f\n", junc.cross[i].t);
+	}
+	printf("hit is: %f\n", junc.closest.t);
 }

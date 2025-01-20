@@ -6,17 +6,19 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:52:44 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/19 16:31:06 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/20 18:12:01 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_container	*container_last(t_container *lst)
+double	container_last(t_container *lst)
 {
+	if (!lst)
+		return (1.0);
 	while (lst->next)
 		lst = lst->next;
-	return (lst);
+	return (lst->shape.matter.refractive_index);
 }
 
 t_container	*container_new(t_shape shape)
@@ -29,72 +31,84 @@ t_container	*container_new(t_shape shape)
 	return (new);
 }
 
-void	container_append(t_container **lst, t_container *new)
-{
-	if (!*lst)
-	{
-		*lst = new;
-	}
-	else
-		container_last(*lst)->next = new;
-}
+// void	container_append(t_container **lst, t_container *new)
+// {
+// 	if (!*lst)
+// 	{
+// 		*lst = new;
+// 	}
+// 	else
+// 		container_last(*lst)->next = new;
+// }
 
 void	container_remove(t_container **lst, t_shape shape)
 {
-	t_container	*curr;
-	t_container	*tmp;
+	t_container	*current;
 	t_container	*last;
 
-	if (!*lst)
-		return ;
-	curr = *lst;
-	last = curr;
-	while (curr)
+	current = *lst;
+	last = *lst;
+	if (current && current->shape.id == shape.id)
 	{
-		if (curr->shape.id == shape.id)
-		{
-			tmp = curr->next;
-			free(tmp);
-			last->next = tmp;
-			return ;
-		}
-		last = curr;
-		curr = curr->next;
+		current = (*lst)->next;
+		free(*lst);
+		*lst = current;
+		return ;
+	}
+	while (current && current->shape.id != shape.id)
+	{
+		last = current;
+		current = current->next;
+	}
+	if (!current)
+	{
+		last = container_new(shape);
+		return ;	
+	}
+	last->next = current->next;
+	free(current);
+}
+
+void	container_clear(t_container **lst)
+{
+	t_container	*tmp;
+
+	while (*lst)
+	{
+		tmp = (*lst)->next;
+		free(*lst);
+		*lst = tmp;
 	}
 }
 
-void	build_containers(t_comps *comps, t_container **lst, t_junction arr)
+void	find_n1n2(t_comps *comps, t_junction arr)
 {
-	int		i;
+	int			i;
+	t_container	*lst;
 
 	i = 0;
+	lst = NULL;
 	while (i < arr.count)
 	{
-		if (arr.cross[i].t == arr.cross[0].t)
+		if (arr.cross[i].t == comps->t)
+				comps->n1 = container_last(lst);
+		printf("closest id is: %lx, cross id is: %lx\n", comps->obj.id, arr.cross[i].obj.id);
+		printf("closest.t is: %f, cross.t is: %f\n", comps->t, arr.cross[i].t);
+		container_remove(&lst, arr.cross[i].obj);
+		if (arr.cross[i].t == comps->t)
 		{
-			if (!*lst)
-				comps->n1 = 1.0;
-			else
-				comps->n1 = container_last(*lst)->shape.matter.refractive_index;
+			comps->n2 = container_last(lst);
+			break ;
 		}
 		i++;
 	}
+	container_clear(&lst);
 }
-
-// t_tuple	refracted_color(t_world world, t_comps comps, int remaining)
-// {
-// 	if (!remaining || !comps.obj.matter.transparency)
-// 		return (color_new(0, 0, 0));
-	
-// }
 
 t_comps	pre_compute(t_crossing cross, t_ray ray, t_junction arr)
 {
 	t_comps		new;
-	t_container	*lst;
 
-	lst = NULL;
-	(void)arr;
 	new.t = cross.t;
 	new.obj = cross.obj;
 	new.world_point = position(ray, cross.t);
@@ -110,6 +124,7 @@ t_comps	pre_compute(t_crossing cross, t_ray ray, t_junction arr)
 	new.overz = tuple_multiply(new.normalv, 0.00001);
 	new.overz = tuple_add(new.overz, new.world_point);
 	new.reflectv = reflect(ray.direction, new.normalv);
-	// build_containers(&new, &lst, arr);
+	if (cross.obj.matter.refractive_index > 1.0)
+		find_n1n2(&new, arr);
 	return (new);
 }

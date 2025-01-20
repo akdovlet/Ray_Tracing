@@ -6,11 +6,12 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:09:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/15 14:09:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/20 19:44:50 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects.h"
+#include "test.h"
 
 t_vec2	sphere_intersect(t_ray ray, t_shape shape)
 {
@@ -52,7 +53,7 @@ t_shape	sphere(t_tuple point, double radius)
 	new = (t_shape){
 		.coordinates = point,
 		.radius = radius,
-		.id = (uintptr_t) &new,
+		.id = new_id(),
 		.type = SPHERE,
 		.transform = identity(),
 		.matter = material(),
@@ -69,7 +70,7 @@ t_shape	sphere_default(void)
 	new = (t_shape){
 		.coordinates = point_new(0, 0, 0),
 		.radius = 1,
-		.id = (uintptr_t) &new,
+		.id = new_id(),
 		.type = SPHERE,
 		.transform = identity(),
 		.matter = material(),
