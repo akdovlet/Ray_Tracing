@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/21 16:31:14 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/21 19:13:16 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_data	default_scene(t_img *img, t_mlx *mlx)
 	floor.matter = material();
 	floor.matter.pattern = checkers_pattern(black(), red());
 	// set_transform_pattern(&floor.matter.pattern, rotate_y(radians(30)));
-	floor.matter.specular = 0;
+	floor.matter.specular = 0.2;
 	floor.matter.ambient = 0.7;
 	// floor.matter.reflective = 0.5;
 
@@ -53,7 +53,7 @@ t_data	default_scene(t_img *img, t_mlx *mlx)
 											rotate_z(radians(120))));
 	wall2.matter = material();
 	wall2.matter.pattern = ring_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
-	wall2.matter.specular = 0;
+	wall2.matter.specular = 0.2;
 	wall2.matter.ambient = 0.7;
 
 
@@ -66,7 +66,7 @@ t_data	default_scene(t_img *img, t_mlx *mlx)
 
 	middle_sph = glass_sphere();
 	// middle_sph.matter.pattern = ring_pattern(color_new(1, 0.2, 1), color_new(1, 1, 1));
-	set_transform(&middle_sph, translate(0, 0, -3));
+	set_transform(&middle_sph, translate(0, 0, 0));
 	// set_transform_pattern(&middle_sph.matter.pattern, scale(0.2, 0.1, 0.07));
 	// middle_sph.matter.pattern.transform = scale(, 0, 0);
 	middle_sph.matter.reflective = 0.9;
@@ -75,6 +75,7 @@ t_data	default_scene(t_img *img, t_mlx *mlx)
 	middle_sph.matter.specular = 1;
 	middle_sph.matter.shininess = 300;
 	middle_sph.matter.ambient = 0.01;
+	middle_sph.matter.refractive_index = 1.333;
 
 	right_sph = sphere_default();
 	set_transform(&right_sph, multiply_matrix(translate(0, 0, 5), scale(0.5, 0.5, 0.5)));
@@ -180,6 +181,7 @@ t_data	watchful_eye_scene(t_img *img, t_mlx *mlx)
 	middle_sph.matter.diffuse = 0.3;
 	middle_sph.matter.specular = 0.3;
 	middle_sph.matter.reflective = 0.5;
+	middle_sph.matter.refractive_index = 2.417;
 
 	right_sph = sphere_default();
 	set_transform(&right_sph, multiply_matrix(translate(0, 3.1, 0), scale(0.5, 0.5, 0.5)));
