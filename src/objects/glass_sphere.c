@@ -6,12 +6,11 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 11:38:04 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/20 19:41:44 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:47:47 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include "test.h"
 
 t_material	glass_material(void)
 {

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/19 16:30:53 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:33:44 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	render_and_move(t_data *data)
 		while (x < data->cam.hsize)
 		{
 			ray = ray_for_pixel(data->cam, x, y);
-			color = color_at(data->world, ray, 5);
+			color = color_at(data->world, ray, 10);
 			ak_mlx_pixel_put(&data->img, x, y, tuple_tocolor(color));
 			x++;
 		}

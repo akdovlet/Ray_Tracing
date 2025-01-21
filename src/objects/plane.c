@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:46:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/16 16:50:26 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:47:58 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ t_shape	plane_new(void)
 	new = (t_shape) {
 		.type = PLANE,
 		.coordinates = point_new(0, 0, 0),
-		.id = (uintptr_t) &new,
+		.id = new_id(),
 		.matter = material(),
 		.local_normalat = &local_normalat,
 		.local_interesct = &local_intersect,

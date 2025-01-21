@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/18 17:09:41 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/21 15:46:13 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ t_shape	glass_sphere(void);
 
 t_vec2	sphere_intersect(t_ray ray, t_shape shape);
 t_tuple	sphere_normal_at(t_shape obj, t_tuple world_point);
+
+
+unsigned int		new_id(void);
+
+
+t_tuple	refracted_color(t_world world, t_comps comps, int depth);
+double	schlick(t_comps comps);
 
 // struct s_vtable_shape {
 // 	void (*intersection)(t_shape*, t_ray*);

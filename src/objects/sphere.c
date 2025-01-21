@@ -6,12 +6,11 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:09:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/20 19:44:50 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/21 11:47:39 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "objects.h"
-#include "test.h"
 
 t_vec2	sphere_intersect(t_ray ray, t_shape shape)
 {

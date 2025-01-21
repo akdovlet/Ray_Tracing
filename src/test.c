@@ -5,6 +5,7 @@
 #include "tuple.h"
 #include "mlx_utils.h"
 #include "test.h"
+#include "colors.h"
 
 void test_init_tuple()
 {
@@ -1862,23 +1863,13 @@ void	test_refraction(void)
 	t_shape		a;
 	t_shape		b;
 	t_shape		c;
-	t_shape		d;
 	t_ray		ray;
 	t_comps		comps;
 	t_junction	junc;
 
-	// 0x5f3759dfs * i
-
 	a = glass_sphere();
 	b = glass_sphere();
 	c = glass_sphere();
-	d = sphere_default();
-
-	printf("a id is: %lu\n", a.id);
-	printf("b id is: %lu\n", b.id);
-	printf("c id is: %lu\n", c.id);
-	printf("d id is: %lu\n", d.id);
-
 
 	set_transform(&a, scale(2, 2, 2));
 	a.matter.refractive_index = 1.5;
@@ -1928,11 +1919,42 @@ void	test_negative_intersection(void)
 
 	world.obj_count = 3;
 
-	ray = ray_new(point_new(0, 0, -4), vector_new(0, 0, 1)); 
+	ray = ray_new(point_new(0, 0, -4), vector_new(0, 0, 1));
 	intersect_world(world, ray, &junc);
 	for (int i = 0; i < junc.count; i++)
-	{
 		printf("interestction is: %f\n", junc.cross[i].t);
-	}
 	printf("hit is: %f\n", junc.closest.t);
+}
+
+void	test_shade_hit_refraction(void)
+{
+	t_world	world;
+	t_shape	floor;
+	t_shape	ball;
+	t_ray	ray;
+	t_comps	comps;
+	t_junction	junc;
+	t_tuple		color;
+
+	world = default_world();
+	floor = plane_new();
+	set_transform(&floor, translate(0, -1, 0));
+	floor.matter.transparency = 0.5;
+	floor.matter.refractive_index = 1.5;
+	world.obj[0] = floor;
+	
+	ball = sphere_default();
+	ball.matter.color = red();
+	ball.matter.ambient = 0.5;
+	set_transform(&ball, translate(0, -3.5, -0.5));
+	world.obj[1] = ball;
+	world.obj_count = 2;
+
+	ray = ray_new(point_new(0, 0, -3), vector_new(0, -sqrt(2/2), sqrt(2/2)));
+	junc.cross[0].t = sqrt(2);
+	junc.cross[0].obj = floor;
+	junc.count = 1;
+	comps = pre_compute(junc.cross[0], ray, junc);
+	color = shade_hit(world, comps, 5);
+	tuple_print(color);
 }

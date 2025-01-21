@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:23:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/20 19:40:48 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/21 14:18:24 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,15 @@ void		test_view_transform(void);
 void		test_camera(void);
 void		test_ray_for_pixel(void);
 void		test_render_world(t_img *img, t_mlx *mlx);
-t_data		test_scene(t_img *img, t_mlx *mlx);
 void		test_is_shadowed(void);
 void		test_intersect_plane(void);
 void		test_stripe_at(void);
 void		test_reflection(void);
 void		test_refraction(void);
 void		test_negative_intersection(void);
+void		test_shade_hit_refraction(void);
 
-unsigned int		new_id(void);
-
-
-
-
-t_data	default_scene(t_img *img, t_mlx *mlx);
-t_data	watchful_eye_scene(t_img *img, t_mlx *mlx);
+t_data		default_scene(t_img *img, t_mlx *mlx);
+t_data		watchful_eye_scene(t_img *img, t_mlx *mlx);
 
 #endif

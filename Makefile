@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/01/20 19:12:12 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/01/21 14:31:24 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC		:=	main.c							\
 			test.c							\
 			scenes.c						\
 			camera/camera.c					\
+			colors/colors.c					\
 			light/light.c					\
 			light/shading.c					\
 			matrix/rotate.c					\
@@ -49,6 +50,8 @@ SRC		:=	main.c							\
 			ray/ray_transform.c				\
 			ray/ray.c						\
 			ray/reflect.c					\
+			ray/refract.c					\
+			ray/schlick.c					\
 			render/render.c					\
 			tuple/color_new.c				\
 			tuple/hadamard_product.c		\

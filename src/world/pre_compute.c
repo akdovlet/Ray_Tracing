@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:52:44 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/20 18:12:01 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:12:51 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,6 @@ t_container	*container_new(t_shape shape)
 	return (new);
 }
 
-// void	container_append(t_container **lst, t_container *new)
-// {
-// 	if (!*lst)
-// 	{
-// 		*lst = new;
-// 	}
-// 	else
-// 		container_last(*lst)->next = new;
-// }
 
 void	container_remove(t_container **lst, t_shape shape)
 {
@@ -62,7 +53,10 @@ void	container_remove(t_container **lst, t_shape shape)
 	}
 	if (!current)
 	{
-		last = container_new(shape);
+		if (!last)
+			*lst = container_new(shape);
+		else
+			last->next = container_new(shape);
 		return ;	
 	}
 	last->next = current->next;
@@ -92,8 +86,6 @@ void	find_n1n2(t_comps *comps, t_junction arr)
 	{
 		if (arr.cross[i].t == comps->t)
 				comps->n1 = container_last(lst);
-		printf("closest id is: %lx, cross id is: %lx\n", comps->obj.id, arr.cross[i].obj.id);
-		printf("closest.t is: %f, cross.t is: %f\n", comps->t, arr.cross[i].t);
 		container_remove(&lst, arr.cross[i].obj);
 		if (arr.cross[i].t == comps->t)
 		{
@@ -124,7 +116,10 @@ t_comps	pre_compute(t_crossing cross, t_ray ray, t_junction arr)
 	new.overz = tuple_multiply(new.normalv, 0.00001);
 	new.overz = tuple_add(new.overz, new.world_point);
 	new.reflectv = reflect(ray.direction, new.normalv);
-	if (cross.obj.matter.refractive_index > 1.0)
+	if (cross.obj.matter.transparency)
+	{
 		find_n1n2(&new, arr);
+		new.under_point = tuple_substract(new.world_point, tuple_multiply(new.normalv, 0.00001));
+	}
 	return (new);
 }
