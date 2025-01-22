@@ -18,7 +18,7 @@ static void quadtree_comptute_depth(t_conf* conf)
     min = conf->window.size.y;
     if (conf->window.size.y > conf->window.size.x)
         min = conf->window.size.y;
-    conf->depth = ceil(log2(min));
+    conf->depth = ceil(log2(min)) + 1;
 }
 
 /*

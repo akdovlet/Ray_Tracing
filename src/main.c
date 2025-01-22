@@ -39,7 +39,7 @@ int main()
 
 	// size_t depth = env.quadtree->depth;
 	// int y = 0;
-	// for(int i = 0; i < 80000 ; i++)
+	// for(int i = 0; i < 81000 ; i++)
 	// {
 	// 	if (depth != env.quadtree[i].depth)
 	// 	{
@@ -49,6 +49,7 @@ int main()
 	// 	}
 	// 	y += 1;
 	// }
+	env.quadtree->parent = NULL;
 	loop(&env);
 	free(env.quadtree);
 	return (0);

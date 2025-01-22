@@ -76,7 +76,7 @@ t_tuple	color_new(float red, float green, float blue);
 // t_color	color_new(float red, float green, float blue);
 
 void	put_pixel(t_vec2i pixel_position, t_color color);
-void	put_circle(t_vec2i position, t_color color); //will be removed
+void	put_circle(t_vec2i position, int radius, t_color color); //will be removed
 void	put_rectangle(t_vec2i pos, t_vec2i size, t_color color); //will be removed
 void	put_rectangle_line(t_vec2i pos, t_vec2i size, t_color color); //will be removed
 

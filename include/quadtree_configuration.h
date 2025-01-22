@@ -3,26 +3,28 @@
 
 # include "quadtree.h"
 # include "data_struct.h"
-# include <stdio.h> // TODO: remove it
+
+typedef enum e_v {
+    X, Y,
+    MAX_V,
+} t_v;
 
 typedef struct s_conf {
-    t_vec2i     pos;
-    t_quadtree* root;
+    size_t      local_index;
+    size_t      global_index;
 
-    // for window position and size
-    t_vec2i window_size[3];
-
-    // for linking the nodes
-    t_quadtree* current;
-    t_quadtree* prev;
-
+    size_t      index;
     t_window    window;
     size_t      depth;
+    size_t      height;
     size_t      node_count;
     t_quadtree* buffer;
+
+    size_t      neighbor_mask[MAX_V];
 } t_conf;
 
 void quadtree_init(t_conf* conf);
-void compute_window_split(t_vec2i size, t_window* windows);
+
+
 
 #endif // QUADTREE_CONFIGURATION_H

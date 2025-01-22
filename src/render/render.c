@@ -30,13 +30,9 @@ void	progression(int progression, int max)
 }
 
 static int exec_one = 0;
-void	render(t_env* env)
+
+void	classi_render(t_env* env)
 {
-	if (exec_one != 0)
-		return;
-	exec_one += 1;
-	
-	
 	t_vec2i	pixel_position;
 
 	pixel_position.y = 0;
@@ -51,5 +47,14 @@ void	render(t_env* env)
 		progression(pixel_position.y, env->camera.vsize);
 		pixel_position.y += 1;
 	}
+}
+void	render(t_env* env)
+{
+	if (exec_one != 0)
+		return;
+	exec_one += 1;
+	
+	// classi_render(env);
+
 	quadtree_resolve_border(env);
 }

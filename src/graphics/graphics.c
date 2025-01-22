@@ -22,12 +22,12 @@ void	put_pixel(t_vec2i pixel_position, t_color color)
 	put_pixel_to_image(&env->image, pixel_position.x, pixel_position.y, color);
 }
 
-void put_circle(t_vec2i position, t_color color)
+void put_circle(t_vec2i position, int radius, t_color color)
 {
 	t_env*	env;
 
 	env = static_env(NULL);
-	ImageDrawCircle(&env->image, position.x, position.y, 6, color);
+	ImageDrawCircle(&env->image, position.x, position.y, radius, color);
 }
 
 void put_rectangle(t_vec2i pos, t_vec2i size, t_color color)
@@ -91,6 +91,7 @@ void    destroy_env(t_env* env)
     CloseWindow();
 }
 
+static int render_once = 1;
 void	loop(t_env *env)
 {
 	init_env(env);
@@ -100,12 +101,14 @@ void	loop(t_env *env)
     // SetTargetFPS(1);
     while (!WindowShouldClose())
     {
-		render(env);
-		Color *pixels = LoadImageColors(env->image);
+		if (render_once){
+			render(env);
+			Color *pixels = LoadImageColors(env->image);
 
-        UpdateTexture(texture, pixels);
-        UnloadImageColors(pixels);
-
+			UpdateTexture(texture, pixels);
+			UnloadImageColors(pixels);
+			render_once = 0;
+		}
         BeginDrawing();
             DrawTexture(texture, 0, 0, WHITE);
         EndDrawing();

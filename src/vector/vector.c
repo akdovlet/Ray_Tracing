@@ -8,12 +8,16 @@ bool vec2i_equal(t_vec2i a, t_vec2i b)
     );
 }
 
-t_vec2i vec2i_add(t_vec2i a, t_vec2i b)
+void vec2i_add(t_vec2i *a, t_vec2i b)
 {
-    return ((t_vec2i){
-        .x = a.x + b.x,
-        .y = a.y + b.y,
-    });
+    a->x += b.x;
+    a->y += b.y;
+}
+
+t_vec2i vec2i_sum(t_vec2i a, t_vec2i b)
+{
+    vec2i_add(&a, b);
+    return (a);
 }
 
 t_vec2i vec2i_multiply(t_vec2i a, t_vec2i b)

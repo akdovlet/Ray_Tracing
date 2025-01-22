@@ -2,12 +2,12 @@
 #include "objects.h"
 #include <stdlib.h>
 
-bool is_comps(t_comps* comps, t_env* env, t_quadtree* quadtree)
+bool is_comps(t_comps* comps, t_env* env, t_vec2i pixel_position)
 {
 	t_ray		ray;
 	t_junction	hits;
 
-	ray = ray_for_pixel(env->camera, quadtree->window.center);
+	ray = ray_for_pixel(env->camera, pixel_position);
 	if(intersect_world(env->world, ray, &hits) == false)
 		return (false);
 	(*comps) = pre_compute(hits.cross[0], ray);
@@ -46,10 +46,16 @@ static bool is_same_object(t_finder* finder, uintptr_t object_id)
 
 void debug_find_object(t_quadtree* quadtree, t_color color)
 {
-	put_circle(quadtree->window.center, color);
-	// printf("\tpos[%d, %d] depth: %ld\n", 
+	put_circle(quadtree->window.center, 3, color);
+
+    // t_vec2i b = local_position_to_absolute_vec2i(quadtree->position, quadtree->height);
+	// printf("absolute position: [%d %d]\n",
+	// 	b.x, b.y);
+
+	// printf("position: %ld center[%d, %d] height: %ld\n",
+	// 	quadtree->position,
 	// 	quadtree->window.center.x, quadtree->window.center.y,
-	// 	quadtree->depth);
+	// 	quadtree->height);
 }
 
 bool find_object(t_quadtree* quadtree, void* data)
@@ -59,7 +65,7 @@ bool find_object(t_quadtree* quadtree, void* data)
 
 	finder = (t_finder*)data;
 
-	if (is_comps(&comps, finder->env, quadtree))
+	if (is_comps(&comps, finder->env, quadtree->window.center))
 	{
 		if(is_same_object(finder, comps.obj.id))
 		{
@@ -72,6 +78,7 @@ bool find_object(t_quadtree* quadtree, void* data)
 	}
 	finder->current_depth = quadtree->depth;
 	return(finder->object_seen != 0);
+	// return(finder->current_depth != 6);
 }
 
 void quadtree_find_object(t_env* env)

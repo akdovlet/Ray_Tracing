@@ -28,8 +28,11 @@
 # include "objects.h"
 # include "pattern.h"
 
-# define WIDTH 1000
-# define HEIGHT 500
+// # define WIDTH 1000
+// # define HEIGHT 500
+
+# define WIDTH 1024
+# define HEIGHT WIDTH
 
 void        scene(t_camera* camera, t_world* world);
 void	    render(t_env* env);
