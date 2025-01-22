@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/21 19:13:16 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:55:28 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,17 @@ t_data	default_scene(t_img *img, t_mlx *mlx)
 
 
 	wall2 = plane_new();
-	set_transform(&wall2, multiply_matrix(multiply_matrix(translate(0, 0, 20), rotate_x(radians(90))),
+	set_transform(&wall2, multiply_matrix(multiply_matrix(translate(0, 0, -4), rotate_x(radians(90))),
 											rotate_z(radians(120))));
 	wall2.matter = material();
 	wall2.matter.pattern = ring_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
-	wall2.matter.specular = 0.2;
-	wall2.matter.ambient = 0.7;
-
+	wall2.matter = glass_material();
+	wall2.matter.reflective = 1;
+	wall2.matter.diffuse = 0.2;
+	wall2.matter.specular = 0.7;
+	wall2.matter.shininess = 300;
+	wall2.matter.ambient = 0.01;
+	wall2.matter.refractive_index = 1.458;
 
 	sky = plane_new();
 	set_transform(&sky, translate(0, 10, 0));
@@ -64,18 +68,17 @@ t_data	default_scene(t_img *img, t_mlx *mlx)
 	sky.matter.pattern = gradient_pattern(color_new(0, 0.957, 1), color_new(1, 1, 1));
 	set_transform_pattern(&sky.matter.pattern, scale(2, 2, 4));
 
-	middle_sph = glass_sphere();
+	middle_sph = sphere_default();
 	// middle_sph.matter.pattern = ring_pattern(color_new(1, 0.2, 1), color_new(1, 1, 1));
 	set_transform(&middle_sph, translate(0, 0, 0));
 	// set_transform_pattern(&middle_sph.matter.pattern, scale(0.2, 0.1, 0.07));
 	// middle_sph.matter.pattern.transform = scale(, 0, 0);
-	middle_sph.matter.reflective = 0.9;
+	middle_sph.matter.reflective = 1;
 	middle_sph.matter.color = color_new(0.31, 0.027, 0.027);
 	middle_sph.matter.diffuse = 0.2;
-	middle_sph.matter.specular = 1;
+	middle_sph.matter.specular = 1.5;
 	middle_sph.matter.shininess = 300;
 	middle_sph.matter.ambient = 0.01;
-	middle_sph.matter.refractive_index = 1.333;
 
 	right_sph = sphere_default();
 	set_transform(&right_sph, multiply_matrix(translate(0, 0, 5), scale(0.5, 0.5, 0.5)));
@@ -88,26 +91,26 @@ t_data	default_scene(t_img *img, t_mlx *mlx)
 	right_sph.matter.reflective = 0.5;
 
 	left_sph = sphere_default();
-	set_transform(&left_sph, multiply_matrix(translate(0, 5, -10), scale(5.1, 5.1, 5.1)));
+	set_transform(&left_sph, multiply_matrix(translate(-2, 0, 2), scale(1.5, 1.5, 1.5)));
 	left_sph.matter = material();
 	// left_sph.matter.pattern = ring_pattern(color_new(1, 0, 0), color_new(0, 0, 0));
 	// set_transform_pattern(&left_sph.matter.pattern, scale(0.1, 0.1, 0.1));
-	left_sph.matter.color = color_new(0, 0, 0.1);
+	left_sph.matter.color = color_new(0, 0, 0.9);
 	left_sph.matter.diffuse = 0.7;
 	left_sph.matter.specular = 0.3;
 	left_sph.matter.reflective = 0.2;
 
 
-	world.light = point_light(point_new(-5, 10, -5), color_new(1, 1, 1));
+	world.light = point_light(point_new(-5, 10, -3), color_new(1, 1, 1));
 	world.obj[0] = floor;
 	world.obj[1] = wall;
 	world.obj[2] = wall2;
 	world.obj[3] = middle_sph;
-	world.obj[4] = right_sph;
-	world.obj[5] = left_sph;
+	world.obj[4] = left_sph;
+	world.obj[5] = right_sph;
 	world.obj_count = 5;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
-	cam.from =  point_new(0, 0, -5);
+	cam.from =  point_new(0, 0, -3);
 	cam.to =  point_new(0, -1, 0);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);

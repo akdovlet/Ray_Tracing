@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 16:57:57 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/15 12:27:49 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:07:38 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	key_manager(int keysym, t_data *data)
 	if (keysym == XK_Escape)
 	{
 		mlx_loop_end(data->mlx.mlx_ptr);
-		return (0);
+		return (1);
 	}
 	else if (keysym == XK_d)
 		data->cam.from.x += 0.1;

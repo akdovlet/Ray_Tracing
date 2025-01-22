@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 19:46:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/21 18:52:18 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/22 17:12:26 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,10 @@ t_tuple	blinn_phong(t_material mat, t_light light, t_tuple overz, t_tuple eyev, 
 	double	factor;
 	
 	if (mat.pattern.exists)
+	{
 		e_color = pattern_at_shape(mat.pattern, shape, overz);
+		e_color = color_hadamard(e_color, color_hadamard(mat.color, light.intensity));
+	}
 	else
 		e_color = color_hadamard(mat.color, light.intensity);
 	lightv = tuple_normalize(tuple_substract(light.position, overz));
