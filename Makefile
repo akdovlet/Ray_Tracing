@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/01/21 14:31:24 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/01/23 14:22:24 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC		:=	main.c							\
 			mlx/mlx_clear.c					\
 			mlx/mlx_pixel_put.c				\
 			mlx/mouse_manager.c				\
+			objects/cube.c					\
 			objects/glass_sphere.c			\
 			objects/material.c				\
 			objects/normal.c				\
@@ -81,7 +82,7 @@ DEP		:=	$(OBJ:.o=.d)
 LIBFT	:=	libft/libft.a
 
 CC		:=	cc
-CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -Ilibft/include -g -Imlx_linux -O3
+CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -Ilibft/include -g3 -Imlx_linux -O3
 MATH	:=	-lm
 
 all: create_dir $(NAME)

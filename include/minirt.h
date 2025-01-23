@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/22 17:46:49 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:29:05 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,5 @@ int			mouse_manager(int button, int x, int y, t_data *data);
 
 int	render_loop(t_data *data, int depth);
 t_material	glass_material(void);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/21 15:46:13 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/23 14:29:01 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ void 			camera_update_transform(t_camera *cam, t_tuple from, t_tuple to, t_tuple
 t_shape			plane_new(void);
 
 t_shape	glass_sphere(void);
-
+t_shape	cube_default(void);
+t_vec2	cube_intersect(t_ray ray, t_shape shape);
 t_vec2	sphere_intersect(t_ray ray, t_shape shape);
 t_tuple	sphere_normal_at(t_shape obj, t_tuple world_point);
 

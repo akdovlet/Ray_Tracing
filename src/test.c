@@ -1958,3 +1958,48 @@ void	test_shade_hit_refraction(void)
 	color = shade_hit(world, comps, 5);
 	tuple_print(color);
 }
+
+void	evaluate(double a, double b, double ea, double eb)
+{
+	if (float_equal(a, ea))
+		fprintf(stderr, "Error: got: %f, expected %f\n", a, ea);
+	if (float_equal(b, eb))
+		fprintf(stderr, "Error: got: %f, expected %f\n", b, eb);
+}
+
+void	test_cube(void)
+{
+	t_shape	cube;
+	t_ray	ray;
+	t_vec2	xs;
+
+	cube = cube_default();
+
+	ray = ray_new(point_new(5, 0.5, 0), vector_new(-1, 0, 0));
+	xs = cube_intersect(ray, cube);
+	evaluate(xs.x, xs.y, 4.0, 6.0);
+
+	ray = ray_new(point_new(-5, 0.5, 0), vector_new(1, 0, 0));
+	xs = cube_intersect(ray, cube);
+	evaluate(xs.x, xs.y, 4.0, 6.0);
+
+	ray = ray_new(point_new(0.5, 5, 0), vector_new(0, -1, 0));
+	xs = cube_intersect(ray, cube);
+	evaluate(xs.x, xs.y, 4.0, 6.0);
+
+	ray = ray_new(point_new(0.5, -5, 0), vector_new(0, 1, 0));
+	xs = cube_intersect(ray, cube);
+	evaluate(xs.x, xs.y, 4.0, 6.0);
+
+	ray = ray_new(point_new(0.5, 0, 5), vector_new(0, 0, -1));
+	xs = cube_intersect(ray, cube);
+	evaluate(xs.x, xs.y, 4.0, 6.0);
+
+	ray = ray_new(point_new(0.5, 0, -5), vector_new(0, 0, 1));
+	xs = cube_intersect(ray, cube);
+	evaluate(xs.x, xs.y, 4.0, 6.0);
+
+	ray = ray_new(point_new(0, 0.5, 0), vector_new(0, 0, 1));
+	xs = cube_intersect(ray, cube);
+	evaluate(xs.x, xs.y, -1, 1);
+}
