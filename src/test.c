@@ -1963,8 +1963,12 @@ void	evaluate(double a, double b, double ea, double eb)
 {
 	if (float_equal(a, ea))
 		fprintf(stderr, "Error: got: %f, expected %f\n", a, ea);
+	else
+		printf("OK!\n");
 	if (float_equal(b, eb))
 		fprintf(stderr, "Error: got: %f, expected %f\n", b, eb);
+	else
+		printf("OK!\n");
 }
 
 void	test_cube(void)
@@ -1973,6 +1977,7 @@ void	test_cube(void)
 	t_ray	ray;
 	t_vec2	xs;
 
+	printf("\nTest cube intersect\n");
 	cube = cube_default();
 
 	ray = ray_new(point_new(5, 0.5, 0), vector_new(-1, 0, 0));
@@ -2003,3 +2008,101 @@ void	test_cube(void)
 	xs = cube_intersect(ray, cube);
 	evaluate(xs.x, xs.y, -1, 1);
 }
+
+void	test_cube_normalat(void)
+{
+	t_shape shape;
+	t_tuple	point;
+	t_tuple	expected;
+
+	printf("\nTest cube normal at\n");
+	shape = cube_default();
+	point = point_new(1, 0.5, -0.8) ;
+	expected = vector_new(1, 0, 0) ;
+	if (tuple_cmp(cube_normal_at(shape, point), expected))
+	{
+		fprintf(stderr, "Error: expected:\n");
+		tuple_print(expected);
+		fprintf(stderr, "got:\n");
+		tuple_print(cube_normal_at(shape, point));
+	}
+	else
+		printf("OK!\n");
+	point = point_new(-1, -0.2, 0.9);
+	expected = vector_new(-1, 0, 0) ;
+	if (tuple_cmp(cube_normal_at(shape, point), expected))
+	{
+		fprintf(stderr, "Error: expected:\n");
+		tuple_print(expected);
+		fprintf(stderr, "got:\n");
+		tuple_print(cube_normal_at(shape, point));
+	}
+	else
+		printf("OK!\n");
+	point = point_new(-0.4, 1, -0.1);
+	expected = vector_new(0, 1, 0) ;
+	if (tuple_cmp(cube_normal_at(shape, point), expected))
+	{
+		fprintf(stderr, "Error: expected:\n");
+		tuple_print(expected);
+		fprintf(stderr, "got:\n");
+		tuple_print(cube_normal_at(shape, point));
+	}
+	else
+		printf("OK!\n");
+	point = point_new(0.3, -1, -0.7);
+	expected = vector_new(0, -1, 0) ;
+	if (tuple_cmp(cube_normal_at(shape, point), expected))
+	{
+		fprintf(stderr, "Error: expected:\n");
+		tuple_print(expected);
+		fprintf(stderr, "got:\n");
+		tuple_print(cube_normal_at(shape, point));
+	}
+	else
+		printf("OK!\n");
+	point = point_new(-0.6, 0.3, 1) ;
+	expected = vector_new(0, 0, 1) ;
+	if (tuple_cmp(cube_normal_at(shape, point), expected))
+	{
+		fprintf(stderr, "Error: expected:\n");
+		tuple_print(expected);
+		fprintf(stderr, "got:\n");
+		tuple_print(cube_normal_at(shape, point));
+	}
+	else
+		printf("OK!\n");
+	point = point_new(0.4, 0.4, -1) ;
+	expected = vector_new(0, 0, -1) ;
+	if (tuple_cmp(cube_normal_at(shape, point), expected))
+	{
+		fprintf(stderr, "Error: expected:\n");
+		tuple_print(expected);
+		fprintf(stderr, "got:\n");
+		tuple_print(cube_normal_at(shape, point));
+	}
+	else
+		printf("OK!\n");
+	point = point_new(1, 1, 1);
+	expected = vector_new(1, 0, 0) ;
+	if (tuple_cmp(cube_normal_at(shape, point), expected))
+	{
+		fprintf(stderr, "Error: expected:\n");
+		tuple_print(expected);
+		fprintf(stderr, "got:\n");
+		tuple_print(cube_normal_at(shape, point));
+	}
+	else
+		printf("OK!\n");
+	point = point_new(-1, -1, -1);
+	expected = vector_new(-1, 0, 0) ;
+	if (tuple_cmp(cube_normal_at(shape, point), expected))
+	{
+		fprintf(stderr, "Error: expected:\n");
+		tuple_print(expected);
+		fprintf(stderr, "got:\n");
+		tuple_print(cube_normal_at(shape, point));
+	}
+	else
+		printf("OK!\n");
+	}

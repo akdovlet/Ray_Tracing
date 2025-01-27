@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/01/23 14:22:24 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/01/26 19:09:27 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -119,7 +119,7 @@ full: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./${NAME}
 
 run:
-	@make --no-print-directory all && ./minirt
+	@make --no-print-directory all && ./minirt >output.log
 
 re:
 	@make --no-print-directory fclean

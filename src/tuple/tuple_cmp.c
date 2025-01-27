@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:48:59 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/15 18:37:42 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/27 18:02:26 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	float_equal(double a, double b)
 {
-	if (fabs(a - b) < __DBL_MIN__)
+	if (fabs(a - b) <= __DBL_EPSILON__)
 		return (0);
 	return (1);
 }

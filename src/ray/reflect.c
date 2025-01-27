@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 17:13:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/21 13:48:01 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:35:38 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_tuple	reflect(t_tuple in, t_tuple normal)
 	t_tuple	reflection;
 
 	dot_product = tuple_dot(in, normal);
-	reflection = tuple_multiply(normal, 2);
+	reflection = tuple_multiply(normal, 2.0);
 	reflection = tuple_multiply(reflection, dot_product);
 	reflection = tuple_substract(in, reflection);
 	return (reflection);

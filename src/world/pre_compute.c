@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:52:44 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/23 15:26:40 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/27 16:05:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ t_comps	pre_compute(t_crossing cross, t_ray ray, t_junction arr)
 	}
 	else
 		new.inside = false;
-	new.overz = tuple_multiply(new.normalv, 0.00001);
+	new.overz = tuple_multiply(new.normalv, 0.0001);
 	new.overz = tuple_add(new.overz, new.world_point);
 	new.reflectv = reflect(ray.direction, new.normalv);
 	if (cross.obj.matter.transparency)

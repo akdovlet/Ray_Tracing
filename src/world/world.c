@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/19 16:38:58 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/26 18:50:27 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	sort_hits(t_junction *hits)
 void	find_hit(t_junction *hits)
 {
 	int	i;
-	
+
 	i = 0;
 	hits->hit = false;
 	while (i < hits->count)

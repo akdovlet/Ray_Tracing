@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:32:02 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/21 16:26:53 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:30:51 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_tuple	shade_hit(t_world world, t_comps comps, int depth)
 			shadowed, comps.obj);
 	reflected = reflected_color(world, comps, depth - 1);
 	refracted = refracted_color(world, comps, depth - 1);
-	if (comps.obj.matter.reflective > 0 && comps.obj.matter.transparency > 0)
+	if (comps.obj.matter.reflective > 0.0 && comps.obj.matter.transparency > 0.0)
 	{
 		reflectance = schlick(comps);
 		return (tuple_add(surface, tuple_add(tuple_multiply(reflected, reflectance),

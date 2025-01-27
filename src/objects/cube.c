@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:13:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/23 15:24:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/27 18:22:41 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,26 @@ t_vec2	cube_intersect(t_ray ray, t_shape shape)
 t_tuple	cube_normal_at(t_shape obj, t_tuple point)
 {
 	double	maxp;
+	double	absx;
+	double	absy;
+	double	absz;
+	t_tuple	normalv;
+	t_tuple	object_point;
 
-	(void)obj;
-	maxp = fmax(fabs(point.x), fmax(fabs(point.y), fabs(point.z)));
-	if (float_equal(maxp, fabs(point.x)))
-		return (vector_new(point.x, 0, 0));
-	if (float_equal(maxp, fabs(point.y)))
-		return (vector_new(0, point.y, 0));
-	return (vector_new(0, 0, point.z));
+	object_point = matrix_multiply_tuple(obj.transform, point);
+	absx = fabs(object_point.x);
+	absy = fabs(object_point.y);
+	absz = fabs(object_point.z);
+	maxp = fmax(fmax(absx, absy), absz);
+	if (!float_equal(maxp, absx))
+		normalv = vector_new(object_point.x, 0, 0);
+	else if (!float_equal(maxp, absy))
+		normalv = vector_new(0, object_point.y, 0);
+	else
+		normalv = vector_new(0, 0, object_point.z);
+	normalv.w = 0;
+	normalv = matrix_multiply_tuple(obj.transform, normalv);
+	return (tuple_normalize(normalv));
 }
 
 t_shape	cube_default(void)

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 11:38:04 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/21 11:47:47 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/27 14:08:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ t_material	glass_material(void)
 {
 	return ((t_material){
 		.pattern.exists = 0,
-		.color = color_new(1, 1, 1),
-		.ambient = 0.1,
+		.color = color_new(0.1, 0.1, 0.1),
+		.ambient = 0,
 		.diffuse = 0.9,
 		.specular = 0.9,
 		.shininess = 200,
-		.reflective = 0.0,
-		.transparency = 1.0,
+		.reflective = 0.9,
+		.transparency = 0.9,
 		.refractive_index = 1.5,
 	});
 }
