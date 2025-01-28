@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/26 19:00:29 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/28 17:50:11 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,6 @@ int main()
 	data.mlx = mlx;
 	render(data.cam, data.world, &img, &mlx);
 	mlx_key_hook(mlx.win_ptr, &key_manager, &data);
-	// sleep(5);
-	// data = watchful_eye_scene(&img, &mlx);
-	// render(data.cam, data.world, &img, &mlx);
-	// test_negative_intersection();
 	mlx_mouse_hook(mlx.win_ptr, &mouse_manager, &data);
 	mlx_loop(mlx.mlx_ptr);
 	mlx_clear(&mlx, &img);

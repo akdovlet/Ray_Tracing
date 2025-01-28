@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/27 18:23:24 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/28 19:12:30 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,8 @@ t_data	watchful_eye_scene(t_img *img, t_mlx *mlx)
 	middle_sph.matter.color = color_new(0, 0, 0.1);
 	middle_sph.matter.diffuse = 0.3;
 	middle_sph.matter.specular = 0.3;
-	middle_sph.matter.reflective = 0.5;
+	middle_sph.matter.reflective = 1;
+	middle_sph.matter.transparency = 1;
 	middle_sph.matter.refractive_index = 2.417;
 
 	right_sph = sphere_default();
@@ -245,11 +246,11 @@ t_data	cube_scene(t_img *img, t_mlx *mlx)
 	set_transform(&floor, translate(0, -1, 0));
 	// floor.transform = translate(1, 0, 3);
 	floor.matter = material();
-	floor.matter.pattern = radial_pattern(black(), red());
+	floor.matter.pattern = checkers_pattern(black(), white());
 	// set_transform_pattern(&floor.matter.pattern, rotate_y(radians(30)));
 	floor.matter.specular = 0.2;
 	floor.matter.ambient = 0.7;
-	floor.matter.reflective = 0.5;
+	// floor.matter.transparency = 0.5;
 
 	wall = plane_new();
 	set_transform(&wall, multiply_matrix(multiply_matrix(translate(0, 0, 20), rotate_x(radians(90))),
@@ -258,7 +259,6 @@ t_data	cube_scene(t_img *img, t_mlx *mlx)
 	wall.matter.pattern = checkers_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
 	wall.matter.specular = 0;
 	wall.matter.ambient = 0.7;
-
 
 	wall2 = plane_new();
 	set_transform(&wall2, multiply_matrix(multiply_matrix(translate(0, 0, -4), rotate_x(radians(90))),
@@ -277,7 +277,7 @@ t_data	cube_scene(t_img *img, t_mlx *mlx)
 	set_transform(&sky, translate(0, 10, 0));
 	sky.matter = material();
 	sky.matter.color = color_new(0, 0.957, 1);
-	sky.matter.pattern = gradient_pattern(color_new(0, 0.957, 1), color_new(1, 1, 1));
+	sky.matter.pattern = stripe_pattern(color_new(0, 0.957, 1), color_new(1, 1, 1));
 	set_transform_pattern(&sky.matter.pattern, scale(2, 2, 4));
 
 	middle_sph = glass_sphere();
@@ -290,13 +290,14 @@ t_data	cube_scene(t_img *img, t_mlx *mlx)
 	middle_sph.matter.shininess = 300;
 
 	cube = cube_default();
-	set_transform(&cube, multiply_matrix(rotate_y(radians(100)),
-										multiply_matrix(rotate_x(radians(40)), scale(0.5, 0.5, 0.5))));
+	set_transform(&cube, multiply_matrix(translate(0, -0.2, 0), rotate_y(radians(10))));
 	// cube.matter.pattern = checkers_pattern(color_new(1, 0, 0), color_new(0, 0, 1));
 	// set_transform_pattern(&cube.matter.pattern, scale(0.2, 0.4, 0.1));
 	// cube.matter = glass_material();
-	cube.matter.color = color_new(0.2, 1, 1);
-	cube.matter.reflective = 1;
+	// set_transform(&cube, scale(0.7, 0.7, 0.7));
+	cube.matter.color = color_new(1, 0.2, 0.2);
+	cube.matter.reflective = 0.7;
+	cube.matter.reflective = 0.7;
 
 	world.light = point_light(point_new(-5, 8, -3), color_new(1, 1, 1));
 	world.obj[0] = floor;
@@ -305,7 +306,7 @@ t_data	cube_scene(t_img *img, t_mlx *mlx)
 	world.obj[3] = wall;
 	world.obj_count = 2;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
-	cam.from =  point_new(0, 0, -3);
+	cam.from =  point_new(3.5, 0, -3);
 	cam.to =  point_new(0, -1, 0);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);

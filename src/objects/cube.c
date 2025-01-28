@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:13:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/27 18:22:41 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/28 18:43:07 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,17 @@ t_vec2	check_axis(double origin, double direction)
 
 t_vec2	cube_intersect(t_ray ray, t_shape shape)
 {
+	double	tmin;
+	double	tmax;
 	t_vec2	xt;
 	t_vec2	yt;
 	t_vec2	zt;
-	double	tmin;
-	double	tmax;
+	t_tuple	local_ray;
 
-	(void)shape;
-	xt = check_axis(ray.origin.x, ray.direction.x);
-	yt = check_axis(ray.origin.y, ray.direction.y);	
-	zt = check_axis(ray.origin.z, ray.direction.z);	
+	local_ray = tuple_substract(ray.origin, shape.coordinates);
+	xt = check_axis(local_ray.x, ray.direction.x);
+	yt = check_axis(local_ray.y, ray.direction.y);	
+	zt = check_axis(local_ray.z, ray.direction.z);	
 	tmin = fmax(xt.x, fmax(yt.x, zt.x));
 	tmax = fmin(xt.y, fmin(yt.y, zt.y));
 	if (tmin > tmax)
@@ -68,6 +69,8 @@ t_tuple	cube_normal_at(t_shape obj, t_tuple point)
 	t_tuple	normalv;
 	t_tuple	object_point;
 
+	object_point = point;
+	// (void)obj;
 	object_point = matrix_multiply_tuple(obj.transform, point);
 	absx = fabs(object_point.x);
 	absy = fabs(object_point.y);
@@ -79,9 +82,11 @@ t_tuple	cube_normal_at(t_shape obj, t_tuple point)
 		normalv = vector_new(0, object_point.y, 0);
 	else
 		normalv = vector_new(0, 0, object_point.z);
+	normalv = matrix_multiply_tuple(matrix_transpose(obj.transform), normalv);
+	normalv = tuple_normalize(normalv);
+	tuple_print(normalv);
 	normalv.w = 0;
-	normalv = matrix_multiply_tuple(obj.transform, normalv);
-	return (tuple_normalize(normalv));
+	return (normalv);
 }
 
 t_shape	cube_default(void)
