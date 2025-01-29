@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/28 19:05:38 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:44:54 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	find_hit(t_junction *hits)
 	}
 }
 
-void	intersect_world(t_world world, t_ray ray, t_junction *hits)
+void	intersect_world(t_world *world, t_ray ray, t_junction *hits)
 {
 	int				i;
 	int				j;
@@ -84,18 +84,18 @@ void	intersect_world(t_world world, t_ray ray, t_junction *hits)
 	i = 0;
 	j = 0;
 	hits->count = 0;
-	while (i < world.obj_count)
+	while (i < world->obj_count)
 	{
-		inter = hit(intersection(world.obj[i], intersect(ray, world.obj[i])));
+		inter = hit(intersection(world->obj[i], intersect(ray, world->obj[i])));
 		if (inter.count)
 		{
 			hits->count += inter.count;
 			hits->cross[j].t = inter.xs.x;
-			hits->cross[j++].obj = world.obj[i];
+			hits->cross[j++].shape_index = i;
 			if (inter.count == 2)
 			{
 				hits->cross[j].t = inter.xs.y;
-				hits->cross[j++].obj = world.obj[i];
+				hits->cross[j++].shape_index = i;
 			}
 		}
 		i++;
@@ -104,7 +104,7 @@ void	intersect_world(t_world world, t_ray ray, t_junction *hits)
 	find_hit(hits);
 }
 
-t_tuple	color_at(t_world world, t_ray ray, int depth)
+t_tuple	color_at(t_world *world, t_ray ray, int depth)
 {
 	t_tuple		color;
 	t_comps		comps;
@@ -114,8 +114,9 @@ t_tuple	color_at(t_world world, t_ray ray, int depth)
 	color = color_new(0, 0, 0);
 	if (hits.hit)
 	{
-		comps = pre_compute(hits.closest, ray, hits);
-		color = shade_hit(world, comps, depth);
+		comps.shape_index = 0;
+		pre_compute(&comps, hits.closest, ray, hits, world);
+		color = shade_hit(world, &comps, depth);
 	}
 	return (color);
 }

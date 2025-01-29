@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/19 15:38:45 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:31:15 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,8 @@ struct s_intersection
 typedef struct s_crossing
 {
 	double	t;
-	t_shape	obj;
+	size_t	shape_index;
+	// t_shape	obj;
 }	t_crossing;
 
 typedef struct s_junction
@@ -161,6 +162,10 @@ typedef struct s_world
 {
 	int			obj_count;
 	t_shape		obj[20];
+	struct {
+		t_shape		*buffer;
+		size_t		count;
+	} intersect_lst;
 	t_light		light;
 }	t_world;
 
@@ -168,6 +173,7 @@ typedef struct s_world
 typedef struct s_comps
 {
 	bool		inside;
+	size_t		shape_index;
 	double		t;
 	double		n1;
 	double		n2;
@@ -177,7 +183,7 @@ typedef struct s_comps
 	t_tuple		reflectv;
 	t_tuple		overz;
 	t_tuple		under_point;
-	t_shape		obj;
+	// t_shape		obj;
 }	t_comps;
 
 typedef struct s_container

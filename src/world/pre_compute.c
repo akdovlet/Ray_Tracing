@@ -6,20 +6,20 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:52:44 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/27 16:05:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:13:58 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	container_last(t_container *lst)
-{
-	if (!lst)
-		return (1.0);
-	while (lst->next)
-		lst = lst->next;
-	return (lst->shape.matter.refractive_index);
-}
+// double	container_last(t_container *lst)
+// {
+// 	if (!lst)
+// 		return (1.0);
+// 	while (lst->next)
+// 		lst = lst->next;
+// 	return (lst->shape.matter.refractive_index);
+// }
 
 t_container	*container_new(t_shape shape)
 {
@@ -74,8 +74,8 @@ void	container_clear(t_container **lst)
 		*lst = tmp;
 	}
 }
-
-void	find_n1n2(t_comps *comps, t_junction arr)
+/*
+void	find_n1n2(t_comps *comps, t_junction arr, t_world *world)
 {
 	int			i;
 	t_container	*lst;
@@ -96,30 +96,75 @@ void	find_n1n2(t_comps *comps, t_junction arr)
 	}
 	container_clear(&lst);
 }
+*/
 
-t_comps	pre_compute(t_crossing cross, t_ray ray, t_junction arr)
+void	find_n1n2(t_comps *comps, t_junction arr, t_world *world)
 {
-	t_comps		new;
+	int			i;
+	t_shape		obj;
 
-	new.t = cross.t;
-	new.obj = cross.obj;
-	new.world_point = position(ray, cross.t);
-	new.eyev = tuple_negate(ray.direction);
-	new.normalv = normal_at(new.obj, new.world_point);
-	if (tuple_dot(new.normalv, new.eyev) < 0.0)
+	world->intersect_lst.count = 0;
+	i = 0;
+	while (i < arr.count)
 	{
-		new.inside = true;
-		new.normalv = tuple_negate(new.normalv);
+		if (arr.cross[i].t == comps->t)
+		{
+			if(world->intersect_lst.count == 0)
+				comps->n1 = 1.0;
+			else
+				comps->n1 = world->intersect_lst.buffer[world->intersect_lst.count-1].matter.refractive_index;	
+		}
+		size_t y = 0;
+		while(y < world->intersect_lst.count)
+		{
+			obj = world->obj[arr.cross[i].shape_index];
+			if (obj.id == world->intersect_lst.buffer[y].id)
+			{
+				ft_memmove(
+					&world->intersect_lst.buffer[y + 1],
+					&world->intersect_lst.buffer[y], 
+					world->intersect_lst.count - y);
+				world->intersect_lst.count -= 1;
+			}
+			else
+			{
+				world->intersect_lst.buffer[world->intersect_lst.count-1] = obj;
+				world->intersect_lst.count += 1;
+			}
+			y += 1;
+		}
+		if (arr.cross[i].t == comps->t)
+		{
+			if(world->intersect_lst.count == 0)
+				comps->n2 = 1.0;
+			else
+				comps->n2 = world->intersect_lst.buffer[world->intersect_lst.count-1].matter.refractive_index;
+			break;	
+		}
+		i++;
+	}
+}
+
+void	pre_compute(t_comps *new, t_crossing cross, t_ray ray, t_junction arr, t_world *world)
+{
+	new->t = cross.t;
+	new->shape_index = cross.shape_index;
+	new->world_point = position(ray, cross.t);
+	new->eyev = tuple_negate(ray.direction);
+	new->normalv = normal_at(world->obj[cross.shape_index], new->world_point);
+	if (tuple_dot(new->normalv, new->eyev) < 0.0)
+	{
+		new->inside = true;
+		new->normalv = tuple_negate(new->normalv);
 	}
 	else
-		new.inside = false;
-	new.overz = tuple_multiply(new.normalv, 0.0001);
-	new.overz = tuple_add(new.overz, new.world_point);
-	new.reflectv = reflect(ray.direction, new.normalv);
-	if (cross.obj.matter.transparency)
+		new->inside = false;
+	new->overz = tuple_multiply(new->normalv, 0.0001);
+	new->overz = tuple_add(new->overz, new->world_point);
+	new->reflectv = reflect(ray.direction, new->normalv);
+	if (world->obj[cross.shape_index].matter.transparency)
 	{
-		find_n1n2(&new, arr);
-		new.under_point = tuple_substract(new.world_point, tuple_multiply(new.normalv, 0.00001));
+		find_n1n2(new, arr, world);
+		new->under_point = tuple_substract(new->world_point, tuple_multiply(new->normalv, 0.00001));
 	}
-	return (new);
 }

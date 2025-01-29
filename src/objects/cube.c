@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:13:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/28 18:43:07 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/29 14:34:15 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_vec2	cube_intersect(t_ray ray, t_shape shape)
 	});
 }
 
-t_tuple	cube_normal_at(t_shape obj, t_tuple point)
+t_tuple	cube_normal_at(t_shape shape, t_tuple point)
 {
 	double	maxp;
 	double	absx;
@@ -70,8 +70,7 @@ t_tuple	cube_normal_at(t_shape obj, t_tuple point)
 	t_tuple	object_point;
 
 	object_point = point;
-	// (void)obj;
-	object_point = matrix_multiply_tuple(obj.transform, point);
+	object_point = matrix_multiply_tuple(shape.transform, point);
 	absx = fabs(object_point.x);
 	absy = fabs(object_point.y);
 	absz = fabs(object_point.z);
@@ -82,9 +81,8 @@ t_tuple	cube_normal_at(t_shape obj, t_tuple point)
 		normalv = vector_new(0, object_point.y, 0);
 	else
 		normalv = vector_new(0, 0, object_point.z);
-	normalv = matrix_multiply_tuple(matrix_transpose(obj.transform), normalv);
+	normalv = matrix_multiply_tuple(matrix_transpose(shape.transform), normalv);
 	normalv = tuple_normalize(normalv);
-	tuple_print(normalv);
 	normalv.w = 0;
 	return (normalv);
 }

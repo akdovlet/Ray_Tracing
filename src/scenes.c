@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/28 19:12:30 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/29 15:50:34 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,13 +281,11 @@ t_data	cube_scene(t_img *img, t_mlx *mlx)
 	set_transform_pattern(&sky.matter.pattern, scale(2, 2, 4));
 
 	middle_sph = glass_sphere();
+	middle_sph.matter.refractive_index = 0.2;
 	// middle_sph.matter.pattern = ring_pattern(color_new(1, 0.2, 1), color_new(1, 1, 1));
-	set_transform(&middle_sph, multiply_matrix(translate(0.5, 0, -2), scale(0.33, 0.33, 0.33)));
+	set_transform(&middle_sph, multiply_matrix(translate(0, -0.2, 0), scale(0.33, 0.33, 0.33)));
 	// set_transform_pattern(&middle_sph.matter.pattern, scale(0.2, 0.1, 0.07));
 	// middle_sph.matter.pattern.transform = scale(, 0, 0);
-	middle_sph.matter.diffuse = 0.3;
-	middle_sph.matter.specular = 1.0;
-	middle_sph.matter.shininess = 300;
 
 	cube = cube_default();
 	set_transform(&cube, multiply_matrix(translate(0, -0.2, 0), rotate_y(radians(10))));
@@ -295,16 +293,15 @@ t_data	cube_scene(t_img *img, t_mlx *mlx)
 	// set_transform_pattern(&cube.matter.pattern, scale(0.2, 0.4, 0.1));
 	// cube.matter = glass_material();
 	// set_transform(&cube, scale(0.7, 0.7, 0.7));
+	cube.matter = glass_material();
 	cube.matter.color = color_new(1, 0.2, 0.2);
-	cube.matter.reflective = 0.7;
-	cube.matter.reflective = 0.7;
 
 	world.light = point_light(point_new(-5, 8, -3), color_new(1, 1, 1));
 	world.obj[0] = floor;
 	world.obj[1] = cube;
 	world.obj[2] = middle_sph;
 	world.obj[3] = wall;
-	world.obj_count = 2;
+	world.obj_count = 3;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
 	cam.from =  point_new(3.5, 0, -3);
 	cam.to =  point_new(0, -1, 0);
