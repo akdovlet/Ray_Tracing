@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:46:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/28 17:11:49 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:52:45 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static t_vec2	local_intersect(t_ray ray, t_shape shape)
 
 static t_tuple	local_normalat(t_shape shape, t_tuple point)
 {
-	(void)shape;
 	(void)point;
-	return (tuple_normalize(matrix_multiply_tuple(shape.transform, vector_new(0, 1, 0))));
+	(void)shape;
+	return (vector_new(0, 1, 0));
 }
 
 t_shape	plane_new(void)

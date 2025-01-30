@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:13:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/30 11:25:23 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:55:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,23 +67,18 @@ t_tuple	cube_normal_at(t_shape obj, t_tuple point)
 	double	absy;
 	double	absz;
 	t_tuple	normalv;
-	t_tuple	object_point;
 
-	object_point = point;
-	object_point = matrix_multiply_tuple(obj.transform, point);
-	absx = fabs(object_point.x);
-	absy = fabs(object_point.y);
-	absz = fabs(object_point.z);
+	(void)obj;
+	absx = fabs(point.x);
+	absy = fabs(point.y);
+	absz = fabs(point.z);
 	maxp = fmax(fmax(absx, absy), absz);
 	if (!float_equal(maxp, absx))
-		normalv = vector_new(object_point.x, 0, 0);
+		normalv = vector_new(point.x, 0, 0);
 	else if (!float_equal(maxp, absy))
-		normalv = vector_new(0, object_point.y, 0);
+		normalv = vector_new(0, point.y, 0);
 	else
-		normalv = vector_new(0, 0, object_point.z);
-	normalv = matrix_multiply_tuple(matrix_transpose(obj.transform), normalv);
-	normalv = tuple_normalize(normalv);
-	normalv.w = 0;
+		normalv = vector_new(0, 0, point.z);
 	return (normalv);
 }
 

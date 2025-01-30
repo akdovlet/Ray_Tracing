@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/30 11:58:54 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/30 16:48:32 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,7 +244,7 @@ t_data	cube_scene(t_img *img, t_mlx *mlx)
 	set_transform(&floor, translate(0, -1, 0));
 	// floor.transform = translate(1, 0, 3);
 	floor.matter = material();
-	floor.matter.pattern = checkers_pattern(black(), white());
+	floor.matter.pattern = checkers_pattern(black(), red());
 	// set_transform_pattern(&floor.matter.pattern, rotate_y(radians(30)));
 	floor.matter.specular = 0.2;
 	floor.matter.ambient = 0.7;
@@ -302,7 +302,7 @@ t_data	cube_scene(t_img *img, t_mlx *mlx)
 	world.obj[3] = wall;
 	world.obj_count = 3;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
-	cam.from =  point_new(0, 0, -3.5);
+	cam.from =  point_new(3, 0, -3.5);
 	cam.to =  point_new(0, -1, 0);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);
