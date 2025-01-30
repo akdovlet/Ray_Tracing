@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/19 15:38:45 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:26:51 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ typedef struct s_comps
 	t_tuple		reflectv;
 	t_tuple		overz;
 	t_tuple		under_point;
-	t_shape		obj;
+	t_shape		*obj;
 }	t_comps;
 
 typedef struct s_container

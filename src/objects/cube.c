@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:13:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/28 18:43:07 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:25:23 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ t_tuple	cube_normal_at(t_shape obj, t_tuple point)
 	t_tuple	object_point;
 
 	object_point = point;
-	// (void)obj;
 	object_point = matrix_multiply_tuple(obj.transform, point);
 	absx = fabs(object_point.x);
 	absy = fabs(object_point.y);
@@ -84,7 +83,6 @@ t_tuple	cube_normal_at(t_shape obj, t_tuple point)
 		normalv = vector_new(0, 0, object_point.z);
 	normalv = matrix_multiply_tuple(matrix_transpose(obj.transform), normalv);
 	normalv = tuple_normalize(normalv);
-	tuple_print(normalv);
 	normalv.w = 0;
 	return (normalv);
 }

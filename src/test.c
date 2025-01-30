@@ -1113,7 +1113,7 @@ void	test_intersect_world(void)
 	i = 0;
 	world = default_world();
 	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
-	intersect_world(world, ray, &hits);
+	intersect_world(&world, ray, &hits);
 	printf("hits count is: %d\n", hits.count);
 	while (i < hits.count)
 	{
@@ -1267,7 +1267,7 @@ void	test_color_at(void)
 	printf("\nColor at test\n");
 	world = default_world();
 	ray = ray_new(point_new(0, 0, -5), vector_new(0, 1, 0));
-	color = color_at(world, ray, 5);
+	color = color_at(&world, ray, 5);
 	expected = color_new(0, 0, 0);
 	if (tuple_cmp(color, expected))
 	{
@@ -1283,7 +1283,7 @@ void	test_color_at(void)
 
 
 	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
-	color = color_at(world, ray, 5);
+	color = color_at(&world, ray, 5);
 	expected = color_new(0.38066, 0.47583, 0.2855);
 	if (tuple_cmp(color, expected))
 	{
@@ -1304,7 +1304,7 @@ void	test_color_at(void)
 	world.obj[0] = world.obj[1];
 	world.obj[1] = tmp;
 	ray = ray_new(point_new(0, 0, 0.75), vector_new(0, 0, -1));
-	color = color_at(world, ray, 5);
+	color = color_at(&world, ray, 5);
 	expected = world.obj[1].matter.color;
 	if (tuple_cmp(color, expected))
 	{
@@ -1485,7 +1485,7 @@ void	test_is_shadowed(void)
 	printf("\nTest is_shadowed\n");
 
 	world = default_world();
-	if (!is_shadowed(world, point_new(0, 10, 0)))
+	if (!is_shadowed(&world, point_new(0, 10, 0)))
 		printf("\tOK\n");
 	else
 	{
@@ -1493,13 +1493,13 @@ void	test_is_shadowed(void)
 	}
 	
 
-	if (is_shadowed(world, point_new(10, -10, 10)))
+	if (is_shadowed(&world, point_new(10, -10, 10)))
 		printf("\tOK\n");
 	else
 	{
 		fprintf(stderr, "\tError: should be true\n");
 	}
-	if (!is_shadowed(world, point_new(-20, 20, -20)))
+	if (!is_shadowed(&world, point_new(-20, 20, -20)))
 		printf("\tOK\n");
 	else
 	{
@@ -1507,7 +1507,7 @@ void	test_is_shadowed(void)
 	}
 
 
-	if (!is_shadowed(world, point_new(-2, 2, -2)))
+	if (!is_shadowed(&world, point_new(-2, 2, -2)))
 		printf("\tOK\n");
 	else
 	{
@@ -1860,41 +1860,39 @@ unsigned int		new_id(void)
 
 void	test_refraction(void)
 {
-	t_shape		a;
-	t_shape		b;
-	t_shape		c;
+	t_world		world;
 	t_ray		ray;
 	t_comps		comps;
 	t_junction	junc;
 
-	a = glass_sphere();
-	b = glass_sphere();
-	c = glass_sphere();
+	world.obj[0] = glass_sphere();
+	world.obj[1] = glass_sphere();
+	world.obj[2] = glass_sphere();
 
-	set_transform(&a, scale(2, 2, 2));
-	a.matter.refractive_index = 1.5;
-	set_transform(&b, translate(0, 0, -0.25));
-	b.matter.refractive_index = 2.0;
-	set_transform(&c, translate(0, 0, 0.25));
-	c.matter.refractive_index = 2.5;
+	set_transform(&world.obj[0], scale(2, 2, 2));
+	world.obj[0].matter.refractive_index = 1.5;
+	set_transform(&world.obj[1], translate(0, 0, -0.25));
+	world.obj[1].matter.refractive_index = 2.0;
+	set_transform(&world.obj[2], translate(0, 0, 0.25));
+	world.obj[2].matter.refractive_index = 2.5;
 	
 	ray = ray_new(point_new(0, 0, -4), vector_new(0, 0, 1));
 	junc.cross[0].t = 2;
-	junc.cross[0].obj = a;
+	junc.cross[0].obj = world.obj[0];
 	junc.cross[1].t = 2.75;
-	junc.cross[1].obj = b;
+	junc.cross[1].obj = world.obj[1];
 	junc.cross[2].t = 3.25;
-	junc.cross[2].obj = c;
+	junc.cross[2].obj = world.obj[2];
 	junc.cross[3].t = 4.75;
-	junc.cross[3].obj = b;
+	junc.cross[3].obj = world.obj[1];
 	junc.cross[4].t = 5.25;
-	junc.cross[4].obj = c;
+	junc.cross[4].obj = world.obj[2];
 	junc.cross[5].t = 6;
-	junc.cross[5].obj = a;
+	junc.cross[5].obj = world.obj[0];
 	junc.count = 6;
 	for(int i = 0; i < 6; i++)
 	{
-		comps = pre_compute(junc.cross[i], ray, junc);
+		pre_compute(&comps, junc.cross[i], ray, junc);
 		printf("n1 is:%f n2 is: %f\n", comps.n1, comps.n2);
 	}
 }
@@ -1920,7 +1918,7 @@ void	test_negative_intersection(void)
 	world.obj_count = 3;
 
 	ray = ray_new(point_new(0, 0, -4), vector_new(0, 0, 1));
-	intersect_world(world, ray, &junc);
+	intersect_world(&world, ray, &junc);
 	for (int i = 0; i < junc.count; i++)
 		printf("interestction is: %f\n", junc.cross[i].t);
 	printf("hit is: %f\n", junc.closest.t);
@@ -1954,8 +1952,8 @@ void	test_shade_hit_refraction(void)
 	junc.cross[0].t = sqrt(2);
 	junc.cross[0].obj = floor;
 	junc.count = 1;
-	comps = pre_compute(junc.cross[0], ray, junc);
-	color = shade_hit(world, comps, 5);
+	pre_compute(&comps, junc.cross[0], ray, junc);
+	color = shade_hit(&world, &comps, 5);
 	tuple_print(color);
 }
 
