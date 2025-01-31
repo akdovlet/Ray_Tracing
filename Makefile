@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/01/26 19:09:27 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/01/31 18:51:08 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC		:=	main.c							\
 			mlx/mlx_pixel_put.c				\
 			mlx/mouse_manager.c				\
 			objects/cube.c					\
+			objects/cylinder.c				\
 			objects/glass_sphere.c			\
 			objects/material.c				\
 			objects/normal.c				\
@@ -103,6 +104,9 @@ $(BUILD)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@printf "\033[1;32%sm\tCompiled: $(<F)\033[0m\n";
 
+$(MLX):
+	mak
+
 $(LIBFT):
 	@$(MAKE) --no-print-directory -C libft
 
@@ -119,7 +123,7 @@ full: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./${NAME}
 
 run:
-	@make --no-print-directory all && ./minirt >output.log
+	@make --no-print-directory all && ./minirt
 
 re:
 	@make --no-print-directory fclean

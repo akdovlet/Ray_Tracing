@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/31 15:44:44 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/31 17:00:05 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,7 +286,7 @@ t_data	cube_scene(t_img *img, t_mlx *mlx)
 	// set_transform_pattern(&middle_sph.matter.pattern, scale(0.2, 0.1, 0.07));
 	// middle_sph.matter.pattern.transform = scale(, 0, 0);
 
-	sph = cube_default();
+	sph = glass_sphere();
 	sph.matter = glass_material();
 	sph.matter.refractive_index = 1.333;
 	// sph.matter.pattern = ring_pattern(color_new(1, 0.2, 1), color_new(1, 1, 1));
@@ -310,6 +310,37 @@ t_data	cube_scene(t_img *img, t_mlx *mlx)
 	world.obj[2] = middle_sph;
 	world.obj[3] = sph;
 	world.obj_count = 4;
+	cam = camera_new(WIDTH, HEIGHT, radians(70));
+	cam.from =  point_new(3, 0, -3.5);
+	cam.to =  point_new(0, -1, 0);
+	cam.up =  vector_new(0, 1, 0);
+	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	data.cam = cam;
+	data.world = world;
+	return (data);
+}
+
+t_data	cylinder_scene(void)
+{
+	t_world		world;
+	t_camera	cam;
+	t_shape		cylinder;
+	t_data		data;
+
+
+	cylinder = cylinder_default();
+	set_transform(&cylinder, multiply_matrix(translate(0, -0.2, 0), rotate_y(radians(10))));
+	// cylinder.matter.pattern = checkers_pattern(color_new(1, 0, 0), color_new(0, 0, 1));
+	// set_transform_pattern(&cylinder.matter.pattern, scale(0.2, 0.4, 0.1));
+	// cylinder.matter = glass_material();
+	// set_transform(&cylinder, scale(0.7, 0.7, 0.7));
+	cylinder.matter = glass_material();
+	cylinder.matter.color = color_new(0.1, 0, 0);
+	cylinder.matter.refractive_index = 1.333;
+
+	world.light = point_light(point_new(-5, 8, -3), color_new(1, 1, 1));
+	world.obj[0] = cylinder;
+	world.obj_count = 1;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
 	cam.from =  point_new(3, 0, -3.5);
 	cam.to =  point_new(0, -1, 0);
