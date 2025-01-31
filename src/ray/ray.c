@@ -6,12 +6,12 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:42:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/19 15:21:07 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/01/31 13:03:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
+	
 t_ray	ray_new(t_tuple origin, t_tuple direction)
 {
 	return ((t_ray){
