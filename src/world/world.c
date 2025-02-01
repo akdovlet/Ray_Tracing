@@ -6,26 +6,26 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/30 11:39:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:53:11 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "light.h"
 #include "tuple.h"
-#include "objects.h"
+#include "shapes.h"
 
 t_world	default_world(void)
 {
 	t_world		world;
 
 	world.light = point_light(point_new(-10, 10, -10), color_new(1, 1, 1));
-	world.obj[0] = sphere(point_new(0.0, 0.0, 0.0), 1);
+	world.obj[0] = sphere_default();
 	world.obj[0].matter = material();
 	world.obj[0].matter.color = color_new(0.8, 1.0, 0.6);
 	world.obj[0].matter.diffuse = 0.7;
 	world.obj[0].matter.specular = 0.2;
-	world.obj[1] = sphere(point_new(0.0, 0.0, 0.0), 1);
+	world.obj[1] = sphere_default();
 	world.obj[1].transform = (scale(0.5, 0.5 , 0.5));
 	world.obj[1].matter = material();
 	world.obj_count = 2;

@@ -6,12 +6,14 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/30 11:26:51 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/01 17:41:56 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_STRUCT_H
 # define DATA_STRUCT_H
+
+# include "mlx_utils.h"
 
 typedef union u_matrix			t_matrix;
 typedef	union u_color			t_color;
@@ -20,11 +22,14 @@ typedef struct s_shape			t_shape;
 typedef struct s_vtable_shape	t_vtable_shape;
 typedef struct s_intersection	t_intersection;
 
-typedef struct s_vec2
+typedef union s_vec2
 {
-	double	dis;
-	double	x;
-	double	y;
+	struct {
+		double	dis;
+		double	x;
+		double	y;		
+	};
+	double	vec3[3];
 }	t_vec2;
 
 typedef struct s_vec3 
@@ -33,6 +38,13 @@ typedef struct s_vec3
 	int y;	
 	int z;	
 } t_vec3;
+
+typedef struct s_dvec3 
+{
+	double a;	
+	double b;	
+	double c;	
+} t_dvec3;
 
 typedef struct s_tuple
 {
@@ -105,11 +117,6 @@ typedef struct s_material
 
 union	u_color
 {
-	struct
-	{
-			/* data */
-	};
-	
 	unsigned char	bytes[4];
 	unsigned int	color;
 };
@@ -122,14 +129,12 @@ typedef struct s_ray
 
 typedef struct	s_shape
 {
-	t_type			type;
-	double			radius;
+	double			min;
+	double			max;
 	uintptr_t		id;
 	t_tuple			coordinates;
 	t_matrix		transform;
 	t_material		matter;
-	t_ray			local_ray;
-	t_tuple			local_normal;
 	t_vec2			(*local_interesct)(t_ray, struct s_shape);
 	t_tuple			(*local_normalat)(struct s_shape, t_tuple point);
 }	t_shape;
@@ -200,8 +205,6 @@ typedef struct s_camera
 	t_tuple		to;
 	t_tuple		up;
 }	t_camera;
-
-# include "mlx_utils.h"
 
 typedef struct	s_data
 {

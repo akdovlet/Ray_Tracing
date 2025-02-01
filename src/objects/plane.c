@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:46:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/30 16:52:45 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/01 17:25:21 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static t_vec2	local_intersect(t_ray ray, t_shape shape)
 	double	t;
 	t_tuple	local_ray;
 
-	if (fabs(ray.direction.y) < __DBL_EPSILON__)
+	if (fabs(ray.direction.y) < DBL_EPSILON)
 		return ((t_vec2) {.dis = -1});
 	local_ray = tuple_substract(ray.origin, shape.coordinates);
 	dot = tuple_dot(vector_new(0, 1, 0), local_ray);
@@ -46,7 +46,6 @@ t_shape	plane_new(void)
 	t_shape	new;
 
 	new = (t_shape) {
-		.type = PLANE,
 		.coordinates = point_new(0, 0, 0),
 		.id = new_id(),
 		.matter = material(),

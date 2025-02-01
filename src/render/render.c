@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/30 11:24:07 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/01 18:05:01 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "tuple.h"
-#include "objects.h"
+#include "shapes.h"
 
 t_ray	ray_for_pixel(t_camera cam, double x, double y)
 {
@@ -74,8 +74,8 @@ int	render_and_move(t_data *data)
 			x++;
 		}
 		y++;
-		mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.win_ptr, data->img.img_ptr, 0, 0);
 	}
+	mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.win_ptr, data->img.img_ptr, 0, 0);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/01/31 18:51:08 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/02/01 15:14:34 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ SRC		:=	main.c							\
 			tuple/color_new.c				\
 			tuple/hadamard_product.c		\
 			tuple/tuple_add.c				\
-			tuple/tuple_cmp.c				\
+			tuple/tuple_equal.c				\
 			tuple/tuple_cross.c				\
 			tuple/tuple_dot.c				\
 			tuple/tuple_magnitude.c			\

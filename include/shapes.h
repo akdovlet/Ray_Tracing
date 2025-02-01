@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   objects.h                                          :+:      :+:    :+:   */
+/*   shapes.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/31 16:40:05 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:53:32 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef OBJECTS_H
-# define OBJECTS_H
+#ifndef SHAPES_H
+# define SHAPES_H
 
 #include "minirt.h"
 #include "data_struct.h"
 
-t_shape			sphere(t_tuple point, double radius);
 void			sphere_test(void);
 
 t_vec2			intersect(t_ray ray, t_shape object);
@@ -32,7 +31,6 @@ t_material		material(void);
 
 t_world			default_world(void);
 void			intersect_world(t_world *world, t_ray ray, t_junction *hits);
-// t_comps			pre_compute(t_crossing cross, t_ray ray, t_junction arr);
 void			pre_compute(t_comps *new, t_crossing cross, t_ray ray, t_junction arr);
 t_tuple			color_at(t_world *world, t_ray ray, int depth);
 t_matrix		view_transform(t_tuple from, t_tuple to, t_tuple up);
@@ -58,29 +56,5 @@ t_tuple	refracted_color(t_world *world, t_comps *comps, int depth);
 double	schlick(t_comps comps);
 
 t_shape	cylinder_default(void);
-
-// struct s_vtable_shape {
-// 	void (*intersection)(t_shape*, t_ray*);
-// };
-
-
-/// IMPLEMENTATION
-
-
-// void intersection_sphere(t_shape *d, t_ray* r)
-// {
-// 	t_sphere* s = d;
-// 	return;
-// }
-
-// t_vtable_shape v_table_sphere = {
-// 	.intersection = intersection_sphere,
-// };
-
-
-// void intersection(t_shape *s, t_ray* r)
-// {
-// 	v_table_shape[s->type].intersection(s, r);
-// }
 
 #endif

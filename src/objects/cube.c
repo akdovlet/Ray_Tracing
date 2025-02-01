@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:13:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/30 16:55:14 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/01 17:25:21 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_vec2	check_axis(double origin, double direction)
 
 	t_min_numerator = (-1 - origin);
 	t_max_numerator = (1 - origin);
-	if (fabs(direction) >= __DBL_EPSILON__)
+	if (fabs(direction) >= DBL_EPSILON)
 	{
 		t_min = t_min_numerator / direction;
 		t_max = t_max_numerator / direction;

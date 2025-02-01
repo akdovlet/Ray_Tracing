@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:42:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/31 13:03:57 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/01 18:06:29 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ t_vec2	intersect(t_ray ray, t_shape shape)
 
 t_intersection	intersection(t_shape shape, t_vec2 vec)
 {
-	t_intersection	new;
 	double			tmp;
+	t_intersection	new;
 
 	new.object = shape;
 	new.xs = vec;
 	new.t = 0;
 	new.hit = false;
 	new.count = 0;
-	if (vec.dis < 0)
+	if (vec.dis < 0.0)
 		return (new);
 	if (!vec.dis)
 		new.count = 1;

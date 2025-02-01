@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 11:38:04 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/27 14:08:57 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/01 14:12:42 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,7 @@ t_shape	glass_sphere(void)
 
 	new = (t_shape){
 		.coordinates = point_new(0, 0, 0),
-		.radius = 1,
 		.id = new_id(),
-		.type = SPHERE,
 		.transform = identity(),
 		.matter = glass_material(),
 		.local_interesct = &sphere_intersect,
