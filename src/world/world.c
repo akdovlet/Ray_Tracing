@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/01 14:53:11 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/02 15:28:47 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ t_tuple	color_at(t_world *world, t_ray ray, int depth)
 	t_junction	hits;
 
 	intersect_world(world, ray, &hits);
-	color = color_new(0, 0, 0);
+	color = color_new(0, 0, 0.01);
 	if (hits.hit)
 	{
 		pre_compute(&comps, hits.closest, ray, hits);

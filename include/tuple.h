@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:23:06 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/01 15:14:34 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/02 15:41:12 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_tuple			tuple_new(double x, double y, double z, double w);
 t_tuple			vector_new(double x, double y, double z);
 t_tuple			point_new(double x, double y, double z);
 
+// 0 = not equal; 1 = equal
 int				float_equal(double a, double b);
 int				tuple_equal(t_tuple a, t_tuple b);
 t_tuple			tuple_add(t_tuple a, t_tuple b);

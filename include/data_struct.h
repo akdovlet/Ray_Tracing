@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/01 17:41:56 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/02 16:22:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,7 @@ typedef struct s_comps
 	double		t;
 	double		n1;
 	double		n2;
+	t_tuple		uv;
 	t_tuple		world_point;
 	t_tuple		eyev;
 	t_tuple		normalv;
@@ -187,7 +188,7 @@ typedef struct s_comps
 
 typedef struct s_container
 {
-	t_shape				shape;
+	t_shape				*shape;
 	struct s_container	*next;
 }	t_container;
 

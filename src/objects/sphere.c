@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:09:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/01 14:53:11 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/02 19:31:24 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ t_tuple	sphere_normal_at(t_shape obj, t_tuple point)
 	object_normal = tuple_substract(point, obj.coordinates);
 	return (object_normal);
 }
-
 
 t_shape	sphere_default(void)
 {

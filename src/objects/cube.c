@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:13:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/01 17:25:21 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/02 15:40:17 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ t_tuple	cube_normal_at(t_shape obj, t_tuple point)
 	absy = fabs(point.y);
 	absz = fabs(point.z);
 	maxp = fmax(fmax(absx, absy), absz);
-	if (!float_equal(maxp, absx))
+	if (float_equal(maxp, absx))
 		normalv = vector_new(point.x, 0, 0);
-	else if (!float_equal(maxp, absy))
+	else if (float_equal(maxp, absy))
 		normalv = vector_new(0, point.y, 0);
 	else
 		normalv = vector_new(0, 0, point.z);
