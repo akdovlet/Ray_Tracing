@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/02 15:41:32 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/03 16:06:55 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ int main()
 	t_img	img;
 	t_mlx	mlx;
 	t_data data;
-	int		i;
 
-	i = 1;
 	init_mlx(&mlx, &img);
 	mlx_hook(mlx.win_ptr, 17, 0, mlx_loop_end, mlx.mlx_ptr);
 	// test_cube();

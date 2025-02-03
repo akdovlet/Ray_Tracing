@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/02/01 15:14:34 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/02/03 16:15:55 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,9 +81,9 @@ OBJ 	:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD)/%.o, $(SRC))
 DEP		:=	$(OBJ:.o=.d)
 
 LIBFT	:=	libft/libft.a
-
+MLX		:= mlx_linux/libmlx_Linux.a
 CC		:=	cc
-CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -Ilibft/include -g3 -Imlx_linux -O3
+CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -Ilibft/include -Imlx_linux -O3
 MATH	:=	-lm
 
 all: create_dir $(NAME)
@@ -105,7 +105,7 @@ $(BUILD)/%.o: $(SRC_DIR)/%.c
 	@printf "\033[1;32%sm\tCompiled: $(<F)\033[0m\n";
 
 $(MLX):
-	mak
+	@$(MAKE) -C mlx_linux
 
 $(LIBFT):
 	@$(MAKE) --no-print-directory -C libft
