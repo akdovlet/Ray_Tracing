@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:23:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/02 15:17:37 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/03 19:30:45 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void		test_refraction(void);
 void		test_negative_intersection(void);
 void		test_shade_hit_refraction(void);
 
+t_data		single_sphere_scene(void);
 t_data		default_scene(void);
 t_data		watchful_eye_scene(void);
 t_data		cube_scene(void);

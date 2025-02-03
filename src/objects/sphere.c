@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:09:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/02 19:31:24 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/04 00:45:01 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_vec2	sphere_intersect(t_ray ray, t_shape shape)
 	a = tuple_dot(ray.direction, ray.direction);
 	b = 2 * tuple_dot(ray.direction, ray_sph_vector);
 	c = tuple_dot(ray_sph_vector, ray_sph_vector) - 1.0;
-	dis = pow(b, 2.0) - 4.0 * a * c;
+	dis = b * b - 4.0 * a * c;
 	if (dis < 0.0)
 		return ((t_vec2){.dis = -1});
 	return ((t_vec2){

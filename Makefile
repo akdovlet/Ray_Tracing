@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/02/03 16:15:55 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/02/03 18:35:15 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,7 +83,7 @@ DEP		:=	$(OBJ:.o=.d)
 LIBFT	:=	libft/libft.a
 MLX		:= mlx_linux/libmlx_Linux.a
 CC		:=	cc
-CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -Ilibft/include -Imlx_linux -O3
+CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -Ilibft/include -Imlx_linux
 MATH	:=	-lm
 
 all: create_dir $(NAME)

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:32:02 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/02 16:48:17 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/03 17:55:50 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	is_shadowed(t_world *world, t_tuple point)
 	direction = tuple_normalize(v);
 	ray = ray_new(point, direction);
 	intersect_world(world, ray, &hits);
-	if (hits.hit && hits.closest.t < distance && !hits.closest.obj.matter.transparency)
+	if (hits.hit && hits.closest.t < distance && !hits.closest.obj->matter.transparency)
 		return (true);
 	return (false);
 }

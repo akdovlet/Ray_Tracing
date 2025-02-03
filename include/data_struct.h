@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/02 16:22:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/03 21:55:25 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ struct s_intersection
 typedef struct s_crossing
 {
 	double	t;
-	t_shape	obj;
+	t_shape	*obj;
 }	t_crossing;
 
 typedef struct s_junction
@@ -176,7 +176,6 @@ typedef struct s_comps
 	double		t;
 	double		n1;
 	double		n2;
-	t_tuple		uv;
 	t_tuple		world_point;
 	t_tuple		eyev;
 	t_tuple		normalv;
@@ -198,6 +197,9 @@ typedef struct s_camera
 	double		vsize;
 	double		fov;
 	double		psize;
+	double		pitch;
+	double		yaw;
+	double		roll;
 	double		half_view;
 	double		half_width;
 	double		half_height;
@@ -205,6 +207,7 @@ typedef struct s_camera
 	t_tuple		from;
 	t_tuple		to;
 	t_tuple		up;
+	t_tuple		right;
 }	t_camera;
 
 typedef struct	s_data

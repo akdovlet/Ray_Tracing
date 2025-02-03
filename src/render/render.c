@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/02 15:39:46 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/04 00:55:39 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	render(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
 	t_tuple	color;
 
 	y = 0;
+	(void)img;
 	while (y < cam.vsize)
 	{
 		x = 0;
@@ -47,8 +48,8 @@ void	render(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
 			ak_mlx_pixel_put(img, x, y, tuple_tocolor(color));
 			x++;
 		}
-		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
 		y++;
+		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
 	}
 }
 

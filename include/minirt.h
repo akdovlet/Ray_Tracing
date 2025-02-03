@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/01 15:05:31 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/03 23:10:24 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # include "shapes.h"
 # include "mlx_utils.h"
 # include "pattern.h"
+# include "colors.h"
 
 # define WIDTH 1920 / 2
 # define HEIGHT 1080

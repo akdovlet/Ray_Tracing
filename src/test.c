@@ -1879,17 +1879,17 @@ void	test_refraction(void)
 	
 	ray = ray_new(point_new(0, 0, -4), vector_new(0, 0, 1));
 	junc.cross[0].t = 2;
-	junc.cross[0].obj = world.obj[0];
+	junc.cross[0].obj = &world.obj[0];
 	junc.cross[1].t = 2.75;
-	junc.cross[1].obj = world.obj[1];
+	junc.cross[1].obj = &world.obj[1];
 	junc.cross[2].t = 3.25;
-	junc.cross[2].obj = world.obj[2];
+	junc.cross[2].obj = &world.obj[2];
 	junc.cross[3].t = 4.75;
-	junc.cross[3].obj = world.obj[1];
+	junc.cross[3].obj = &world.obj[1];
 	junc.cross[4].t = 5.25;
-	junc.cross[4].obj = world.obj[2];
+	junc.cross[4].obj = &world.obj[2];
 	junc.cross[5].t = 6;
-	junc.cross[5].obj = world.obj[0];
+	junc.cross[5].obj = &world.obj[0];
 	junc.count = 6;
 	for(int i = 0; i < 6; i++)
 	{
@@ -1951,7 +1951,7 @@ void	test_shade_hit_refraction(void)
 
 	ray = ray_new(point_new(0, 0, -3), vector_new(0, -sqrt(2/2), sqrt(2/2)));
 	junc.cross[0].t = sqrt(2);
-	junc.cross[0].obj = floor;
+	junc.cross[0].obj = &floor;
 	junc.count = 1;
 	pre_compute(&comps, junc.cross[0], ray, junc);
 	color = shade_hit(&world, &comps, 5);

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tuple_magnitude.c                                  :+:      :+:    :+:   */
+/*   rotate_xyz.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 18:34:33 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/03 18:47:46 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/02/03 21:45:54 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/02/03 21:46:50 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	tuple_magnitude(t_tuple a)
+t_tuple	rotate_xyz(t_matrix x, t_matrix y, t_matrix z, t_tuple t1)
 {
-	return (sqrt((a.x * a.x) + (a.y * a.y) + (a.z * a.z) + (a.w * a.w)));
+	
 }

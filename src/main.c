@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/03 16:06:55 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/04 00:52:52 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main()
 	// test_cylinder_intersect();
 	// test_cylinder_normalat();
 	// test_truncated_cylinder();
-	data = complex_scene();
+	data = default_scene();
 	data.img = img;
 	data.mlx = mlx;
 	render(data.cam, data.world, &img, &mlx);

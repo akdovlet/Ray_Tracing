@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/02 15:28:47 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/04 00:57:55 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,11 @@ void	intersect_world(t_world *world, t_ray ray, t_junction *hits)
 		{
 			hits->count += inter.count;
 			hits->cross[j].t = inter.xs.x;
-			hits->cross[j++].obj = world->obj[i];
+			hits->cross[j++].obj = &world->obj[i];
 			if (inter.count == 2)
 			{
 				hits->cross[j].t = inter.xs.y;
-				hits->cross[j++].obj = world->obj[i];
+				hits->cross[j++].obj = &world->obj[i];
 			}
 		}
 		i++;
@@ -110,8 +110,8 @@ t_tuple	color_at(t_world *world, t_ray ray, int depth)
 	t_comps		comps;
 	t_junction	hits;
 
+	color = color_new(0.6, 0.7, 0.9);
 	intersect_world(world, ray, &hits);
-	color = color_new(0, 0, 0.01);
 	if (hits.hit)
 	{
 		pre_compute(&comps, hits.closest, ray, hits);
