@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/03 21:55:25 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/04 15:44:58 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,8 @@ typedef struct s_tuple
 	double	w;
 }	t_tuple;
 
-typedef struct s_shear
-{
-	double	x;
-	double	y;
-	double	z;
-}	t_shear;
-
 typedef double v4 __attribute__((vector_size(16)));
+typedef double v2 __attribute__((vector_size(8)));
 
 typedef	union u_vec
 {
@@ -193,8 +187,8 @@ typedef struct s_container
 
 typedef struct s_camera
 {
-	double		hsize;
-	double		vsize;
+	int			hsize;
+	int			vsize;
 	double		fov;
 	double		psize;
 	double		pitch;
@@ -203,6 +197,7 @@ typedef struct s_camera
 	double		half_view;
 	double		half_width;
 	double		half_height;
+	v2			last_mouse_position;
 	t_matrix	transform;
 	t_tuple		from;
 	t_tuple		to;

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:17:18 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/03 20:47:22 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/04 13:57:18 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ t_camera	camera_new(double hsize, double vsize, double fov)
 	cam.psize = (cam.half_width * 2) / cam.hsize;
 	cam.transform = identity();
 	return (cam);
+}
+
+void	camera_on_update(t_camera *cam)
+{
+	(void)cam;
 }
 
 void camera_update_transform(t_camera *cam, t_tuple from, t_tuple to, t_tuple up)

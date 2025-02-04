@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:28:04 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/18 13:07:50 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:40:49 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 
 int	mouse_manager(int button, int x, int y, t_data *data)
 {
-	(void)x;
-	(void)y;
-	if (button == 4)
-		data->cam.from.z += 0.1;
-	else if (button == 5)
-		data->cam.from.z -= 0.1;
-	else
+	v2	mouse_pos;
+	// v2	delta;
+
+	mouse_pos[0] = x;
+	mouse_pos[1] = y;
+	// delta = (mouse_pos - data->cam.last_mouse_position) * 0.002;
+	data->cam.last_mouse_position = mouse_pos;
+	if (button != 1)
+	{
+		mlx_mouse_show(data->mlx.mlx_ptr, data->mlx.win_ptr);
 		return (0);
-	render_and_move(data);
+	}
+	mlx_mouse_hide(data->mlx.mlx_ptr, data->mlx.win_ptr);
 	return (0);
 }
