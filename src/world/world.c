@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/04 18:00:03 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/04 18:04:47 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,5 @@ t_tuple	color_at(t_world *world, t_ray ray, int depth)
 		pre_compute(&comps, hits.closest, ray, hits);
 		color = shade_hit(world, &comps, depth);
 	}
-	// color = tuple_multiply(color, (double)depth / 10.0);
 	return (color);
 }

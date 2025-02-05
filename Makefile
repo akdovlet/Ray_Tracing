@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/02/04 15:35:47 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/02/04 20:33:03 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,6 +54,7 @@ SRC		:=	main.c							\
 			ray/reflect.c					\
 			ray/refract.c					\
 			ray/schlick.c					\
+			render/per_pixel.c				\
 			render/render.c					\
 			tuple/color_new.c				\
 			tuple/hadamard_product.c		\

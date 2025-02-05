@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/04 17:35:38 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/05 01:52:34 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,18 @@ t_data	scene_single_sphere(void)
 	t_world		world;
 	t_camera	cam;
 	t_shape		sphere;
+	t_shape		sphere2;
 	t_shape		plane;
 	t_data		data;
 
 	sphere = sphere_default();
+	sphere2 = sphere_default();
+	sphere2.matter.color = color_new(0.902, 0.094, 0.788);
+	sphere.matter = emissive_material();
+	sphere.matter.emission_power = 200;
+	// sphere2.matter.reflective = 1;
+	set_transform(&sphere, multiply_matrix(translate(5, 0, -25), scale(10, 10, 10)));
+	set_transform(&sphere2, translate(-1, 0, 0));
 	plane = plane_new();
 	plane.matter.pattern = checkers_pattern(white(), black());
 	set_transform(&plane, translate(0, -1, 0));
@@ -30,7 +38,8 @@ t_data	scene_single_sphere(void)
 	world.light = point_light(point_new(-5, 8, 3), color_new(1, 1, 1));
 	world.obj[0] = sphere;
 	world.obj[1] = plane;
-	world.obj_count = 2;
+	world.obj[2] = sphere2;
+	world.obj_count = 3;
 
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
 	cam.from =  point_new(0, 0, 3);

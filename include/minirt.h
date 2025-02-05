@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/04 17:01:37 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/04 23:56:55 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <float.h>
+# include <string.h>
+# include <time.h>
 
 # include "X11/keysym.h"
 # include "mlx.h"
@@ -30,6 +32,7 @@
 # include "mlx_utils.h"
 # include "pattern.h"
 # include "colors.h"
+# include "renderer.h"
 
 # define WIDTH 500
 # define HEIGHT 500

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/04 15:44:58 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/04 23:15:41 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,13 +99,17 @@ typedef struct	s_pattern
 typedef struct s_material
 {
 	double		ambient;
+	double		roughness;
+	double		metalic;
 	double		diffuse;
 	double		specular;
 	double		shininess;
 	double		reflective;
 	double		transparency;
 	double		refractive_index;
+	double		emission_power;
 	t_tuple		color;
+	t_tuple		emission_color;
 	t_pattern	pattern;
 }	t_material;
 

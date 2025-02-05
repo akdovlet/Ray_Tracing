@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/01 14:53:32 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/04 20:35:55 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ t_tuple			reflected_color(t_world *world, t_comps *comps, int depth);
 t_tuple			normal_at(t_shape obj, t_tuple world_point);
 t_tuple			reflect(t_tuple in, t_tuple normal);
 t_material		material(void);
+t_material		emissive_material(void);
 
 t_world			default_world(void);
 void			intersect_world(t_world *world, t_ray ray, t_junction *hits);
