@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/05 17:36:53 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/05 18:26:53 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,31 @@ t_data	scene_single_sphere(void)
 	t_camera	cam;
 	t_shape		sphere;
 	t_shape		sphere2;
-	t_shape		plane;
+	t_shape		cube;
 	t_data		data;
 
 	sphere = sphere_default();
 	sphere.matter = emissive_material();
 	sphere2 = glass_sphere();
 	sphere2.matter.color = color_new(0.902, 0.094, 0.788);
-	set_transform(&sphere, multiply_matrix(translate(10 , 20, -25), scale(20, 20, 20)));
+	set_transform(&sphere, multiply_matrix(translate(-1 , 50, -100), scale(15, 15, 15)));
 	set_transform(&sphere2, translate(-1, 0, 0));
 
-	plane = plane_new();
-	plane.matter.color = color_new(0.9, 0.2, 0.2);
-	// plane.matter.pattern = checkers_pattern(white(), black());
-	set_transform(&plane, translate(0, -1, 0));
+	cube = cube_default();
+	cube.matter.color = color_new(0.9, 0.2, 0.2);
+	cube.matter.pattern = checkers_pattern(white(), black());
+	set_transform(&cube, multiply_matrix(translate(-1, -3, 0), scale(2, 2.2, 2)));
+	set_transform_pattern(&cube.matter.pattern, scale(0.1, 0.1, 0.1));
 	
 	world.light = point_light(point_new(-5, 8, 3), color_new(1, 1, 1));
 	world.obj[0] = sphere;
-	world.obj[1] = plane;
+	world.obj[1] = cube;
 	world.obj[2] = sphere2;
 	world.obj_count = 3;
 
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
 	cam.from =  point_new(0, 0, 3);
-	cam.to =  point_new(0, 0, -1);
+	cam.to =  point_new(-1, 0, 0);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
