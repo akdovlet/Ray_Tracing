@@ -20,6 +20,14 @@ t_vec2i vec2i_sum(t_vec2i a, t_vec2i b)
     return (a);
 }
 
+t_vec2i vec2i_substract(t_vec2i a, t_vec2i b)
+{
+    return ((t_vec2i){
+        .x = a.x - b.x,
+        .y = a.y - b.y,
+    });
+}
+
 t_vec2i vec2i_multiply(t_vec2i a, t_vec2i b)
 {
     return ((t_vec2i){
@@ -33,6 +41,14 @@ t_vec2i vec2i_scale(t_vec2i a, float scale)
     return ((t_vec2i){
         .x = a.x * scale,
         .y = a.y * scale,
+    });
+}
+
+t_vec2i vec2i_value(int v)
+{
+    return ((t_vec2i){
+        .x = v,
+        .y = v,
     });
 }
 

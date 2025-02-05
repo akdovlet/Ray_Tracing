@@ -44,7 +44,7 @@ static bool is_same_object(t_finder* finder, uintptr_t object_id)
 	return false;
 }
 
-void debug_find_object(t_quadtree* quadtree, t_color color)
+void debug_find_object(t_quadtree_node* quadtree, t_color color)
 {
 	put_circle(quadtree->window.center, 3, color);
 
@@ -58,7 +58,7 @@ void debug_find_object(t_quadtree* quadtree, t_color color)
 	// 	quadtree->height);
 }
 
-bool find_object(t_quadtree* quadtree, void* data)
+bool find_object(t_quadtree_node* quadtree, void* data)
 {
 	t_finder*	finder;
 	t_comps		comps;
@@ -78,7 +78,6 @@ bool find_object(t_quadtree* quadtree, void* data)
 	}
 	finder->current_depth = quadtree->depth;
 	return(finder->object_seen != 0);
-	// return(finder->current_depth != 6);
 }
 
 void quadtree_find_object(t_env* env)

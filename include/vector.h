@@ -21,7 +21,11 @@ typedef struct s_vec2f
 bool vec2i_equal(t_vec2i a, t_vec2i b);
 void vec2i_add(t_vec2i *a, t_vec2i b);
 t_vec2i vec2i_sum(t_vec2i a, t_vec2i b);
+t_vec2i vec2i_substract(t_vec2i a, t_vec2i b);
+
 t_vec2i vec2i_scale(t_vec2i a, float scale);
+t_vec2i vec2i_value(int v);
+
 
 t_vec2i vec2i_multiply(t_vec2i a, t_vec2i b);
 

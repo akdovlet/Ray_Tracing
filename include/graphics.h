@@ -20,7 +20,7 @@ struct s_env {
 	const char* title;
 	t_camera	camera;
 	t_world		world;
-	t_quadtree* quadtree;
+	t_quadtree_node* quadtree;
 
 	t_ray*		precomputed_ray;
 

@@ -6,7 +6,7 @@
 
 #include <stdio.h>
 
-bool resolve_ambiguity(t_quadtree* quadtree, void* data);
+bool resolve_ambiguity(t_quadtree_node* quadtree, void* data);
 
 
 void quadtree_find_object(t_env* env);
