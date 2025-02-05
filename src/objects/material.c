@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 19:10:10 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/05 00:35:23 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/05 12:58:50 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_material	material(void)
 	return ((t_material)
 	{
 		.pattern.exists = 0,
-		.color = color_new(1, 1, 1),
+		.color = color_new(0.9, 0.9, 0.9),
 		.ambient = 0.1,
 		.diffuse = 0.9,
 		.specular = 0.9,

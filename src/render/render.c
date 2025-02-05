@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/05 01:58:58 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:04:06 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,10 @@ t_tuple clamp_color(t_tuple tcolor)
 
 void	path_tracing(t_ray *ray, t_camera cam, t_world world, t_img *img, t_mlx *mlx, double frame_index,t_tuple *accumulation)
 {
-	int	y;
-	int	x;
+	int		y;
+	int		x;
 	t_tuple	color;
+	t_tuple	final_color;
 
 	y = 0;
 	while (y < cam.vsize)
@@ -105,9 +106,10 @@ void	path_tracing(t_ray *ray, t_camera cam, t_world world, t_img *img, t_mlx *ml
 		{
 			color = bounce_rays(&world, ray[x + y * WIDTH]);
 			accumulation[x + y * WIDTH] = tuple_add(accumulation[x + y * WIDTH], color);
-			accumulation[x + y * WIDTH] = tuple_divide(accumulation[x + y * WIDTH], frame_index);
-			// color = clamp_color(accumulation[x + y * WIDTH]);
-			ak_mlx_pixel_put(img, x, y, tuple_tocolor(accumulation[x + y * WIDTH]));
+			final_color = accumulation[x + y * WIDTH];
+			final_color = tuple_divide(final_color, frame_index);
+			final_color = clamp_color(final_color);
+			ak_mlx_pixel_put(img, x, y, tuple_tocolor(final_color));
 			x++;
 		}
 		y++;

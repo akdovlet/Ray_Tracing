@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/05 01:52:34 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:34:29 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ t_data	scene_single_sphere(void)
 	t_data		data;
 
 	sphere = sphere_default();
-	sphere2 = sphere_default();
-	sphere2.matter.color = color_new(0.902, 0.094, 0.788);
 	sphere.matter = emissive_material();
-	sphere.matter.emission_power = 200;
-	// sphere2.matter.reflective = 1;
-	set_transform(&sphere, multiply_matrix(translate(5, 0, -25), scale(10, 10, 10)));
+	sphere2 = glass_sphere();
+	sphere2.matter.color = color_new(0.902, 0.094, 0.788);
+	set_transform(&sphere, multiply_matrix(translate(1 , 5, -50), scale(20, 20, 20)));
 	set_transform(&sphere2, translate(-1, 0, 0));
+
 	plane = plane_new();
-	plane.matter.pattern = checkers_pattern(white(), black());
+	plane.matter.color = color_new(0.9, 0.2, 0.2);
+	// plane.matter.pattern = checkers_pattern(white(), black());
 	set_transform(&plane, translate(0, -1, 0));
 	
 	world.light = point_light(point_new(-5, 8, 3), color_new(1, 1, 1));
@@ -212,19 +212,16 @@ t_data	scene_cube(void)
 	floor.matter.pattern = checkers_pattern(black(), red());
 
 	cube = cube_default();
-	set_transform(&cube, multiply_matrix(translate(0, 0, 0), rotate_y(radians(10))));
-
-	cube.matter = glass_material();
-	cube.matter.color = color_new(0.1, 0.1, 0.1);
-	cube.matter.refractive_index = 1.333;
+	cube.matter = emissive_material();
+	set_transform(&cube, multiply_matrix(translate(0, 2, 0), rotate_y(radians(40))));
 
 	world.light = point_light(point_new(-5, 8, -3), color_new(1, 1, 1));
 	world.obj[0] = floor;
 	world.obj[1] = cube;
 	world.obj_count = 2;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
-	cam.from =  point_new(2, 1, -4);
-	cam.to =  point_new(0, -1, -1);
+	cam.from =  point_new(0, 2, -5);
+	cam.to =  point_new(0, 1, 0);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;

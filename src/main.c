@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/05 01:51:03 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:27:31 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main()
 	// test_cylinder_intersect();
 	// test_cylinder_normalat();
 	// test_truncated_cylinder();
-	data = scene_single_sphere();
+	data = scene_cube();
 	data.img = img;
 	data.mlx = mlx;
 	mlx_mouse_hook(mlx.win_ptr, &mouse_manager, &data);

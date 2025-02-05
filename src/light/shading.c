@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:32:02 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/04 22:24:16 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/05 13:04:44 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ bool	is_shadowed(t_world *world, t_tuple point)
 
 t_tuple	shade_hit(t_world *world, t_comps *comps, int depth)
 {
-	bool	shadowed;
+	// bool	shadowed;
 	double	reflectance;
 	t_tuple	surface;
 	t_tuple reflected;
 	t_tuple refracted;
 
-	shadowed = false;
-	surface = blinn_phong(world->light, comps->obj, comps, shadowed);
+	// shadowed = is_shadowed(world, comps->overz);
+	surface = blinn_phong(world->light, comps->obj, comps, false);
 	reflected = reflected_color(world, comps, depth - 1);
 	refracted = refracted_color(world, comps, depth - 1);
 	if (comps->obj->matter.reflective && comps->obj->matter.transparency)

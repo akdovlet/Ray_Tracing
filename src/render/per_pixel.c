@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:32:36 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/05 01:59:18 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:25:55 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,32 +34,32 @@ t_tuple	get_emission(t_shape *obj)
 							obj->matter.emission_power));
 }
 
-t_tuple	random_unit_vec(void)
-{
-	t_tuple	new;
-
-	
-	srand(time(NULL) / UINT32_MAX);
-	new.x = (double)rand() / (double)(RAND_MAX) * 2.0 - 1.0;
-	srand(time(NULL) / UINT32_MAX);
-	new.y = (double)rand() / (double)(RAND_MAX) * 2.0 - 1.0;
-	srand(time(NULL) / UINT32_MAX);
-	new.z = (double)rand() / (double)(RAND_MAX) * 2.0 - 1.0;
-	new.w = 0;
-	return (new);
-}
-
 // t_tuple	random_unit_vec(void)
 // {
 // 	t_tuple	new;
 
 	
+// 	srand(time(NULL));
 // 	new.x = (double)rand() / (double)(RAND_MAX) * 2.0 - 1.0;
+// 	srand(time(NULL));
 // 	new.y = (double)rand() / (double)(RAND_MAX) * 2.0 - 1.0;
+// 	srand(time(NULL));
 // 	new.z = (double)rand() / (double)(RAND_MAX) * 2.0 - 1.0;
 // 	new.w = 0;
 // 	return (new);
 // }
+
+t_tuple	random_unit_vec(void)
+{
+	t_tuple	new;
+
+	
+	new.x = (double)rand() / (double)(RAND_MAX) * 2.0 - 1.0;
+	new.y = (double)rand() / (double)(RAND_MAX) * 2.0 - 1.0;
+	new.z = (double)rand() / (double)(RAND_MAX) * 2.0 - 1.0;
+	new.w = 0;
+	return (new);
+}
 
 t_tuple		bounce_rays(t_world *world, t_ray ray)
 {
@@ -84,11 +84,10 @@ t_tuple		bounce_rays(t_world *world, t_ray ray)
 			light = tuple_add(light, color_hadamard(sky, contribution));
 			break ;
 		}
-		pre_compute(&comps, hits.closest, ray, hits);
-		light = tuple_add(light, shade_hit(world, &comps, 5));
 		contribution = color_hadamard(contribution, hits.closest.obj->matter.color);
+		pre_compute(&comps, hits.closest, ray, hits);
+		// light = tuple_add(light, shade_hit(world, &comps, 5));
 		light = tuple_add(light, get_emission(hits.closest.obj));
-		comps.world_point.w = 0;
 		ray.origin = comps.overz;
 		ray.direction = tuple_normalize(tuple_add(comps.normalv, tuple_normalize(random_unit_vec())));
 		if (tuple_dot(ray.direction, comps.normalv) < 0.0)
