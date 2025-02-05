@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:32:36 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/05 14:25:55 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/05 17:37:24 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ t_tuple		bounce_rays(t_world *world, t_ray ray)
 	contribution = white();
 	light = black();
 	sky = color_new(0.6, 0.7, 0.9);
+	sky = black();
 	while (i < bounces)
 	{
 		intersect_world(world, ray, &hits);
