@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 16:32:36 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/05 22:18:35 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:57:58 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_tuple		bounce_rays(t_world *world, t_ray ray)
 	contribution = white();
 	light = black();
 	sky = color_new(0.6, 0.7, 0.9);
-	sky = color_new(0.002, 0.002, 0.002);
+	// sky = color_new(0.002, 0.002, 0.002);
 	while (i < bounces)
 	{
 		intersect_world(world, ray, &hits);
@@ -90,26 +90,32 @@ t_tuple		bounce_rays(t_world *world, t_ray ray)
 		light = tuple_add(light, shade_hit(world, &comps, 5));
 		light = tuple_add(light, get_emission(hits.closest.obj));
 		ray.origin = comps.overz;
-		ray.direction = tuple_normalize(tuple_add(comps.normalv, tuple_normalize(random_unit_vec())));
+		// if (hits.closest.obj->matter.reflective)
+		// 	ray.direction = comps.reflectv;
+		if (hits.closest.obj->matter.transparency)
+			ray.direction = refracted_ray(&comps);
+		else
+			ray.direction = tuple_normalize(tuple_add(comps.normalv, tuple_normalize(random_unit_vec())));
 		if (tuple_dot(ray.direction, comps.normalv) < 0.0)
 			tuple_negate(ray.direction);
+		// light = comps.normalv;
 		i++;
 	}
 	return (light);
 }
-t_tuple	reflect_refract(t_world *world, t_comps *comps, int depth)
-{
-	double	reflectance;
-	t_tuple	surface;
-	t_tuple reflected;
-	t_tuple refracted;
+// t_tuple	reflect_refract(t_world *world, t_comps *comps, int depth)
+// {
+// 	double	reflectance;
+// 	t_tuple	surface;
+// 	t_tuple reflected;
+// 	t_tuple refracted;
 	
-	reflected = reflected_color(world, comps, depth - 1);
-	refracted = refracted_color(world, comps, depth - 1);
-	if (comps->obj->matter.reflective && comps->obj->matter.transparency)
-	{
-		reflectance = schlick(*comps);
-		return (tuple_add(surface, tuple_add(tuple_multiply(reflected, reflectance),
-							tuple_multiply(refracted, 1 - reflectance))));
-	}
-}
+// 	reflected = reflected_color(world, comps, depth - 1);
+// 	refracted = refracted_color(world, comps, depth - 1);
+// 	if (comps->obj->matter.reflective && comps->obj->matter.transparency)
+// 	{
+// 		reflectance = schlick(*comps);
+// 		return (tuple_add(surface, tuple_add(tuple_multiply(reflected, reflectance),
+// 							tuple_multiply(refracted, 1 - reflectance))));
+// 	}
+// }

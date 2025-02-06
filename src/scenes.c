@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/05 18:26:53 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:59:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ t_data	scene_single_sphere(void)
 	sphere = sphere_default();
 	sphere.matter = emissive_material();
 	sphere2 = glass_sphere();
-	sphere2.matter.color = color_new(0.902, 0.094, 0.788);
-	set_transform(&sphere, multiply_matrix(translate(-1 , 50, -100), scale(15, 15, 15)));
+	sphere2.matter.color = color_new(0.1, 0.1, 0.1);
+	set_transform(&sphere, multiply_matrix(translate(1 , 0, 0), scale(1, 1, 1)));
 	set_transform(&sphere2, translate(-1, 0, 0));
 
 	cube = cube_default();

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/04 20:35:55 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/06 18:52:15 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ unsigned int		new_id(void);
 
 
 t_tuple	refracted_color(t_world *world, t_comps *comps, int depth);
+t_tuple	refracted_ray(t_comps *comps);
 double	schlick(t_comps comps);
 
 t_shape	cylinder_default(void);

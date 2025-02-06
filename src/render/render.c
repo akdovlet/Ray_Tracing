@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/05 18:29:21 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:15:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ void	path_tracing(t_ray *ray, t_camera cam, t_world world, t_img *img, t_mlx *ml
 			accumulation[x + y * WIDTH] = tuple_add(accumulation[x + y * WIDTH], color);
 			final_color = accumulation[x + y * WIDTH];
 			final_color = tuple_divide(final_color, frame_index);
-			final_color = clamp_color(final_color);
 			ak_mlx_pixel_put(img, x, y, tuple_tocolor(final_color));
 			x++;
 		}
@@ -127,13 +126,11 @@ void	render_accumulation(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
 	ray = malloc(sizeof(t_ray) * (WIDTH * HEIGHT));
 	accumulation = malloc(sizeof(t_tuple) * (WIDTH * HEIGHT));
 	if (!accumulation || !ray)
-	
 		return ;
 	ft_memset(accumulation, 0, sizeof(accumulation) * (WIDTH * HEIGHT));
 	cache_ray(ray, &cam);
 	while (1)
 	{
-		srand(time(NULL));
 		path_tracing(ray, cam, world, img, mlx, frame_index, accumulation);
 		frame_index++;
 	}

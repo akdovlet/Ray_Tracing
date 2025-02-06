@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 19:46:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/05 01:36:00 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:12:44 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,42 @@ t_light	point_light(t_tuple point, t_tuple intensity)
 		.intensity = intensity
 	});
 }
+
+// t_tuple	brdf(t_light light, t_shape *shape, t_comps *comps, bool shadowed)
+// {
+// 	t_tuple	light;
+// 	t_tuple	contribution;
+// 	t_tuple	lightv;
+// 	t_tuple	ambient;
+// 	t_tuple diffuse;
+// 	t_tuple	specular;
+// 	t_tuple reflectv;
+// 	t_tuple tmp;
+// 	t_tuple	halfway;
+// 	double	reflect_dot_eye;
+// 	double	light_dot_normal;
+// 	double	factor;
+	
+// 	if (shape->matter.pattern.exists)
+// 		contribution = pattern_at_shape(shape->matter.pattern, *shape, comps->overz);
+// 	else
+// 		contribution = color_hadamard(shape->matter.color, light.intensity);
+// 	lightv = tuple_normalize(tuple_substract(light.position, comps->overz));
+// 	ambient = tuple_multiply(contribution, shape->matter.ambient);
+// 	if (shadowed)
+// 		return (ambient);
+// 	light_dot_normal = fmax(tuple_dot(lightv, comps->normalv), 0.0);
+// 	halfway = tuple_normalize(tuple_add(lightv, tuple_normalize(comps->eyev)));
+// 	factor = pow(fmax(tuple_dot(comps->normalv, halfway), 0.0), shape->matter.shininess);
+// 	tmp = tuple_multiply(contribution, shape->matter.diffuse);
+// 	diffuse = tuple_multiply(tmp, light_dot_normal);
+// 	reflectv = reflect(tuple_negate(lightv), comps->normalv);
+// 	reflect_dot_eye = fmax(tuple_dot(reflectv, comps->eyev), 0.0);
+// 	specular = tuple_multiply(light.intensity, shape->matter.specular);
+// 	specular = tuple_multiply(specular, reflect_dot_eye);
+// 	specular = tuple_multiply(specular, factor);
+// 	return (tuple_add(tuple_add(diffuse, ambient), specular));
+// }
 
 t_tuple	blinn_phong(t_light light, t_shape *shape, t_comps *comps, bool shadowed)
 {
