@@ -6,20 +6,20 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 18:43:57 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/16 16:02:32 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:42:23 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_tuple	stripe_at(t_pattern pattern, t_tuple point)
+static v4	stripe_at(t_pattern pattern, v4 point)
 {
-	if (fabs(fmod(point.x, 2.0)) < 1.0)
+	if (fabs(fmod(point[0], 2.0)) < 1.0)
 		return (pattern.color1);
 	return (pattern.color2);
 }
 
-t_pattern	stripe_pattern(t_tuple c1, t_tuple c2)
+t_pattern	stripe_pattern(v4 c1, v4 c2)
 {
 	return ((t_pattern){
 		.exists = 1,

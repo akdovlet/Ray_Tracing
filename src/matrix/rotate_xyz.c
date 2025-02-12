@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 21:45:54 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/03 21:46:50 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:52:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_tuple	rotate_xyz(t_matrix x, t_matrix y, t_matrix z, t_tuple t1)
+v4	rotate_xyz(t_matrix x, t_matrix y, t_matrix z, v4 t1)
 {
 	
 }

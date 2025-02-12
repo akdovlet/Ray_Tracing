@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:13:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/02 15:40:17 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:31:29 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ t_vec2	cube_intersect(t_ray ray, t_shape shape)
 	t_vec2	xt;
 	t_vec2	yt;
 	t_vec2	zt;
-	t_tuple	local_ray;
+	v4	local_ray;
 
 	local_ray = tuple_substract(ray.origin, shape.coordinates);
-	xt = check_axis(local_ray.x, ray.direction.x);
-	yt = check_axis(local_ray.y, ray.direction.y);	
-	zt = check_axis(local_ray.z, ray.direction.z);	
+	xt = check_axis(local_ray[0], ray.direction[0]);
+	yt = check_axis(local_ray[1], ray.direction[1]);	
+	zt = check_axis(local_ray[2], ray.direction[2]);	
 	tmin = fmax(xt.x, fmax(yt.x, zt.x));
 	tmax = fmin(xt.y, fmin(yt.y, zt.y));
 	if (tmin > tmax)
@@ -60,25 +60,25 @@ t_vec2	cube_intersect(t_ray ray, t_shape shape)
 	});
 }
 
-t_tuple	cube_normal_at(t_shape obj, t_tuple point)
+v4	cube_normal_at(t_shape obj, v4 point)
 {
 	double	maxp;
 	double	absx;
 	double	absy;
 	double	absz;
-	t_tuple	normalv;
+	v4	normalv;
 
 	(void)obj;
-	absx = fabs(point.x);
-	absy = fabs(point.y);
-	absz = fabs(point.z);
+	absx = fabs(point[0]);
+	absy = fabs(point[1]);
+	absz = fabs(point[2]);
 	maxp = fmax(fmax(absx, absy), absz);
 	if (float_equal(maxp, absx))
-		normalv = vector_new(point.x, 0, 0);
+		normalv = vector_new(point[0], 0, 0);
 	else if (float_equal(maxp, absy))
-		normalv = vector_new(0, point.y, 0);
+		normalv = vector_new(0, point[1], 0);
 	else
-		normalv = vector_new(0, 0, point.z);
+		normalv = vector_new(0, 0, point[2]);
 	return (normalv);
 }
 

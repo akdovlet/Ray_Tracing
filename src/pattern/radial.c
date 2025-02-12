@@ -6,20 +6,20 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:37:49 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/15 18:33:39 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:41:32 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_tuple	radial_at(t_pattern radial, t_tuple point)
+v4	radial_at(t_pattern radial, v4 point)
 {
-	t_tuple	distance;
-	t_tuple	color;
+	v4	distance;
+	v4	color;
 	double	fraction;
 	double	magnitude;
 
-	point.w = 0;
+	point[3] = 0;
 	magnitude = tuple_magnitude(point);
 	fraction = magnitude - floor(magnitude); 
 	distance = tuple_substract(radial.color2, radial.color1);
@@ -27,7 +27,7 @@ t_tuple	radial_at(t_pattern radial, t_tuple point)
 	return (color);
 }
 
-t_pattern	radial_pattern(t_tuple c1, t_tuple c2)
+t_pattern	radial_pattern(v4 c1, v4 c2)
 {
 	return ((t_pattern){
 		.exists = 1,

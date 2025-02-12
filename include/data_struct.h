@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/04 23:15:41 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/12 21:01:47 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 typedef union u_matrix			t_matrix;
 typedef	union u_color			t_color;
-typedef enum e_type				t_type;
 typedef struct s_shape			t_shape;
-typedef struct s_vtable_shape	t_vtable_shape;
 typedef struct s_intersection	t_intersection;
+typedef double v4 __attribute__((__vector_size__(32), __aligned__(32)));
+typedef double v2 __attribute__((vector_size(8), __aligned__(8)));
 
 typedef union s_vec2
 {
@@ -32,68 +32,64 @@ typedef union s_vec2
 	double	vec3[3];
 }	t_vec2;
 
+union u_vec4
+{
+	v4	vec4;
+	struct
+	{
+		double	x;
+		double	y;
+		double	z;
+		double	w;
+	};
+	
+};
+typedef union u_vec4 t_vec4;
+
+
 typedef struct s_vec3 
 {
 	int x;	
 	int y;	
 	int z;	
-} t_vec3;
+}	t_vec3;
 
 typedef struct s_dvec3 
 {
 	double a;	
 	double b;	
 	double c;	
-} t_dvec3;
-
-typedef struct s_tuple
-{
-	double	x;
-	double	y;
-	double	z;
-	double	w;
-}	t_tuple;
-
-typedef double v4 __attribute__((vector_size(16)));
-typedef double v2 __attribute__((vector_size(8)));
-
-typedef	union u_vec
-{
-	t_tuple	t1;
-	v4		v;
-}	t_vec;
+}	t_dvec3;
 
 union	u_matrix
 {
 	struct
 	{
-		t_tuple r1;
-		t_tuple r2;
-		t_tuple r3;
-		t_tuple r4;
+		v4 r1;
+		v4 r2;
+		v4 r3;
+		v4 r4;
+	};
+	struct
+	{
+		v4	arr[4];
 	};
 	double	raw[4][4];
 } __attribute__((__transparent_union__));
 
-enum	e_type
-{
-	SPHERE,
-	PLANE,
-};
-
 typedef struct	s_light
 {
-	t_tuple	intensity;
-	t_tuple	position;
+	v4	intensity;
+	v4	position;
 }	t_light;
 
 typedef struct	s_pattern
 {
 	int			exists;
-	t_tuple		color1;
-	t_tuple		color2;
+	v4		color1;
+	v4		color2;
 	t_matrix	transform;
-	t_tuple		(*pattern_at)(struct s_pattern pattern, t_tuple point);
+	v4		(*pattern_at)(struct s_pattern pattern, v4 point);
 }	t_pattern;
 
 typedef struct s_material
@@ -108,8 +104,8 @@ typedef struct s_material
 	double		transparency;
 	double		refractive_index;
 	double		emission_power;
-	t_tuple		color;
-	t_tuple		emission_color;
+	v4		color;
+	v4		emission_color;
 	t_pattern	pattern;
 }	t_material;
 
@@ -121,8 +117,8 @@ union	u_color
 
 typedef struct s_ray
 {
-	t_tuple	origin;
-	t_tuple	direction;
+	v4	origin;
+	v4	direction;
 }	t_ray;
 
 typedef struct	s_shape
@@ -130,11 +126,11 @@ typedef struct	s_shape
 	double			min;
 	double			max;
 	uintptr_t		id;
-	t_tuple			coordinates;
+	v4				coordinates;
 	t_matrix		transform;
 	t_material		matter;
 	t_vec2			(*local_interesct)(t_ray, struct s_shape);
-	t_tuple			(*local_normalat)(struct s_shape, t_tuple point);
+	v4				(*local_normalat)(struct s_shape, v4 point);
 }	t_shape;
 
 struct s_intersection
@@ -174,12 +170,12 @@ typedef struct s_comps
 	double		t;
 	double		n1;
 	double		n2;
-	t_tuple		world_point;
-	t_tuple		eyev;
-	t_tuple		normalv;
-	t_tuple		reflectv;
-	t_tuple		overz;
-	t_tuple		under_point;
+	v4		world_point;
+	v4		eyev;
+	v4		normalv;
+	v4		reflectv;
+	v4		overz;
+	v4		under_point;
 	t_shape		*obj;
 }	t_comps;
 
@@ -203,10 +199,10 @@ typedef struct s_camera
 	double		half_height;
 	v2			last_mouse_position;
 	t_matrix	transform;
-	t_tuple		from;
-	t_tuple		to;
-	t_tuple		up;
-	t_tuple		right;
+	v4		from;
+	v4		to;
+	v4		up;
+	v4		right;
 }	t_camera;
 
 typedef struct	s_data

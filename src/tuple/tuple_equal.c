@@ -17,15 +17,15 @@ int	float_equal(double a, double b)
 	return (fabs(a - b) < DBL_EPSILON);
 }
 
-int	tuple_equal(t_tuple a, t_tuple b)
+int	tuple_equal(v4 a, v4 b)
 {
-	if (!float_equal(a.x, b.x))
-		return (0);
-	if (!float_equal(a.y, b.y))
-		return (0);
-	if (!float_equal(a.z, b.z))
-		return (0);
-	if (!float_equal(a.w, b.w)	)
-		return (0);
-	return (1);
+	v4	tmp;
+
+	tmp = a - b;
+	return (
+		fabs(tmp[0]) < DBL_EPSILON &&
+		fabs(tmp[1]) < DBL_EPSILON &&
+		fabs(tmp[2]) < DBL_EPSILON &&
+		fabs(tmp[3]) < DBL_EPSILON
+	);
 }

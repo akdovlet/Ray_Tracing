@@ -6,24 +6,24 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:32:02 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/05 13:04:44 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/12 18:55:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "light.h"
 
-bool	is_shadowed(t_world *world, t_tuple point)
+bool	is_shadowed(t_world *world, v4 point)
 {
-	t_tuple	v;
+	v4	v;
 	double	distance;
-	t_tuple	direction;
+	v4	direction;
 	t_ray	ray;
 	t_junction	hits;
 
 	v = tuple_substract(world->light.position, point);
 	distance = tuple_magnitude(v);
-	direction = tuple_normalize(v);
+	direction = v4_normalize(v);
 	ray = ray_new(point, direction);
 	intersect_world(world, ray, &hits);
 	if (hits.hit && hits.closest.t < distance && !hits.closest.obj->matter.transparency)
@@ -31,13 +31,13 @@ bool	is_shadowed(t_world *world, t_tuple point)
 	return (false);
 }
 
-t_tuple	shade_hit(t_world *world, t_comps *comps, int depth)
+v4	shade_hit(t_world *world, t_comps *comps, int depth)
 {
 	// bool	shadowed;
 	double	reflectance;
-	t_tuple	surface;
-	t_tuple reflected;
-	t_tuple refracted;
+	v4	surface;
+	v4 reflected;
+	v4 refracted;
 
 	// shadowed = is_shadowed(world, comps->overz);
 	surface = blinn_phong(world->light, comps->obj, comps, false);
@@ -46,8 +46,7 @@ t_tuple	shade_hit(t_world *world, t_comps *comps, int depth)
 	if (comps->obj->matter.reflective && comps->obj->matter.transparency)
 	{
 		reflectance = schlick(*comps);
-		return (tuple_add(surface, tuple_add(tuple_multiply(reflected, reflectance),
-							tuple_multiply(refracted, 1 - reflectance))));
+		return (surface + reflected * reflectance + refracted *  (1 - reflectance));
 	}
-	return (tuple_add(tuple_add(surface, reflected), refracted));
+	return (surface + reflected + refracted);
 }

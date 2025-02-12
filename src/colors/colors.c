@@ -6,33 +6,33 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:43:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/05 12:43:45 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:52:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_tuple	black(void)
+v4	black(void)
 {
-	return ((t_tuple){0.0, 0.0, 0.0, 0.0});
+	return ((v4){0.0, 0.0, 0.0, 0.0});
 }
 
-t_tuple	white(void)
+v4	white(void)
 {
-	return ((t_tuple){1.0, 1.0, 1.0, 1.0});
+	return ((v4){1.0, 1.0, 1.0, 1.0});
 }
 
-t_tuple	red(void)
+v4	red(void)
 {
-	return ((t_tuple){1.0, 0.0, 0.0, 0.0});
+	return ((v4){1.0, 0.0, 0.0, 0.0});
 }
 
-t_tuple	blue(void)
+v4	blue(void)
 {
-	return ((t_tuple){0.0, 0.0, 1.0, 0.0});
+	return ((v4){0.0, 0.0, 1.0, 0.0});
 }
 
-t_tuple	green(void)
+v4	green(void)
 {
-	return ((t_tuple){0.0, 1.0, 0.0, 0.0});
+	return ((v4){0.0, 1.0, 0.0, 0.0});
 }

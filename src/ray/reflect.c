@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 17:13:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/30 11:29:50 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/12 19:23:00 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,26 @@
 #include "tuple.h"
 #include "colors.h"
 
-t_tuple	reflect(t_tuple in, t_tuple normal)
+v4	reflect(v4 in, v4 normal)
 {
 	double	dot_product;
-	t_tuple	reflection;
+	v4		reflection;
 
 	dot_product = tuple_dot(in, normal);
-	reflection = tuple_multiply(normal, 2.0);
-	reflection = tuple_multiply(reflection, dot_product);
-	reflection = tuple_substract(in, reflection);
+	reflection = normal * 2.0;
+	reflection = reflection * dot_product;
+	reflection = in - reflection;
 	return (reflection);
 }
 
-t_tuple	reflected_color(t_world *world, t_comps *comps, int depth)
+v4	reflected_color(t_world *world, t_comps *comps, int depth)
 {
 	t_ray	reflect_ray;
-	t_tuple	color;
+	v4	color;
 
 	if (depth <= 0 || !comps->obj->matter.reflective)
 		return (color_new(0, 0, 0));
 	reflect_ray = ray_new(comps->overz, comps->reflectv);
 	color = color_at(world, reflect_ray, depth);
-	return (tuple_multiply(color, comps->obj->matter.reflective));
+	return (color * comps->obj->matter.reflective);
 }

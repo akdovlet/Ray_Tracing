@@ -6,20 +6,20 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 20:19:49 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/15 18:33:20 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:41:20 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_tuple	gradient_at(t_pattern pattern, t_tuple point)
+v4	gradient_at(t_pattern pattern, v4 point)
 {
-	t_tuple	distance;
+	v4	distance;
 	double	fraction;
-	t_tuple	color;
+	v4	color;
 	
-	fraction = 2.0 * point.x - floor(2.0 * point.x);
-	if(fabs(point.x - floor(point.x)) < 0.5)
+	fraction = 2.0 * point[0] - floor(2.0 * point[0]);
+	if(fabs(point[0] - floor(point[0])) < 0.5)
 	{
 		distance = tuple_substract(pattern.color2, pattern.color1);
 		color = tuple_add(pattern.color1, tuple_multiply(distance, fraction));	
@@ -32,7 +32,7 @@ t_tuple	gradient_at(t_pattern pattern, t_tuple point)
 	return (color);
 }
 
-t_pattern	gradient_pattern(t_tuple c1, t_tuple c2)
+t_pattern	gradient_pattern(v4 c1, v4 c2)
 {
 	return ((t_pattern){
 		.exists = 1,

@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:46:18 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/27 17:56:34 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/12 14:56:48 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	tuple_print(t_tuple t1)
+void	tuple_print(v4 t1)
 {
-	printf("x: %f, y: %f, z: %f, w: %f\n", t1.x, t1.y, t1.z, t1.w);
+	printf("x: %f, y: %f, z: %f, w: %f\n", t1[0], t1[1], t1[2], t1[3]);
 }

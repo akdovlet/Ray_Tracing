@@ -7,24 +7,6 @@
 #include "test.h"
 #include "colors.h"
 
-void test_init_tuple()
-{
-	t_tuple	p;
-	t_tuple	v;
-
-	p = point_new(4, -4, 3);
-	v = vector_new(4, -4, 3);
-	fprintf(stderr, "tuple_new tests:\n");
-	fprintf(stderr, "p(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", p.x, p.y, p.z, p.w);
-	fprintf(stderr, "v(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n\n", v.x, v.y, v.z, v.w);
-
-	fprintf(stderr, "!float_equal test\n");
-	fprintf(stderr, "double a: %.2f, double b: %.2f are equal if 0: %d\n\n", 4.2F, 4.1F, !float_equal(4.2f, 4.1f));
-
-	fprintf(stderr, "tuple_equal tests:\n");
-	fprintf(stderr, "tuple p and v are equal if 0: %d\n\n", tuple_equal(p, v));
-}
-
 void test_matrix_determinant()
 {
 	/*
@@ -74,9 +56,9 @@ void test_matrix_determinant()
 	}
 	matrix_free(mfour2, 4);
 	matrix_free(mfour3, 4);
-	t_tuple result = matrix_multiply_tuple(mfour, tuple_new(1, 2, 3, 1));
-	fprintf(stderr, "matrix multiply_matrix by tuple result: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", result.x, result.y, result.z, result.w);
-	fprintf(stderr, "c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c2.x, c2.y, c2.z, c2.w);
+	v4 result = matrix_multiply_tuple(mfour, tuple_new(1, 2, 3, 1));
+	fprintf(stderr, "matrix multiply_matrix by tuple result: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", result[0], result[1], result[2], result[3]);
+	fprintf(stderr, "c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c2[0], c2[1], c2[2], c2[3]);
 	matrix_free(mfour, 4);
 	mfour = matrix_four_by_four(tuple_new(0, 1, 2, 4), tuple_new(1, 2, 4 ,8), tuple_new(2, 4, 8, 16), tuple_new(4, 8, 16, 32)); 
 	double	**midentity = matrix_identity();
@@ -235,7 +217,7 @@ void test_matrix_operation()
 	matrix_free(D, 4);
 	matrix_free(inverse, 4);
 
-	t_tuple t2;
+	v4 t2;
 
 	fprintf(stderr, "\nMatrix translation tests\n");
 	A = matrix_translation(tuple_new(5, -3, 2, 1));
@@ -281,11 +263,11 @@ void test_matrix_operation()
 
 	fprintf(stderr, "\nrotate_x test\n");
 	p1 = point_new(0, 1, 0);
-	t_tuple half_quarter = rotate_x(M_PI / 4, p1);
+	v4 half_quarter = rotate_x(M_PI / 4, p1);
 	fprintf(stderr, "half quarter rotation:\n");
 	tuple_print(half_quarter);
 	fprintf(stderr, "full quarter rotation:\n");
-	t_tuple full_quarter = rotate_x(M_PI / 2, p1);
+	v4 full_quarter = rotate_x(M_PI / 2, p1);
 	tuple_print(full_quarter);
 
 	fprintf(stderr, "\nrotate_y test\n");
@@ -321,7 +303,7 @@ void test_matrix_operation()
 	// tuple_print(p2);
 	// p2 = matrix_multiply_tuple(scale, p2);
 	// tuple_print(p2);
-	// t_tuple p3 = matrix_multiply_tuple(translation, p2);
+	// v4 p3 = matrix_multiply_tuple(translation, p2);
 	// tuple_print(p3);
 	// T = matrix_multiply(translation, scale);
 	// F = matrix_multiply(T, A);
@@ -332,9 +314,9 @@ void test_matrix_operation()
 
 void test_color()
 {
-	t_tuple	p;
-	t_tuple	v;
-	t_tuple	new;
+	v4	p;
+	v4	v;
+	v4	new;
 
 	p = point_new(4, -4, 3);
 	v = vector_new(4, -4, 3);
@@ -343,94 +325,94 @@ void test_color()
 	new = tuple_add(p, v);
 	fprintf(stderr, "tuple_add test\n");
 	fprintf(stderr, "tuple p + v = tuple(%.2f, %.2f, %.2f, %.2f)\n\n", \
-	new.x, new.y, new.z, new.w);
+	new[0], new[1], new[2], new[3]);
 
-	t_tuple	p1 = point_new(3, 2, 1);
-	t_tuple	p2 = point_new(5, 6, 7);
+	v4	p1 = point_new(3, 2, 1);
+	v4	p2 = point_new(5, 6, 7);
 	new = tuple_substract(p1, p2);
 	fprintf(stderr, "tuple_substract test\n");
-	fprintf(stderr, "p1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", p1.x, p1.y, p1.z, p1.w);
-	fprintf(stderr, "p2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n\n", p2.x, p2.y, p2.z, p2.w);
-	fprintf(stderr, "tuple p1 - p2 = tuple(%.2f, %.2f, %.2f, %.2f)\n\n", new.x, new.y, new.z, new.w);
+	fprintf(stderr, "p1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", p1[0], p1[1], p1[2], p1[3]);
+	fprintf(stderr, "p2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n\n", p2[0], p2[1], p2[2], p2[3]);
+	fprintf(stderr, "tuple p1 - p2 = tuple(%.2f, %.2f, %.2f, %.2f)\n\n", new[0], new[1], new[2], new[3]);
 
-	t_tuple	v1 = vector_new(5, 6, 7);
+	v4	v1 = vector_new(5, 6, 7);
 	new = tuple_substract(p1, v1);
 	fprintf(stderr, "substracting a vector from a point\n");
-	fprintf(stderr, "v1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v1.x, v1.y, v1.z, v1.w);
-	fprintf(stderr, "tuple p1 - v1 = tuple(%.2f, %.2f, %.2f, %.2f)\n", new.x, new.y, new.z, new.w);
+	fprintf(stderr, "v1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v1[0], v1[1], v1[2], v1[3]);
+	fprintf(stderr, "tuple p1 - v1 = tuple(%.2f, %.2f, %.2f, %.2f)\n", new[0], new[1], new[2], new[3]);
 
-	t_tuple	v2 = vector_new(3, 2, 1);
+	v4	v2 = vector_new(3, 2, 1);
 	new = tuple_substract(v2, v1);
 	fprintf(stderr, "substracting a vector from a vector\n");
-	fprintf(stderr, "v2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v2.x, v2.y, v2.z, v2.w);
-	fprintf(stderr, "tuple v1 - v2 = vector(%.2f, %.2f, %.2f, %.2f)\n\n", new.x, new.y, new.z, new.w);
+	fprintf(stderr, "v2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v2[0], v2[1], v2[2], v2[3]);
+	fprintf(stderr, "tuple v1 - v2 = vector(%.2f, %.2f, %.2f, %.2f)\n\n", new[0], new[1], new[2], new[3]);
 
-	t_tuple	t1 = tuple_new(1, -2, 3, -4);
+	v4	t1 = tuple_new(1, -2, 3, -4);
 	new = tuple_negate(t1);
 	fprintf(stderr, "Negating a tuple\n");
-	fprintf(stderr, "t1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", t1.x, t1.y, t1.z, t1.w);
-	fprintf(stderr, "negated tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n\n", new.x, new.y, new.z, new.w);
+	fprintf(stderr, "t1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", t1[0], t1[1], t1[2], t1[3]);
+	fprintf(stderr, "negated tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n\n", new[0], new[1], new[2], new[3]);
 
 	new = tuple_multiply(t1, 3.5);
 	fprintf(stderr, "tuple scalar test\n");
-	fprintf(stderr, "scaled by 3.5 tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n", new.x, new.y, new.z, new.w);
+	fprintf(stderr, "scaled by 3.5 tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n", new[0], new[1], new[2], new[3]);
 	new = tuple_multiply(t1, 0.5);
-	fprintf(stderr, "scaled by 0.5 tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n", new.x, new.y, new.z, new.w);
+	fprintf(stderr, "scaled by 0.5 tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n", new[0], new[1], new[2], new[3]);
 	new = tuple_divide(t1, 2);
-	fprintf(stderr, "divided by 2 tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n\n", new.x, new.y, new.z, new.w);
+	fprintf(stderr, "divided by 2 tuple t1 = tuple(%.2f, %.2f, %.2f, %.2f)\n\n", new[0], new[1], new[2], new[3]);
 	
 	fprintf(stderr, "magnitude test\n");
 	fprintf(stderr, "magnite is: %.2f\n\n", tuple_magnitude(vector_new(0, 1, 0)));
 	fprintf(stderr, "magnite is: %.2f\n\n", tuple_magnitude(vector_new(1, 2, 3)));
 
 	v2 = vector_new(1, 2, 3);
-	new = tuple_normalize(v2);
+	new = v4_normalize(v2);
 	fprintf(stderr, "normalize test\n");
-	fprintf(stderr, "normalized vector v2:1.2.3 is: %.2f, %.2f, %.2f, %.2f\n\n", new.x, new.y, new.z, new.w);
+	fprintf(stderr, "normalized vector v2:1.2.3 is: %.2f, %.2f, %.2f, %.2f\n\n", new[0], new[1], new[2], new[3]);
 	
 	fprintf(stderr, "dot factor test\n");
 	v1 = vector_new(1, 2, 3);
 	v2 = vector_new(2, 3, 4);
-	fprintf(stderr, "v1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v1.x, v1.y, v1.z, v1.w);
-	fprintf(stderr, "v2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v2.x, v2.y, v2.z, v2.w);
+	fprintf(stderr, "v1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v1[0], v1[1], v1[2], v1[3]);
+	fprintf(stderr, "v2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v2[0], v2[1], v2[2], v2[3]);
 	fprintf(stderr, "dot factor of v1 and v2 is: %.2f\n\n", tuple_dot(v1, v2));
 
 	v1 = vector_new(1, 2, 3);
 	v2 = vector_new(2, 3, 4);
-	fprintf(stderr, "v1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v1.x, v1.y, v1.z, v1.w);
-	fprintf(stderr, "v2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v2.x, v2.y, v2.z, v2.w);
+	fprintf(stderr, "v1(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v1[0], v1[1], v1[2], v1[3]);
+	fprintf(stderr, "v2(x: %.2f, y: %.2f, z: %.2f, w: %.2f)\n", v2[0], v2[1], v2[2], v2[3]);
 	new = tuple_cross(v1, v2);
 	fprintf(stderr, "cross product test\n");
-	fprintf(stderr, "cross product of v1 and v2 = %.2f, %.2f, %.2f, %.2f\n", new.x, new.y, new.z, new.w);
+	fprintf(stderr, "cross product of v1 and v2 = %.2f, %.2f, %.2f, %.2f\n", new[0], new[1], new[2], new[3]);
 	new = tuple_cross(v2, v1);
-	fprintf(stderr, "cross product of v2 and v1 = %.2f, %.2f, %.2f, %.2f\n\n", new.x, new.y, new.z, new.w);
+	fprintf(stderr, "cross product of v2 and v1 = %.2f, %.2f, %.2f, %.2f\n\n", new[0], new[1], new[2], new[3]);
 
 
 	fprintf(stderr, "color test\n");	
-	t_tuple	color;
+	v4	color;
 
 	color = color_new(0.5, 0.4, 1.7);
-	fprintf(stderr, "color is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", color.x, color.y, color.z, color.w);
+	fprintf(stderr, "color is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", color[0], color[1], color[2], color[3]);
 	
-	t_tuple	c1 = color_new(0.9, 0.6, 0.75);
-	t_tuple c2 = color_new(0.7, 0.1, 0.25);
-	t_tuple	c_new = tuple_add(c1, c2);
-	fprintf(stderr, "c1 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c1.x, c1.y, c1.z, c1.w);
-	fprintf(stderr, "c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c2.x, c2.y, c2.z, c2.w);
-	fprintf(stderr, "c1 + c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
+	v4	c1 = color_new(0.9, 0.6, 0.75);
+	v4 c2 = color_new(0.7, 0.1, 0.25);
+	v4	c_new = tuple_add(c1, c2);
+	fprintf(stderr, "c1 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c1[0], c1[1], c1[2], c1[3]);
+	fprintf(stderr, "c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c2[0], c2[1], c2[2], c2[3]);
+	fprintf(stderr, "c1 + c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new[0], c_new[1], c_new[2], c_new[3]);
 
 	c_new = tuple_substract(c1, c2);
-	fprintf(stderr, "c1 - c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
+	fprintf(stderr, "c1 - c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new[0], c_new[1], c_new[2], c_new[3]);
 	
-	t_tuple	c3 = color_new(0.2, 0.3, 0.4);
-	fprintf(stderr, "c3 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c2.x, c2.y, c2.z, c2.w);
+	v4	c3 = color_new(0.2, 0.3, 0.4);
+	fprintf(stderr, "c3 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c2[0], c2[1], c2[2], c2[3]);
 	c_new = tuple_multiply(c3, 2);
-	fprintf(stderr, "c3 * 2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
+	fprintf(stderr, "c3 * 2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new[0], c_new[1], c_new[2], c_new[3]);
 	
 	c1 = color_new(1, 0.2, 0.4);
 	c2 = color_new(0.9, 1, 0.1);
 	c_new = color_hadamard(c1, c2);
-	fprintf(stderr, "c1 * c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new.x, c_new.y, c_new.z, c_new.w);
+	fprintf(stderr, "c1 * c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c_new[0], c_new[1], c_new[2], c_new[3]);
 
 }
 
@@ -483,12 +465,12 @@ void	test_cofactor2(t_matrix m, t_matrix expected)
 void	test_clock(t_img *img)
 {
 	fprintf(stderr, "\nClock test\n");
-	t_tuple	center = {};
+	v4	center = {};
 	(void)img;
 	// ak_mlx_pixel_put(img, 0xFF0000, center);
 		
-	t_tuple	translation = point_new(1, -HEIGHT * 0.375, 1);
-	t_tuple twelve = tuple_add(center, translation);
+	v4	translation = point_new(1, -HEIGHT * 0.375, 1);
+	v4 twelve = tuple_add(center, translation);
 	fprintf(stderr, "twelve\n");
 	tuple_print(twelve);
 	fprintf(stderr, "translation\n");
@@ -573,8 +555,8 @@ void	position_test(void)
 	printf("\nPosition test\n");
 
 	t_ray ray;
-	t_tuple	result;
-	t_tuple expected;
+	v4	result;
+	v4 expected;
 
 	ray = ray_new(point_new(2, 3, 4), vector_new(1, 0, 0));
 	result = position(ray, 0);
@@ -643,7 +625,7 @@ void	sphere_test(void)
 	// 	fprintf(stderr, "No intersection possible\n");
 	// else
 	// {
-	// 	printf("interest at %f and %f\n", inter.vec.x, inter.vec.y);
+	// 	printf("interest at %f and %f\n", inter.vec[0], inter.vec[1]);
 	// }
 	
 }
@@ -661,16 +643,16 @@ void	object_test(void)
 	// sph = sphere_default();
 	// dis = intersect(ray, sph, &vec);
 	// if (dis >= 0)
-	// 	i = intersection(vec.x, sph, vec, dis);
+	// 	i = intersection(vec[0], sph, vec, dis);
 	// if (dis > 0)
-	// 	j = intersection(vec.y, sph, vec, dis);
+	// 	j = intersection(vec[1], sph, vec, dis);
 }
 
 void	transform_test()
 {
 	t_ray	ray;
 	t_ray	new;
-	t_tuple	expected;
+	v4	expected;
 
 	printf("Ray transform test\n");
 	ray = ray_new(point_new(1, 2, 3), vector_new(0, 1, 0));
@@ -717,10 +699,10 @@ void	object_transform_test(void)
 	// if (dis < 0)
 	// 	fprintf(stderr, "\tno intersection possible\n");
 	// if (dis >= 0)
-	// 	i = intersection(vec.x, sph, vec, dis);
+	// 	i = intersection(vec[0], sph, vec, dis);
 	// if (dis > 0)
-	// 	j = intersection(vec.y, sph, vec, dis);
-	// printf("\tintersect at %f and %f\n", vec.x, vec.y);
+	// 	j = intersection(vec[1], sph, vec, dis);
+	// printf("\tintersect at %f and %f\n", vec[0], vec[1]);
 
 
 	// ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
@@ -733,10 +715,10 @@ void	object_transform_test(void)
 	// {
 	// 	fprintf(stderr, "\tno intersection possible\n");
 	// 	if (dis >= 0)
-	// 		i = intersection(vec.x, sph, vec, dis);
+	// 		i = intersection(vec[0], sph, vec, dis);
 	// 	if (dis > 0)
-	// 		j = intersection(vec.y, sph, vec, dis);
-	// 	printf("\tintersect at %f and %f\n", vec.x, vec.y);
+	// 		j = intersection(vec[1], sph, vec, dis);
+	// 	printf("\tintersect at %f and %f\n", vec[0], vec[1]);
 	// }
 }
 
@@ -747,7 +729,7 @@ void	object_transform_test(void)
 // 	double	wall_size;
 // 	int		y;
 // 	int		x;
-// 	t_tuple	position;
+// 	v4	position;
 // 	t_intersection inter;
 // 	t_shape	sph;
 
@@ -763,7 +745,7 @@ void	object_transform_test(void)
 // 		while (x < WIDTH - 1)
 // 		{
 // 			position = point_new(x + -HEIGHT / 2, y - WIDTH /2, wall_z);
-// 			ray = ray_new(point_new(x, y, -5), tuple_normalize(tuple_substract(position, ray.origin)));
+// 			ray = ray_new(point_new(x, y, -5), v4_normalize(tuple_substract(position, ray.origin)));
 // 			if (intersect(ray, sph, &inter.vec) >= 0)
 // 				ak_mlx_pixel_put(img, x, y, 0xFF0000);
 // 			x++;
@@ -848,16 +830,16 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 	double			canvas_pixel;
 	double			pixel_size;
 	double			half;
-	t_tuple			pos;
-	t_tuple			point;
+	v4			pos;
+	v4			point;
 	t_ray			r;
 	t_shape 		sph;
 	t_intersection	inter;
 	t_light			light;
-	t_tuple			normalv;
-	t_tuple			eyev;
-	t_tuple			color;
-	t_tuple			origin;
+	v4			normalv;
+	v4			eyev;
+	v4			color;
+	v4			origin;
 
 	y = 0;
 	origin = point_new(0, 0, -5);
@@ -878,7 +860,7 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 		{
 			world_x = -half + pixel_size * x;
 			pos = point_new(world_x, world_y, wall_z);
-			r = ray_new(origin, tuple_normalize(tuple_substract(pos, origin)));
+			r = ray_new(origin, v4_normalize(tuple_substract(pos, origin)));
 			inter = hit(intersection(sph, intersect(r, sph)));
 			if (inter.count > 0)
 			{
@@ -898,8 +880,8 @@ void	draw_sphere(t_img *img, t_mlx *mlx)
 void	normal_at_test(void)
 {
 	t_shape	sph;
-	t_tuple		normal;
-	t_tuple		expected;
+	v4		normal;
+	v4		expected;
 
 	printf("\nnormal at test\n");
 	sph = sphere_default();
@@ -959,10 +941,10 @@ void	transpose_test(void)
 
 void	reflect_test(void)
 {
-	t_tuple	v;
-	t_tuple	n;
-	t_tuple	r;
-	t_tuple	expected;
+	v4	v;
+	v4	n;
+	v4	r;
+	v4	expected;
 
 	printf("\nreflect test\n");
 	v = vector_new(1, -1, 0);
@@ -1002,12 +984,12 @@ void	test_light(void)
 	printf("\nLighting test\n");
 
 	t_material	mat;
-	t_tuple		point;
-	t_tuple		eyev;
-	t_tuple		normalv;
+	v4		point;
+	v4		eyev;
+	v4		normalv;
 	t_light		light;
-	t_tuple		result;
-	t_tuple		expected;
+	v4		result;
+	v4		expected;
 
 	mat = material();
 	point = point_new(0, 0, 0);
@@ -1136,10 +1118,10 @@ void	test_pre_compute(void)
 	// cross.obj = sphere_default();
 	// cross.t = 4;
 	// comps = pre_compute(cross, ray, junc);
-	// if (tuple_equal(comps.world_point, point_new(0, 0, -1)))
+	// if (tuple_equal(comps[3]orld_point, point_new(0, 0, -1)))
 	// {
 	// 	fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
-	// 	tuple_print(comps.world_point);
+	// 	tuple_print(comps[3]orld_point);
 	// }
 	// else
 	// {
@@ -1169,10 +1151,10 @@ void	test_pre_compute(void)
 	// cross.obj = sphere_default();
 	// cross.t = 1;
 	// comps = pre_compute(cross, ray, junc);
-	// if (tuple_equal(comps.world_point, point_new(0, 0, 1)))
+	// if (tuple_equal(comps[3]orld_point, point_new(0, 0, 1)))
 	// {
 	// 	fprintf(stderr, "\tError: expected: 0, 0, -1\n\tgot:\t");
-	// 	tuple_print(comps.world_point);
+	// 	tuple_print(comps[3]orld_point);
 	// }
 	// else
 	// {
@@ -1208,7 +1190,7 @@ void	test_shading(void)
 	// t_ray		ray;
 	// t_crossing	cross;
 	// t_comps		comps;
-	// t_tuple		color;
+	// v4		color;
 	// t_junction	junc;
 
 	// printf("\nShading test\n");
@@ -1244,7 +1226,7 @@ void	test_shading(void)
 	// cross.t = 0.5;
 	// comps = pre_compute(cross, ray, junc);
 	// color = shade_hit(world, comps, 5);
-	// t_tuple expected = color_new(0.90498, 0.90498, 0.90498);
+	// v4 expected = color_new(0.90498, 0.90498, 0.90498);
 	// if (tuple_equal(color, expected))
 	// {
 	// 	fprintf(stderr, "\tError:\texpected:\t");
@@ -1262,8 +1244,8 @@ void	test_color_at(void)
 {
 	t_world	world;
 	t_ray	ray;
-	t_tuple	color;
-	t_tuple	expected;
+	v4	color;
+	v4	expected;
 
 	printf("\nColor at test\n");
 	world = default_world();
@@ -1322,9 +1304,9 @@ void	test_color_at(void)
 
 void	test_view_transform(void)
 {
-	t_tuple		from;
-	t_tuple		to;
-	t_tuple		up;
+	v4		from;
+	v4		to;
+	v4		up;
 	t_matrix	m;
 	t_matrix	expected;
 
@@ -1464,9 +1446,9 @@ void	test_render_world(t_img *img, t_mlx *mlx)
 {
 	t_world		world;
 	t_camera	cam;
-	t_tuple		from;
-	t_tuple		to;
-	t_tuple		up;
+	v4		from;
+	v4		to;
+	v4		up;
 
 	world = default_world();
 	cam = camera_new(11, 11, M_PI / 2.0f);
@@ -1591,11 +1573,11 @@ void	test_stripe_at(void)
 {
 // 	t_pattern	pattern;
 // 	t_shape		sph;
-// 	t_tuple		color;
-// 	t_tuple		expected;
+// 	v4		color;
+// 	v4		expected;
 // 	t_material	mat;
-// 	t_tuple		eyev;
-// 	t_tuple		normalv;
+// 	v4		eyev;
+// 	v4		normalv;
 // 	t_light		light;
 
 // 	printf("\n Stripe at test\n");
@@ -1817,7 +1799,7 @@ void	test_stripe_at(void)
 // void	test_gradient(void)
 // {
 // 	t_pattern pat;
-// 	t_tuple		expected;
+// 	v4		expected;
 
 // 	pat = gradient_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
 // 	if (tuple_equal())
@@ -1830,7 +1812,7 @@ void	test_reflection(void)
 	// t_crossing		cross;
 	// t_comps			comps;
 	// t_world			world;
-	// t_tuple			color;
+	// v4			color;
 	// t_junction		hits;
 
 	// printf("\nTest reflection\n");
@@ -1933,7 +1915,7 @@ void	test_shade_hit_refraction(void)
 	t_ray	ray;
 	t_comps	comps;
 	t_junction	junc;
-	t_tuple		color;
+	v4		color;
 
 	world = default_world();
 	floor = plane_new();
@@ -2011,14 +1993,14 @@ void	test_cube(void)
 void	test_cube_normalat(void)
 {
 	t_shape shape;
-	t_tuple	point;
-	t_tuple	expected;
+	v4	point;
+	v4	expected;
 
 	printf("\nTest cube normal at\n");
 	shape = cube_default();
 	point = point_new(1, 0.5, -0.8) ;
 	expected = vector_new(1, 0, 0) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
+	if (!tuple_equal(cube_normal_at(shape, point), expected))
 	{
 		fprintf(stderr, "Error: expected:\n");
 		tuple_print(expected);
@@ -2029,7 +2011,7 @@ void	test_cube_normalat(void)
 		printf("OK!\n");
 	point = point_new(-1, -0.2, 0.9);
 	expected = vector_new(-1, 0, 0) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
+	if (!tuple_equal(cube_normal_at(shape, point), expected))
 	{
 		fprintf(stderr, "Error: expected:\n");
 		tuple_print(expected);
@@ -2040,7 +2022,7 @@ void	test_cube_normalat(void)
 		printf("OK!\n");
 	point = point_new(-0.4, 1, -0.1);
 	expected = vector_new(0, 1, 0) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
+	if (!tuple_equal(cube_normal_at(shape, point), expected))
 	{
 		fprintf(stderr, "Error: expected:\n");
 		tuple_print(expected);
@@ -2051,7 +2033,7 @@ void	test_cube_normalat(void)
 		printf("OK!\n");
 	point = point_new(0.3, -1, -0.7);
 	expected = vector_new(0, -1, 0) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
+	if (!tuple_equal(cube_normal_at(shape, point), expected))
 	{
 		fprintf(stderr, "Error: expected:\n");
 		tuple_print(expected);
@@ -2062,7 +2044,7 @@ void	test_cube_normalat(void)
 		printf("OK!\n");
 	point = point_new(-0.6, 0.3, 1) ;
 	expected = vector_new(0, 0, 1) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
+	if (!tuple_equal(cube_normal_at(shape, point), expected))
 	{
 		fprintf(stderr, "Error: expected:\n");
 		tuple_print(expected);
@@ -2073,7 +2055,7 @@ void	test_cube_normalat(void)
 		printf("OK!\n");
 	point = point_new(0.4, 0.4, -1) ;
 	expected = vector_new(0, 0, -1) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
+	if (!tuple_equal(cube_normal_at(shape, point), expected))
 	{
 		fprintf(stderr, "Error: expected:\n");
 		tuple_print(expected);
@@ -2084,7 +2066,7 @@ void	test_cube_normalat(void)
 		printf("OK!\n");
 	point = point_new(1, 1, 1);
 	expected = vector_new(1, 0, 0) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
+	if (!tuple_equal(cube_normal_at(shape, point), expected))
 	{
 		fprintf(stderr, "Error: expected:\n");
 		tuple_print(expected);
@@ -2095,7 +2077,7 @@ void	test_cube_normalat(void)
 		printf("OK!\n");
 	point = point_new(-1, -1, -1);
 	expected = vector_new(-1, 0, 0) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
+	if (!tuple_equal(cube_normal_at(shape, point), expected))
 	{
 		fprintf(stderr, "Error: expected:\n");
 		tuple_print(expected);
@@ -2104,7 +2086,7 @@ void	test_cube_normalat(void)
 	}
 	else
 		printf("OK!\n");
-	}
+}
 
 void	test_cylinder_intersect(void)
 {
@@ -2122,8 +2104,7 @@ void	test_cylinder_intersect(void)
 	{
 		printf("OK\n");
 	}
-	
-	
+
 	ray = ray_new(point_new(0, 0, 0), vector_new(0, 1, 0));
 	inter = cylinder.local_interesct(ray, cylinder);
 	if (inter.dis >= 0.0)
@@ -2132,7 +2113,6 @@ void	test_cylinder_intersect(void)
 	{
 		printf("OK\n");
 	}
-	
 
 	ray = ray_new(point_new(0, 0, -5), vector_new(1, 1, 1));
 	inter = cylinder.local_interesct(ray, cylinder);
@@ -2157,7 +2137,6 @@ void	test_cylinder_intersect(void)
 		printf("OK\n");
 	}
 
-
 	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
 	inter = cylinder.local_interesct(ray, cylinder);
 	if (inter.dis < 0.0 || !float_equal(4.0, inter.x) || !float_equal(6.0, inter.y))
@@ -2169,7 +2148,7 @@ void	test_cylinder_intersect(void)
 		printf("OK\n");
 	}
 
-	ray = ray_new(point_new(0.5, 0, -5), tuple_normalize(vector_new(0.1, 1, 1)));
+	ray = ray_new(point_new(0.5, 0, -5), v4_normalize(vector_new(0.1, 1, 1)));
 	inter = cylinder.local_interesct(ray, cylinder);
 	if (inter.dis < 0.0 || !float_equal(6.807982, inter.x) || !float_equal(7.088723, inter.y))
 	{
@@ -2184,8 +2163,8 @@ void	test_cylinder_intersect(void)
 void	test_cylinder_normalat(void)
 {
 	t_shape	cylinder;
-	t_tuple	expected;
-	t_tuple	normalv;
+	v4	expected;
+	v4	normalv;
 
 	printf("\nTest cylinder normalat\n");
 	cylinder = cylinder_default();
@@ -2251,42 +2230,42 @@ void	test_truncated_cylinder(void)
 	cylinder.min = 1.0;
 	cylinder.max = 2.0;
 
-	ray = ray_new(point_new(0, 1.5, 0), tuple_normalize(vector_new(0.1, 1, 0)));
+	ray = ray_new(point_new(0, 1.5, 0), v4_normalize(vector_new(0.1, 1, 0)));
 	xs = cylinder.local_interesct(ray, cylinder);
 	if (xs.dis >= 0.0)
 		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
 	else
 		printf("OK\n");
 
-	ray = ray_new(point_new(0, 3, -5), tuple_normalize(vector_new(0, 0, 1)));
+	ray = ray_new(point_new(0, 3, -5), v4_normalize(vector_new(0, 0, 1)));
 	xs = cylinder.local_interesct(ray, cylinder);
 	if (xs.dis >= 0.0)
 		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
 	else
 		printf("OK\n");
 
-	ray = ray_new(point_new(0, 0, -5), tuple_normalize(vector_new(0, 0, 1)));
+	ray = ray_new(point_new(0, 0, -5), v4_normalize(vector_new(0, 0, 1)));
 	xs = cylinder.local_interesct(ray, cylinder);
 	if (xs.dis >= 0.0)
 		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
 	else
 		printf("OK\n");
 
-	ray = ray_new(point_new(0, 2, -5), tuple_normalize(vector_new(0, 0, 1)));
+	ray = ray_new(point_new(0, 2, -5), v4_normalize(vector_new(0, 0, 1)));
 	xs = cylinder.local_interesct(ray, cylinder);
 	if (xs.dis >= 0.0)
 		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
 	else
 		printf("OK\n");
 
-	ray = ray_new(point_new(0, 1, -5), tuple_normalize(vector_new(0, 0, 1)));
+	ray = ray_new(point_new(0, 1, -5), v4_normalize(vector_new(0, 0, 1)));
 	xs = cylinder.local_interesct(ray, cylinder);
 	if (xs.dis >= 0.0)
 		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
 	else
 		printf("OK\n");
 
-	ray = ray_new(point_new(0, 1.5, -2), tuple_normalize(vector_new(0, 0, 1)));
+	ray = ray_new(point_new(0, 1.5, -2), v4_normalize(vector_new(0, 0, 1)));
 	xs = cylinder.local_interesct(ray, cylinder);
 	if (xs.dis <= 0.0)
 		fprintf(stderr, "Error: dis is: %f\n", xs.dis);

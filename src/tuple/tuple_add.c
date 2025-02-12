@@ -6,18 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:57:20 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/03 18:43:36 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:08:24 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-inline t_tuple	tuple_add(t_tuple a, t_tuple b)
+inline v4	tuple_add(v4 a, v4 b)
 {
-	return (t_tuple) {
-		.x = a.x + b.x,
-		.y = a.y + b.y,
-		.z = a.z + b.z,
-		.w = a.w + b.w,
-	};
+	return (a + b);
 }

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 16:57:57 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/04 17:02:13 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:29:55 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	key_manager(int keysym, t_data *data)
 {
-	t_tuple	rightv;
+	v4	rightv;
 	bool	moved;
 	
 	moved = false;
 	rightv = tuple_cross(data->cam.to, data->cam.up);
-	rightv.w = 0;
+	rightv[3] = 0;
 	if (keysym == XK_Escape)
 	{
 		mlx_loop_end(data->mlx.mlx_ptr);
@@ -28,26 +28,26 @@ int	key_manager(int keysym, t_data *data)
 	if (keysym == XK_w)
 	{
 		data->cam.from = tuple_add(data->cam.from, data->cam.to);
-		data->cam.from.w = 1;
+		data->cam.from[3] = 1;
 		moved = true;
 	}
 	else if (keysym == XK_s)
 	{
 		data->cam.from = tuple_substract(data->cam.from, data->cam.to);
-		data->cam.from.w = 1;
+		data->cam.from[3] = 1;
 		moved = true;
 	}
 	if (keysym == XK_a)
 	{
 		data->cam.from = tuple_add(data->cam.from, rightv);
-		data->cam.from.w = 1;
+		data->cam.from[3] = 1;
 		moved = true;
 		
 	}
 	else if (keysym == XK_d)
 	{
 		data->cam.from = tuple_substract(data->cam.from, rightv);
-		data->cam.from.w = 1;
+		data->cam.from[3] = 1;
 		moved = true;
 	}
 	if (moved)

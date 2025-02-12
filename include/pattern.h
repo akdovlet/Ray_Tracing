@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 18:58:03 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/12 17:26:23 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:52:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 
 # include "data_struct.h"
 
-t_pattern	stripe_pattern(t_tuple c1, t_tuple c2);
+t_pattern	stripe_pattern(v4 c1, v4 c2);
 void		set_transform_pattern(t_pattern *pattern, t_matrix m);
-t_tuple		pattern_at_shape(t_pattern pattern, t_shape shape, t_tuple world_point);
-t_pattern	gradient_pattern(t_tuple c1, t_tuple c2);
-t_pattern	ring_pattern(t_tuple c1, t_tuple c2);
-t_pattern	checkers_pattern(t_tuple c1, t_tuple c2);
-t_pattern	radial_pattern(t_tuple c1, t_tuple c2);
+v4		pattern_at_shape(t_pattern pattern, t_shape shape, v4 world_point);
+t_pattern	gradient_pattern(v4 c1, v4 c2);
+t_pattern	ring_pattern(v4 c1, v4 c2);
+t_pattern	checkers_pattern(v4 c1, v4 c2);
+t_pattern	radial_pattern(v4 c1, v4 c2);
 
 #endif

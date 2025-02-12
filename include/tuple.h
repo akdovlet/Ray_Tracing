@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:23:06 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/03 18:30:33 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:18:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,26 @@
 
 # include "data_struct.h"
 
-t_tuple			tuple_new(double x, double y, double z, double w);
-t_tuple			vector_new(double x, double y, double z);
-t_tuple			point_new(double x, double y, double z);
+v4			tuple_new(double x, double y, double z, double w);
+v4			vector_new(double x, double y, double z);
+v4			point_new(double x, double y, double z);
 
 // 0 = not equal; 1 = equal
 int				float_equal(double a, double b);
-int				tuple_equal(t_tuple a, t_tuple b);
-t_tuple			tuple_add(t_tuple a, t_tuple b);
-t_tuple			tuple_substract(t_tuple a, t_tuple b);
-t_tuple			tuple_negate(t_tuple a);
-t_tuple			tuple_multiply(t_tuple a, double scalar);
-t_tuple			tuple_divide(t_tuple a, double divisor);
-double			tuple_magnitude(t_tuple a);
-t_tuple			tuple_normalize(t_tuple a);
-double			tuple_dot(t_tuple a, t_tuple b);
-t_tuple			tuple_cross(t_tuple a, t_tuple b);
-void			tuple_print(t_tuple t1);
+int				tuple_equal(v4 a, v4 b);
+v4			tuple_add(v4 a, v4 b);
+v4			tuple_substract(v4 a, v4 b);
+v4			tuple_negate(v4 a);
+v4			tuple_multiply(v4 a, double scalar);
+v4			tuple_divide(v4 a, double divisor);
+double			tuple_magnitude(v4 a);
+v4			v4_normalize(v4 a);
+double			tuple_dot(v4 a, v4 b);
+v4			tuple_cross(v4 a, v4 b);
+void			tuple_print(v4 t1);
 
-t_tuple			color_new(double red, double green, double blue);
-t_tuple			color_hadamard(t_tuple c1, t_tuple c2);
-unsigned int	tuple_tocolor(t_tuple tcolor);
+v4			color_new(double red, double green, double blue);
+v4			color_hadamard(v4 c1, v4 c2);
+unsigned int	tuple_tocolor(v4 tcolor);
 
 #endif

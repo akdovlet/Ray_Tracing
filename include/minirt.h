@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/06 15:21:35 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/11 18:52:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@
 # define WIDTH 500
 # define HEIGHT 500
 
-t_ray		ray_new(t_tuple origin, t_tuple direction);
-t_tuple		position(t_ray ray, double factor);
+t_ray		ray_new(v4 origin, v4 direction);
+v4		position(t_ray ray, double factor);
 void		render(t_camera cam, t_world world, t_img *img, t_mlx *mlx);
 void		ray_for_pixel(t_camera *cam, t_ray *ray, double x, double y);
-bool		is_shadowed(t_world *world, t_tuple point);
-t_tuple		ring_at(t_pattern ring, t_tuple point);
-t_tuple		gradient_at(t_pattern pattern, t_tuple point);
+bool		is_shadowed(t_world *world, v4 point);
+v4		ring_at(t_pattern ring, v4 point);
+v4		gradient_at(t_pattern pattern, v4 point);
 int			render_and_move(t_data *data);
 int			key_manager(int keysym, t_data *data);
 int			mouse_manager(int button, int x, int y, t_data *data);

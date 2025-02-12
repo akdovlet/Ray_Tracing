@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:42:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/04 16:20:55 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/11 19:18:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 	
-t_ray	ray_new(t_tuple origin, t_tuple direction)
+t_ray	ray_new(v4 origin, v4 direction)
 {
 	return ((t_ray){
 	.origin = origin,
@@ -20,9 +20,9 @@ t_ray	ray_new(t_tuple origin, t_tuple direction)
 	});
 }
 
-t_tuple	position(t_ray ray, double factor)
+v4	position(t_ray ray, double factor)
 {
-	return (tuple_add(ray.origin, (tuple_multiply(tuple_normalize(ray.direction), factor))));
+	return (tuple_add(ray.origin, (tuple_multiply(v4_normalize(ray.direction), factor))));
 }
 
 t_vec2	intersect(t_ray ray, t_shape shape)

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:09:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/04 00:45:01 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:20:40 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ t_vec2	sphere_intersect(t_ray ray, t_shape shape)
 	double	b;
 	double	c;
 	double	dis;
-	t_tuple	ray_sph_vector;
+	v4		ray_sph_vector;
 
-	ray_sph_vector = tuple_substract(ray.origin, shape.coordinates);
+	ray_sph_vector = ray.origin - shape.coordinates;
 	a = tuple_dot(ray.direction, ray.direction);
 	b = 2 * tuple_dot(ray.direction, ray_sph_vector);
 	c = tuple_dot(ray_sph_vector, ray_sph_vector) - 1.0;
@@ -34,12 +34,9 @@ t_vec2	sphere_intersect(t_ray ray, t_shape shape)
 	});
 }
 
-t_tuple	sphere_normal_at(t_shape obj, t_tuple point)
+v4	sphere_normal_at(t_shape obj, v4 point)
 {
-	t_tuple	object_normal;
-
-	object_normal = tuple_substract(point, obj.coordinates);
-	return (object_normal);
+	return (point - obj.coordinates);
 }
 
 t_shape	sphere_default(void)
