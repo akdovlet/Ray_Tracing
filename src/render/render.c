@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/06 15:15:08 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 23:09:50 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	path_tracing(t_ray *ray, t_camera cam, t_world world, t_img *img, t_mlx *ml
 		x = 0;
 		while (x < cam.hsize)
 		{
-			color = bounce_rays(&world, ray[x + y * WIDTH]);
+			color = trace_rays(&world, ray[x + y * WIDTH], (x + y * WIDTH) * frame_index);
 			accumulation[x + y * WIDTH] = tuple_add(accumulation[x + y * WIDTH], color);
 			final_color = accumulation[x + y * WIDTH];
 			final_color = tuple_divide(final_color, frame_index);

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/06 19:00:21 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 22:26:16 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ int main()
 	// test_cylinder_intersect();
 	// test_cylinder_normalat();
 	// test_truncated_cylinder();
-	data = scene_default();
+	data = scene_walled();
 	data.img = img;
 	data.mlx = mlx;
 	mlx_mouse_hook(mlx.win_ptr, &mouse_manager, &data);
 	mlx_key_hook(mlx.win_ptr, &key_manager, &data);
-	render(data.cam, data.world, &img, &mlx);
-	// render_accumulation(data.cam, data.world, &img, &mlx);
+	// render(data.cam, data.world, &img, &mlx);
+	render_accumulation(data.cam, data.world, &img, &mlx);
 	mlx_loop(mlx.mlx_ptr);
 	mlx_clear(&mlx, &img);
 	printf("AK out!\n");

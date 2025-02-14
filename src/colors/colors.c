@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:43:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/05 12:43:45 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 19:35:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_tuple	black(void)
 {
-	return ((t_tuple){0.0, 0.0, 0.0, 0.0});
+	return ((t_tuple){0.01, 0.01, 0.01, 0.01});
 }
 
 t_tuple	white(void)

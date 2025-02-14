@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 11:38:04 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/02 19:38:32 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 20:51:41 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_material	glass_material(void)
 	return ((t_material){
 		.pattern.exists = 0,
 		.color = color_new(0.1, 0.1, 0.1),
+		.specular_color = color_new(0.9, 0.9, 0.9),
 		.ambient = 0.1,
 		.diffuse = 0.9,
 		.specular = 0.9,

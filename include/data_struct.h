@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/04 23:15:41 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 20:51:04 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ typedef struct s_material
 	double		refractive_index;
 	double		emission_power;
 	t_tuple		color;
+	t_tuple		specular_color;
 	t_tuple		emission_color;
 	t_pattern	pattern;
 }	t_material;
@@ -177,6 +178,7 @@ typedef struct s_comps
 	t_tuple		world_point;
 	t_tuple		eyev;
 	t_tuple		normalv;
+	t_tuple		diffusev;
 	t_tuple		reflectv;
 	t_tuple		overz;
 	t_tuple		under_point;

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/06 18:59:08 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 23:16:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,30 @@ t_data	scene_single_sphere(void)
 {
 	t_world		world;
 	t_camera	cam;
-	t_shape		sphere;
+	t_shape		sun;
 	t_shape		sphere2;
 	t_shape		cube;
 	t_data		data;
 
-	sphere = sphere_default();
-	sphere.matter = emissive_material();
-	sphere2 = glass_sphere();
-	sphere2.matter.color = color_new(0.1, 0.1, 0.1);
-	set_transform(&sphere, multiply_matrix(translate(1 , 0, 0), scale(1, 1, 1)));
-	set_transform(&sphere2, translate(-1, 0, 0));
+	sun = sphere_default();
+	set_transform(&sun, multiply_matrix(translate(1 , 1, 0), scale(1, 1, 1)));
+	sun.matter = emissive_material();
+	sun.matter.emission_color = white();
+	sphere2 = sphere_default();
+	sphere2.matter.color = color_new(1, 0.1, 0.1);
+	sphere2.matter.roughness = 1;
+	sphere2.matter.specular = 0.15;
+	set_transform(&sphere2, translate(-1, 0.5, 0));
 
 	cube = cube_default();
+	// cube.matter = emissive_material();
 	cube.matter.color = color_new(0.9, 0.2, 0.2);
 	cube.matter.pattern = checkers_pattern(white(), black());
 	set_transform(&cube, multiply_matrix(translate(-1, -3, 0), scale(2, 2.2, 2)));
 	set_transform_pattern(&cube.matter.pattern, scale(0.1, 0.1, 0.1));
 	
 	world.light = point_light(point_new(-5, 8, 3), color_new(1, 1, 1));
-	world.obj[0] = sphere;
+	world.obj[0] = sun;
 	world.obj[1] = cube;
 	world.obj[2] = sphere2;
 	world.obj_count = 3;
@@ -51,6 +55,100 @@ t_data	scene_single_sphere(void)
 	data.world = world;
 	return (data);
 }
+
+t_data	scene_walled(void)
+{
+	t_world		world;
+	t_camera	cam;
+	t_shape		sun;
+	t_shape		sphere2;
+	t_shape		wall1;
+	t_shape		wall2;
+	t_shape		wall3;
+	t_shape		wall4;
+	t_shape		wall5;
+	t_shape		cube_light;
+	t_data		data;
+
+	sun = sphere_default();
+	set_transform(&sun, multiply_matrix(translate(1 , 1, 0), scale(1, 1, 1)));
+	sun.matter = emissive_material();
+	sun.matter.emission_color = white();
+
+	sphere2 = sphere_default();
+	sphere2.matter.color = color_new(1, 0.1, 0.1);
+	sphere2.matter.roughness = 1;
+	sphere2.matter.specular = 0.995;
+
+	set_transform(&sphere2, translate(0, 0.1, 0));
+
+	wall1 = cube_default();
+	// wall1.matter = emissive_material();
+	wall1.matter.color = white();
+	wall1.matter.pattern = checkers_pattern(white(), black());
+	set_transform(&wall1, multiply_matrix(translate(0, -1, 0), scale(2, 0.1, 2)));
+	set_transform_pattern(&wall1.matter.pattern, scale(0.1, 0.1, 0.1));
+	wall1.matter.roughness = 1;
+	wall1.matter.specular = 0.995;
+
+	wall2 = cube_default();
+	// wall2.matter = emissive_material();
+	wall2.matter.color = white();
+	set_transform(&wall2, multiply_matrix(multiply_matrix(translate(0, 0.5, -2), rotate_x(radians(90))),
+						scale(2, 0.1, 1.5)));
+	wall2.matter.roughness = 1;
+	wall2.matter.specular = 0.995;
+
+	wall3 = cube_default();
+	// wall3.matter = emissive_material();
+	wall3.matter.color = blue();
+	set_transform(&wall3, multiply_matrix((multiply_matrix(translate(-2, 0.5, 0), rotate_z(radians(90)))),
+	scale(1.5, 0.1, 2)));
+	// wall3.matter.roughness = 1;
+	// wall3.matter.specular = 0.995;
+	
+	wall4 = cube_default();
+	// wall4.matter = emissive_material();
+	wall4.matter.color = red();
+	set_transform(&wall4, multiply_matrix((multiply_matrix(translate(2, 0.5, 0), rotate_z(radians(90)))),
+	scale(1.5, 0.1, 2)));
+	// wall4.matter.roughness = 1;
+	// wall4.matter.specular = 0.1;
+
+	wall5 = cube_default();
+	// wall5.matter = emissive_material();
+	wall5.matter.color = green();
+	set_transform(&wall5, multiply_matrix(translate(0, 2, 0), scale(2, 0.1, 2)));
+	// wall5.matter.roughness = 1;
+	// wall5.matter.specular = 0.995;
+	
+	cube_light = cube_default();
+	// cube_light.matter = emissive_material();
+	cube_light.matter.color = white();
+	cube_light.matter = emissive_material();
+	set_transform(&cube_light, multiply_matrix(translate(0, 1.8, 0), scale(0.5, 0.01, 0.5)));
+
+	world.light = point_light(point_new(-5, 8, 3), color_new(1, 1, 1));
+
+	world.obj[0] = sphere2;
+	world.obj[1] = wall1;
+	world.obj[2] = wall2;
+	world.obj[3] = wall3;
+	world.obj[4] = wall4;
+	world.obj[5] = wall5;
+	world.obj[6] = cube_light;
+	world.obj_count = 7;
+
+	cam = camera_new(WIDTH, HEIGHT, radians(70));
+	cam.from =  point_new(0.3, 0.3, 3);
+	cam.to =  point_new(0, 0, 1);
+	cam.up =  vector_new(0, 1, 0);
+	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	data.cam = cam;
+	data.world = world;
+	return (data);
+}
+
 
 t_data	scene_default(void)
 {
@@ -147,7 +245,7 @@ t_data	scene_default(void)
 	world.obj[5] = right_sph;
 	world.obj_count = 4;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
-	cam.from =  point_new(0, 0, -3);
+	cam.from =  point_new(2, 0, -3);
 	cam.to =  point_new(-0.4, -0.5, 0);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);
