@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/12 21:01:47 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:08:28 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "mlx_utils.h"
 
-typedef union u_matrix			t_matrix;
 typedef	union u_color			t_color;
 typedef struct s_shape			t_shape;
 typedef struct s_intersection	t_intersection;
@@ -61,21 +60,10 @@ typedef struct s_dvec3
 	double c;	
 }	t_dvec3;
 
-union	u_matrix
+typedef	struct s_matrix
 {
-	struct
-	{
-		v4 r1;
-		v4 r2;
-		v4 r3;
-		v4 r4;
-	};
-	struct
-	{
-		v4	arr[4];
-	};
-	double	raw[4][4];
-} __attribute__((__transparent_union__));
+	v4	arr[4];
+}	t_matrix;
 
 typedef struct	s_light
 {

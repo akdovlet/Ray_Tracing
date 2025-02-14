@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 12:05:06 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/12 21:03:19 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 13:51:03 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_matrix multiply_matrix(t_matrix a, t_matrix b)
 		j = 0;
 		while (j < 4)
 		{
-			result.raw[i][j]	= (a.raw[i][0] * b.raw[0][j])
-								+ (a.raw[i][1] * b.raw[1][j])
-								+ (a.raw[i][2] * b.raw[2][j])
-								+ (a.raw[i][3] * b.raw[3][j]);
+			result.arr[i][j]	= (a.arr[i][0] * b.arr[0][j])
+								+ (a.arr[i][1] * b.arr[1][j])
+								+ (a.arr[i][2] * b.arr[2][j])
+								+ (a.arr[i][3] * b.arr[3][j]);
 			j++;
 		}
 		i++;
@@ -40,22 +40,22 @@ t_matrix multiply_matrix(t_matrix a, t_matrix b)
 // v4	matrix_multiply_tuple(t_matrix m, v4 t1)
 // {
 // 	return ((v4) {
-// 		+ (m.raw[0][0] * t1[0])
-// 		+ (m.raw[0][1] * t1[1])
-// 		+ (m.raw[0][2] * t1[2])
-// 		+ (m.raw[0][3] * t1[3]),
-// 		+ (m.raw[1][0] * t1[0])
-// 		+ (m.raw[1][1] * t1[1])
-// 		+ (m.raw[1][2] * t1[2])
-// 		+ (m.raw[1][3] * t1[3]),
-// 		+ (m.raw[2][0] * t1[0])
-// 		+ (m.raw[2][1] * t1[1])
-// 		+ (m.raw[2][2] * t1[2])
-// 		+ (m.raw[2][3] * t1[3]),
-// 		+ (m.raw[3][0] * t1[0])
-// 		+ (m.raw[3][1] * t1[1])
-// 		+ (m.raw[3][2] * t1[2])
-// 		+ (m.raw[3][3] * t1[3])
+// 		+ (m.arr[0][0] * t1[0])
+// 		+ (m.arr[0][1] * t1[1])
+// 		+ (m.arr[0][2] * t1[2])
+// 		+ (m.arr[0][3] * t1[3]),
+// 		+ (m.arr[1][0] * t1[0])
+// 		+ (m.arr[1][1] * t1[1])
+// 		+ (m.arr[1][2] * t1[2])
+// 		+ (m.arr[1][3] * t1[3]),
+// 		+ (m.arr[2][0] * t1[0])
+// 		+ (m.arr[2][1] * t1[1])
+// 		+ (m.arr[2][2] * t1[2])
+// 		+ (m.arr[2][3] * t1[3]),
+// 		+ (m.arr[3][0] * t1[0])
+// 		+ (m.arr[3][1] * t1[1])
+// 		+ (m.arr[3][2] * t1[2])
+// 		+ (m.arr[3][3] * t1[3])
 // 	});
 // 	(void)t1;
 // 	(void)m;

@@ -33,7 +33,7 @@ t_matrix	multiply_matrix(t_matrix a, t_matrix b);
 t_matrix	compose(size_t operation_count, t_matrix* ops);
 v4		transform(v4 t1, t_matrix m);
 
-void		print_matrix(double m[4][4]);
+void		print_matrix(v4 m[4]);
 v4		matrix_multiply_tuple(t_matrix m, v4 t1);
 
 //	turns rows into columns

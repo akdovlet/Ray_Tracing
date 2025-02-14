@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 13:53:38 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/31 17:08:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 13:41:49 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_matrix	matrix_transpose(t_matrix m)
 		j = 0;
 		while (j < 4)
 		{
-			m2.raw[i][j] = m.raw[j][i];
+			m2.arr[i][j] = m.arr[j][i];
 			j++;
 		}
 		i++;

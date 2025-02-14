@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 13:00:05 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/28 19:01:37 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 13:41:49 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_matrix	inverse(t_matrix m)
 		j = 0;
 		while (j < 4)
 		{
-			m2.raw[j][i] = cofactor(m, i, j) / deter;
+			m2.arr[j][i] = cofactor(m, i, j) / deter;
 			j++;
 		}
 		i++;

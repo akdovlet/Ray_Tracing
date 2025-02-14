@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/12 19:21:34 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:30:16 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int main()
 	data.mlx = mlx;
 	mlx_mouse_hook(mlx.win_ptr, &mouse_manager, &data);
 	mlx_key_hook(mlx.win_ptr, &key_manager, &data);
+	// scene_old(&img,&mlx);
 	// render(data.cam, data.world, &img, &mlx);
 	render_accumulation(data.cam, data.world, &img, &mlx);
 	mlx_loop(mlx.mlx_ptr);

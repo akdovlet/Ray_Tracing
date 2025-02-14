@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 11:33:23 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/12/27 12:25:19 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 13:41:19 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	matrix_cmp(t_matrix m1, t_matrix m2, int row, int col)
 		j = 0;
 		while (j < col)
 		{
-			if (m1.raw[i][j] != m2.raw[i][j])
+			if (m1.arr[i][j] != m2.arr[i][j])
 				return (1);
 			j++;
 		}

@@ -6,13 +6,76 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/08 20:22:57 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 13:24:39 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "light.h"
 #include "colors.h"
+
+void	scene_old(t_img *img, t_mlx *mlx)
+{
+	t_world		world;
+	t_camera	cam;
+	t_shape		floor;
+	t_shape		left_wall;
+	t_shape		right_wall;
+	t_shape		middle_sph;
+	t_shape		right_sph;
+	t_shape		left_sph;
+
+	floor = plane_new();
+	set_transform(&floor, translate(1, 0, 3));
+	floor.matter = material();
+	floor.matter.color = color_new(1, 0.2, 1);
+	// floor.matter.specular = 0;
+
+	left_wall = plane_new();
+	set_transform(&left_wall, translate(0, 10, 3));
+	left_wall.matter = floor.matter;
+	left_wall.matter.color = color_new(221.0f / 255.0f, 51.0f /255.0f, 102.0f / 255.0f);
+
+	right_wall = sphere_default();
+	set_transform(&right_wall, multiply_matrix(
+		multiply_matrix(translate(0, 0, 5), rotate_y(M_PI / 4)),
+		multiply_matrix(rotate_x(M_PI / 2), scale(10, 0.01, 10))));
+	right_wall.matter = floor.matter;
+
+	middle_sph = sphere_default();
+	set_transform(&middle_sph, translate(-0.5, 0, 0.5));
+	middle_sph.matter = material();
+	middle_sph.matter.color = color_new(0.1, 1, 0.5);
+	middle_sph.matter.diffuse = 0.7;
+	middle_sph.matter.specular = 0.3;
+
+	right_sph = sphere_default();
+	set_transform(&right_sph, multiply_matrix(translate(1.5, 0.5, -0.5), scale(0.5, 0.5, 0.5)));
+	right_sph.matter = material();
+	right_sph.matter.color = color_new(0.5, 1, 0.1);
+	right_sph.matter.diffuse = 0.7;
+	right_sph.matter.specular = 0.3;
+
+	left_sph = sphere_default();
+	set_transform(&left_sph, multiply_matrix(translate(-1.5, 0.33, -0.5), scale(0.33, 0.33, 0.33)));
+	left_sph.matter = material();
+	left_sph.matter.color = color_new(1, 0.8, 0.1);
+	left_sph.matter.diffuse = 0.7;
+	left_sph.matter.specular = 0.3;
+
+	world.light = point_light(point_new(-10, 1.5, -5), color_new(1, 1, 1));
+	world.obj[0] = floor;
+	world.obj[1] = left_wall;
+	world.obj[2] = middle_sph;
+	world.obj[3] = right_sph;
+	world.obj[4] = left_sph;
+	world.obj_count = 5;
+	cam = camera_new(WIDTH, HEIGHT, M_PI / 3);
+	camera_update_transform(&cam, point_new(0, 1.5, -5),
+									point_new(0, 1, 0),
+									vector_new(0, 1, 0));
+	render(cam, world, img, mlx);
+}
 
 t_data	scene_single_sphere(void)
 {

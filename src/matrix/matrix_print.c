@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:09:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/15 18:35:45 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 13:40:50 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	print_matrix(double m[4][4])
+void	print_matrix(v4 m[4])
 {
 	int	i;
 	int	j;

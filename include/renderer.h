@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 20:27:51 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/12 14:31:21 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:25:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ void		render(t_camera cam, t_world world, t_img *img, t_mlx *mlx);
 // void		path_tracing(t_ray *ray, t_camera cam, t_world world, 
 // 			t_img *img, t_mlx *mlx, int frame_index, unsigned int *accumulation);
 void		path_tracing(t_ray *ray, t_camera cam, t_world world,
-		 	t_img *img, t_mlx *mlx, double frame_index,unsigned int *accumulation);
+		 	t_img *img, t_mlx *mlx, double frame_index, v4 *accumulation);
 void		render_accumulation(t_camera cam, t_world world, t_img *img, t_mlx *mlx);

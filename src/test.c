@@ -430,13 +430,13 @@ void test_cofactor(t_matrix m, t_matrix expected)
 		y = (index / 4);
 		cofac = cofactor(m, x, y);
 		printf("Cofactor for {%d %d} = %f\n", x, y, cofac);
-		if (cofac != expected.raw[x][y])
+		if (cofac != expected.arr[x][y])
 		{
 			fprintf(stderr, 
 			"ERROR:"
 			" The expected cofactor doesn't match with result "
 			"at {%d, %d}, result = %f, expected = %f\n",
-			x, y, cofac, expected.raw[x][y]);
+			x, y, cofac, expected.arr[x][y]);
 		}
 	}
 }
@@ -454,9 +454,9 @@ void	test_cofactor2(t_matrix m, t_matrix expected)
 		while (++j < 4)
 		{
 			cofac = cofactor(m, j, i);
-			if (cofac != expected.raw[i][j])
+			if (cofac != expected.arr[i][j])
 				fprintf(stderr, "error: wrong cofactor: %f; expected: %f\n"
-					, cofac, expected.raw[i][j]);
+					, cofac, expected.arr[i][j]);
 		}
 	}
 }
@@ -490,7 +490,7 @@ void	test_clock(t_img *img)
 		translate(1, -HEIGHT * 0.375, 1),
 	});
 	fprintf(stderr, "compose matrix:\n");
-	print_matrix(t.raw);
+	print_matrix(t.arr);
 	// ak_mlx_pixel_put(img, 0x00FF00, transform(twelve, t));
 	// ak_mlx_pixel_put(img, 0xFFFFFF, transform(twelve, rotate_z(radians(0))));
 }
@@ -508,7 +508,7 @@ void	test_clock(t_img *img)
 
 // 	id = identity();
 // 	inverse(matrix, &id);
-// 	print_matrix(id.raw);
+// 	print_matrix(id.arr);
 // }
 
 void	determinant_test()
@@ -722,7 +722,7 @@ void	object_transform_test(void)
 	// }
 }
 
-// void	draw_sphere(t_img *img)
+// void	darr_sphere(t_img *img)
 // {
 // 	t_ray	ray;
 // 	double	wall_z;
@@ -819,7 +819,7 @@ void	intersection_test(void)
 		fprintf(stderr, "inter t is: %f, expected 0\n", inter.t);
 }
 
-void	draw_sphere(t_img *img, t_mlx *mlx)
+void	darr_sphere(t_img *img, t_mlx *mlx)
 {
 	double			y;
 	double			x;
@@ -931,9 +931,9 @@ void	transpose_test(void)
 	if (matrix_cmp(new, expected, 4, 4))
 	{
 		fprintf(stderr, "\terror:\texpected:\n");
-		print_matrix(expected.raw);
+		print_matrix(expected.arr);
 		fprintf(stderr, "\tgot:\n");
-		print_matrix(new.raw);
+		print_matrix(new.arr);
 	}
 	else
 		printf("\tOK");
@@ -1318,9 +1318,9 @@ void	test_view_transform(void)
 	if (matrix_cmp(m, identity(), 4, 4))
 	{
 		fprintf(stderr, "\tError:\texpected:\n");
-		print_matrix(identity().raw);
+		print_matrix(identity().arr);
 		fprintf(stderr, "\tgot:\n");
-		print_matrix(m.raw);
+		print_matrix(m.arr);
 	}
 	else
 	{
@@ -1340,9 +1340,9 @@ void	test_view_transform(void)
 	if (matrix_cmp(m, expected, 4, 4))
 	{
 		fprintf(stderr, "\tError:\texpected:\n");
-		print_matrix(expected.raw);
+		print_matrix(expected.arr);
 		fprintf(stderr, "\tgot:\n");
-		print_matrix(m.raw);
+		print_matrix(m.arr);
 	}
 	else
 	{
@@ -1359,7 +1359,7 @@ void	test_camera(void)
 	printf("\nCamera test\n");
 	cam = camera_new(200, 125, M_PI / 2);
 	// printf("camera hsize: %f, vsize: %f, fov: %f\n", cam.hsize, cam.vsize, cam.fov);
-	// print_matrix(cam.transform.raw);
+	// print_matrix(cam.transform.arr);
 	if (!float_equal(0.01, cam.psize))
 	{
 		fprintf(stderr, "\tError: expected: 0.01, got: %f\n", cam.psize);
@@ -1370,7 +1370,7 @@ void	test_camera(void)
 	}
 	cam = camera_new(125, 200, M_PI / 2);
 	// printf("camera hsize: %f, vsize: %f, fov: %f\n", cam.hsize, cam.vsize, cam.fov);
-	// print_matrix(cam.transform.raw);
+	// print_matrix(cam.transform.arr);
 	if (!float_equal(0.01, cam.psize))
 	{
 		fprintf(stderr, "\tError: expected: 0.01, got: %f\n", cam.psize);
@@ -1512,7 +1512,7 @@ t_shape	test_shape(void)
 // 	s = test_shape();
 // 	s.transform = translate(2, 3, 4);
 // 	s.matter.ambient = 1;
-// 	print_matrix(s.transform.raw);
+// 	print_matrix(s.transform.arr);
 // }
 
 void	test_intersect_plane(void)

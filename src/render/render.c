@@ -6,14 +6,12 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/12 20:03:52 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 14:27:50 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "shapes.h"
-
-int g_i = 0;
 
 void	ray_for_pixel(t_camera *cam, t_ray *ray, double x, double y)
 {
@@ -24,12 +22,9 @@ void	ray_for_pixel(t_camera *cam, t_ray *ray, double x, double y)
 	world_x = cam->half_width - ((x + 0.5) * cam->psize);
 	world_y = cam->half_height - ((y + 0.5) * cam->psize);
 	pixel = matrix_multiply_tuple(cam->transform, point_new(world_x, world_y, -1.0));
-	printf("here\n");
+	// ray->origin = point_new(0, 0, 0);
 	ray->origin = matrix_multiply_tuple(cam->transform, (v4){0.0, 0.0, 0.0, 1.0});
-	printf("here2\n");
 	ray->direction = v4_normalize(pixel - ray->origin);
-	printf("her3\n");
-	g_i++;
 }
 
 void	cache_ray(t_ray *ray, t_camera *cam)
@@ -38,12 +33,12 @@ void	cache_ray(t_ray *ray, t_camera *cam)
 	int	x;
 
 	y = 0;
-	while (y < cam->vsize)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < cam->hsize)
+		while (x < WIDTH)
 		{
-			ray_for_pixel(cam, &ray[x + y * cam->hsize], x, y);
+			ray_for_pixel(cam, &ray[x + y * WIDTH], x, y);
 			x++;
 		}
 		y++;
@@ -58,16 +53,16 @@ void	 render(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
 	v4	color;
 
 	y = 0;
-	ray = malloc(sizeof(t_ray) * (cam.vsize * cam.hsize));
+	ray = aligned_alloc(sizeof(t_ray), sizeof(t_ray) * (HEIGHT * WIDTH));
 	if (!ray)
 		return ;
 	cache_ray(ray, &cam);
-	while (y < cam.vsize)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < cam.hsize)
+		while (x < WIDTH)
 		{
-			color = color_at(&world, ray[x + y * cam.hsize], 10);
+			color = color_at(&world, ray[x + y * WIDTH], 10);
 			ak_mlx_pixel_put(img, x, y, tuple_tocolor(color));
 			x++;
 		}
@@ -77,23 +72,24 @@ void	 render(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
 	free(ray);
 }
 
-void	path_tracing(t_ray *ray, t_camera cam, t_world world, t_img *img, t_mlx *mlx, double frame_index, unsigned int *accumulation)
+void	path_tracing(t_ray *ray, t_camera cam, t_world world, t_img *img, t_mlx *mlx, double frame_index, v4 *accumulation)
 {
 	int				y;
 	int				x;
 	v4				color;
-	unsigned int	final_color;
+	v4				final_color;
 
 	y = 0;
-	while (y < cam.vsize)
+	(void)cam;
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < cam.hsize)
+		while (x < WIDTH)
 		{
 			color = bounce_rays(&world, ray[x + y * WIDTH], (x + y * WIDTH) * frame_index);
-			accumulation[x + y * WIDTH] += tuple_tocolor(color);
+			accumulation[x + y * WIDTH] += color;
 			final_color = accumulation[x + y * WIDTH] / frame_index;
-			ak_mlx_pixel_put(img, x, y, final_color);
+			ak_mlx_pixel_put(img, x, y, tuple_tocolor(final_color));
 			x++;
 		}
 		y++;
@@ -104,18 +100,21 @@ void	path_tracing(t_ray *ray, t_camera cam, t_world world, t_img *img, t_mlx *ml
 void	render_accumulation(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
 {
 	double				frame_index;
-	unsigned int		*accumulation;
+	v4					*accumulation;
 	t_ray				*ray;
 
 	frame_index = 1;
-	ray = malloc(sizeof(t_ray) * (WIDTH * HEIGHT));
-	accumulation = malloc(sizeof(unsigned int) * (WIDTH * HEIGHT));
+	ray = aligned_alloc(sizeof(t_ray), sizeof(t_ray) * (WIDTH * HEIGHT));
+	accumulation = aligned_alloc(sizeof(v4), sizeof(v4) * (WIDTH * HEIGHT));
 	if (!accumulation || !ray)
 		return ;
-	ft_memset(accumulation, 0, sizeof(unsigned int) * (WIDTH * HEIGHT));
+	// ft_memset(accumulation, 0, sizeof(v4) * (WIDTH * HEIGHT));
 	cache_ray(ray, &cam);
+	while (frame_index)
+	{
 		path_tracing(ray, cam, world, img, mlx, frame_index, accumulation);
-		frame_index++;
+		frame_index++;	
+	}
 	free(ray);
 	free(accumulation);
 }
@@ -135,10 +134,10 @@ int	render_and_move(t_data *data)
 	if (!ray)
 		return (1);
 	cache_ray(ray, &data->cam);
-	while (y < data->cam.vsize)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < data->cam.hsize)
+		while (x < WIDTH)
 		{
 			color = color_at(&data->world, ray[x + y * WIDTH], 10);
 			ak_mlx_pixel_put(&data->img, x, y, tuple_tocolor(color));
