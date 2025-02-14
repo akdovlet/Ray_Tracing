@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 19:46:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/09 10:21:36 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 13:17:49 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,30 @@ t_tuple	blinn_phong(t_material mat, t_light light, t_tuple overz, t_tuple eyev, 
 	float	factor;
 	
 	if (mat.pattern.exists)
-		e_color = color_hadamard(stripe_at(mat.pattern, overz), light.intensity);
+		e_color = stripe_at(mat.pattern, overz) * light.intensity;
 	else
-		e_color = color_hadamard(mat.color, light.intensity);
-	lightv = tuple_normalize(tuple_substract(light.position, overz));
-	ambient = tuple_multiply(e_color, mat.ambient);
+		e_color = mat.color * light.intensity;
+	lightv = tuple_normalize(light.position - overz);
+	ambient = e_color * mat.ambient;
 	if (shadowed)
 		return (ambient);
 	light_dot_normal = fmax(tuple_dot(lightv, normalv), 0.0f);
-	halfway = tuple_normalize(tuple_add(lightv, tuple_normalize(eyev)));
+	halfway = tuple_normalize(lightv + tuple_normalize(eyev));
 	factor = powf(fmax(tuple_dot(normalv, halfway), 0.0), mat.shininess);
-	tmp = tuple_multiply(e_color, mat.diffuse);
-	diffuse = tuple_multiply(tmp, light_dot_normal);
-	reflectv = reflect(tuple_negate(lightv), normalv);
+	tmp = e_color * mat.diffuse;
+	diffuse = tmp * light_dot_normal;
+	reflectv = reflect(-lightv, normalv);
 	reflect_dot_eye = fmax(tuple_dot(reflectv, eyev), 0.0f);
 	if (reflect_dot_eye > 0)
 	{
-		specular = tuple_multiply(light.intensity, mat.specular);
-		specular = tuple_multiply(specular, reflect_dot_eye);
-		specular = tuple_multiply(specular, factor);
+		// specular = tuple_multiply(light.intensity, mat.specular);
+		// specular = tuple_multiply(specular, reflect_dot_eye);
+		// specular = tuple_multiply(specular, factor);
+		specular = light.intensity * mat.specular * reflect_dot_eye * factor;
 	}
 	else
 		specular = color_new(0, 0, 0);
-	return (tuple_add(tuple_add(diffuse, ambient), specular));
+	return (diffuse + ambient + specular);
 }
 
 t_tuple	lighting(t_material mat, t_light light, t_tuple eyev, t_tuple normalv, t_tuple point)

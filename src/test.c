@@ -1890,7 +1890,7 @@ bool	is_shadowed(t_world world, t_tuple point)
 	t_ray	ray;
 	t_junction	hits;
 
-	v = tuple_substract(world.light.position, point);
+	v = world.light.position - point;
 	distance = tuple_magnitude(v);
 	direction = tuple_normalize(v);
 	ray = ray_new(point, direction);

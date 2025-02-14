@@ -6,14 +6,14 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/09 18:54:53 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 13:12:16 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_STRUCT_H
 # define DATA_STRUCT_H
 
-typedef float t_tuple __attribute__((vector_size(16)));
+typedef double t_tuple __attribute__((vector_size(32)));
 typedef struct s_matrix
 {
 	t_tuple	raw[4];

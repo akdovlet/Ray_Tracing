@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/01/09 19:02:31 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/02/14 13:13:04 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,7 @@ DEP		:=	$(OBJ:.o=.d)
 LIBFT	:=	libft/libft.a
 
 CC		:=	cc
-CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -Ilibft/include -g -Imlx_linux -O3
+CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -Ilibft/include -g -Imlx_linux -O3 -mavx
 MATH	:=	-lm
 
 all: create_dir $(NAME)
