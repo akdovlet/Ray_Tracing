@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/02/05 12:34:54 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/02/15 20:41:21 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ SRC		:=	main.c							\
 			test.c							\
 			scenes.c						\
 			camera/camera.c					\
+			camera/view_transform.c			\
 			colors/colors.c					\
+			colors/get_emission.c			\
 			light/light.c					\
 			light/shading.c					\
 			matrix/rotate.c					\
@@ -36,13 +38,7 @@ SRC		:=	main.c							\
 			mlx/mlx_clear.c					\
 			mlx/mlx_pixel_put.c				\
 			mlx/mouse_manager.c				\
-			objects/cube.c					\
-			objects/cylinder.c				\
-			objects/glass_sphere.c			\
-			objects/material.c				\
-			objects/normal.c				\
-			objects/plane.c					\
-			objects/sphere.c				\
+			shapes/cube.c					\
 			pattern/checker.c				\
 			pattern/gradient.c				\
 			pattern/pattern.c				\
@@ -50,12 +46,22 @@ SRC		:=	main.c							\
 			pattern/ring.c					\
 			pattern/stripe.c				\
 			ray/ray_transform.c				\
+			ray/ray_for_pixel.c				\
 			ray/ray.c						\
 			ray/reflect.c					\
 			ray/refract.c					\
 			ray/schlick.c					\
+			render/interpolation.c			\
+			render/path_tracing.c			\
 			render/per_pixel.c				\
+			render/random.c					\
 			render/render.c					\
+			shapes/cylinder.c				\
+			shapes/glass_sphere.c			\
+			shapes/material.c				\
+			shapes/normal.c					\
+			shapes/plane.c					\
+			shapes/sphere.c					\
 			tuple/color_new.c				\
 			tuple/hadamard_product.c		\
 			tuple/tuple_add.c				\
@@ -71,7 +77,6 @@ SRC		:=	main.c							\
 			tuple/tuple_substract.c			\
 			tuple/tuple_tocolor.c			\
 			world/pre_compute.c				\
-			world/view_transform.c			\
 			world/world.c
 
 SRC_DIR	:=	src
@@ -82,9 +87,9 @@ OBJ 	:=	$(patsubst $(SRC_DIR)/%.c, $(BUILD)/%.o, $(SRC))
 DEP		:=	$(OBJ:.o=.d)
 
 LIBFT	:=	libft/libft.a
-MLX		:= mlx_linux/libmlx_Linux.a
+MLX		:=	mlx_linux/libmlx_Linux.a
 CC		:=	cc
-CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -Ilibft/include -Imlx_linux -O3
+CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -Ilibft/include -Imlx_linux -g
 MATH	:=	-lm
 
 all: create_dir $(NAME)

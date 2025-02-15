@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.h                                           :+:      :+:    :+:   */
+/*   random.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 13:45:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/15 20:32:57 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/02/15 20:21:19 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/02/15 20:28:52 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLORS_H
-# define COLORS_H
+#ifndef RANDOM_H
+# define RANDOM_H
 
-# include "data_struct.h"
+#include "data_struct.h"
+#include <stdint.h>
 
-t_tuple	black(void);
-t_tuple	white(void);
-t_tuple	red(void);
-t_tuple	blue(void);
-t_tuple	green(void);
-
-t_tuple	get_emission(t_shape *obj);
+uint32_t	pcg_hash(uint32_t seed);
+double		random_float(uint32_t *seed);
+t_tuple		random_unit_vec(uint32_t *seed);
 
 #endif

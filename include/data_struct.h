@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/15 18:27:39 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 20:28:33 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define DATA_STRUCT_H
 
 # include "mlx_utils.h"
+# include <stdint.h>
 
 typedef union u_matrix			t_matrix;
 typedef	union u_color			t_color;

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 20:27:51 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/14 21:12:48 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 20:39:24 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 t_tuple		bounce_rays(t_world *world, t_ray ray, uint32_t seed);
 t_tuple		trace_rays(t_world *world, t_ray ray, uint32_t seed);
-t_tuple		random_unit_vec(uint32_t *seed);
-void		ray_for_pixel(t_camera *cam, t_ray *ray, double x, double y);
-void		cache_ray(t_ray *ray, t_camera *cam);
 void		render(t_camera cam, t_world world, t_img *img, t_mlx *mlx);
 // void		path_tracing(t_ray *ray, t_camera cam, t_world world, 
 // 			t_img *img, t_mlx *mlx, int frame_index, unsigned int *accumulation);

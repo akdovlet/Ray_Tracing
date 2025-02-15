@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/06 18:52:15 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 20:39:46 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ t_vec2			intersect(t_ray ray, t_shape object);
 t_intersection	intersection(t_shape obj, t_vec2 vec);
 t_intersection	hit(t_intersection inter);
 
-t_ray			ray_transform(t_ray ray, t_matrix m);
 void			set_transform(t_shape *obj, t_matrix m);
 t_tuple			reflected_color(t_world *world, t_comps *comps, int depth);
 t_tuple			normal_at(t_shape obj, t_tuple world_point);
@@ -43,6 +42,7 @@ void 			camera_update_transform(t_camera *cam, t_tuple from, t_tuple to, t_tuple
 t_shape			plane_new(void);
 
 t_shape	glass_sphere(void);
+t_material	glass_material(void);
 t_shape	cube_default(void);
 t_vec2	cube_intersect(t_ray ray, t_shape shape);
 t_tuple	cube_normal_at(t_shape obj, t_tuple point);

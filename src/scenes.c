@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/15 17:46:35 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 20:34:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ t_data	scene_single_sphere(void)
 	t_data		data;
 
 	sun = sphere_default();
-	set_transform(&sun, multiply_matrix(translate(1 , 1, 0), scale(1, 1, 1)));
+	set_transform(&sun, multiply_matrix(translate(1 , 1, 5), scale(1, 1, 1)));
 	sun.matter = emissive_material();
 	sun.matter.emission_color = white();
 	sphere2 = sphere_default();
 	sphere2.matter.color = color_new(1, 0.1, 0.1);
-	sphere2.matter.roughness = 1;
+	// sphere2.matter.roughness = 0.5;
 	sphere2.matter.specular = 0.15;
 	set_transform(&sphere2, translate(-1, 0.5, 0));
 
 	cube = cube_default();
 	// cube.matter = emissive_material();
-	cube.matter.color = color_new(0.9, 0.2, 0.2);
+	cube.matter.color = color_new(0, 0, 1);
 	cube.matter.pattern = checkers_pattern(white(), black());
 	set_transform(&cube, multiply_matrix(translate(-1, -3, 0), scale(2, 2.2, 2)));
 	set_transform_pattern(&cube.matter.pattern, scale(0.1, 0.1, 0.1));
@@ -48,7 +48,7 @@ t_data	scene_single_sphere(void)
 
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
 	cam.from =  point_new(0, 0, 3);
-	cam.to =  tuple_normalize(point_new(5, 0.2, 1));
+	cam.to =  point_new(0, 0.2, 1);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;

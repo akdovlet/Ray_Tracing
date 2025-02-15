@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:23:06 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/03 18:30:33 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 20:30:45 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,9 @@ void			tuple_print(t_tuple t1);
 t_tuple			color_new(double red, double green, double blue);
 t_tuple			color_hadamard(t_tuple c1, t_tuple c2);
 unsigned int	tuple_tocolor(t_tuple tcolor);
+
+t_tuple	lerp(t_tuple a, t_tuple b, double f);
+double clamp(double x, double lower_limit, double upper_limit);
+double smoothstep(double edge0, double edge1, double x);
 
 #endif
