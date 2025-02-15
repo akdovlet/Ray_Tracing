@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/14 20:51:04 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:27:39 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,6 @@ struct s_intersection
 	bool					hit;
 	double					t;
 	int						count;
-	t_shape					object;
 	t_vec2					xs;
 };
 
@@ -213,6 +212,7 @@ typedef struct s_camera
 
 typedef struct	s_data
 {
+	int			job_end;
 	t_camera	cam;
 	t_world		world;
 	t_img		img;

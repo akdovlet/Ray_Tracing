@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/14 23:16:57 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:46:35 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_data	scene_single_sphere(void)
 
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
 	cam.from =  point_new(0, 0, 3);
-	cam.to =  point_new(-1, 0, 0);
+	cam.to =  tuple_normalize(point_new(5, 0.2, 1));
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;

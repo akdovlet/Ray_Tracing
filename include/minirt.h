@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/06 15:21:35 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 18:19:43 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <float.h>
 # include <string.h>
 # include <time.h>
+# include <pthread.h>
 
 # include "X11/keysym.h"
 # include "mlx.h"

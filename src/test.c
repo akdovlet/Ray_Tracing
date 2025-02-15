@@ -837,63 +837,63 @@ void	intersection_test(void)
 		fprintf(stderr, "inter t is: %f, expected 0\n", inter.t);
 }
 
-void	draw_sphere(t_img *img, t_mlx *mlx)
-{
-	double			y;
-	double			x;
-	double			world_x;
-	double			world_y;
-	double			wall_z;
-	double			wall_size;
-	double			canvas_pixel;
-	double			pixel_size;
-	double			half;
-	t_tuple			pos;
-	t_tuple			point;
-	t_ray			r;
-	t_shape 		sph;
-	t_intersection	inter;
-	t_light			light;
-	t_tuple			normalv;
-	t_tuple			eyev;
-	t_tuple			color;
-	t_tuple			origin;
+// void	draw_sphere(t_img *img, t_mlx *mlx)
+// {
+// 	double			y;
+// 	double			x;
+// 	double			world_x;
+// 	double			world_y;
+// 	double			wall_z;
+// 	double			wall_size;
+// 	double			canvas_pixel;
+// 	double			pixel_size;
+// 	double			half;
+// 	t_tuple			pos;
+// 	t_tuple			point;
+// 	t_ray			r;
+// 	t_shape 		sph;
+// 	t_intersection	inter;
+// 	t_light			light;
+// 	t_tuple			normalv;
+// 	t_tuple			eyev;
+// 	t_tuple			color;
+// 	t_tuple			origin;
 
-	y = 0;
-	origin = point_new(0, 0, -5);
-	wall_z = 10;
-	wall_size = 7;
-	canvas_pixel = 500;
-	pixel_size = wall_size / canvas_pixel;
-	half = wall_size / 2;
-	sph = sphere_default();
-	sph.matter = material();
-	sph.matter.color = color_new(1, 0.2, 1);
-	light = point_light(point_new(-10, -10, -10), color_new(1, 1, 1));
-	while (y < canvas_pixel - 1)
-	{
-		x = 0;
-		world_y = half - pixel_size * y;
-		while (x < canvas_pixel - 1)
-		{
-			world_x = -half + pixel_size * x;
-			pos = point_new(world_x, world_y, wall_z);
-			r = ray_new(origin, tuple_normalize(tuple_substract(pos, origin)));
-			inter = hit(intersection(sph, intersect(r, sph)));
-			if (inter.count > 0)
-			{
-				point = position(r, inter.t);
-				eyev = tuple_negate(r.direction);
-				normalv = normal_at(inter.object, point);
-				color = lighting(inter.object.matter, light, eyev, normalv, point);
-				ak_mlx_pixel_put(img, x, HEIGHT - y, tuple_tocolor(color));
-			}
-			x++;
-		}
-		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
-		y++;
-	}
-}
+// 	y = 0;
+// 	origin = point_new(0, 0, -5);
+// 	wall_z = 10;
+// 	wall_size = 7;
+// 	canvas_pixel = 500;
+// 	pixel_size = wall_size / canvas_pixel;
+// 	half = wall_size / 2;
+// 	sph = sphere_default();
+// 	sph.matter = material();
+// 	sph.matter.color = color_new(1, 0.2, 1);
+// 	light = point_light(point_new(-10, -10, -10), color_new(1, 1, 1));
+// 	while (y < canvas_pixel - 1)
+// 	{
+// 		x = 0;
+// 		world_y = half - pixel_size * y;
+// 		while (x < canvas_pixel - 1)
+// 		{
+// 			world_x = -half + pixel_size * x;
+// 			pos = point_new(world_x, world_y, wall_z);
+// 			r = ray_new(origin, tuple_normalize(tuple_substract(pos, origin)));
+// 			inter = hit(intersection(sph, intersect(r, sph)));
+// 			if (inter.count > 0)
+// 			{
+// 				point = position(r, inter.t);
+// 				eyev = tuple_negate(r.direction);
+// 				normalv = normal_at(inter.object, point);
+// 				color = lighting(inter.object.matter, light, eyev, normalv, point);
+// 				ak_mlx_pixel_put(img, x, HEIGHT - y, tuple_tocolor(color));
+// 			}
+// 			x++;
+// 		}
+// 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
+// 		y++;
+// 	}
+// }
 
 void	normal_at_test(void)
 {
