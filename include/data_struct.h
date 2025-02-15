@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/15 18:27:39 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 19:16:12 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,11 +212,14 @@ typedef struct s_camera
 
 typedef struct	s_data
 {
+	int			job_start;
 	int			job_end;
 	t_camera	cam;
 	t_world		world;
 	t_img		img;
 	t_mlx		mlx;
+	t_ray		*cache;
+	pthread_mutex_t	*img_mutex;
 }	t_data;
 
 #endif

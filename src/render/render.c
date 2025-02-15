@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/14 23:09:50 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 19:19:41 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,49 @@ void	cache_ray(t_ray *ray, t_camera *cam)
 		}
 		y++;
 	}
+}
+
+void	cache_ray_threads(t_ray *ray, t_camera *cam, int y, int max)
+{
+	int	x;
+
+	printf("y is: %d, max is: %d\n", y, max);
+	while (y < max)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			ray_for_pixel(cam, &ray[x + y * WIDTH], x, y);
+			x++;
+		}
+		y++;
+	}
+}
+
+void	*render_threads(void *stuff)
+{
+	int	y;
+	int	x;
+	t_tuple	color;
+	t_data *data;
+
+	data = (t_data *) stuff;
+	y = data->job_start;
+	while (y < data->job_end)
+	{
+		x = 0;
+		while (x < HEIGHT)
+		{
+			color = color_at(&data->world, data->cache[x + y * HEIGHT], 10);
+			ak_mlx_pixel_put(&data->img, x, y, tuple_tocolor(color));
+			x++;
+		}
+		y++;
+	}
+	pthread_mutex_lock(data->img_mutex);
+	mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.win_ptr, data->img.img_ptr, 0, 0);
+	pthread_mutex_unlock(data->img_mutex);
+	return (NULL);
 }
 
 void	render(t_camera cam, t_world world, t_img *img, t_mlx *mlx)

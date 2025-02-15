@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/04 18:04:47 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 19:27:20 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,14 @@ void	intersect_world(t_world *world, t_ray ray, t_junction *hits)
 			if (inter.count == 2)
 			{
 				hits->cross[j].t = inter.xs.y;
-				hits->cross[j++].obj = &world->obj[i];
+				hits->cross[j].obj = &world->obj[i];
+				if (hits->cross[j].t >= 0.0 && hits->cross[j].t < closest_t)
+				{
+					hits->closest = hits->cross[j];
+					hits->hit = true;
+					closest_t = hits->cross[j].t;
+				}
+				j++;
 			}
 		}
 		i++;
