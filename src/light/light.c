@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 19:46:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/06 15:12:44 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 21:22:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_tuple	blinn_phong(t_light light, t_shape *shape, t_comps *comps, bool shadowed
 	double	reflect_dot_eye;
 	double	light_dot_normal;
 	double	factor;
-	
+
 	if (shape->matter.pattern.exists)
 	{
 		e_color = pattern_at_shape(shape->matter.pattern, *shape, comps->overz);

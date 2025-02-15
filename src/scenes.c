@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/15 20:34:14 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 21:27:45 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -400,7 +400,7 @@ t_data	scene_complex(void)
 	cylinder = cylinder_default();
 	cylinder.matter = glass_material();
 	cylinder.matter.color = black();
-	// set_transform(&cylinder, multiply_matrix(translate(0, -0.2, 0), rotate_z(radians(40))));
+	set_transform(&cylinder, translate(0, -0.5, 0));
 	// set_transform_pattern(&cylinder.matter.pattern, scale(0.2, 0.4, 0.1));
 	// cylinder.matter = glass_material();
 	// set_transform(&cylinder, scale(0.7, 0.7, 0.7));
