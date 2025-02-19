@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/19 18:20:38 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/19 19:03:36 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 #include "tuple.h"
 #include <X11/X.h>
 
+
+// Boucle infinie pour la routine, qui calcul une frame seulemenet si 
+/* si il y a un deplacement. Pareil pour le put image to window
+
+les threads remplissent l'image, et une semaphore qui compte ou mutex
+remet l'image a l'ecran seulement si il y a du changement
+
+
+ou
+
+toujours afficher une frame, quand il y a un changement, naturellement la 
+frame sera differente */
 int main()
 {
 	t_img	img;
@@ -47,12 +59,13 @@ int main()
 	mlx_mouse_hook(mlx.win_ptr, &mouse_manager, &data);
 	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, &key_manager, &data);
 	// mlx_key_hook(mlx.win_ptr, &key_manager, &data);
-	// render_accumulation(data.cam, data.world, &img, &mlx);
+	render(data[0].cam, data[0].world, &img, &mlx);
 	for(size_t i = 0; i < 8; i++)
 	{
 		pthread_join(threads[i], NULL);
 	}
-	mlx_loop(mlx.mlx_ptr);
+	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
+	// mlx_loop(mlx.mlx_ptr);
 	mlx_clear(&mlx, &img);
 	printf("AK out!\n");
 	return (0);
