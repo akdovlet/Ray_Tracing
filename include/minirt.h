@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/15 19:54:57 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:22:13 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@
 # include "colors.h"
 # include "renderer.h"
 
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 1080
+# define HEIGHT 1080
 
 t_ray		ray_new(t_tuple origin, t_tuple direction);
 t_tuple		position(t_ray ray, double factor);

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/15 19:38:46 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:20:38 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int main()
 {
 	t_img	img;
 	t_mlx	mlx;
-	t_data data[4];
+	t_data data[8];
 	t_ray	*ray_cache;
-	pthread_t	threads[4];
+	pthread_t	threads[8];
 	int			job_start;
 	pthread_mutex_t	img_mutex;
 
@@ -30,7 +30,7 @@ int main()
 	job_start = 0;
 	ray_cache = malloc(sizeof(t_ray) * (HEIGHT * WIDTH));
 	pthread_mutex_init(&img_mutex, NULL);
-	for (size_t i = 0; i < 4; i++)
+	for (size_t i = 0; i < 8; i++)
 	{
 		data[i] = scene_complex();
 		if (i == 0)
@@ -40,15 +40,15 @@ int main()
 		data[i].mlx = mlx;
 		data[i].cache = ray_cache;
 		data[i].job_start = job_start;
-		data[i].job_end = job_start + (HEIGHT / 4);
+		data[i].job_end = job_start + (HEIGHT / 8);
 		pthread_create(&threads[i], NULL, &render_threads, &data[i]);
-		job_start += (HEIGHT / 4);
+		job_start += (HEIGHT / 8);
 	}
 	mlx_mouse_hook(mlx.win_ptr, &mouse_manager, &data);
 	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, &key_manager, &data);
 	// mlx_key_hook(mlx.win_ptr, &key_manager, &data);
 	// render_accumulation(data.cam, data.world, &img, &mlx);
-	for(size_t i = 0; i < 4; i++)
+	for(size_t i = 0; i < 8; i++)
 	{
 		pthread_join(threads[i], NULL);
 	}
