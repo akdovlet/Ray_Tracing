@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/15 20:46:31 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:58:11 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@
 # include "tuple.h"
 # include "ray.h"
 
-# define WIDTH 1920 / 2
-# define HEIGHT 1080
-
+# define WIDTH 500
+# define HEIGHT 500
 
 t_tuple		position(t_ray ray, double factor);
 void		render(t_camera cam, t_world world, t_img *img, t_mlx *mlx);
@@ -50,6 +49,5 @@ t_tuple		gradient_at(t_pattern pattern, t_tuple point);
 int			render_and_move(t_data *data);
 int			key_manager(int keysym, t_data *data);
 int			mouse_manager(int button, int x, int y, t_data *data);
-
 
 #endif

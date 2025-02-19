@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/15 22:03:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:11:37 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,12 +486,10 @@ t_data	scene_complex(void)
 	t_shape		floor;
 	t_data		data;
 
-
 	cube = cube_default();
 	// cube.matter = glass_material();
-	cube.matter.refractive_index = 1.333;
 	// cube.matter.pattern = stripe_pattern(green(), blue());
-	set_transform(&cube, translate(3, 0, 0));
+	set_transform(&cube, translate(3, 0, -2));
 
 
 	sphere = glass_sphere();
@@ -502,7 +500,7 @@ t_data	scene_complex(void)
 	cylinder = cylinder_default();
 	cylinder.matter = glass_material();
 	cylinder.matter.color = black();
-	set_transform(&cylinder, translate(0, -0.5, 0));
+	set_transform(&cylinder, translate(0, 0, 0));
 	// set_transform_pattern(&cylinder.matter.pattern, scale(0.2, 0.4, 0.1));
 	// cylinder.matter = glass_material();
 	// set_transform(&cylinder, scale(0.7, 0.7, 0.7));
@@ -528,7 +526,7 @@ t_data	scene_complex(void)
 	world.obj[4] = wall;
 	world.obj_count = 5;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
-	cam.from =  point_new(0, 0.5, -5);
+	cam.from =  point_new(-7, 5, -7);
 	cam.to =  point_new(0, 0, 0);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);
