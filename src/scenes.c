@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/02 19:40:00 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:51:39 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -413,6 +413,66 @@ t_data	complex_scene(void)
 	world.obj_count = 5;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
 	cam.from =  point_new(0, 0.5, -5);
+	cam.to =  point_new(0, 0, 0);
+	cam.up =  vector_new(0, 1, 0);
+	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	data.cam = cam;
+	data.world = world;
+	return (data);
+}
+
+t_data	scene_complex2(void)
+{
+	t_world		world;
+	t_camera	cam;
+	t_shape		cylinder;
+	t_shape		cube;
+	t_shape		sphere;
+	t_shape		wall;
+	t_shape		floor;
+	t_data		data;
+
+	cube = cube_default();
+	// cube.matter = glass_material();
+	// cube.matter.pattern = stripe_pattern(green(), blue());
+	set_transform(&cube, translate(3, 0, -2));
+
+
+	sphere = glass_sphere();
+	set_transform(&sphere, multiply_matrix(translate(0, 2, 0), scale(1.5, 1.5, 1.5)));
+	// sphere.matter.pattern = checkers_pattern(red(), black());
+	// set_transform_pattern(&sphere.matter.pattern, scale(0.3, 0.3, 0.3));
+
+	cylinder = cylinder_default();
+	cylinder.matter = glass_material();
+	cylinder.matter.color = black();
+	set_transform(&cylinder, translate(0, 0, 0));
+	// set_transform_pattern(&cylinder.matter.pattern, scale(0.2, 0.4, 0.1));
+	// cylinder.matter = glass_material();
+	// set_transform(&cylinder, scale(0.7, 0.7, 0.7));
+	// cylinder.matter.reflective = 1;
+	// cylinder.matter.refractive_index = 1.333;
+	cylinder.min = -1;
+	cylinder.max = 1;
+
+	wall = plane_new();
+	set_transform(&wall, multiply_matrix(translate(0, 0, 5), rotate_x(radians(90))));
+	wall.matter.pattern = checkers_pattern(red(), black());
+
+	floor = plane_new();
+	set_transform(&floor, translate(0, -1, 0));
+	floor.matter.pattern = checkers_pattern(black(), white());
+	floor.matter.reflective = 0.1;
+
+	world.light = point_light(point_new(-5, 8, -3), color_new(1, 1, 1));
+	world.obj[0] = cylinder;
+	world.obj[1] = floor;
+	world.obj[2] = sphere;
+	world.obj[3] = cube;
+	world.obj[4] = wall;
+	world.obj_count = 5;
+	cam = camera_new(WIDTH, HEIGHT, radians(70));
+	cam.from =  point_new(-7, 5, -7);
 	cam.to =  point_new(0, 0, 0);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);

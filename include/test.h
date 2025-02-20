@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:23:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/02 15:17:37 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:51:50 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_data		watchful_eye_scene(void);
 t_data		cube_scene(void);
 t_data		cylinder_scene(void);
 t_data		complex_scene(void);
+t_data		scene_complex2(void);
 
 void		test_cube(void);
 void		test_cube_normalat(void);
