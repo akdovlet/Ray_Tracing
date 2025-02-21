@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/19 19:03:36 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:55:06 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int main()
 		pthread_join(threads[i], NULL);
 	}
 	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, img.img_ptr, 0, 0);
-	// mlx_loop(mlx.mlx_ptr);
+	mlx_loop(mlx.mlx_ptr);
 	mlx_clear(&mlx, &img);
 	printf("AK out!\n");
 	return (0);

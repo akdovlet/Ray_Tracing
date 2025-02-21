@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/19 18:14:50 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:54:27 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -452,7 +452,7 @@ t_data	scene_standby(void)
 	set_transform(&cube, translate(3, 0, 0));
 
 
-	sphere = glass_sphere();
+	sphere = sphere_default();
 	set_transform(&sphere, scale(8, 8, 8));
 	sphere.matter.reflective = 1;
 	// sphere.matter.pattern = checkers_pattern(red(), black());

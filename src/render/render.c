@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/19 19:10:51 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:52:16 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,6 @@ void	cache_ray_threads(t_ray *ray, t_camera *cam, int y, int max)
 	}
 }
 
-/*
-	son propre cache, son propre world ainsi de suite
-	while (1)
-	{
-		if (moved)
-		{
-			recuperer cam data;
-			build ray cache;
-			while (y)
-				while (x)
-			increment la semaphore de job end
-		}
-	}
-*/
-
 void	*render_threads(void *stuff)
 {
 	int	y;
@@ -96,7 +81,6 @@ void	*render_threads(void *stuff)
 		}
 		y++;
 	}
-	
 	// pthread_mutex_lock(data->img_mutex);
 	// mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.win_ptr, data->img.img_ptr, 0, 0);
 	// pthread_mutex_unlock(data->img_mutex);
