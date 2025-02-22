@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:23:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/20 15:51:50 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/22 20:18:34 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,15 @@ void		test_refraction(void);
 void		test_negative_intersection(void);
 void		test_shade_hit_refraction(void);
 
-t_data		default_scene(void);
-t_data		watchful_eye_scene(void);
-t_data		cube_scene(void);
-t_data		cylinder_scene(void);
-t_data		complex_scene(void);
-t_data		scene_complex2(void);
+t_data		scene_single_sphere(void);
+t_data		scene_default(void);
+t_data		scene_watchful_eye(void);
+t_data		scene_cube(void);
+t_data		scene_cylinder(void);
+t_data		scene_complex(void);
+t_data		scene_standby(void);
+t_data		scene_walled(void);
+t_data		scene_inside_sphere(void);
 
 void		test_cube(void);
 void		test_cube_normalat(void);

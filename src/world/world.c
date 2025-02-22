@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/02 15:28:47 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 21:18:39 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,13 @@ void	intersect_world(t_world *world, t_ray ray, t_junction *hits)
 {
 	int				i;
 	int				j;
+	double			closest_t;
 	t_intersection	inter;
 
 	i = 0;
 	j = 0;
-	hits->count = 0;
+	*hits = (t_junction){};
+	closest_t = FLT_MAX;
 	while (i < world->obj_count)
 	{
 		inter = hit(intersection(world->obj[i], intersect(ray, world->obj[i])));
@@ -91,17 +93,30 @@ void	intersect_world(t_world *world, t_ray ray, t_junction *hits)
 		{
 			hits->count += inter.count;
 			hits->cross[j].t = inter.xs.x;
-			hits->cross[j++].obj = world->obj[i];
+			hits->cross[j].obj = &world->obj[i];
+			if (hits->cross[j].t >= 0.0 && hits->cross[j].t < closest_t)
+			{
+				hits->closest = hits->cross[j];
+				hits->hit = true;
+				closest_t = hits->cross[j].t;
+			}
+			j++;
 			if (inter.count == 2)
 			{
 				hits->cross[j].t = inter.xs.y;
-				hits->cross[j++].obj = world->obj[i];
+				hits->cross[j].obj = &world->obj[i];
+				if (hits->cross[j].t >= 0.0 && hits->cross[j].t < closest_t)
+				{
+					hits->closest = hits->cross[j];
+					hits->hit = true;
+					closest_t = hits->cross[j].t;
+				}
+				j++;
 			}
 		}
 		i++;
 	}
 	sort_hits(hits);
-	find_hit(hits);
 }
 
 t_tuple	color_at(t_world *world, t_ray ray, int depth)
@@ -110,8 +125,8 @@ t_tuple	color_at(t_world *world, t_ray ray, int depth)
 	t_comps		comps;
 	t_junction	hits;
 
+	color = color_new(0, 0, 0.1);
 	intersect_world(world, ray, &hits);
-	color = color_new(0, 0, 0.01);
 	if (hits.hit)
 	{
 		pre_compute(&comps, hits.closest, ray, hits);

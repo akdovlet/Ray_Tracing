@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:52:44 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/02 16:53:22 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/14 19:58:24 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,29 @@ t_container	*container_new(t_shape *shape)
 	t_container	*new;
 
 	new = malloc(sizeof(t_container));
+	if (!new)
+		return (NULL);
 	new->shape = shape;
 	new->next = NULL;
 	return (new);
 }
 
 
-void	container_remove(t_container **lst, t_shape shape)
+void	container_remove(t_container **lst, t_shape *shape)
 {
 	t_container	*current;
 	t_container	*last;
 
 	current = *lst;
 	last = *lst;
-	if (current && current->shape->id == shape.id)
+	if (current && current->shape->id == shape->id)
 	{
 		current = (*lst)->next;
 		free(*lst);
 		*lst = current;
 		return ;
 	}
-	while (current && current->shape->id != shape.id)
+	while (current && current->shape->id != shape->id)
 	{
 		last = current;
 		current = current->next;
@@ -54,9 +56,9 @@ void	container_remove(t_container **lst, t_shape shape)
 	if (!current)
 	{
 		if (!last)
-			*lst = container_new(&shape);
+			*lst = container_new(shape);
 		else
-			last->next = container_new(&shape);
+			last->next = container_new(shape);
 		return ;	
 	}
 	last->next = current->next;
@@ -100,7 +102,7 @@ void	find_n1n2(t_comps *comps, t_junction arr)
 void	pre_compute(t_comps *new, t_crossing cross, t_ray ray, t_junction arr)
 {
 	new->t = cross.t;
-	new->obj = &cross.obj;
+	new->obj = cross.obj;
 	new->world_point = position(ray, cross.t);
 	new->eyev = tuple_negate(ray.direction);
 	new->normalv = normal_at(*new->obj, new->world_point);
@@ -114,11 +116,7 @@ void	pre_compute(t_comps *new, t_crossing cross, t_ray ray, t_junction arr)
 	new->overz = tuple_multiply(new->normalv, 0.0001);
 	new->overz = tuple_add(new->overz, new->world_point);
 	new->reflectv = reflect(ray.direction, new->normalv);
-	new->uv = (t_tuple){
-		.x = 0.5 - atan2(new->normalv.z, new->normalv.x) / (2.0 * M_PI),
-		.y = 0.5 + asin(new->normalv.y) / M_PI, .z = 0, .w = 0
-	};
-	if (cross.obj.matter.transparency)
+	if (cross.obj->matter.transparency)
 	{
 		find_n1n2(new, arr);
 		new->under_point = tuple_substract(new->world_point, tuple_multiply(new->normalv, 0.0001));

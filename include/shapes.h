@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/01 14:53:32 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 20:39:46 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ t_vec2			intersect(t_ray ray, t_shape object);
 t_intersection	intersection(t_shape obj, t_vec2 vec);
 t_intersection	hit(t_intersection inter);
 
-t_ray			ray_transform(t_ray ray, t_matrix m);
 void			set_transform(t_shape *obj, t_matrix m);
 t_tuple			reflected_color(t_world *world, t_comps *comps, int depth);
 t_tuple			normal_at(t_shape obj, t_tuple world_point);
 t_tuple			reflect(t_tuple in, t_tuple normal);
 t_material		material(void);
+t_material		emissive_material(void);
 
 t_world			default_world(void);
 void			intersect_world(t_world *world, t_ray ray, t_junction *hits);
@@ -42,6 +42,7 @@ void 			camera_update_transform(t_camera *cam, t_tuple from, t_tuple to, t_tuple
 t_shape			plane_new(void);
 
 t_shape	glass_sphere(void);
+t_material	glass_material(void);
 t_shape	cube_default(void);
 t_vec2	cube_intersect(t_ray ray, t_shape shape);
 t_tuple	cube_normal_at(t_shape obj, t_tuple point);
@@ -53,6 +54,7 @@ unsigned int		new_id(void);
 
 
 t_tuple	refracted_color(t_world *world, t_comps *comps, int depth);
+t_tuple	refracted_ray(t_comps *comps);
 double	schlick(t_comps comps);
 
 t_shape	cylinder_default(void);

@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse_manager.c                                    :+:      :+:    :+:   */
+/*   normal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/14 18:28:04 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/04 14:40:49 by akdovlet         ###   ########.fr       */
+/*   Created: 2024/12/31 11:58:39 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/02/04 23:13:42 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "tuple.h"
 
-int	mouse_manager(int button, int x, int y, t_data *data)
+t_tuple	normal_at(t_shape obj, t_tuple world_point)
 {
-	v2	mouse_pos;
-	// v2	delta;
+	t_tuple	normalv;
+	t_tuple	local_point;
 
-	mouse_pos[0] = x;
-	mouse_pos[1] = y;
-	// delta = (mouse_pos - data->cam.last_mouse_position) * 0.002;
-	data->cam.last_mouse_position = mouse_pos;
-	if (button != 1)
-	{
-		mlx_mouse_show(data->mlx.mlx_ptr, data->mlx.win_ptr);
-		return (0);
-	}
-	mlx_mouse_hide(data->mlx.mlx_ptr, data->mlx.win_ptr);
-	return (0);
+	local_point = matrix_multiply_tuple(obj.transform, world_point);
+	normalv = obj.local_normalat(obj, local_point);
+	normalv = matrix_multiply_tuple(matrix_transpose(obj.transform), normalv);
+	normalv.w = 0;
+	return (tuple_normalize(normalv));
 }

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:45:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/21 13:46:34 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 20:32:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,7 @@ t_tuple	white(void);
 t_tuple	red(void);
 t_tuple	blue(void);
 t_tuple	green(void);
+
+t_tuple	get_emission(t_shape *obj);
 
 #endif

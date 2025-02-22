@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 17:13:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/30 11:29:50 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 21:24:30 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,6 @@ t_tuple	reflected_color(t_world *world, t_comps *comps, int depth)
 	if (depth <= 0 || !comps->obj->matter.reflective)
 		return (color_new(0, 0, 0));
 	reflect_ray = ray_new(comps->overz, comps->reflectv);
-	color = color_at(world, reflect_ray, depth);
+	color = color_at(world, reflect_ray, depth - 1);
 	return (tuple_multiply(color, comps->obj->matter.reflective));
 }

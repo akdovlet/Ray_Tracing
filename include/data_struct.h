@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/02 16:22:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/15 20:28:33 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define DATA_STRUCT_H
 
 # include "mlx_utils.h"
+# include <stdint.h>
 
 typedef union u_matrix			t_matrix;
 typedef	union u_color			t_color;
@@ -54,14 +55,8 @@ typedef struct s_tuple
 	double	w;
 }	t_tuple;
 
-typedef struct s_shear
-{
-	double	x;
-	double	y;
-	double	z;
-}	t_shear;
-
 typedef double v4 __attribute__((vector_size(16)));
+typedef double v2 __attribute__((vector_size(8)));
 
 typedef	union u_vec
 {
@@ -105,13 +100,18 @@ typedef struct	s_pattern
 typedef struct s_material
 {
 	double		ambient;
+	double		roughness;
+	double		metalic;
 	double		diffuse;
 	double		specular;
 	double		shininess;
 	double		reflective;
 	double		transparency;
 	double		refractive_index;
+	double		emission_power;
 	t_tuple		color;
+	t_tuple		specular_color;
+	t_tuple		emission_color;
 	t_pattern	pattern;
 }	t_material;
 
@@ -144,14 +144,13 @@ struct s_intersection
 	bool					hit;
 	double					t;
 	int						count;
-	t_shape					object;
 	t_vec2					xs;
 };
 
 typedef struct s_crossing
 {
 	double	t;
-	t_shape	obj;
+	t_shape	*obj;
 }	t_crossing;
 
 typedef struct s_junction
@@ -176,10 +175,10 @@ typedef struct s_comps
 	double		t;
 	double		n1;
 	double		n2;
-	t_tuple		uv;
 	t_tuple		world_point;
 	t_tuple		eyev;
 	t_tuple		normalv;
+	t_tuple		diffusev;
 	t_tuple		reflectv;
 	t_tuple		overz;
 	t_tuple		under_point;
@@ -194,21 +193,27 @@ typedef struct s_container
 
 typedef struct s_camera
 {
-	double		hsize;
-	double		vsize;
+	int			hsize;
+	int			vsize;
 	double		fov;
 	double		psize;
+	double		pitch;
+	double		yaw;
+	double		roll;
 	double		half_view;
 	double		half_width;
 	double		half_height;
+	v2			last_mouse_position;
 	t_matrix	transform;
 	t_tuple		from;
 	t_tuple		to;
 	t_tuple		up;
+	t_tuple		right;
 }	t_camera;
 
 typedef struct	s_data
 {
+	int			job_end;
 	t_camera	cam;
 	t_world		world;
 	t_img		img;

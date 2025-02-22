@@ -837,63 +837,63 @@ void	intersection_test(void)
 		fprintf(stderr, "inter t is: %f, expected 0\n", inter.t);
 }
 
-void	draw_sphere(t_img *img, t_mlx *mlx)
-{
-	double			y;
-	double			x;
-	double			world_x;
-	double			world_y;
-	double			wall_z;
-	double			wall_size;
-	double			canvas_pixel;
-	double			pixel_size;
-	double			half;
-	t_tuple			pos;
-	t_tuple			point;
-	t_ray			r;
-	t_shape 		sph;
-	t_intersection	inter;
-	t_light			light;
-	t_tuple			normalv;
-	t_tuple			eyev;
-	t_tuple			color;
-	t_tuple			origin;
+// void	draw_sphere(t_img *img, t_mlx *mlx)
+// {
+// 	double			y;
+// 	double			x;
+// 	double			world_x;
+// 	double			world_y;
+// 	double			wall_z;
+// 	double			wall_size;
+// 	double			canvas_pixel;
+// 	double			pixel_size;
+// 	double			half;
+// 	t_tuple			pos;
+// 	t_tuple			point;
+// 	t_ray			r;
+// 	t_shape 		sph;
+// 	t_intersection	inter;
+// 	t_light			light;
+// 	t_tuple			normalv;
+// 	t_tuple			eyev;
+// 	t_tuple			color;
+// 	t_tuple			origin;
 
-	y = 0;
-	origin = point_new(0, 0, -5);
-	wall_z = 10;
-	wall_size = 7;
-	canvas_pixel = 500;
-	pixel_size = wall_size / canvas_pixel;
-	half = wall_size / 2;
-	sph = sphere_default();
-	sph.matter = material();
-	sph.matter.color = color_new(1, 0.2, 1);
-	light = point_light(point_new(-10, -10, -10), color_new(1, 1, 1));
-	while (y < canvas_pixel - 1)
-	{
-		x = 0;
-		world_y = half - pixel_size * y;
-		while (x < canvas_pixel - 1)
-		{
-			world_x = -half + pixel_size * x;
-			pos = point_new(world_x, world_y, wall_z);
-			r = ray_new(origin, tuple_normalize(tuple_substract(pos, origin)));
-			inter = hit(intersection(sph, intersect(r, sph)));
-			if (inter.count > 0)
-			{
-				point = position(r, inter.t);
-				eyev = tuple_negate(r.direction);
-				normalv = normal_at(inter.object, point);
-				color = lighting(inter.object.matter, light, eyev, normalv, point);
-				ak_mlx_pixel_put(img, x, HEIGHT - y, tuple_tocolor(color));
-			}
-			x++;
-		}
-		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
-		y++;
-	}
-}
+// 	y = 0;
+// 	origin = point_new(0, 0, -5);
+// 	wall_z = 10;
+// 	wall_size = 7;
+// 	canvas_pixel = 500;
+// 	pixel_size = wall_size / canvas_pixel;
+// 	half = wall_size / 2;
+// 	sph = sphere_default();
+// 	sph.matter = material();
+// 	sph.matter.color = color_new(1, 0.2, 1);
+// 	light = point_light(point_new(-10, -10, -10), color_new(1, 1, 1));
+// 	while (y < canvas_pixel - 1)
+// 	{
+// 		x = 0;
+// 		world_y = half - pixel_size * y;
+// 		while (x < canvas_pixel - 1)
+// 		{
+// 			world_x = -half + pixel_size * x;
+// 			pos = point_new(world_x, world_y, wall_z);
+// 			r = ray_new(origin, tuple_normalize(tuple_substract(pos, origin)));
+// 			inter = hit(intersection(sph, intersect(r, sph)));
+// 			if (inter.count > 0)
+// 			{
+// 				point = position(r, inter.t);
+// 				eyev = tuple_negate(r.direction);
+// 				normalv = normal_at(inter.object, point);
+// 				color = lighting(inter.object.matter, light, eyev, normalv, point);
+// 				ak_mlx_pixel_put(img, x, HEIGHT - y, tuple_tocolor(color));
+// 			}
+// 			x++;
+// 		}
+// 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
+// 		y++;
+// 	}
+// }
 
 void	normal_at_test(void)
 {
@@ -1407,7 +1407,7 @@ void	test_ray_for_pixel(void)
 
 	printf("\nTest ray for pixel\n");
 	cam = camera_new(201, 101, M_PI / 2.0f);
-	ray = ray_for_pixel(cam, 100, 50);
+	ray_for_pixel(&cam, &ray, 100, 50);
 	expected = ray_new(point_new(0, 0, 0), vector_new(0, 0, -1));
 	if (tuple_equal(ray.direction, expected.direction) || tuple_equal(ray.origin, expected.origin))
 	{
@@ -1424,7 +1424,7 @@ void	test_ray_for_pixel(void)
 		printf("\tOK\n");
 	}
 	cam = camera_new(201, 101, M_PI / 2.0f);
-	ray = ray_for_pixel(cam, 0, 0);
+	ray_for_pixel(&cam, &ray, 0, 0);
 	expected = ray_new(point_new(0, 0, 0), vector_new(0.66519, 0.33259, -0.66851));
 	if (tuple_equal(ray.direction, expected.direction) || tuple_equal(ray.origin, expected.origin))
 	{
@@ -1442,7 +1442,7 @@ void	test_ray_for_pixel(void)
 	}
 	cam = camera_new(201, 101, M_PI / 2.0f);
 	cam.transform = multiply_matrix(rotate_y(M_PI / 4.0f), translate(0, -2, 5));
-	ray = ray_for_pixel(cam, 100, 50);
+	ray_for_pixel(&cam, &ray, 100, 50);
 	expected = ray_new(point_new(0, 2, -5), vector_new(sqrt(2)/2, 0, -sqrt(2)/2));
 	if (tuple_equal(ray.direction, expected.direction) || tuple_equal(ray.origin, expected.origin))
 	{
@@ -1879,17 +1879,17 @@ void	test_refraction(void)
 	
 	ray = ray_new(point_new(0, 0, -4), vector_new(0, 0, 1));
 	junc.cross[0].t = 2;
-	junc.cross[0].obj = world.obj[0];
+	junc.cross[0].obj = &world.obj[0];
 	junc.cross[1].t = 2.75;
-	junc.cross[1].obj = world.obj[1];
+	junc.cross[1].obj = &world.obj[1];
 	junc.cross[2].t = 3.25;
-	junc.cross[2].obj = world.obj[2];
+	junc.cross[2].obj = &world.obj[2];
 	junc.cross[3].t = 4.75;
-	junc.cross[3].obj = world.obj[1];
+	junc.cross[3].obj = &world.obj[1];
 	junc.cross[4].t = 5.25;
-	junc.cross[4].obj = world.obj[2];
+	junc.cross[4].obj = &world.obj[2];
 	junc.cross[5].t = 6;
-	junc.cross[5].obj = world.obj[0];
+	junc.cross[5].obj = &world.obj[0];
 	junc.count = 6;
 	for(int i = 0; i < 6; i++)
 	{
@@ -1951,7 +1951,7 @@ void	test_shade_hit_refraction(void)
 
 	ray = ray_new(point_new(0, 0, -3), vector_new(0, -sqrt(2/2), sqrt(2/2)));
 	junc.cross[0].t = sqrt(2);
-	junc.cross[0].obj = floor;
+	junc.cross[0].obj = &floor;
 	junc.count = 1;
 	pre_compute(&comps, junc.cross[0], ray, junc);
 	color = shade_hit(&world, &comps, 5);
