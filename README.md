@@ -1,4 +1,4 @@
-# raytracing_challenge
+# Software Ray Tracing
 
 No generative AI of any kind used for production or research
 
