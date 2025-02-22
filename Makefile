@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/02/15 20:41:21 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/02/22 20:26:47 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,16 +23,6 @@ SRC		:=	main.c							\
 			colors/get_emission.c			\
 			light/light.c					\
 			light/shading.c					\
-			matrix/rotate.c					\
-			matrix/transform.c				\
-			matrix/degrees_to_radians.c		\
-			matrix/matrix_cmp.c				\
-			matrix/matrix_determinant.c		\
-			matrix/matrix_inverse.c			\
-			matrix/matrix_multiply.c		\
-			matrix/matrix_print.c			\
-			matrix/matrix_transpose.c		\
-			matrix/matrix.c					\
 			mlx/init_mlx.c					\
 			mlx/key_manager.c				\
 			mlx/mlx_clear.c					\
@@ -51,10 +41,8 @@ SRC		:=	main.c							\
 			ray/reflect.c					\
 			ray/refract.c					\
 			ray/schlick.c					\
-			render/interpolation.c			\
 			render/path_tracing.c			\
 			render/per_pixel.c				\
-			render/random.c					\
 			render/render.c					\
 			shapes/cylinder.c				\
 			shapes/glass_sphere.c			\
@@ -62,20 +50,32 @@ SRC		:=	main.c							\
 			shapes/normal.c					\
 			shapes/plane.c					\
 			shapes/sphere.c					\
-			tuple/color_new.c				\
-			tuple/hadamard_product.c		\
-			tuple/tuple_add.c				\
-			tuple/tuple_equal.c				\
-			tuple/tuple_cross.c				\
-			tuple/tuple_dot.c				\
-			tuple/tuple_magnitude.c			\
-			tuple/tuple_negate.c			\
-			tuple/tuple_new.c				\
-			tuple/tuple_normalize.c			\
-			tuple/tuple_print.c				\
-			tuple/tuple_scalar.c			\
-			tuple/tuple_substract.c			\
-			tuple/tuple_tocolor.c			\
+			math/matrix/rotate.c			\
+			math/matrix/transform.c			\
+			math/matrix/degrees_to_radians.c\
+			math/matrix/matrix_cmp.c		\
+			math/matrix/matrix_determinant.c\
+			math/matrix/matrix_inverse.c	\
+			math/matrix/matrix_multiply.c	\
+			math/matrix/matrix_print.c		\
+			math/matrix/matrix_transpose.c	\
+			math/matrix/matrix.c			\
+			math/color_new.c				\
+			math/hadamard_product.c			\
+			math/interpolation.c			\
+			math/random.c					\
+			math/tuple_add.c				\
+			math/tuple_equal.c				\
+			math/tuple_cross.c				\
+			math/tuple_dot.c				\
+			math/tuple_magnitude.c			\
+			math/tuple_negate.c				\
+			math/tuple_new.c				\
+			math/tuple_normalize.c			\
+			math/tuple_print.c				\
+			math/tuple_scalar.c				\
+			math/tuple_substract.c			\
+			math/tuple_tocolor.c			\
 			world/pre_compute.c				\
 			world/world.c
 
