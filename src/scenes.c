@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 12:41:23 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 19:57:34 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -486,6 +486,7 @@ t_data	scene_complex(void)
 	t_data		data;
 
 	cube = cube_default();
+	cube.matter = emissive_material();
 	// cube.matter = glass_material();
 	// cube.matter.pattern = stripe_pattern(green(), blue());
 	set_transform(&cube, translate(3, 0, -2));

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 19:24:23 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 19:46:51 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,50 @@ void	path_tracing(t_ray *ray, t_camera cam, t_world world, t_img *img, t_mlx *ml
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
 }
 
+void	background(t_img *img)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < HEIGHT)
+	{
+		j = 0;
+		while (j < WIDTH)
+		{
+			ak_mlx_pixel_put(img, i, j, 0);
+			j++;
+		}
+		i++;
+	}
+}
+
 int	render_accumulation(t_data *data)
 {
 	static double				frame_index;
-	t_tuple				*accumulation;
-	t_ray				*ray;
+	static t_tuple				*accumulation;
+	static t_ray				*ray;
 	clock_t				start;
 	clock_t				end;
 	double				cpu_time;
-
-	ray = malloc(sizeof(t_ray) * (WIDTH * HEIGHT));
-	accumulation = malloc(sizeof(t_tuple) * (WIDTH * HEIGHT));
+	
+	if (data->moved)
+	{
+		free(ray);
+		ray = NULL;
+		free(accumulation);
+		accumulation = NULL;
+		frame_index = 1;
+		// memset(accumulation, 0, sizeof(t_tuple) * WIDTH * HEIGHT);
+		background(&data->img);
+		data->moved = false;
+	}
+	if (!ray)
+	{
+		ray = malloc(sizeof(t_ray) * (WIDTH * HEIGHT));
+	}
+	if (!accumulation)
+		accumulation = malloc(sizeof(t_tuple) * (WIDTH * HEIGHT));
 	if (!accumulation || !ray)
 		return (1);
 	cache_ray(ray, &data->cam);
@@ -86,10 +119,11 @@ int	render_accumulation(t_data *data)
 	path_tracing(ray, data->cam, data->world, &data->img, &data->mlx, frame_index, accumulation);
 	end = clock();
 	cpu_time = ((double) (end - start)) / CLOCKS_PER_SEC;
+	data->ts = cpu_time;
 	printf("frame time: %.f ms\n", cpu_time * 1000);
 	frame_index++;
-	free(ray);
-	free(accumulation);
+	// free(ray);
+	// free(accumulation);
 	return (0);
 }
 

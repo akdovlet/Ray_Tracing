@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 17:09:27 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 19:33:13 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,6 +211,7 @@ typedef struct	s_data
 {
 	int			job_end;
 	double		ts;
+	bool		moved;
 	t_camera	cam;
 	t_world		world;
 	t_img		img;
