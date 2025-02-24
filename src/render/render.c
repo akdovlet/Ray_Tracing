@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 18:55:47 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 19:24:23 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,25 +68,29 @@ void	path_tracing(t_ray *ray, t_camera cam, t_world world, t_img *img, t_mlx *ml
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
 }
 
-void	render_accumulation(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
+int	render_accumulation(t_data *data)
 {
-	double				frame_index;
+	static double				frame_index;
 	t_tuple				*accumulation;
 	t_ray				*ray;
+	clock_t				start;
+	clock_t				end;
+	double				cpu_time;
 
-	frame_index = 1;
 	ray = malloc(sizeof(t_ray) * (WIDTH * HEIGHT));
 	accumulation = malloc(sizeof(t_tuple) * (WIDTH * HEIGHT));
 	if (!accumulation || !ray)
-		return ;
-	cache_ray(ray, &cam);
-	while (frame_index < 100)
-	{
-		path_tracing(ray, cam, world, img, mlx, frame_index, accumulation);
-		frame_index++;
-	}
+		return (1);
+	cache_ray(ray, &data->cam);
+	start = clock();
+	path_tracing(ray, data->cam, data->world, &data->img, &data->mlx, frame_index, accumulation);
+	end = clock();
+	cpu_time = ((double) (end - start)) / CLOCKS_PER_SEC;
+	printf("frame time: %.f ms\n", cpu_time * 1000);
+	frame_index++;
 	free(ray);
 	free(accumulation);
+	return (0);
 }
 
 int	render_and_move(t_data *data)
