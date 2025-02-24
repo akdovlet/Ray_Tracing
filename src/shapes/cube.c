@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:13:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/02 15:40:17 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:11:48 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_vec2	check_axis(double origin, double direction)
 	return ((t_vec2){.x = t_min, .y = t_max});
 }
 
-t_vec2	cube_intersect(t_ray ray, t_shape shape)
+t_vec2	cube_intersect(t_shape *shape, t_ray ray)
 {
 	double	tmin;
 	double	tmax;
@@ -45,7 +45,7 @@ t_vec2	cube_intersect(t_ray ray, t_shape shape)
 	t_vec2	zt;
 	t_tuple	local_ray;
 
-	local_ray = tuple_substract(ray.origin, shape.coordinates);
+	local_ray = tuple_substract(ray.origin, shape->coordinates);
 	xt = check_axis(local_ray.x, ray.direction.x);
 	yt = check_axis(local_ray.y, ray.direction.y);	
 	zt = check_axis(local_ray.z, ray.direction.z);	
@@ -60,7 +60,7 @@ t_vec2	cube_intersect(t_ray ray, t_shape shape)
 	});
 }
 
-t_tuple	cube_normal_at(t_shape obj, t_tuple point)
+t_tuple	cube_normal_at(t_shape *obj, t_tuple point)
 {
 	double	maxp;
 	double	absx;

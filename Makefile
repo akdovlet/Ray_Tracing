@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/02/22 20:26:47 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/02/24 15:11:53 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC		:=	main.c							\
 			render/path_tracing.c			\
 			render/per_pixel.c				\
 			render/render.c					\
+			shapes/cylinder_intersect.c		\
 			shapes/cylinder.c				\
 			shapes/glass_sphere.c			\
 			shapes/material.c				\
@@ -61,9 +62,11 @@ SRC		:=	main.c							\
 			math/matrix/matrix_transpose.c	\
 			math/matrix/matrix.c			\
 			math/color_new.c				\
+			math/float_swap.c				\
 			math/hadamard_product.c			\
 			math/interpolation.c			\
 			math/random.c					\
+			math/time.c						\
 			math/tuple_add.c				\
 			math/tuple_equal.c				\
 			math/tuple_cross.c				\

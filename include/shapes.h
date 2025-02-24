@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/15 20:39:46 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:11:10 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ t_tuple	refracted_ray(t_comps *comps);
 double	schlick(t_comps comps);
 
 t_shape	cylinder_default(void);
+t_vec2	cylinder_intersect(t_ray ray, t_shape shape);
 
 #endif

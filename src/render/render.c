@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/21 19:02:37 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 15:52:56 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	render(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
 		x = 0;
 		while (x < cam.hsize)
 		{
-			color = color_at(&world, ray[x + y * cam.hsize], 10);
+			color = color_at(&world, ray[x + y * cam.hsize], 5);
 			ak_mlx_pixel_put(img, x, y, tuple_tocolor(color));
 			x++;
 		}
@@ -80,7 +80,7 @@ void	render_accumulation(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
 	if (!accumulation || !ray)
 		return ;
 	cache_ray(ray, &cam);
-	while (1)
+	while (frame_index < 100)
 	{
 		path_tracing(ray, cam, world, img, mlx, frame_index, accumulation);
 		frame_index++;
@@ -95,11 +95,11 @@ int	render_and_move(t_data *data)
 	int		x;
 	t_ray	*ray;
 	t_tuple	color;
+	clock_t	start;
+	clock_t	end;
 
 	y = 0;
-	camera_update_transform(&data->cam, data->cam.from,
-									data->cam.to,
-									data->cam.up);
+	start = clock();
 	ray = malloc(sizeof(t_ray) * (WIDTH * HEIGHT));
 	if (!ray)
 		return (1);
@@ -109,13 +109,16 @@ int	render_and_move(t_data *data)
 		x = 0;
 		while (x < data->cam.hsize)
 		{
-			color = color_at(&data->world, ray[x + y * WIDTH], 10);
+			color = color_at(&data->world, ray[x + y * WIDTH], 5);
 			ak_mlx_pixel_put(&data->img, x, y, tuple_tocolor(color));
 			x++;
 		}
 		y++;
 	}
 	mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.win_ptr, data->img.img_ptr, 0, 0);
+	end = clock();
+	data->ts = ((double) (end - start)) / CLOCKS_PER_SEC;
+	printf("frame time: %f ms\n", data->ts);
 	free(ray);
 	return (0);
 }

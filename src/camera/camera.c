@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:17:18 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/04 13:57:18 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 13:00:05 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_camera	camera_new(double hsize, double vsize, double fov)
 	double		aspect_ratio;
 	double		half_view;
 
-	cam = (t_camera){};
 	half_view = tan(fov / 2.0);
 	aspect_ratio = hsize / vsize;
 	if (aspect_ratio >= 1)

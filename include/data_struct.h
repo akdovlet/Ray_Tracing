@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/15 20:28:33 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:09:27 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,23 @@ typedef union s_vec2
 	struct {
 		double	dis;
 		double	x;
-		double	y;		
+		double	y;
 	};
 	double	vec3[3];
 }	t_vec2;
 
 typedef struct s_vec3 
 {
-	int x;	
-	int y;	
-	int z;	
+	int x; 
+	int y;
+	int z;
 } t_vec3;
 
 typedef struct s_dvec3 
 {
-	double a;	
-	double b;	
-	double c;	
+	double a;
+	double b;
+	double c;
 } t_dvec3;
 
 typedef struct s_tuple
@@ -129,14 +129,15 @@ typedef struct s_ray
 
 typedef struct	s_shape
 {
+	bool			closed;
 	double			min;
 	double			max;
 	uintptr_t		id;
 	t_tuple			coordinates;
 	t_matrix		transform;
 	t_material		matter;
-	t_vec2			(*local_interesct)(t_ray, struct s_shape);
-	t_tuple			(*local_normalat)(struct s_shape, t_tuple point);
+	t_vec2			(*local_interesct)(struct s_shape *, t_ray);
+	t_tuple			(*local_normalat)(struct s_shape *, t_tuple);
 }	t_shape;
 
 struct s_intersection
@@ -197,23 +198,19 @@ typedef struct s_camera
 	int			vsize;
 	double		fov;
 	double		psize;
-	double		pitch;
-	double		yaw;
-	double		roll;
 	double		half_view;
 	double		half_width;
 	double		half_height;
-	v2			last_mouse_position;
 	t_matrix	transform;
 	t_tuple		from;
 	t_tuple		to;
 	t_tuple		up;
-	t_tuple		right;
 }	t_camera;
 
 typedef struct	s_data
 {
 	int			job_end;
+	double		ts;
 	t_camera	cam;
 	t_world		world;
 	t_img		img;

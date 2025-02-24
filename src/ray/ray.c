@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:42:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/21 19:06:21 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 17:08:35 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ t_ray	ray_new(t_tuple origin, t_tuple direction)
 
 t_tuple	position(t_ray ray, double factor)
 {
-	return (tuple_add(ray.origin, (tuple_multiply(tuple_normalize(ray.direction), factor))));
+	return (tuple_add(ray.origin, (tuple_multiply(ray.direction, factor))));
 }
 
-t_vec2	intersect(t_ray ray, t_shape shape)
+t_vec2	intersect(t_ray ray, t_shape *shape)
 {
 	t_ray	transformed_ray;
 
-	transformed_ray = ray_transform(ray, shape.transform);
-	return (shape.local_interesct(transformed_ray, shape));
+	transformed_ray = ray_transform(ray, shape->transform);
+	return (shape->local_interesct(transformed_ray, shape));
 }
 
 t_intersection	intersection(t_shape shape, t_vec2 vec)
@@ -51,25 +51,25 @@ t_intersection	intersection(t_shape shape, t_vec2 vec)
 		new.count = 2;
 	if (new.count > 1 && new.xs.x > new.xs.y)
 	{
+		printf("here\n");
 		tmp = new.xs.x;
 		new.xs.x = new.xs.y;
 		new.xs.y = tmp;
 	}
 	return (new);
-}
+} 
 
-t_intersection	hit(t_intersection inter)
+void hit(t_intersection *hit, t_vec2 vec)
 {
-	// if (!inter.count)
-	// 	return (inter);
-	if (inter.xs.x < 0.0 && inter.xs.y < 0.0)
-		return (inter);
-	if (inter.xs.x < 0)
-		inter.t = inter.xs.y;
-	else if (inter.xs.y < 0)
-		inter.t = inter.xs.x;
+	hit->hit = false;
+	if (hit->xs.x < 0.0 && hit->xs.y < 0.0)
+		return (hit);
+	if (hit->xs.x < 0)
+		hit->t = hit->xs.y;
+	else if (hit->xs.y < 0)
+		hit->t = hit->xs.x;
 	else
-		inter.t = fmin(inter.xs.x, inter.xs.y);
-	inter.hit = true;
-	return (inter);
+		hit->t = fmin(hit->xs.x, hit->xs.y);
+	hit->hit = true;
+	return (hit);
 }

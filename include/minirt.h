@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/19 18:23:11 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 11:58:41 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <string.h>
 # include <time.h>
 # include <pthread.h>
+# include <time.h>
+# include <sys/time.h>
 
 # include "random.h"
 # include "X11/keysym.h"
@@ -38,8 +40,8 @@
 # include "tuple.h"
 # include "ray.h"
 
-# define WIDTH 1080
-# define HEIGHT 1080
+# define WIDTH 500
+# define HEIGHT 500
 
 t_tuple		position(t_ray ray, double factor);
 void		render(t_camera cam, t_world world, t_img *img, t_mlx *mlx);
