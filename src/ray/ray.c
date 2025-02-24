@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:42:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/15 14:56:38 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/21 19:06:21 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_intersection	intersection(t_shape shape, t_vec2 vec)
 	(void)shape;
 	if (vec.dis < 0.0)
 		return (new);
-	if (!vec.dis)
+	if (vec.dis == 0.0)
 		new.count = 1;
 	else
 		new.count = 2;
