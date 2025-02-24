@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:09:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 17:03:52 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:40:26 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shapes.h"
 
-t_vec2	sphere_intersect(t_ray ray, t_tuple coordinates)
+t_vec2	sphere_intersect(t_shape *shape, t_ray ray)
 {
 	double	a;
 	double	b;
@@ -20,7 +20,7 @@ t_vec2	sphere_intersect(t_ray ray, t_tuple coordinates)
 	double	dis;
 	t_tuple	ray_sph_vector;
 
-	ray_sph_vector = tuple_substract(ray.origin, coordinates);
+	ray_sph_vector = tuple_substract(ray.origin, shape->coordinates);
 	a = tuple_dot(ray.direction, ray.direction);
 	b = 2 * tuple_dot(ray.direction, ray_sph_vector);
 	c = tuple_dot(ray_sph_vector, ray_sph_vector) - 1.0;
@@ -34,11 +34,11 @@ t_vec2	sphere_intersect(t_ray ray, t_tuple coordinates)
 	});
 }
 
-t_tuple	sphere_normal_at(t_shape obj, t_tuple point)
+t_tuple	sphere_normal_at(t_shape *shape, t_tuple point)
 {
 	t_tuple	object_normal;
 
-	object_normal = tuple_substract(point, obj.coordinates);
+	object_normal = tuple_substract(point, shape->coordinates);
 	return (object_normal);
 }
 

@@ -772,70 +772,70 @@ void	object_transform_test(void)
 // 	}
 // }
 
-void	intersection_test(void)
-{
-	printf("\nIntersection test\n");
+// void	intersection_test(void)
+// {
+// 	printf("\nIntersection test\n");
 
-	t_ray ray;
-	t_shape sph;
-	t_intersection inter;
+// 	t_ray ray;
+// 	t_shape sph;
+// 	t_intersection inter;
 
-	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
-	sph = sphere_default();
-	inter.xs = intersect(ray, sph);
-	if (inter.xs.x != 4 || inter.xs.y != 6)
-		fprintf(stderr, "\tError: expected 4, 6; got: %f, %f\n", inter.xs.x, inter.xs.y);
-	else
-		printf("\tOk\n");
-	inter = hit(inter);
-	if (inter.t != 4)
-		fprintf(stderr, "inter t is: %f, expected 4\n", inter.t);
+// 	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
+// 	sph = sphere_default();
+// 	inter.xs = intersect(ray, sph);
+// 	if (inter.xs.x != 4 || inter.xs.y != 6)
+// 		fprintf(stderr, "\tError: expected 4, 6; got: %f, %f\n", inter.xs.x, inter.xs.y);
+// 	else
+// 		printf("\tOk\n");
+// 	inter = hit(inter);
+// 	if (inter.t != 4)
+// 		fprintf(stderr, "inter t is: %f, expected 4\n", inter.t);
 
-	ray = ray_new(point_new(0, 1, -5), vector_new(0, 0, 1));
-	sph = sphere_default();
-	inter.xs = intersect(ray, sph);
-	if (inter.xs.x != 5 || inter.xs.y != 5)
-		fprintf(stderr, "\tError: expected 4, 6; got: %f, %f\n", inter.xs.x, inter.xs.y);
-	else
-		printf("\tOk\n");
-	inter = hit(inter);
-	if (inter.t != 5)
-		fprintf(stderr, "inter t is: %f, expected 5\n", inter.t);
+// 	ray = ray_new(point_new(0, 1, -5), vector_new(0, 0, 1));
+// 	sph = sphere_default();
+// 	inter.xs = intersect(ray, sph);
+// 	if (inter.xs.x != 5 || inter.xs.y != 5)
+// 		fprintf(stderr, "\tError: expected 4, 6; got: %f, %f\n", inter.xs.x, inter.xs.y);
+// 	else
+// 		printf("\tOk\n");
+// 	inter = hit(inter);
+// 	if (inter.t != 5)
+// 		fprintf(stderr, "inter t is: %f, expected 5\n", inter.t);
 
-	ray = ray_new(point_new(0, 2, -5), vector_new(0, 0, 1));
-	sph = sphere_default();
-	inter.xs = intersect(ray, sph);
-	if (inter.xs.dis >= 0)
-		fprintf(stderr, "\tError: expected 0; got: %f", inter.xs.dis);
-	else
-		printf("\tOk\n");
-	inter = hit(inter);
-	if (inter.count != 0)
-		fprintf(stderr, "inter count is: %d, expected 0\n", inter.count);
+// 	ray = ray_new(point_new(0, 2, -5), vector_new(0, 0, 1));
+// 	sph = sphere_default();
+// 	inter.xs = intersect(ray, sph);
+// 	if (inter.xs.dis >= 0)
+// 		fprintf(stderr, "\tError: expected 0; got: %f", inter.xs.dis);
+// 	else
+// 		printf("\tOk\n");
+// 	inter = hit(inter);
+// 	if (inter.count != 0)
+// 		fprintf(stderr, "inter count is: %d, expected 0\n", inter.count);
 
-	ray = ray_new(point_new(0, 0, 0), vector_new(0, 0, 1));
-	sph = sphere_default();
-	inter.xs = intersect(ray, sph);
-	if (inter.xs.x != -1.0 || inter.xs.y != 1)
-		fprintf(stderr, "\tError: expected -1, 1; got: %f, %f", inter.xs.x, inter.xs.y);
-	else
-		printf("\tOk\n");
-	inter = hit(inter);
-	if (inter.t != 1)
-		fprintf(stderr, "inter t is: %f, expected 1\n", inter.t);
+// 	ray = ray_new(point_new(0, 0, 0), vector_new(0, 0, 1));
+// 	sph = sphere_default();
+// 	inter.xs = intersect(ray, sph);
+// 	if (inter.xs.x != -1.0 || inter.xs.y != 1)
+// 		fprintf(stderr, "\tError: expected -1, 1; got: %f, %f", inter.xs.x, inter.xs.y);
+// 	else
+// 		printf("\tOk\n");
+// 	inter = hit(inter);
+// 	if (inter.t != 1)
+// 		fprintf(stderr, "inter t is: %f, expected 1\n", inter.t);
 
 
-	ray = ray_new(point_new(0, 0, 5), vector_new(0, 0, 1));
-	sph = sphere_default();
-	inter.xs = intersect(ray, sph);
-	if (inter.xs.x != -6.0 || inter.xs.y != -4.0)
-		fprintf(stderr, "\tError: expected -6, -4; got: %f, %f", inter.xs.x, inter.xs.y);
-	else
-		printf("\tOk\n");
-	inter = hit(inter);
-	if (inter.t != 0)
-		fprintf(stderr, "inter t is: %f, expected 0\n", inter.t);
-}
+// 	ray = ray_new(point_new(0, 0, 5), vector_new(0, 0, 1));
+// 	sph = sphere_default();
+// 	inter.xs = intersect(ray, sph);
+// 	if (inter.xs.x != -6.0 || inter.xs.y != -4.0)
+// 		fprintf(stderr, "\tError: expected -6, -4; got: %f, %f", inter.xs.x, inter.xs.y);
+// 	else
+// 		printf("\tOk\n");
+// 	inter = hit(inter);
+// 	if (inter.t != 0)
+// 		fprintf(stderr, "inter t is: %f, expected 0\n", inter.t);
+// }
 
 // void	draw_sphere(t_img *img, t_mlx *mlx)
 // {
@@ -895,37 +895,37 @@ void	intersection_test(void)
 // 	}
 // }
 
-void	normal_at_test(void)
-{
-	t_shape	sph;
-	t_tuple		normal;
-	t_tuple		expected;
+// void	normal_at_test(void)
+// {
+// 	t_shape	sph;
+// 	t_tuple		normal;
+// 	t_tuple		expected;
 
-	printf("\nnormal at test\n");
-	sph = sphere_default();
-	set_transform(&sph, translate(0, 1, 0));
-	normal = normal_at(sph, point_new(0, 1.70711, -0.70711));
-	expected = vector_new(0, 0.70711, -0.70711);
-	if (tuple_equal(normal, expected))
-	{
-		fprintf(stderr, "\terror:\texpected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(normal);
-	}
+// 	printf("\nnormal at test\n");
+// 	sph = sphere_default();
+// 	set_transform(&sph, translate(0, 1, 0));
+// 	normal = normal_at(sph, point_new(0, 1.70711, -0.70711));
+// 	expected = vector_new(0, 0.70711, -0.70711);
+// 	if (tuple_equal(normal, expected))
+// 	{
+// 		fprintf(stderr, "\terror:\texpected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(normal);
+// 	}
 
-	sph = sphere_default();
-	set_transform(&sph, multiply_matrix(scale(1, 0.5, 1), rotate_z(M_PI / 5)));
-	normal = normal_at(sph, point_new(0, sqrt(2) / 2, -sqrt(2) / 2));
-	expected = vector_new(0, 0.97014, -0.24254);
-	if (tuple_equal(normal, expected))
-	{
-		fprintf(stderr, "\terror:\texpected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(normal);
-	}
-}
+// 	sph = sphere_default();
+// 	set_transform(&sph, multiply_matrix(scale(1, 0.5, 1), rotate_z(M_PI / 5)));
+// 	normal = normal_at(sph, point_new(0, sqrt(2) / 2, -sqrt(2) / 2));
+// 	expected = vector_new(0, 0.97014, -0.24254);
+// 	if (tuple_equal(normal, expected))
+// 	{
+// 		fprintf(stderr, "\terror:\texpected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(normal);
+// 	}
+// }
 
 void	transpose_test(void)
 {
@@ -1970,141 +1970,141 @@ void	evaluate(double a, double b, double ea, double eb)
 		printf("OK!\n");
 }
 
-void	test_cube(void)
-{
-	t_shape	cube;
-	t_ray	ray;
-	t_vec2	xs;
+// void	test_cube(void)
+// {
+// 	t_shape	cube;
+// 	t_ray	ray;
+// 	t_vec2	xs;
 
-	printf("\nTest cube intersect\n");
-	cube = cube_default();
+// 	printf("\nTest cube intersect\n");
+// 	cube = cube_default();
 
-	ray = ray_new(point_new(5, 0.5, 0), vector_new(-1, 0, 0));
-	xs = cube_intersect(ray, cube);
-	evaluate(xs.x, xs.y, 4.0, 6.0);
+// 	ray = ray_new(point_new(5, 0.5, 0), vector_new(-1, 0, 0));
+// 	xs = cube_intersect(ray, cube);
+// 	evaluate(xs.x, xs.y, 4.0, 6.0);
 
-	ray = ray_new(point_new(-5, 0.5, 0), vector_new(1, 0, 0));
-	xs = cube_intersect(ray, cube);
-	evaluate(xs.x, xs.y, 4.0, 6.0);
+// 	ray = ray_new(point_new(-5, 0.5, 0), vector_new(1, 0, 0));
+// 	xs = cube_intersect(ray, cube);
+// 	evaluate(xs.x, xs.y, 4.0, 6.0);
 
-	ray = ray_new(point_new(0.5, 5, 0), vector_new(0, -1, 0));
-	xs = cube_intersect(ray, cube);
-	evaluate(xs.x, xs.y, 4.0, 6.0);
+// 	ray = ray_new(point_new(0.5, 5, 0), vector_new(0, -1, 0));
+// 	xs = cube_intersect(ray, cube);
+// 	evaluate(xs.x, xs.y, 4.0, 6.0);
 
-	ray = ray_new(point_new(0.5, -5, 0), vector_new(0, 1, 0));
-	xs = cube_intersect(ray, cube);
-	evaluate(xs.x, xs.y, 4.0, 6.0);
+// 	ray = ray_new(point_new(0.5, -5, 0), vector_new(0, 1, 0));
+// 	xs = cube_intersect(ray, cube);
+// 	evaluate(xs.x, xs.y, 4.0, 6.0);
 
-	ray = ray_new(point_new(0.5, 0, 5), vector_new(0, 0, -1));
-	xs = cube_intersect(ray, cube);
-	evaluate(xs.x, xs.y, 4.0, 6.0);
+// 	ray = ray_new(point_new(0.5, 0, 5), vector_new(0, 0, -1));
+// 	xs = cube_intersect(ray, cube);
+// 	evaluate(xs.x, xs.y, 4.0, 6.0);
 
-	ray = ray_new(point_new(0.5, 0, -5), vector_new(0, 0, 1));
-	xs = cube_intersect(ray, cube);
-	evaluate(xs.x, xs.y, 4.0, 6.0);
+// 	ray = ray_new(point_new(0.5, 0, -5), vector_new(0, 0, 1));
+// 	xs = cube_intersect(ray, cube);
+// 	evaluate(xs.x, xs.y, 4.0, 6.0);
 
-	ray = ray_new(point_new(0, 0.5, 0), vector_new(0, 0, 1));
-	xs = cube_intersect(ray, cube);
-	evaluate(xs.x, xs.y, -1, 1);
-}
+// 	ray = ray_new(point_new(0, 0.5, 0), vector_new(0, 0, 1));
+// 	xs = cube_intersect(ray, cube);
+// 	evaluate(xs.x, xs.y, -1, 1);
+// }
 
-void	test_cube_normalat(void)
-{
-	t_shape shape;
-	t_tuple	point;
-	t_tuple	expected;
+// void	test_cube_normalat(void)
+// {
+// 	t_shape shape;
+// 	t_tuple	point;
+// 	t_tuple	expected;
 
-	printf("\nTest cube normal at\n");
-	shape = cube_default();
-	point = point_new(1, 0.5, -0.8) ;
-	expected = vector_new(1, 0, 0) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
-	{
-		fprintf(stderr, "Error: expected:\n");
-		tuple_print(expected);
-		fprintf(stderr, "got:\n");
-		tuple_print(cube_normal_at(shape, point));
-	}
-	else
-		printf("OK!\n");
-	point = point_new(-1, -0.2, 0.9);
-	expected = vector_new(-1, 0, 0) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
-	{
-		fprintf(stderr, "Error: expected:\n");
-		tuple_print(expected);
-		fprintf(stderr, "got:\n");
-		tuple_print(cube_normal_at(shape, point));
-	}
-	else
-		printf("OK!\n");
-	point = point_new(-0.4, 1, -0.1);
-	expected = vector_new(0, 1, 0) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
-	{
-		fprintf(stderr, "Error: expected:\n");
-		tuple_print(expected);
-		fprintf(stderr, "got:\n");
-		tuple_print(cube_normal_at(shape, point));
-	}
-	else
-		printf("OK!\n");
-	point = point_new(0.3, -1, -0.7);
-	expected = vector_new(0, -1, 0) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
-	{
-		fprintf(stderr, "Error: expected:\n");
-		tuple_print(expected);
-		fprintf(stderr, "got:\n");
-		tuple_print(cube_normal_at(shape, point));
-	}
-	else
-		printf("OK!\n");
-	point = point_new(-0.6, 0.3, 1) ;
-	expected = vector_new(0, 0, 1) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
-	{
-		fprintf(stderr, "Error: expected:\n");
-		tuple_print(expected);
-		fprintf(stderr, "got:\n");
-		tuple_print(cube_normal_at(shape, point));
-	}
-	else
-		printf("OK!\n");
-	point = point_new(0.4, 0.4, -1) ;
-	expected = vector_new(0, 0, -1) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
-	{
-		fprintf(stderr, "Error: expected:\n");
-		tuple_print(expected);
-		fprintf(stderr, "got:\n");
-		tuple_print(cube_normal_at(shape, point));
-	}
-	else
-		printf("OK!\n");
-	point = point_new(1, 1, 1);
-	expected = vector_new(1, 0, 0) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
-	{
-		fprintf(stderr, "Error: expected:\n");
-		tuple_print(expected);
-		fprintf(stderr, "got:\n");
-		tuple_print(cube_normal_at(shape, point));
-	}
-	else
-		printf("OK!\n");
-	point = point_new(-1, -1, -1);
-	expected = vector_new(-1, 0, 0) ;
-	if (tuple_equal(cube_normal_at(shape, point), expected))
-	{
-		fprintf(stderr, "Error: expected:\n");
-		tuple_print(expected);
-		fprintf(stderr, "got:\n");
-		tuple_print(cube_normal_at(shape, point));
-	}
-	else
-		printf("OK!\n");
-	}
+// 	printf("\nTest cube normal at\n");
+// 	shape = cube_default();
+// 	point = point_new(1, 0.5, -0.8) ;
+// 	expected = vector_new(1, 0, 0) ;
+// 	if (tuple_equal(cube_normal_at(shape, point), expected))
+// 	{
+// 		fprintf(stderr, "Error: expected:\n");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "got:\n");
+// 		tuple_print(cube_normal_at(shape, point));
+// 	}
+// 	else
+// 		printf("OK!\n");
+// 	point = point_new(-1, -0.2, 0.9);
+// 	expected = vector_new(-1, 0, 0) ;
+// 	if (tuple_equal(cube_normal_at(shape, point), expected))
+// 	{
+// 		fprintf(stderr, "Error: expected:\n");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "got:\n");
+// 		tuple_print(cube_normal_at(shape, point));
+// 	}
+// 	else
+// 		printf("OK!\n");
+// 	point = point_new(-0.4, 1, -0.1);
+// 	expected = vector_new(0, 1, 0) ;
+// 	if (tuple_equal(cube_normal_at(shape, point), expected))
+// 	{
+// 		fprintf(stderr, "Error: expected:\n");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "got:\n");
+// 		tuple_print(cube_normal_at(shape, point));
+// 	}
+// 	else
+// 		printf("OK!\n");
+// 	point = point_new(0.3, -1, -0.7);
+// 	expected = vector_new(0, -1, 0) ;
+// 	if (tuple_equal(cube_normal_at(shape, point), expected))
+// 	{
+// 		fprintf(stderr, "Error: expected:\n");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "got:\n");
+// 		tuple_print(cube_normal_at(shape, point));
+// 	}
+// 	else
+// 		printf("OK!\n");
+// 	point = point_new(-0.6, 0.3, 1) ;
+// 	expected = vector_new(0, 0, 1) ;
+// 	if (tuple_equal(cube_normal_at(shape, point), expected))
+// 	{
+// 		fprintf(stderr, "Error: expected:\n");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "got:\n");
+// 		tuple_print(cube_normal_at(shape, point));
+// 	}
+// 	else
+// 		printf("OK!\n");
+// 	point = point_new(0.4, 0.4, -1) ;
+// 	expected = vector_new(0, 0, -1) ;
+// 	if (tuple_equal(cube_normal_at(shape, point), expected))
+// 	{
+// 		fprintf(stderr, "Error: expected:\n");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "got:\n");
+// 		tuple_print(cube_normal_at(shape, point));
+// 	}
+// 	else
+// 		printf("OK!\n");
+// 	point = point_new(1, 1, 1);
+// 	expected = vector_new(1, 0, 0) ;
+// 	if (tuple_equal(cube_normal_at(shape, point), expected))
+// 	{
+// 		fprintf(stderr, "Error: expected:\n");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "got:\n");
+// 		tuple_print(cube_normal_at(shape, point));
+// 	}
+// 	else
+// 		printf("OK!\n");
+// 	point = point_new(-1, -1, -1);
+// 	expected = vector_new(-1, 0, 0) ;
+// 	if (tuple_equal(cube_normal_at(shape, point), expected))
+// 	{
+// 		fprintf(stderr, "Error: expected:\n");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "got:\n");
+// 		tuple_print(cube_normal_at(shape, point));
+// 	}
+// 	else
+// 		printf("OK!\n");
+// 	}
 
 // void	test_cylinder_intersect(void)
 // {

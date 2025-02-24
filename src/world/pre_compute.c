@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 14:52:44 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/14 19:58:24 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:40:34 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	pre_compute(t_comps *new, t_crossing cross, t_ray ray, t_junction arr)
 	new->obj = cross.obj;
 	new->world_point = position(ray, cross.t);
 	new->eyev = tuple_negate(ray.direction);
-	new->normalv = normal_at(*new->obj, new->world_point);
+	new->normalv = normal_at(new->obj, new->world_point);
 	if (tuple_dot(new->normalv, new->eyev) < 0.0)
 	{
 		new->inside = true;

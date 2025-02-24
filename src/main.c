@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 11:54:22 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:56:06 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main()
 
 	init_mlx(&mlx, &img);
 	mlx_hook(mlx.win_ptr, 17, 0, mlx_loop_end, mlx.mlx_ptr);
-	data = scene_single_sphere();
+	data = scene_complex();
 	data.img = img;
 	data.mlx = mlx;
 	mlx_mouse_hook(mlx.win_ptr, &mouse_manager, &data);

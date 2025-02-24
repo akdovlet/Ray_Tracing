@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 15:11:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:26:39 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 
 void			sphere_test(void);
 
-t_vec2			intersect(t_ray ray, t_shape object);
+t_vec2			intersect(t_shape *shape, t_ray ray);
 t_intersection	intersection(t_shape obj, t_vec2 vec);
-t_intersection	hit(t_intersection inter);
+void			hit(t_intersection *hit, t_vec2 vec);
 
 void			set_transform(t_shape *obj, t_matrix m);
 t_tuple			reflected_color(t_world *world, t_comps *comps, int depth);
-t_tuple			normal_at(t_shape obj, t_tuple world_point);
+t_tuple			normal_at(t_shape *shape, t_tuple point);
 t_tuple			reflect(t_tuple in, t_tuple normal);
 t_material		material(void);
 t_material		emissive_material(void);
@@ -44,10 +44,10 @@ t_shape			plane_new(void);
 t_shape	glass_sphere(void);
 t_material	glass_material(void);
 t_shape	cube_default(void);
-t_vec2	cube_intersect(t_ray ray, t_shape shape);
-t_tuple	cube_normal_at(t_shape obj, t_tuple point);
-t_vec2	sphere_intersect(t_ray ray, t_shape shape);
-t_tuple	sphere_normal_at(t_shape obj, t_tuple world_point);
+t_vec2	cube_intersect(t_shape *shape, t_ray ray);
+t_tuple	cube_normal_at(t_shape *shape, t_tuple point);
+t_vec2	sphere_intersect(t_shape *shape, t_ray ray);
+t_tuple	sphere_normal_at(t_shape *shape, t_tuple point);
 
 
 unsigned int		new_id(void);
@@ -58,6 +58,6 @@ t_tuple	refracted_ray(t_comps *comps);
 double	schlick(t_comps comps);
 
 t_shape	cylinder_default(void);
-t_vec2	cylinder_intersect(t_ray ray, t_shape shape);
+t_vec2	cylinder_intersect(t_shape *shape, t_ray ray);
 
 #endif

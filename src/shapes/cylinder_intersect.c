@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:09:52 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 17:07:16 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:38:47 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	check_trunc(t_vec2 *vec, t_shape *shape, t_ray *ray)
 			vec->dis = -1.0;
 }
 
-t_vec2	cylinder_intersect(t_ray ray, t_shape *shape)
+t_vec2	cylinder_intersect(t_shape *shape, t_ray ray)
 {
 	double	dis;
 	t_dvec3	vec;

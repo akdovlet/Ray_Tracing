@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:46:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/01 17:25:21 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:38:25 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static t_vec2	local_intersect(t_ray ray, t_shape shape)
+static t_vec2	local_intersect(t_shape *shape, t_ray ray)
 {
 	double	dot;
 	double	t;
@@ -20,7 +20,7 @@ static t_vec2	local_intersect(t_ray ray, t_shape shape)
 
 	if (fabs(ray.direction.y) < DBL_EPSILON)
 		return ((t_vec2) {.dis = -1});
-	local_ray = tuple_substract(ray.origin, shape.coordinates);
+	local_ray = tuple_substract(ray.origin, shape->coordinates);
 	dot = tuple_dot(vector_new(0, 1, 0), local_ray);
 	if (!dot)
 		return ((t_vec2) {.dis = -1});
@@ -34,7 +34,7 @@ static t_vec2	local_intersect(t_ray ray, t_shape shape)
 	});
 }
 
-static t_tuple	local_normalat(t_shape shape, t_tuple point)
+static t_tuple	local_normalat(t_shape *shape, t_tuple point)
 {
 	(void)point;
 	(void)shape;

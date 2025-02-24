@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:13:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 17:11:48 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:37:19 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_vec2	cube_intersect(t_shape *shape, t_ray ray)
 	});
 }
 
-t_tuple	cube_normal_at(t_shape *obj, t_tuple point)
+t_tuple	cube_normal_at(t_shape *shape, t_tuple point)
 {
 	double	maxp;
 	double	absx;
@@ -68,7 +68,7 @@ t_tuple	cube_normal_at(t_shape *obj, t_tuple point)
 	double	absz;
 	t_tuple	normalv;
 
-	(void)obj;
+	(void)shape;
 	absx = fabs(point.x);
 	absy = fabs(point.y);
 	absz = fabs(point.z);
