@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 19:10:10 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/14 23:14:27 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/21 18:20:04 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_material	emissive_material(void)
 		.metalic = 0.1,
 		.transparency = 0.0,
 		.refractive_index = 1.0,
-		.emission_power = 5.0,
+		.emission_power = 2.0,
 		.emission_color = color_new(0.8, 0.5, 0.2)
 	});
 }
