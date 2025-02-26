@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:23:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/22 20:18:34 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/26 14:23:17 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ void		test_cube_normalat(void);
 void		test_cylinder_intersect(void);
 void		test_cylinder_normalat(void);
 void		test_truncated_cylinder(void);
+void		test_capped_cylinder(void);
 
 #endif

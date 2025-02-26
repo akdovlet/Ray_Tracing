@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 13:41:33 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/06 18:52:29 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:06:46 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_tuple	refracted_color(t_world *world, t_comps *comps, int depth)
 		return (black());
 	n_ratio = comps->n1 / comps->n2;
 	cos_i = tuple_dot(comps->eyev, comps->normalv);
-	sin2_t = pow(n_ratio, 2.0) * (1 - pow(cos_i, 2.0));
+	sin2_t = pow(n_ratio, 2.0) * (1.0 - pow(cos_i, 2.0));
 	if (sin2_t > 1.0)
 		return (black());
 	cos_t = sqrt(1.0 - sin2_t);

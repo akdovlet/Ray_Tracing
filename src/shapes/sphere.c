@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:09:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 18:40:26 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/25 14:05:45 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,7 @@ t_vec2	sphere_intersect(t_shape *shape, t_ray ray)
 
 t_tuple	sphere_normal_at(t_shape *shape, t_tuple point)
 {
-	t_tuple	object_normal;
-
-	object_normal = tuple_substract(point, shape->coordinates);
-	return (object_normal);
+	return (tuple_substract(point, shape->coordinates));
 }
 
 t_shape	sphere_default(void)

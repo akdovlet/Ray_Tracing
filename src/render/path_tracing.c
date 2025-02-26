@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 20:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/15 20:31:54 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:05:20 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed)
 	ray_color = white();
 	sky = color_new(0.6, 0.7, 0.9);
 	sky = color_new(0.06, 0.07, 0.09);
+	// sky = color_new(0, 0, 0);
 	bounces = 5;
 	i = 0;
 	while (i < bounces)
@@ -41,11 +42,16 @@ t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed)
 			ray.origin = comps.overz;
 			diffusev = tuple_normalize(tuple_add(comps.normalv, random_unit_vec(&seed)));
 			is_specualar = hits.closest.obj->matter.specular >= random_float(&seed);
-			ray.direction = lerp(diffusev, comps.reflectv, hits.closest.obj->matter.roughness
-												* is_specualar);
+				ray.direction = lerp(diffusev, comps.reflectv, hits.closest.obj->matter.roughness
+										* is_specualar);
 			emitted_light = get_emission(hits.closest.obj);
 			incoming_light = tuple_add(incoming_light, color_hadamard(emitted_light, ray_color));
-			ray_color = color_hadamard(ray_color, lerp(hits.closest.obj->matter.color,
+			if (hits.closest.obj->matter.transparency)
+			{	
+				ray_color = tuple_add(ray_color, refracted_color(world, &comps, 10));
+			}
+			else
+				ray_color = color_hadamard(ray_color, lerp(hits.closest.obj->matter.color,
 				hits.closest.obj->matter.specular_color, is_specualar));
 		}
 		else

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 19:46:51 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/26 16:33:33 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	render(t_camera cam, t_world world, t_img *img, t_mlx *mlx)
 	free(ray);
 }
 
-void	path_tracing(t_ray *ray, t_camera cam, t_world world, t_img *img, t_mlx *mlx, double frame_index,t_tuple *accumulation)
+void	path_tracing(t_data *data)
 {
 	int		y;
 	int		x;
@@ -48,24 +48,24 @@ void	path_tracing(t_ray *ray, t_camera cam, t_world world, t_img *img, t_mlx *ml
 	t_tuple	final_color;
 
 	y = 0;
-	while (y < cam.vsize)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < cam.hsize)
+		while (x < WIDTH)
 		{
-			color = trace_rays(&world, ray[x + y * WIDTH], (x + y * WIDTH) * frame_index);
-			if (frame_index == 1)
-				accumulation[x + y * WIDTH] = color;
+			color = trace_rays(&data->world, data->rays[x + y * WIDTH], (x + y * WIDTH) * data->frame_index);
+			if (data->frame_index == 1)
+				data->accumulation[x + y * WIDTH] = color;
 			else
-				accumulation[x + y * WIDTH] = tuple_add(accumulation[x + y * WIDTH], color);
-			final_color = accumulation[x + y * WIDTH];
-			final_color = tuple_divide(final_color, frame_index);
-			ak_mlx_pixel_put(img, x, y, tuple_tocolor(final_color));
-			x++;
+				data->accumulation[x + y * WIDTH] = tuple_add(data->accumulation[x + y * WIDTH], color);
+			final_color = data->accumulation[x + y * WIDTH];
+			final_color = tuple_divide(final_color, data->frame_index);
+			ak_mlx_pixel_put(&data->img, x, y, tuple_tocolor(final_color));
+			x+= 1;
 		}
-		y++;
+		y += 1;
 	}
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
+	mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.win_ptr, data->img.img_ptr, 0, 0);
 }
 
 void	background(t_img *img)
@@ -88,42 +88,25 @@ void	background(t_img *img)
 
 int	render_accumulation(t_data *data)
 {
-	static double				frame_index;
-	static t_tuple				*accumulation;
-	static t_ray				*ray;
 	clock_t				start;
 	clock_t				end;
 	double				cpu_time;
-	
+
 	if (data->moved)
 	{
-		free(ray);
-		ray = NULL;
-		free(accumulation);
-		accumulation = NULL;
-		frame_index = 1;
-		// memset(accumulation, 0, sizeof(t_tuple) * WIDTH * HEIGHT);
+		data->skip = 5;
+		data->frame_index = 1;
 		background(&data->img);
+		cache_ray(data->rays, &data->cam);
 		data->moved = false;
 	}
-	if (!ray)
-	{
-		ray = malloc(sizeof(t_ray) * (WIDTH * HEIGHT));
-	}
-	if (!accumulation)
-		accumulation = malloc(sizeof(t_tuple) * (WIDTH * HEIGHT));
-	if (!accumulation || !ray)
-		return (1);
-	cache_ray(ray, &data->cam);
 	start = clock();
-	path_tracing(ray, data->cam, data->world, &data->img, &data->mlx, frame_index, accumulation);
+	path_tracing(data);
 	end = clock();
 	cpu_time = ((double) (end - start)) / CLOCKS_PER_SEC;
 	data->ts = cpu_time;
-	printf("frame time: %.f ms\n", cpu_time * 1000);
-	frame_index++;
-	// free(ray);
-	// free(accumulation);
+	printf("frame time: %.f ms\n", data->ts * 1000);
+	data->frame_index++;
 	return (0);
 }
 

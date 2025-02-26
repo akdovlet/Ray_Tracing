@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 19:57:34 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/26 16:49:33 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,9 @@ t_data	scene_single_sphere(void)
 	t_data		data;
 
 	sun = sphere_default();
-	set_transform(&sun, multiply_matrix(translate(1 , 1, 0), scale(1, 1, 1)));
+	set_transform(&sun, multiply_matrix(translate(1 , 0, -1), scale(1, 1, 1)));
 	sun.matter = emissive_material();
-	sphere2 = sphere_default();
+	sphere2 = glass_sphere();
 	sphere2.matter.color = color_new(1, 0.1, 0.1);
 	// sphere2.matter.roughness = 0.5;
 	sphere2.matter.specular = 0.15;
@@ -168,6 +168,7 @@ t_data	scene_walled(void)
 	t_shape		wall3;
 	t_shape		wall4;
 	t_shape		wall5;
+	t_shape		wall6;
 	t_shape		cube_light;
 	t_data		data;
 
@@ -178,10 +179,9 @@ t_data	scene_walled(void)
 
 	sphere2 = sphere_default();
 	sphere2.matter.color = color_new(1, 0.1, 0.1);
-	sphere2.matter.roughness = 1;
-	sphere2.matter.specular = 0.995;
-
-	set_transform(&sphere2, translate(0, 0.1, 0));
+	set_transform(&sphere2, scale(0.5, 0.5, 0.5));
+	sphere2.matter.roughness = 0.8;
+	sphere2.matter.specular = 0.6;
 
 	wall1 = cube_default();
 	// wall1.matter = emissive_material();
@@ -189,16 +189,12 @@ t_data	scene_walled(void)
 	wall1.matter.pattern = checkers_pattern(white(), black());
 	set_transform(&wall1, multiply_matrix(translate(0, -1, 0), scale(2, 0.1, 2)));
 	set_transform_pattern(&wall1.matter.pattern, scale(0.1, 0.1, 0.1));
-	wall1.matter.roughness = 1;
-	wall1.matter.specular = 0.995;
 
 	wall2 = cube_default();
 	// wall2.matter = emissive_material();
 	wall2.matter.color = white();
 	set_transform(&wall2, multiply_matrix(multiply_matrix(translate(0, 0.5, -2), rotate_x(radians(90))),
 						scale(2, 0.1, 1.5)));
-	wall2.matter.roughness = 1;
-	wall2.matter.specular = 0.995;
 
 	wall3 = cube_default();
 	// wall3.matter = emissive_material();
@@ -222,6 +218,14 @@ t_data	scene_walled(void)
 	set_transform(&wall5, multiply_matrix(translate(0, 2, 0), scale(2, 0.1, 2)));
 	// wall5.matter.roughness = 1;
 	// wall5.matter.specular = 0.995;
+
+	wall6 = cube_default();
+	// wall6.matter = emissive_material();
+	wall6.matter.color = white();
+	set_transform(&wall6, multiply_matrix(multiply_matrix(translate(0, 0.5, 2), rotate_x(radians(90))),
+						scale(2, 0.1, 1.5)));
+	// wall6.matter.roughness = 1;
+	// wall6.matter.specular = 0.995;
 	
 	cube_light = cube_default();
 	// cube_light.matter = emissive_material();
@@ -238,10 +242,11 @@ t_data	scene_walled(void)
 	world.obj[4] = wall4;
 	world.obj[5] = wall5;
 	world.obj[6] = cube_light;
-	world.obj_count = 7;
+	world.obj[7] = wall6;
+	world.obj_count = 8;
 
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
-	cam.from =  point_new(0.3, 0.3, 3);
+	cam.from =  point_new(0, 0.3, 1.5);
 	cam.to =  point_new(0, 0, 1);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);
@@ -434,6 +439,7 @@ t_data	scene_cylinder(void)
 	t_world		world;
 	t_camera	cam;
 	t_shape		cylinder;
+	t_shape		sun;
 	t_shape		floor;
 	t_data		data;
 
@@ -441,7 +447,7 @@ t_data	scene_cylinder(void)
 	cylinder = cylinder_default();
 	cylinder.matter.reflective = 0.5;
 	cylinder.matter.color = red();
-	// set_transform(&cylinder, multiply_matrix(translate(0, -0.2, 0), rotate_z(radians(40))));
+	set_transform(&cylinder, multiply_matrix(translate(0, -0.2, 0), rotate_x(radians(40))));
 	// set_transform_pattern(&cylinder.matter.pattern, scale(0.2, 0.4, 0.1));
 	// cylinder.matter = glass_material();
 	// set_transform(&cylinder, scale(0.7, 0.7, 0.7));
@@ -450,6 +456,9 @@ t_data	scene_cylinder(void)
 	cylinder.min = -1;
 	cylinder.max = 1;
 
+	sun = sphere_default();
+	sun.matter = emissive_material(); 
+	
 	floor = plane_new();
 	set_transform(&floor, translate(0, -1, 0));
 	// floor.transform = translate(1, 0, 3);
@@ -463,7 +472,8 @@ t_data	scene_cylinder(void)
 	world.light = point_light(point_new(-5, 8, -3), color_new(1, 1, 1));
 	world.obj[0] = cylinder;
 	world.obj[1] = floor;
-	world.obj_count = 2;
+	world.obj[2] = sun;
+	world.obj_count = 3;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
 	cam.from =  point_new(0, 2, -3.5);
 	cam.to =  point_new(0, -1, 0);

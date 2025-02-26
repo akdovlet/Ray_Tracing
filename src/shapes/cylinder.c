@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:00:06 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 18:38:58 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:29:25 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_shape	cylinder_default(void)
 {
 	return ((t_shape){
 		.closed = true,
-		.min = -INFINITY,
-		.max = INFINITY,
+		.min = -1,
+		.max = 1,
 		.coordinates = point_new(0, 0, 0),
 		.id = new_id(),
 		.matter = material(),
