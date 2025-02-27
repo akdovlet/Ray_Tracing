@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:09:52 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/27 18:47:56 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:51:25 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,18 +49,22 @@ int	check_cap(t_ray *ray, double t)
 
 void	intersect_caps(t_shape *cyl, t_ray *ray, t_vec2 *xs)
 {
-	double	t;
+	double	t1;
+	double	t2;
 	int		i;
-
+	
 	i = 1;
 	if (!cyl->closed || fabs(ray->direction.y) < DBL_EPSILON)
 		return ;
-	t = (cyl->min - ray->origin.y) / ray->direction.y;
-	if (check_cap(ray, t))
-		xs->vec3[i++] = t;
-	t = (cyl->max - ray->origin.y) / ray->direction.y;
-	if (check_cap(ray, t))
-		xs->vec3[i++] = t;
+	t1 = (cyl->min - ray->origin.y) / ray->direction.y;
+	if (check_cap(ray, t1))
+	{
+		if (xs->x > t1)
+			xs->vec3[i++] = t1;
+	}
+	t2 = (cyl->max - ray->origin.y) / ray->direction.y;
+	if (check_cap(ray, t2))
+		xs->vec3[i++] = t2;
 	if (i == 1)
 		xs->dis = -1;
 	if (i == 2)
@@ -90,7 +94,6 @@ t_vec2	cylinder_intersect(t_shape *shape, t_ray ray)
 					.y = (-vec.b + sqrt(dis)) / (2.0 * vec.a)};
 
 	check_trunc(&new, shape, &ray);
-	if (new.dis < 0.0)
-		intersect_caps(shape, &ray, &new);
+	intersect_caps(shape, &ray, &new);
 	return (new);
 }

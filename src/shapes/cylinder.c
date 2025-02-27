@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:00:06 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/26 18:29:25 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/27 19:07:42 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,13 @@
 
 t_tuple	cylinder_normalat(t_shape *shape, t_tuple point)
 {
-	(void)shape;
+	double distance;
+
+	distance = point.x * point.x + point.z * point.z;
+	if (distance < 1 && point.y >= shape->max - DBL_EPSILON)
+		return (vector_new(0, 1, 0));
+	else if (distance < 1 && point.y <= shape->min + DBL_EPSILON)
+		return (vector_new(0, -1, 0));
 	return (point.y = 0, point.w = 0, point);
 }
 
