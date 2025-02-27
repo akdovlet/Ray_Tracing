@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/26 16:49:33 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:29:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,7 +255,6 @@ t_data	scene_walled(void)
 	return (data);
 }
 
-
 t_data	scene_default(void)
 {
 	t_world		world;
@@ -286,6 +285,7 @@ t_data	scene_default(void)
 	wall.matter.pattern = checkers_pattern(color_new(1, 1, 1), color_new(0, 0, 0));
 	wall.matter.specular = 0;
 	wall.matter.ambient = 0.7;
+	wall.matter.color = red();
 
 
 	wall2 = plane_new();
@@ -304,7 +304,7 @@ t_data	scene_default(void)
 	sky = plane_new();
 	set_transform(&sky, translate(0, 10, 0));
 	sky.matter = material();
-	sky.matter.color = color_new(0, 0.957, 1);
+	sky.matter.color = color_new(1, 0.957, 1);
 	sky.matter.pattern = gradient_pattern(color_new(0, 0.957, 1), color_new(1, 1, 1));
 	set_transform_pattern(&sky.matter.pattern, scale(2, 2, 4));
 
@@ -322,14 +322,16 @@ t_data	scene_default(void)
 	middle_sph.matter.shininess = 300;
 
 	right_sph = sphere_default();
-	set_transform(&right_sph, multiply_matrix(translate(0, 0, 5), scale(0.5, 0.5, 0.5)));
-	right_sph.matter = material();
+	set_transform(&right_sph, multiply_matrix(translate(0, 5, 5), scale(3, 3, 3)));
 	// right_sph.matter.pattern = radial_pattern(color_new(1, 0, 0), color_new(0, 0, 1));
 	// set_transform_pattern(&right_sph.matter.pattern, scale(0.2, 0.4, 0.1));
 	right_sph.matter.color = color_new(0, 0, 0);
 	right_sph.matter.diffuse = 0.3;
 	right_sph.matter.specular = 0.3;
 	right_sph.matter.reflective = 0.5;
+	right_sph.matter.emission_power = 2.0;
+	right_sph.matter.emission_color = color_new(0.8, 0.5, 0.2);
+	right_sph.matter = emissive_material();
 
 	left_sph = sphere_default();
 	set_transform(&left_sph, multiply_matrix(translate(-2, 0, 2), scale(1.5, 1.5, 1.5)));
@@ -345,11 +347,10 @@ t_data	scene_default(void)
 	world.light = point_light(point_new(-5, 10, -3), color_new(1, 1, 1));
 	world.obj[0] = floor;
 	world.obj[1] = wall;
-	world.obj[5] = wall2;
 	world.obj[2] = middle_sph;
 	world.obj[3] = left_sph;
-	world.obj[5] = right_sph;
-	world.obj_count = 4;
+	world.obj[4] = right_sph;
+	world.obj_count = 5;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
 	cam.from =  point_new(2, 0, -3);
 	cam.to =  point_new(-0.4, -0.5, 0);
@@ -445,7 +446,6 @@ t_data	scene_cylinder(void)
 
 
 	cylinder = cylinder_default();
-	cylinder.matter.reflective = 0.5;
 	cylinder.matter.color = red();
 	set_transform(&cylinder, multiply_matrix(translate(0, -0.2, 0), rotate_x(radians(40))));
 	// set_transform_pattern(&cylinder.matter.pattern, scale(0.2, 0.4, 0.1));
@@ -473,7 +473,7 @@ t_data	scene_cylinder(void)
 	world.obj[0] = cylinder;
 	world.obj[1] = floor;
 	world.obj[2] = sun;
-	world.obj_count = 3;
+	world.obj_count = 2;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
 	cam.from =  point_new(0, 2, -3.5);
 	cam.to =  point_new(0, -1, 0);

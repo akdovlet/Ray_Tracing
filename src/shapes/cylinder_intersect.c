@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:09:52 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/26 18:31:48 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:47:56 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,12 @@ int	check_cap(t_ray *ray, double t)
 {
 	double	x;
 	double	z;
-
-	x = ray->origin.x + t + ray->direction.x;
+	double xz;
+	
+	x = ray->origin.x + t * ray->direction.x;
 	z = ray->origin.z + t * ray->direction.z;
-	return ((pow(x, 2) + pow(z, 2)) <= 1.0);
+	xz = (pow(x, 2) + pow(z, 2));
+	return (xz <= 1);
 }
 
 void	intersect_caps(t_shape *cyl, t_ray *ray, t_vec2 *xs)
@@ -51,22 +53,20 @@ void	intersect_caps(t_shape *cyl, t_ray *ray, t_vec2 *xs)
 	int		i;
 
 	i = 1;
-	xs->dis = -1;
 	if (!cyl->closed || fabs(ray->direction.y) < DBL_EPSILON)
-	{
-		xs->dis = -1;
 		return ;
-	}
 	t = (cyl->min - ray->origin.y) / ray->direction.y;
 	if (check_cap(ray, t))
 		xs->vec3[i++] = t;
 	t = (cyl->max - ray->origin.y) / ray->direction.y;
 	if (check_cap(ray, t))
 		xs->vec3[i++] = t;
-	else if (i == 2)
-		xs->dis = 0;
+	if (i == 1)
+		xs->dis = -1;
+	if (i == 2)
+		xs->dis += 1;
 	else if (i == 3)
-		xs->dis = 1;
+		xs->dis += 1;
 }
 
 t_vec2	cylinder_intersect(t_shape *shape, t_ray ray)
@@ -75,6 +75,7 @@ t_vec2	cylinder_intersect(t_shape *shape, t_ray ray)
 	t_dvec3	vec;
 	t_vec2	new;
 
+	new = (t_vec2){};
 	vec.a = pow(ray.direction.x, 2) + pow(ray.direction.z, 2);
 	if (fabs(vec.a) < DBL_EPSILON)
 		return (intersect_caps(shape, &ray, &new), new);
@@ -87,6 +88,9 @@ t_vec2	cylinder_intersect(t_shape *shape, t_ray ray)
 	new = (t_vec2){ .dis = dis,
 					.x = (-vec.b - sqrt(dis)) / (2.0 * vec.a),
 					.y = (-vec.b + sqrt(dis)) / (2.0 * vec.a)};
+
 	check_trunc(&new, shape, &ray);
+	if (new.dis < 0.0)
+		intersect_caps(shape, &ray, &new);
 	return (new);
 }

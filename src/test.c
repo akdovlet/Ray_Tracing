@@ -2114,15 +2114,17 @@ void	test_cylinder_intersect(void)
 	t_vec2	inter;
 
 	cylinder = cylinder_default();
+	cylinder.closed = false;
+	cylinder.min = -INFINITY;
+	cylinder.max = INFINITY;
 	ray = ray_new(point_new(1, 0, 0), vector_new(0, 1, 0));
 	inter = cylinder.local_interesct(&cylinder, ray);
 	if (inter.dis >= 0.0)
-		fprintf(stderr, "Error1: expected no intersections\n");
+		fprintf(stderr, "Error1: expected no intersections, dis is: %f\n", inter.dis);
 	else
 	{
 		printf("OK\n");
 	}
-	
 	
 	ray = ray_new(point_new(0, 0, 0), vector_new(0, 1, 0));
 	inter = cylinder.local_interesct(&cylinder, ray);
@@ -2171,7 +2173,7 @@ void	test_cylinder_intersect(void)
 
 	ray = ray_new(point_new(0.5, 0, -5), tuple_normalize(vector_new(0.1, 1, 1)));
 	inter = cylinder.local_interesct(&cylinder, ray);
-	if (inter.dis < 0.0 || !float_equal(6.807982, inter.x) || !float_equal(7.088723, inter.y))
+	if (inter.dis < 0.0 || (!float_equal(6.80798, inter.x) || !float_equal(7.08872, inter.y)))
 	{
 		fprintf(stderr, "Error6: dis is: %f, x is: %f, y is: %f\n",inter.dis, inter.x, inter.y);
 	}
@@ -2240,60 +2242,61 @@ void	test_cylinder_normalat(void)
 
 }
 
-// void	test_truncated_cylinder(void)
-// {
-// 	t_shape	cylinder;
-// 	t_ray	ray;
-// 	t_vec2	xs;
+void	test_truncated_cylinder(void)
+{
+	t_shape	cylinder;
+	t_ray	ray;
+	t_vec2	xs;
 
-// 	printf("\n Test truncated cylinder\n");
-// 	cylinder = cylinder_default();
-// 	cylinder.min = 1.0;
-// 	cylinder.max = 2.0;
+	printf("\n Test truncated cylinder\n");
+	cylinder = cylinder_default();
+	cylinder.closed = false;
+	cylinder.min = 1.0;
+	cylinder.max = 2.0;
 
-// 	ray = ray_new(point_new(0, 1.5, 0), tuple_normalize(vector_new(0.1, 1, 0)));
-// 	xs = cylinder.local_interesct(ray, cylinder);
-// 	if (xs.dis >= 0.0)
-// 		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
-// 	else
-// 		printf("OK\n");
+	ray = ray_new(point_new(0, 1.5, 0), tuple_normalize(vector_new(0.1, 1, 0)));
+	xs = cylinder.local_interesct(&cylinder, ray);
+	if (xs.dis >= 0.0)
+		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
+	else
+		printf("OK\n");
 
-// 	ray = ray_new(point_new(0, 3, -5), tuple_normalize(vector_new(0, 0, 1)));
-// 	xs = cylinder.local_interesct(ray, cylinder);
-// 	if (xs.dis >= 0.0)
-// 		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
-// 	else
-// 		printf("OK\n");
+	ray = ray_new(point_new(0, 3, -5), tuple_normalize(vector_new(0, 0, 1)));
+	xs = cylinder.local_interesct(&cylinder, ray);
+	if (xs.dis >= 0.0)
+		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
+	else
+		printf("OK\n");
 
-// 	ray = ray_new(point_new(0, 0, -5), tuple_normalize(vector_new(0, 0, 1)));
-// 	xs = cylinder.local_interesct(ray, cylinder);
-// 	if (xs.dis >= 0.0)
-// 		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
-// 	else
-// 		printf("OK\n");
+	ray = ray_new(point_new(0, 0, -5), tuple_normalize(vector_new(0, 0, 1)));
+	xs = cylinder.local_interesct(&cylinder, ray);
+	if (xs.dis >= 0.0)
+		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
+	else
+		printf("OK\n");
 
-// 	ray = ray_new(point_new(0, 2, -5), tuple_normalize(vector_new(0, 0, 1)));
-// 	xs = cylinder.local_interesct(ray, cylinder);
-// 	if (xs.dis >= 0.0)
-// 		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
-// 	else
-// 		printf("OK\n");
+	ray = ray_new(point_new(0, 2, -5), tuple_normalize(vector_new(0, 0, 1)));
+	xs = cylinder.local_interesct(&cylinder, ray);
+	if (xs.dis >= 0.0)
+		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
+	else
+		printf("OK\n");
 
-// 	ray = ray_new(point_new(0, 1, -5), tuple_normalize(vector_new(0, 0, 1)));
-// 	xs = cylinder.local_interesct(ray, cylinder);
-// 	if (xs.dis >= 0.0)
-// 		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
-// 	else
-// 		printf("OK\n");
+	ray = ray_new(point_new(0, 1, -5), tuple_normalize(vector_new(0, 0, 1)));
+	xs = cylinder.local_interesct(&cylinder, ray);
+	if (xs.dis >= 0.0)
+		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
+	else
+		printf("OK\n");
 
-// 	ray = ray_new(point_new(0, 1.5, -2), tuple_normalize(vector_new(0, 0, 1)));
-// 	xs = cylinder.local_interesct(ray, cylinder);
-// 	if (xs.dis <= 0.0)
-// 		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
-// 	else
-// 		printf("OK\n");
+	ray = ray_new(point_new(0, 1.5, -2), tuple_normalize(vector_new(0, 0, 1)));
+	xs = cylinder.local_interesct(&cylinder, ray);
+	if (xs.dis <= 0.0)
+		fprintf(stderr, "Error: dis is: %f\n", xs.dis);
+	else
+		printf("OK\n");
 
-// }
+}
 
 void	test_capped_cylinder(void)
 {
@@ -2312,7 +2315,7 @@ void	test_capped_cylinder(void)
 	ray = ray_new(point_new(0, 3, 0), tuple_normalize(vector_new(0, -1, 0)));
 	xs = cylinder.local_interesct(&cylinder, ray);
 	if (xs.dis <= 0)
-		fprintf(stderr, "Error1: discriminant is: %f\n", xs.dis);
+		fprintf(stderr, "Error1: discriminant is: %f, x is: %f, y is: %f\n", xs.dis, xs.x, xs.y);
 	else
 	{
 		printf("OK\n");
@@ -2321,7 +2324,7 @@ void	test_capped_cylinder(void)
 	ray = ray_new(point_new(0, 3, -2), tuple_normalize(vector_new(0, -1, 2)));
 	xs = cylinder.local_interesct(&cylinder, ray);
 	if (xs.dis <= 0)
-		fprintf(stderr, "Error1: discriminant is: %f\n", xs.dis);
+		fprintf(stderr, "Error2: discriminant is: %f, x is: %f, y is: %f\n", xs.dis, xs.x, xs.y);
 	else
 	{
 		printf("OK\n");
@@ -2330,7 +2333,7 @@ void	test_capped_cylinder(void)
 	ray = ray_new(point_new(0, 4, -2), tuple_normalize(vector_new(0, -1, 1)));
 	xs = cylinder.local_interesct(&cylinder, ray);
 	if (xs.dis <= 0)
-		fprintf(stderr, "Error1: discriminant is: %f\n", xs.dis);
+		fprintf(stderr, "Error3: discriminant is: %f, x is: %f, y is: %f\n", xs.dis, xs.x, xs.y);
 	else
 	{
 		printf("OK\n");
@@ -2339,7 +2342,7 @@ void	test_capped_cylinder(void)
 	ray = ray_new(point_new(0, 0, -2), tuple_normalize(vector_new(0, 1, 2)));
 	xs = cylinder.local_interesct(&cylinder, ray);
 	if (xs.dis <= 0)
-		fprintf(stderr, "Error1: discriminant is: %f\n", xs.dis);
+		fprintf(stderr, "Error4: discriminant is: %f, x is: %f, y is: %f\n", xs.dis, xs.x, xs.y);
 	else
 	{
 		printf("OK\n");
@@ -2348,7 +2351,90 @@ void	test_capped_cylinder(void)
 	ray = ray_new(point_new(0, -1, -2), tuple_normalize(vector_new(0, 1, 1)));
 	xs = cylinder.local_interesct(&cylinder, ray);
 	if (xs.dis <= 0)
-		fprintf(stderr, "Error1: discriminant is: %f\n", xs.dis);
+		fprintf(stderr, "Error5: discriminant is: %f, x is: %f, y is: %f\n", xs.dis, xs.x, xs.y);
+	else
+	{
+		printf("OK\n");
+	}
+}
+
+void	test_cylinder_normal_at_caps(void)
+{
+	t_shape cylinder;
+	t_tuple	normal;
+
+	cylinder = cylinder_default();
+	cylinder.max = 2;
+	cylinder.min = 1;
+	cylinder.closed = true;
+	
+	normal = cylinder.local_normalat(&cylinder, point_new(0, 1, 0));
+	if (!tuple_equal(normal, vector_new(0, -1, 0)))
+	{
+		fprintf(stderr, "Error1: expected 0, -1, 0, got:");
+		tuple_print(normal);
+
+	}
+	else
+	{
+		printf("OK\n");
+	}
+
+	normal = cylinder.local_normalat(&cylinder, point_new(0.5, 1, 0));
+	if (!tuple_equal(normal, vector_new(0, -1, 0)))
+	{
+		fprintf(stderr, "Error1: expected 0, -1, 0, got:");
+		tuple_print(normal);
+
+	}
+	else
+	{
+		printf("OK\n");
+	}
+
+	normal = cylinder.local_normalat(&cylinder, point_new(0, 1, 0.5));
+	if (!tuple_equal(normal, vector_new(0, -1, 0)))
+	{
+		fprintf(stderr, "Error1: expected 0, -1, 0, got:");
+		tuple_print(normal);
+
+	}
+	else
+	{
+		printf("OK\n");
+	}
+
+	normal = cylinder.local_normalat(&cylinder, point_new(0, 2, 0));
+	if (!tuple_equal(normal, vector_new(0, 1, 0)))
+	{
+		fprintf(stderr, "Error1: expected 0, -1, 0, got:");
+		tuple_print(normal);
+
+	}
+	else
+	{
+		printf("OK\n");
+	}
+
+	normal = cylinder.local_normalat(&cylinder, point_new(0.5, 2, 0));
+	if (!tuple_equal(normal, vector_new(0, 1, 0)))
+	{
+		fprintf(stderr, "Error1: expected 0, -1, 0, got:");
+		tuple_print(normal);
+
+	}
+	else
+	{
+		printf("OK\n");
+	}
+
+	normal = cylinder.local_normalat(&cylinder, point_new(0, 2, 0.5));
+	if (!tuple_equal(normal, vector_new(0, 1, 0)))
+	{
+		fprintf(stderr, "Error1: expected 0, -1, 0, got:");
+		tuple_print(normal);
+
+	}
 	else
 	{
 		printf("OK\n");

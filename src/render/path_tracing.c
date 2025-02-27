@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 20:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/25 17:05:20 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/02/27 18:41:24 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,12 @@ t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed)
 			is_specualar = hits.closest.obj->matter.specular >= random_float(&seed);
 				ray.direction = lerp(diffusev, comps.reflectv, hits.closest.obj->matter.roughness
 										* is_specualar);
+			// if (tuple_dot(ray.direction, comps.normalv) < 0.0)
+			// 	tuple_negate(ray.direction);
 			emitted_light = get_emission(hits.closest.obj);
 			incoming_light = tuple_add(incoming_light, color_hadamard(emitted_light, ray_color));
-			if (hits.closest.obj->matter.transparency)
-			{	
-				ray_color = tuple_add(ray_color, refracted_color(world, &comps, 10));
-			}
-			else
-				ray_color = color_hadamard(ray_color, lerp(hits.closest.obj->matter.color,
-				hits.closest.obj->matter.specular_color, is_specualar));
+			ray_color = color_hadamard(ray_color, lerp(hits.closest.obj->matter.color,
+			hits.closest.obj->matter.specular_color, is_specualar));
 		}
 		else
 		{
