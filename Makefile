@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
+#    By: mbekheir <mbekheir@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/02/24 15:11:53 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/03/01 13:51:51 by mbekheir         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,7 +80,17 @@ SRC		:=	main.c							\
 			math/tuple_substract.c			\
 			math/tuple_tocolor.c			\
 			world/pre_compute.c				\
-			world/world.c
+			world/world.c					\
+			parsing/ambient_light.c			\
+			parsing/camera.c				\
+			parsing/check.c					\
+			parsing/cylinder.c				\
+			parsing/data.c					\
+			parsing/light.c					\
+			parsing/plane.c					\
+			parsing/sphere.c				\
+			parsing/utils.c					\
+			parsing/clamp.c
 
 SRC_DIR	:=	src
 BUILD	:=	.build
@@ -92,8 +102,9 @@ DEP		:=	$(OBJ:.o=.d)
 LIBFT	:=	libft/libft.a
 MLX		:=	mlx_linux/libmlx_Linux.a
 CC		:=	cc
-CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -Ilibft/include -Imlx_linux -g
+CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -Ilibft/include -Imlx_linux -I ./_dlst_/inc -g
 MATH	:=	-lm
+_DLST_	:= -L ./_dlst_ -l _dlst_
 
 all: create_dir $(NAME)
 
@@ -106,7 +117,7 @@ $(BUILD):
 	@mkdir -p $(BUILD)
 
 $(NAME): $(MLX) $(OBJ) $(LIBFT)
-	@$(CC) $(CFLAGS) $(OBJ) -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lz -o $(NAME) $(LIBFT) $(MATH)
+	@$(CC) $(CFLAGS) $(OBJ) -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lz -o $(NAME) $(LIBFT) $(MATH) $(_DLST_)
 
 $(BUILD)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
@@ -118,15 +129,18 @@ $(MLX):
 
 $(LIBFT):
 	@$(MAKE) --no-print-directory -C libft
+	@make -sC _dlst_
 
 clean:
 	@if [ -d $(BUILD) ]; then $(RM) -rf $(BUILD) && printf "\033[1;31m\tDeleted: $(NAME) $(BUILD)\033[0m\n"; fi
 	@$(MAKE) --no-print-directory clean -C libft
+	@$(MAKE) --no-print-directory clean -C _dlst_
 
 fclean:
 	@make --no-print-directory clean
 	@if [ -f $(NAME) ]; then $(RM) -rf $(NAME) && printf "\033[1;31m\tDeleted: $(NAME)\033[0m\n"; fi
 	@$(MAKE) --no-print-directory fclean -C libft
+	@$(MAKE) --no-print-directory fclean -C _dlst_
 
 full: all
 	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes --trace-children=yes ./${NAME}
