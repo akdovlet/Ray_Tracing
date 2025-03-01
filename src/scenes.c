@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/27 19:16:21 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/01 16:58:23 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,9 @@ t_data	scene_single_sphere(void)
 	sphere2 = glass_sphere();
 	sphere2.matter.color = color_new(1, 0.1, 0.1);
 	// sphere2.matter.roughness = 0.5;
-	sphere2.matter.specular = 0.15;
+	sphere2.matter.specular = 0.5;
+	sphere2.matter.roughness = 0.1;
+	sphere2.matter.metalic = 1;
 	set_transform(&sphere2, translate(-1, 0.5, 0));
 
 	cube = cube_default();
@@ -322,7 +324,7 @@ t_data	scene_default(void)
 	middle_sph.matter.shininess = 300;
 
 	right_sph = sphere_default();
-	set_transform(&right_sph, multiply_matrix(translate(0, 5, 5), scale(3, 3, 3)));
+	set_transform(&right_sph, multiply_matrix(translate(0, 20, 5), scale(10, 10, 10)));
 	// right_sph.matter.pattern = radial_pattern(color_new(1, 0, 0), color_new(0, 0, 1));
 	// set_transform_pattern(&right_sph.matter.pattern, scale(0.2, 0.4, 0.1));
 	right_sph.matter.color = color_new(0, 0, 0);
@@ -332,6 +334,7 @@ t_data	scene_default(void)
 	right_sph.matter.emission_power = 2.0;
 	right_sph.matter.emission_color = color_new(0.8, 0.5, 0.2);
 	right_sph.matter = emissive_material();
+	right_sph.matter.emission_power = 10;
 
 	left_sph = sphere_default();
 	set_transform(&left_sph, multiply_matrix(translate(-2, 0, 2), scale(1.5, 1.5, 1.5)));
@@ -340,7 +343,9 @@ t_data	scene_default(void)
 	// set_transform_pattern(&left_sph.matter.pattern, scale(0.1, 0.1, 0.1));
 	left_sph.matter.color = color_new(0, 0, 0.9);
 	left_sph.matter.diffuse = 0.7;
-	left_sph.matter.specular = 0.3;
+	left_sph.matter.specular = 0.8;
+	left_sph.matter.metalic = 0.5;
+	left_sph.matter.roughness = 0.5;
 	left_sph.matter.reflective = 0.2;
 
 
@@ -503,6 +508,7 @@ t_data	scene_complex(void)
 
 
 	sphere = glass_sphere();
+	sphere.matter = emissive_material();
 	set_transform(&sphere, multiply_matrix(translate(0, 2, 0), scale(1.5, 1.5, 1.5)));
 	// sphere.matter.pattern = checkers_pattern(red(), black());
 	// set_transform_pattern(&sphere.matter.pattern, scale(0.3, 0.3, 0.3));
