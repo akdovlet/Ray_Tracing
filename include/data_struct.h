@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/26 16:22:01 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/02 15:43:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ typedef struct s_camera
 	double		half_width;
 	double		half_height;
 	t_matrix	transform;
+	t_matrix	view;
 	t_tuple		from;
 	t_tuple		to;
 	t_tuple		up;

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/26 16:33:33 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/02 12:37:32 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ int	render_accumulation(t_data *data)
 	{
 		data->skip = 5;
 		data->frame_index = 1;
-		background(&data->img);
 		cache_ray(data->rays, &data->cam);
 		data->moved = false;
 	}
@@ -105,7 +104,8 @@ int	render_accumulation(t_data *data)
 	end = clock();
 	cpu_time = ((double) (end - start)) / CLOCKS_PER_SEC;
 	data->ts = cpu_time;
-	printf("frame time: %.f ms\n", data->ts * 1000);
+	printf("\rframe %d time: %.f ms",data->frame_index, data->ts * 1000);
+	fflush(stdout);
 	data->frame_index++;
 	return (0);
 }
@@ -114,23 +114,19 @@ int	render_and_move(t_data *data)
 {
 	int		y;
 	int		x;
-	t_ray	*ray;
 	t_tuple	color;
 	clock_t	start;
 	clock_t	end;
 
 	y = 0;
 	start = clock();
-	ray = malloc(sizeof(t_ray) * (WIDTH * HEIGHT));
-	if (!ray)
-		return (1);
-	cache_ray(ray, &data->cam);
-	while (y < data->cam.vsize)
+	cache_ray(data->rays, &data->cam);
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < data->cam.hsize)
+		while (x < WIDTH)
 		{
-			color = color_at(&data->world, ray[x + y * WIDTH], 5);
+			color = color_at(&data->world, data->rays[x + y * WIDTH], 5);
 			ak_mlx_pixel_put(&data->img, x, y, tuple_tocolor(color));
 			x++;
 		}
@@ -139,8 +135,7 @@ int	render_and_move(t_data *data)
 	mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.win_ptr, data->img.img_ptr, 0, 0);
 	end = clock();
 	data->ts = ((double) (end - start)) / CLOCKS_PER_SEC;
-	printf("frame time: %.f ms\n", data->ts * 1000);
-	free(ray);
+	// printf("frame %d time: %.f ms\n",data->frame_index, data->ts * 1000);
 	return (0);
 }
 

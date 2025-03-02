@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/01 16:58:23 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/02 15:21:53 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -452,7 +452,7 @@ t_data	scene_cylinder(void)
 
 	cylinder = cylinder_default();
 	cylinder.matter.color = red();
-	// set_transform(&cylinder, (translate(0, 1, 0)));
+	set_transform(&cylinder, rotate_z(90));
 	// set_transform_pattern(&cylinder.matter.pattern, scale(0.2, 0.4, 0.1));
 	// cylinder.matter = glass_material();
 	// set_transform(&cylinder, scale(0.7, 0.7, 0.7));
@@ -478,10 +478,10 @@ t_data	scene_cylinder(void)
 	world.obj[0] = cylinder;
 	world.obj[1] = floor;
 	world.obj[2] = sun;
-	world.obj_count = 2;
+	world.obj_count = 1;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
-	cam.from =  point_new(0, 2, -3.5);
-	cam.to =  point_new(0, -1, 0);
+	cam.from =  point_new(0, 2, -3);
+	cam.to =  point_new(0, 0, 1);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
@@ -543,7 +543,7 @@ t_data	scene_complex(void)
 	world.obj_count = 5;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
 	cam.from =  point_new(-7, 5, -7);
-	cam.to =  point_new(0, 0, 0);
+	cam.to =  point_new(0, 0, -1);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;

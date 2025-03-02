@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:17:18 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 13:00:05 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/02 15:43:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,6 @@ void	camera_on_update(t_camera *cam)
 
 void camera_update_transform(t_camera *cam, t_tuple from, t_tuple to, t_tuple up)
 {
-	cam->transform = view_transform(from, to, up);
-	cam->transform = inverse(cam->transform);
+	cam->view = view_transform(from, to, up);
+	cam->transform = inverse(cam->view);
 }

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 20:36:39 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 12:43:15 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/02 10:02:36 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ void	cache_ray(t_ray *ray, t_camera *cam)
 	
 	y = 0;
 	origin = matrix_multiply_tuple(cam->transform, point_new(0, 0, 0));
-	while (y < cam->vsize)
+	while (y < HEIGHT)
 	{
 		x = 0;
-		while (x < cam->hsize)
+		while (x < WIDTH)
 		{
-			ray[x + y * cam->hsize].origin = origin;
-			ray_for_pixel(cam, &ray[x + y * cam->hsize], x, y);
+			ray[x + y * WIDTH].origin = origin;
+			ray_for_pixel(cam, &ray[x + y * WIDTH], x, y);
 			x++;
 		}
 		y++;
