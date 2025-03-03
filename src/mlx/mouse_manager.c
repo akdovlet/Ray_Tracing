@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:28:04 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/02 16:55:33 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/03 16:04:20 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	mouse_manager(int button, int x, int y, t_data *data)
 		intersect_world(&data->world, data->rays[x + y * WIDTH], &hits);
 		if (hits.hit)
 		{
-			xs = hits.closest.obj->local_interesct(hits.closest.obj, data->rays[x + y * WIDTH]);
+			xs = hits.closest.obj->local_intersect(hits.closest.obj, data->rays[x + y * WIDTH]);
 			pre_compute(&comps, hits.closest, data->rays[x + y * WIDTH], hits);
 			printf("\ndis is: %f, x is: %f, y is: %f\n", xs.dis, xs.x, xs.y);
 			printf("object id: %lu\n", hits.closest.obj->id);
@@ -51,13 +51,14 @@ int	mouse_manager(int button, int x, int y, t_data *data)
 			tuple_print(local_point);
 			double winx = local_point.x / -local_point.z;
 			double winy = local_point.y / -local_point.z;
-			double nx = (winx + 2 / 2.0) / 2;
-			double ny = (winy + 2 / 2.0) / 2;
-			int rx = (int)floor(nx * 540.0);
-			int ry = (int)floor((1.0 - ny) * 540.0);
+			double nx = (winx + data->cam.half_width) / (data->cam.half_width * 2);
+			double ny = (winy + data->cam.half_height) / (data->cam.half_height * 2);
+			int rx = (int)floor(nx * WIDTH);
+			int ry = (int)floor((1.0 - ny) * HEIGHT);
 			fprintf(stderr, "winx is: %f, winy is: %f\n", winx, winy);
 			fprintf(stderr, "nx is: %f, ny is: %f\n", nx, ny);
 			fprintf(stderr, "rx is: %d, ry is: %d\n", rx, ry);
+			// ak_mlx_pixel_put(&data->img, rx, ry, tuple_tocolor(blue()));
 			// while (is_in(point.x, point.y))
 			// {
 			// 	ak_mlx_pixel_put(&data->img, point.x, point.y, 0x0000FFFF);

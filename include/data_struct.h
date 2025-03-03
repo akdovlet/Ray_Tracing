@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/02 15:43:08 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/03 16:36:32 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,14 +129,26 @@ typedef struct s_ray
 
 typedef struct	s_shape
 {
-	bool			closed;
-	double			min;
-	double			max;
 	uintptr_t		id;
 	t_tuple			coordinates;
 	t_matrix		transform;
 	t_material		matter;
-	t_vec2			(*local_interesct)(struct s_shape *, t_ray);
+	union{
+		struct{
+			t_tuple	p1;
+			t_tuple	p2;
+			t_tuple	p3;
+			t_tuple	e1;
+			t_tuple	e2;
+			t_tuple	normal;
+		};
+		struct{
+			bool	closed;
+			double	min;
+			double	max;
+		};
+	};
+	t_vec2			(*local_intersect)(struct s_shape *, t_ray);
 	t_tuple			(*local_normalat)(struct s_shape *, t_tuple);
 }	t_shape;
 

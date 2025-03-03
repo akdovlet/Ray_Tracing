@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:09:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/25 14:05:45 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/03 16:04:20 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_shape	sphere_default(void)
 		.id = new_id(),
 		.transform = identity(),
 		.matter = material(),
-		.local_interesct = &sphere_intersect,
+		.local_intersect = &sphere_intersect,
 		.local_normalat = &sphere_normal_at
 	};
 	return (new);

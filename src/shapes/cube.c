@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:13:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 18:37:19 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/03 16:04:20 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_shape	cube_default(void)
 		.id = new_id(),
 		.transform = identity(),
 		.matter = material(),
-		.local_interesct = &cube_intersect,
+		.local_intersect = &cube_intersect,
 		.local_normalat = &cube_normal_at,
 	});
 }

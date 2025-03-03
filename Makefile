@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/02/24 15:11:53 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/03/03 16:12:10 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ SRC		:=	main.c							\
 			render/path_tracing.c			\
 			render/per_pixel.c				\
 			render/render.c					\
+			shapes/cone.c					\
 			shapes/cylinder_intersect.c		\
 			shapes/cylinder.c				\
 			shapes/glass_sphere.c			\
@@ -51,6 +52,7 @@ SRC		:=	main.c							\
 			shapes/normal.c					\
 			shapes/plane.c					\
 			shapes/sphere.c					\
+			shapes/triangle.c				\
 			math/matrix/rotate.c			\
 			math/matrix/transform.c			\
 			math/matrix/degrees_to_radians.c\

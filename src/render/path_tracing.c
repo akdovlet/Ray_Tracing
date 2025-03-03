@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 20:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/02 16:18:15 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/03 14:29:09 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed)
 
 	incoming_light = black();
 	ray_color = white();
-	// sky = color_new(0.6, 0.7, 0.9);
+	sky = color_new(0.6, 0.7, 0.9);
 	// sky = color_new(0.06, 0.07, 0.09);
 	sky = color_new(0, 0, 0);
 	bounces = 5;

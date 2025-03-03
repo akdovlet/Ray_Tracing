@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/02 14:18:55 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/03 17:31:40 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int main()
 
 	init_mlx(&mlx, &img);
 	mlx_hook(mlx.win_ptr, 17, 0, mlx_loop_end, mlx.mlx_ptr);
-	data = scene_complex();
+	data = scene_triangle();
 	data.img = img;
 	data.mlx = mlx;
 	data.frame_index = 1;
@@ -36,12 +36,16 @@ int main()
 	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, &key_manager, &data);
 	// mlx_key_hook(mlx.win_ptr, &key_manager, &data);
 	// render(data.cam, data.world, &img, &mlx);
-	test_capped_cylinder();
+	// test_capped_cylinder();
+	// test_cylinder_normal_at_caps();
+	// test_cylinder_normalat();
+	// test_cone_intersect();
+	// test_triangle_normal();
+	// test_triangle_intersect();
 	mlx_loop_hook(mlx.mlx_ptr, &render_and_move, &data);
 	mlx_loop(mlx.mlx_ptr);
 	mlx_clear(&mlx, &img);
 	free(data.rays);
 	free(data.accumulation);
-	printf("AK out!\n");
 	return (0);
 }

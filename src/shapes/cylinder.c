@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 12:00:06 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/02 11:53:39 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/03 16:04:20 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_shape	cylinder_default(void)
 		.id = new_id(),
 		.matter = material(),
 		.transform = identity(),
-		.local_interesct = &cylinder_intersect,
+		.local_intersect = &cylinder_intersect,
 		.local_normalat = &cylinder_normalat,
 	});
 }

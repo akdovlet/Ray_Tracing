@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:46:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 18:38:25 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/03 16:04:20 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_shape	plane_new(void)
 		.id = new_id(),
 		.matter = material(),
 		.local_normalat = &local_normalat,
-		.local_interesct = &local_intersect,
+		.local_intersect = &local_intersect,
 		.transform = identity()
 	};
 	return (new);

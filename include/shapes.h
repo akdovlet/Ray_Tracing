@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/25 17:08:18 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/03 16:11:48 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_tuple	sphere_normal_at(t_shape *shape, t_tuple point);
 
 unsigned int		new_id(void);
 
+void	intersect_caps(t_shape *cyl, t_ray *ray, t_vec2 *xs);
 
 t_tuple	refracted_color(t_world *world, t_comps *comps, int depth);
 t_tuple	refracted_ray(t_comps *comps);
@@ -59,5 +60,11 @@ double	schlick(t_comps *comps);
 
 t_shape	cylinder_default(void);
 t_vec2	cylinder_intersect(t_shape *shape, t_ray ray);
+void	check_trunc(t_vec2 *vec, t_shape *shape, t_ray *ray);
+
+t_shape	cone_default();
+
+t_shape	triangle_default(void);
+t_shape	triangle(t_tuple p1, t_tuple p2, t_tuple p3);
 
 #endif
