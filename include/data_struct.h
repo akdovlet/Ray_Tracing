@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/03 16:36:32 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/04 16:57:17 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,5 +235,12 @@ typedef struct	s_data
 	t_ray		*rays;
 	t_tuple		*accumulation;
 }	t_data;
+
+typedef struct s_groups
+{
+	t_shape	*triangles;
+};
+
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/03 17:13:01 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:51:22 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ t_data	scene_single_sphere(void)
 	sun = sphere_default();
 	set_transform(&sun, multiply_matrix(translate(0 , 2, 5), scale(3, 3, 3)));
 	sun.matter = emissive_material();
-	sun.matter.emission_power = 2;
+	sun.matter.emission_power = 20;
 
 	sphere2 = sphere_default();
 	sphere2.matter.color = color_new(1, 0.1, 0.1);
@@ -637,15 +637,20 @@ t_data	scene_triangle(void)
 	t_camera	cam;
 	t_shape		tri;
 	t_data		data;
+	t_shape		floor;
 
-
-	tri = triangle(point_new(0, 1, 0), point_new(-1, 0, 0), point_new(1, 0, 0));
+	tri = triangle(point_new(1.5, 2, 1.3), point_new(1.4, -1.2, 0.12), point_new(-0.1, 0, -1.3));
+	// set_transform(&tri, rotate_x(90));
 	// cube.matter = glass_material();
 	// cube.matter.pattern = stripe_pattern(green(), blue());
+	tri.matter = emissive_material();
+	floor = plane_new();
+	set_transform(&floor, translate(0, -2, 0));
 
 	world.light = point_light(point_new(0, 3, 3), color_new(1, 1, 1));
 	world.obj[0] = tri;
-	world.obj_count = 1;
+	world.obj[1] = floor;
+	world.obj_count = 2;
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
 	cam.from =  point_new(0, 0.5, -5);
 	cam.to =  point_new(0, 1, 0);

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:46:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/03 16:04:20 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/04 12:01:02 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ static t_vec2	local_intersect(t_shape *shape, t_ray ray)
 	double	t;
 	t_tuple	local_ray;
 
+	(void)shape;
 	if (fabs(ray.direction.y) < DBL_EPSILON)
 		return ((t_vec2) {.dis = -1});
-	local_ray = tuple_substract(ray.origin, shape->coordinates);
+	// local_ray = tuple_substract(ray.origin, shape->coordinates);
+	local_ray = tuple_negate(ray.origin);
 	dot = tuple_dot(vector_new(0, 1, 0), local_ray);
 	if (!dot)
 		return ((t_vec2) {.dis = -1});

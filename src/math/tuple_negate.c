@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 18:05:30 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/03 18:43:59 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/04 12:03:12 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 inline t_tuple	tuple_negate(t_tuple a)
 {
-	return ((t_tuple){-a.x, -a.y, -a.z, -a.w});
+	a = (t_tuple){-a.x, -a.y, -a.z, -a.w};
+	return (a);
 }

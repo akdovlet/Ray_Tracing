@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/03 17:31:40 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:40:11 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int main()
 	// test_cylinder_normalat();
 	// test_cone_intersect();
 	// test_triangle_normal();
-	// test_triangle_intersect();
-	mlx_loop_hook(mlx.mlx_ptr, &render_and_move, &data);
+	test_triangle_intersect();
+	mlx_loop_hook(mlx.mlx_ptr, &render_accumulation, &data);
 	mlx_loop(mlx.mlx_ptr);
 	mlx_clear(&mlx, &img);
 	free(data.rays);

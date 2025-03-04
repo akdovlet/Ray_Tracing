@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:54:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/03 17:31:34 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/04 15:58:29 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,8 @@ t_vec2	triangle_intersect(t_shape *shape, t_ray ray)
 		return (xs);
 	origin_cross_e1 = tuple_cross(p1_to_origin, shape->e1);
 	v = f * tuple_dot(ray.direction, origin_cross_e1);
-	if (v < 0 || v + u > 1)
+	if (v < 0.0 || v + u > 1.0)
 		return (xs);
-	printf("here\n");
 	return ((t_vec2){{0, f * tuple_dot(shape->e2, origin_cross_e1), DBL_MAX}});
 }
 
@@ -54,15 +53,16 @@ t_shape	triangle(t_tuple p1, t_tuple p2, t_tuple p3)
 {
 	t_shape	t;
 
+	t.id = new_id();
+	t.transform = identity(),
+	t.matter = material();
 	t.p1 = p1;
 	t.p2 = p2;
 	t.p3 = p3;
 	t.e1 = tuple_substract(p2, p1);
 	t.e2 = tuple_substract(p3, p1);
-	t.id = new_id();
 	t.normal = triangle_normal(t.e1, t.e2);
-	t.matter = material();
-	t.local_normalat = NULL;
 	t.local_intersect = triangle_intersect;
+	t.local_normalat = NULL;
 	return (t);
 }
