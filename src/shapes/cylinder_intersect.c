@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:09:52 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/03 13:17:39 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/05 13:13:38 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	check_trunc(t_vec2 *vec, t_shape *shape, t_ray *ray)
+void	check_trunc(t_vec3f *vec, t_shape *shape, t_ray *ray)
 {
 	double	y0;
 	double	y1;
@@ -51,15 +51,15 @@ int	check_cap(t_ray *ray, double t)
 	return (xz <= 1);
 }
 
-void	intersect_caps(t_shape *cyl, t_ray *ray, t_vec2 *xs)
+void	intersect_caps(t_shape *cyl, t_ray *ray, t_vec3f *xs)
 {
 	double	t1;
 	double	t2;
 	int		i;
-	t_vec2	caps;
+	t_vec3f	caps;
 
 	i = 1;
-	caps = (t_vec2){.x = DBL_MAX, .y = DBL_MAX};
+	caps = (t_vec3f){.x = DBL_MAX, .y = DBL_MAX};
 	if (!cyl->closed || fabs(ray->direction.y) < DBL_EPSILON)
 		return ;
 	t1 = (cyl->min - ray->origin.y) / ray->direction.y;
@@ -86,13 +86,13 @@ void	intersect_caps(t_shape *cyl, t_ray *ray, t_vec2 *xs)
 		xs->dis += 2;
 }
 
-t_vec2	cylinder_intersect(t_shape *shape, t_ray ray)
+t_vec3f	cylinder_intersect(t_shape *shape, t_ray ray)
 {
 	double	dis;
 	t_dvec3	vec;
-	t_vec2	new;
+	t_vec3f	new;
 
-	new = (t_vec2){.dis = -1, .x = DBL_MAX, .y = DBL_MAX};
+	new = (t_vec3f){.dis = -1, .x = DBL_MAX, .y = DBL_MAX};
 	vec.a = ray.direction.x * ray.direction.x + ray.direction.z * ray.direction.z;
 	if (fabs(vec.a) < DBL_EPSILON)
 		return (intersect_caps(shape, &ray, &new), new);
@@ -102,7 +102,7 @@ t_vec2	cylinder_intersect(t_shape *shape, t_ray ray)
 	dis = vec.b * vec.b - 4.0 * vec.a * vec.c;
 	if (dis < 0.0)
 		return (intersect_caps(shape, &ray, &new), new);
-	new = (t_vec2){ .dis = dis,
+	new = (t_vec3f){ .dis = dis,
 					.x = (-vec.b - sqrt(dis)) / (2.0 * vec.a),
 					.y = (-vec.b + sqrt(dis)) / (2.0 * vec.a)};
 	check_trunc(&new, shape, &ray);

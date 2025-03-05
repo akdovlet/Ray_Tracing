@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 18:28:04 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/03 16:04:20 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/05 13:13:38 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	mouse_manager(int button, int x, int y, t_data *data)
 	// v2	delta;
 	t_junction	hits;
 	t_comps		comps;
-	t_vec2		xs;
+	t_vec3f		xs;
 	mouse_pos[0] = x;
 	mouse_pos[1] = y;
 	if (button == 1)

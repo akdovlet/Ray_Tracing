@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 12:13:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/03 16:04:20 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/05 13:13:38 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vec2	check_axis(double origin, double direction)
+t_vec3f	check_axis(double origin, double direction)
 {
 	double	t_min_numerator;
 	double	t_max_numerator;
@@ -32,17 +32,17 @@ t_vec2	check_axis(double origin, double direction)
 		t_max = t_max_numerator * INFINITY;
 	}
 	if (t_min > t_max)
-		return ((t_vec2){.x = t_max, .y = t_min});
-	return ((t_vec2){.x = t_min, .y = t_max});
+		return ((t_vec3f){.x = t_max, .y = t_min});
+	return ((t_vec3f){.x = t_min, .y = t_max});
 }
 
-t_vec2	cube_intersect(t_shape *shape, t_ray ray)
+t_vec3f	cube_intersect(t_shape *shape, t_ray ray)
 {
 	double	tmin;
 	double	tmax;
-	t_vec2	xt;
-	t_vec2	yt;
-	t_vec2	zt;
+	t_vec3f	xt;
+	t_vec3f	yt;
+	t_vec3f	zt;
 	t_tuple	local_ray;
 
 	local_ray = tuple_substract(ray.origin, shape->coordinates);
@@ -52,8 +52,8 @@ t_vec2	cube_intersect(t_shape *shape, t_ray ray)
 	tmin = fmax(xt.x, fmax(yt.x, zt.x));
 	tmax = fmin(xt.y, fmin(yt.y, zt.y));
 	if (tmin > tmax)
-		return ((t_vec2){.dis = -1, tmin, tmax});
-	return ((t_vec2){
+		return ((t_vec3f){.dis = -1, tmin, tmax});
+	return ((t_vec3f){
 		.dis = 2,
 		.x = tmin,
 		.y = tmax

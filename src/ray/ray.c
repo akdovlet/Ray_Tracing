@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:42:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/03 16:04:20 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/05 13:13:38 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_tuple	position(t_ray ray, double factor)
 	return (tuple_add(ray.origin, (tuple_multiply(ray.direction, factor))));
 }
 
-t_vec2	intersect(t_shape *shape, t_ray ray)
+t_vec3f	intersect(t_shape *shape, t_ray ray)
 {
 	t_ray	transformed_ray;
 
@@ -33,7 +33,7 @@ t_vec2	intersect(t_shape *shape, t_ray ray)
 	return (shape->local_intersect(shape, transformed_ray));
 }
 
-t_intersection	intersection(t_shape shape, t_vec2 vec)
+t_intersection	intersection(t_shape shape, t_vec3f vec)
 {
 	double			tmp;
 	t_intersection	new;
@@ -58,7 +58,7 @@ t_intersection	intersection(t_shape shape, t_vec2 vec)
 	return (new);
 } 
 
-void hit(t_intersection *hit, t_vec2 vec)
+void hit(t_intersection *hit, t_vec3f vec)
 {
 	hit->hit = false;
 	hit->count = 0;

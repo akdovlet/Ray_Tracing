@@ -652,7 +652,7 @@ void	object_test(void)
 {
 	// t_ray			ray;
 	// t_shape		sph;
-	// t_vec2			vec;
+	// t_vec3f			vec;
 	// t_intersection	i;
 	// t_intersection	j;
 	// double			dis;
@@ -705,7 +705,7 @@ void	object_transform_test(void)
 	// t_ray			ray;
 	// t_shape		sph;
 	// double			dis;
-	// t_vec2			vec;
+	// t_vec3f			vec;
 	// t_intersection	i;
 	// t_intersection	j;
 
@@ -1974,7 +1974,7 @@ void	evaluate(double a, double b, double ea, double eb)
 // {
 // 	t_shape	cube;
 // 	t_ray	ray;
-// 	t_vec2	xs;
+// 	t_vec3f	xs;
 
 // 	printf("\nTest cube intersect\n");
 // 	cube = cube_default();
@@ -2111,7 +2111,7 @@ void	test_cylinder_intersect(void)
 	printf("\nCylinder Intersect\nMiss:\n");
 	t_shape	cylinder;
 	t_ray	ray;
-	t_vec2	inter;
+	t_vec3f	inter;
 
 	cylinder = cylinder_default();
 	cylinder.closed = false;
@@ -2246,7 +2246,7 @@ void	test_truncated_cylinder(void)
 {
 	t_shape	cylinder;
 	t_ray	ray;
-	t_vec2	xs;
+	t_vec3f	xs;
 
 	printf("\n Test truncated cylinder\n");
 	cylinder = cylinder_default();
@@ -2302,7 +2302,7 @@ void	test_capped_cylinder(void)
 {
 	t_shape cylinder;
 	t_ray	ray;
-	t_vec2	xs;
+	t_vec3f	xs;
 
 	cylinder = cylinder_default();
 	cylinder.max = 2;
@@ -2525,7 +2525,7 @@ void	test_cone_intersect(void)
 {
 	t_shape	cone;
 	t_ray	ray;
-	t_vec2	xs;
+	t_vec3f	xs;
 
 	cone = cone_default();
 
@@ -2659,7 +2659,7 @@ void	test_triangle_intersect(void)
 {
 	t_shape t;
 	t_ray	ray;
-	t_vec2	xs;
+	t_vec3f	xs;
 
 	printf("\nTest triangle intersect\n");
 	t = triangle(point_new(0, 1, 0), point_new(-1, 0, 0), point_new(1, 0, 0));

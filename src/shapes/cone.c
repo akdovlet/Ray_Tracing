@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:36:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/03 16:04:20 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/05 13:13:38 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ int	check_cap_cone(t_ray *ray, double t, double radius)
 	return (xz <= radius);
 }
 
-void	intersect_caps_cone(t_shape *shape, t_ray *ray, t_vec2 *xs)
+void	intersect_caps_cone(t_shape *shape, t_ray *ray, t_vec3f *xs)
 {
 	double	t1;
 	double	t2;
 	int		i;
-	t_vec2	caps;
+	t_vec3f	caps;
 
 	i = 1;
-	caps = (t_vec2){.x = DBL_MAX, .y = DBL_MAX};
+	caps = (t_vec3f){.x = DBL_MAX, .y = DBL_MAX};
 	if (!shape->closed || fabs(ray->direction.y) < DBL_EPSILON)
 		return ;
 	t1 = (shape->min - ray->origin.y) / ray->direction.y;
@@ -59,14 +59,14 @@ void	intersect_caps_cone(t_shape *shape, t_ray *ray, t_vec2 *xs)
 		xs->dis += 2;
 }
 
-t_vec2	cone_intersect(t_shape *shape, t_ray ray)
+t_vec3f	cone_intersect(t_shape *shape, t_ray ray)
 {
 	double	a;
 	double	b;
 	double	c;
-	t_vec2	new;
+	t_vec3f	new;
 
-	new = (t_vec2){{-1, DBL_MAX, DBL_MAX}};
+	new = (t_vec3f){{-1, DBL_MAX, DBL_MAX}};
 	a = (ray.direction.x * ray.direction.x) - (ray.direction.y * ray.direction.y)\
 		+ (ray.direction.z * ray.direction.z);
 	b = 2 * ray.origin.x * ray.direction.x - ((2 * ray.origin.y) * ray.direction.y)\
@@ -79,7 +79,7 @@ t_vec2	cone_intersect(t_shape *shape, t_ray ray)
 	new.dis = b * b - 4.0 * a * c;
 	if (new.dis < 0.0)
 		return (intersect_caps_cone(shape, &ray, &new), new);
-	new = (t_vec2){
+	new = (t_vec3f){
 		.x = (-b - sqrt(new.dis)) / (2.0 * a),
 		.y = (-b + sqrt(new.dis)) / (2.0 * a)};
 	check_trunc(&new, shape, &ray);

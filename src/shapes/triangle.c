@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 15:54:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/04 15:58:29 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/05 13:13:38 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vec2	triangle_intersect(t_shape *shape, t_ray ray)
+t_vec3f	triangle_intersect(t_shape *shape, t_ray ray)
 {
 	double	det;
 	double	f;
@@ -21,9 +21,9 @@ t_vec2	triangle_intersect(t_shape *shape, t_ray ray)
 	t_tuple	dir_cross_e2;
 	t_tuple	p1_to_origin;
 	t_tuple	origin_cross_e1;
-	t_vec2	xs;
+	t_vec3f	xs;
 
-	xs = (t_vec2){{-1, DBL_MAX, DBL_MAX}};
+	xs = (t_vec3f){{-1, DBL_MAX, DBL_MAX}};
 	dir_cross_e2 = tuple_cross(ray.direction, shape->e2);
 	det = tuple_dot(shape->e1, dir_cross_e2);
 	if (fabs(det) < DBL_EPSILON)
@@ -37,7 +37,7 @@ t_vec2	triangle_intersect(t_shape *shape, t_ray ray)
 	v = f * tuple_dot(ray.direction, origin_cross_e1);
 	if (v < 0.0 || v + u > 1.0)
 		return (xs);
-	return ((t_vec2){{0, f * tuple_dot(shape->e2, origin_cross_e1), DBL_MAX}});
+	return ((t_vec3f){{0, f * tuple_dot(shape->e2, origin_cross_e1), DBL_MAX}});
 }
 
 t_tuple	triangle_normal(t_tuple e1, t_tuple e2)

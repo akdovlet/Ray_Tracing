@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/04 16:57:17 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/05 13:16:38 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,16 @@
 
 typedef union u_matrix			t_matrix;
 typedef	union u_color			t_color;
-typedef enum e_type				t_type;
 typedef struct s_shape			t_shape;
-typedef struct s_vtable_shape	t_vtable_shape;
 typedef struct s_intersection	t_intersection;
 
-typedef union s_vec2
+typedef struct s_vec2f
+{
+	double	x;
+	double	y;
+}	t_vec2f;
+
+typedef union s_vec3f
 {
 	struct {
 		double	dis;
@@ -31,7 +35,7 @@ typedef union s_vec2
 		double	y;
 	};
 	double	vec3[3];
-}	t_vec2;
+}	t_vec3f;
 
 typedef struct s_vec3 
 {
@@ -58,12 +62,6 @@ typedef struct s_tuple
 typedef double v4 __attribute__((vector_size(16)));
 typedef double v2 __attribute__((vector_size(8)));
 
-typedef	union u_vec
-{
-	t_tuple	t1;
-	v4		v;
-}	t_vec;
-
 union	u_matrix
 {
 	struct
@@ -76,12 +74,6 @@ union	u_matrix
 	double	raw[4][4];
 } __attribute__((__transparent_union__));
 
-enum	e_type
-{
-	SPHERE,
-	PLANE,
-};
-
 typedef struct	s_light
 {
 	t_tuple	intensity;
@@ -91,10 +83,13 @@ typedef struct	s_light
 typedef struct	s_pattern
 {
 	int			exists;
+	int			width;
+	int			height;
 	t_tuple		color1;
 	t_tuple		color2;
 	t_matrix	transform;
-	t_tuple		(*pattern_at)(struct s_pattern pattern, t_tuple point);
+	t_tuple		(*uv_pattern_at)(struct s_pattern *, double, double);
+	t_tuple		(*pattern_at)(struct s_pattern *, t_tuple );
 }	t_pattern;
 
 typedef struct s_material
@@ -148,7 +143,7 @@ typedef struct	s_shape
 			double	max;
 		};
 	};
-	t_vec2			(*local_intersect)(struct s_shape *, t_ray);
+	t_vec3f			(*local_intersect)(struct s_shape *, t_ray);
 	t_tuple			(*local_normalat)(struct s_shape *, t_tuple);
 }	t_shape;
 
@@ -157,7 +152,7 @@ struct s_intersection
 	bool					hit;
 	double					t;
 	int						count;
-	t_vec2					xs;
+	t_vec3f					xs;
 };
 
 typedef struct s_crossing
@@ -180,7 +175,6 @@ typedef struct s_world
 	t_shape		obj[20];
 	t_light		light;
 }	t_world;
-
 
 typedef struct s_comps
 {
@@ -238,8 +232,8 @@ typedef struct	s_data
 
 typedef struct s_groups
 {
-	t_shape	*triangles;
-};
+	t_shape	*trianglesm;
+}	t_groups;
 
 
 
