@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:23:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/03 17:30:17 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/09 13:04:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,10 @@ t_data		scene_complex(void);
 t_data		scene_standby(void);
 t_data		scene_walled(void);
 t_data		scene_inside_sphere(void);
+t_data		scene_uv_sphere(void);
+t_data		scene_uv_plane(void);
+t_data		scene_cube_pattern(void);
+t_data		scene_spherical_pattern(t_mlx *mlx);
 
 void		test_cube(void);
 void		test_normal_end_caps(void);
@@ -65,4 +69,6 @@ void		test_cone_intersect(void);
 void		test_triangle_normal(void);
 void		test_triangle_intersect(void);
 t_data		scene_triangle(void);
+void		test_spherical_mapping(void);
+
 #endif

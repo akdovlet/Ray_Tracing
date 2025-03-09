@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.h                                           :+:      :+:    :+:   */
+/*   planar_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 13:45:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/08 14:02:01 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/03/06 12:25:47 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/03/06 12:27:30 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLORS_H
-# define COLORS_H
+#include "minirt.h"
 
-# include "data_struct.h"
-
-t_tuple	black(void);
-t_tuple	white(void);
-t_tuple	red(void);
-t_tuple	blue(void);
-t_tuple	green(void);
-t_tuple	purple(void);
-t_tuple	yellow(void);
-t_tuple	brown(void);
-t_tuple	cyan(void);
-
-t_tuple	get_emission(t_shape *obj);
-
-#endif
+t_vec2f	planar_map(t_tuple point)
+{
+	return ((t_vec2f){
+		fmod(point.x, 1),
+		fmod(point.z, 1)
+	});
+}

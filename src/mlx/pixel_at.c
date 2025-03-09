@@ -1,30 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.h                                           :+:      :+:    :+:   */
+/*   pixel_at.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 13:45:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/08 14:02:01 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/03/09 12:29:29 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/03/09 12:45:26 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLORS_H
-# define COLORS_H
+#include "minirt.h"
 
-# include "data_struct.h"
+uint32_t	pixel_at(t_img *data, int dx, int dy)
+{
+	char	*dst;
 
-t_tuple	black(void);
-t_tuple	white(void);
-t_tuple	red(void);
-t_tuple	blue(void);
-t_tuple	green(void);
-t_tuple	purple(void);
-t_tuple	yellow(void);
-t_tuple	brown(void);
-t_tuple	cyan(void);
-
-t_tuple	get_emission(t_shape *obj);
-
-#endif
+	dst = data->addr + (dy * data->line_length + dx * (data->bits_per_pixel / 8));
+	return (*(unsigned int *)dst);
+}

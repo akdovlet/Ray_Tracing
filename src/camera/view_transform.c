@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 17:48:27 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 15:19:21 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/09 18:53:03 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_matrix	view_transform(t_tuple from, t_tuple to, t_tuple up)
+t_matrix	view_transform(t_tuple from, t_tuple to, t_tuple up, t_camera *cam)
 {
 	t_tuple		forward;
 	t_tuple		left;
@@ -28,5 +28,8 @@ t_matrix	view_transform(t_tuple from, t_tuple to, t_tuple up)
 		{-forward.x, -forward.y, -forward.z, 0},
 		{0, 0, 0, 1}
 	}};
+	cam->forward = forward;
+	cam->left = left;
+	cam->true_up = true_up;
 	return (multiply_matrix(m, translate(-from.x, -from.y, -from.z)));
 }

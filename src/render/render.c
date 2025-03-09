@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/05 10:45:39 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/09 16:36:47 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	path_tracing(t_data *data)
 		x = 0;
 		while (x < WIDTH)
 		{
-			color = trace_rays(&data->world, data->rays[x + y * WIDTH], (x + y * WIDTH) * data->frame_index);
+			color = trace_rays(&data->world, data->rays[x + y * WIDTH], (x + y * WIDTH) * data->frame_index, data->frame_index);
 			if (data->frame_index == 1)
 				data->accumulation[x + y * WIDTH] = color;
 			else
@@ -135,7 +135,8 @@ int	render_and_move(t_data *data)
 	mlx_put_image_to_window(data->mlx.mlx_ptr, data->mlx.win_ptr, data->img.img_ptr, 0, 0);
 	end = clock();
 	data->ts = ((double) (end - start)) / CLOCKS_PER_SEC;
-	// printf("frame %d time: %.f ms\n",data->frame_index, data->ts * 1000);
+	printf("\rframe %d time: %.f ms",data->frame_index, data->ts * 1000);
+	fflush(stdout);
 	return (0);
 }
 

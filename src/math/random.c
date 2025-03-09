@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 20:15:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/15 20:29:06 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/09 16:29:20 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ double	random_float(uint32_t *seed)
 {
 	*seed = pcg_hash(*seed);
 	return ((double)*seed / (double)UINT32_MAX);
+}
+
+double	random_range(uint32_t *seed, double min, double max)
+{
+	return (random_float(seed) * (max - min) + min);
 }
 
 t_tuple	random_unit_vec(uint32_t *seed)

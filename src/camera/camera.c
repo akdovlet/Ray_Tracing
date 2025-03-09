@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 18:17:18 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/02 15:43:14 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/09 18:47:55 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_camera	camera_new(double hsize, double vsize, double fov)
 	cam.vsize = vsize;
 	cam.psize = (cam.half_width * 2) / cam.hsize;
 	cam.transform = identity();
+	cam.cam_distance = 1.0 / tan(fov * 0.5 * M_PI / 180.0);
 	return (cam);
 }
 
@@ -46,6 +47,6 @@ void	camera_on_update(t_camera *cam)
 
 void camera_update_transform(t_camera *cam, t_tuple from, t_tuple to, t_tuple up)
 {
-	cam->view = view_transform(from, to, up);
+	cam->view = view_transform(from, to, up, cam);
 	cam->transform = inverse(cam->view);
 }

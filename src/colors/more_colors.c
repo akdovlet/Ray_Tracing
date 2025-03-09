@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.h                                           :+:      :+:    :+:   */
+/*   more_colors.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 13:45:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/08 14:02:01 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/03/08 13:58:50 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/03/08 14:01:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLORS_H
-# define COLORS_H
+#include "minirt.h"
 
-# include "data_struct.h"
+t_tuple	yellow(void)
+{
+	return ((t_tuple){1, 1, 0, 0});
+}
 
-t_tuple	black(void);
-t_tuple	white(void);
-t_tuple	red(void);
-t_tuple	blue(void);
-t_tuple	green(void);
-t_tuple	purple(void);
-t_tuple	yellow(void);
-t_tuple	brown(void);
-t_tuple	cyan(void);
+t_tuple	brown(void)
+{
+	return ((t_tuple){1, 0.5, 0, 0});
+}
 
-t_tuple	get_emission(t_shape *obj);
+t_tuple	cyan(void)
+{
+	return ((t_tuple){0, 1, 1, 0});
+}
 
-#endif
+t_tuple	purple(void)
+{
+	return ((t_tuple){1, 0, 1, 0});
+}
+

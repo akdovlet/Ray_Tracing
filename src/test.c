@@ -1540,7 +1540,7 @@ t_shape	test_shape(void)
 // 	t_intersection	hit;
 
 // 	printf("\n Intersect plane test\n");
-// 	plane = plane_new();
+// 	plane = plane_default();
 
 // 	ray = ray_new(point_new(0, 10, 0), vector_new(0, 0, 1));
 // 	hit = intersection(plane, plane.local_intersect(ray, plane));
@@ -1835,7 +1835,7 @@ void	test_reflection(void)
 
 	// printf("\nTest reflection\n");
 
-	// plane = plane_new();
+	// plane = plane_default();
 	// ray = ray_new(point_new(0, 1, -1), vector_new(0, -sqrt(2)/2, sqrt(2)/2));
 	// cross.t = sqrtf(2.0f);
 	// cross.obj = plane;
@@ -1936,7 +1936,7 @@ void	test_shade_hit_refraction(void)
 	t_tuple		color;
 
 	world = default_world();
-	floor = plane_new();
+	floor = plane_default();
 	set_transform(&floor, translate(0, -1, 0));
 	floor.matter.transparency = 0.5;
 	floor.matter.refractive_index = 1.5;
@@ -2719,6 +2719,82 @@ void	test_triangle_intersect(void)
 		printf("OK1!\n");
 	}
 
+}
+
+void	test_spherical_mapping(void)
+{
+	t_vec2f	uv;
+
+	printf("\nTest spherical mapping\n");
+	uv = spherical_map(point_new(0, 0, -1));
+	if (!float_equal(0.0, uv.x) || !float_equal(0.5, uv.y))
+	{
+		fprintf(stderr, "Error1: expected 0.0, 0.5, got: %f, %f\n", uv.x, uv.y);
+	}
+	else
+	{
+		printf("OK: u: %f, v: %f\n", uv.x, uv.y);
+	}
+	
+    uv = spherical_map(point_new(1, 0, 0));
+	if (!float_equal(0.25, uv.x) ||  !float_equal( 0.5, uv.y))
+	{
+		fprintf(stderr, "Error: got %f, %f\n", uv.x, uv.y);
+	}
+	else
+	{
+		printf("OK: u: %f, v: %f\n", uv.x, uv.y);
+	}
+	
+    uv = spherical_map(point_new(0, 0, 1));
+	if (!float_equal(0.5 , uv.x) ||  !float_equal( 0.5, uv.y))
+	{
+		fprintf(stderr, "Error: got %f, %f\n", uv.x, uv.y);
+	}
+	else
+	{
+		printf("OK: u: %f, v: %f\n", uv.x, uv.y);
+	}
+	
+    uv = spherical_map(point_new(-1, 0, 0));
+	if (!float_equal(0.75, uv.x) ||  !float_equal( 0.5, uv.y))
+	{
+		fprintf(stderr, "Error: got %f, %f\n", uv.x, uv.y);
+	}
+	else
+	{
+		printf("OK: u: %f, v: %f\n", uv.x, uv.y);
+	}
+	
+    uv = spherical_map(point_new(0, 1, 0));
+	if (!float_equal(0.5 , uv.x) ||  !float_equal( 1.0, uv.y))
+	{
+		fprintf(stderr, "Error: got %f, %f\n", uv.x, uv.y);
+	}
+	else
+	{
+		printf("OK: u: %f, v: %f\n", uv.x, uv.y);
+	}
+	
+    uv = spherical_map(point_new(0, -1, 0));
+	if (!float_equal(0.5 , uv.x) ||  !float_equal( 0.0, uv.y))
+	{
+		fprintf(stderr, "Error: got %f, %f\n", uv.x, uv.y);
+	}
+	else
+	{
+		printf("OK: u: %f, v: %f\n", uv.x, uv.y);
+	}
+	
+    uv = spherical_map(point_new(sqrt(2.0/2.0), sqrt(2.0/2.0), 0));
+	if (!float_equal(0.25 , uv.x) ||  !float_equal( 0.75, uv.y))
+	{
+		fprintf(stderr, "Error: got %f, %f\n", uv.x, uv.y);
+	}
+	else
+	{
+		printf("OK: u: %f, v: %f\n", uv.x, uv.y);
+	}
 }
 
 

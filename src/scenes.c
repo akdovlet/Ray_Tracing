@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/04 15:51:22 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/09 18:27:03 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_data	scene_inside_sphere(void)
 	t_shape		left_sph;
 	t_data		data;
 
-	floor = plane_new();
+	floor = plane_default();
 	set_transform(&floor, translate(0, -5, 0));
 	// floor.transform = translate(1, 0, 3);
 	floor.matter = material();
@@ -37,7 +37,7 @@ t_data	scene_inside_sphere(void)
 	floor.matter.ambient = 0.7;
 	// floor.matter.reflective = 0.5;
 
-	wall = plane_new();
+	wall = plane_default();
 	set_transform(&wall, multiply_matrix(multiply_matrix(translate(0, 0, 20), rotate_x(radians(90))),
 											rotate_z(radians(60))));
 	wall.matter = material();
@@ -46,7 +46,7 @@ t_data	scene_inside_sphere(void)
 	wall.matter.ambient = 0.7;
 
 
-	wall2 = plane_new();
+	wall2 = plane_default();
 	set_transform(&wall2, multiply_matrix(multiply_matrix(translate(0, 0, -4), rotate_x(radians(90))),
 											rotate_z(radians(120))));
 	wall2.matter = material();
@@ -59,7 +59,7 @@ t_data	scene_inside_sphere(void)
 	wall2.matter.ambient = 0.01;
 	wall2.matter.refractive_index = 1.458;
 
-	sky = plane_new();
+	sky = plane_default();
 	set_transform(&sky, translate(0, 10, 0));
 	sky.matter = material();
 	sky.matter.color = color_new(0, 0.957, 1);
@@ -195,11 +195,12 @@ t_data	scene_walled(void)
 	sun.matter = emissive_material();
 	sun.matter.emission_color = white();
 
-	sphere2 = triangle(point_new(0, 1, 0), point_new(-1, 0, 0), point_new(1, 0, 0));
-	sphere2.matter.color = color_new(1, 0.1, 0.1);
+	// sphere2 = triangle(point_new(0, 1, 0), point_new(-1, 0, 0), point_new(1, 0, 0));
+	sphere2	= sphere_default();
+	sphere2.matter.color = color_new(1, 0, 0.824);
 	// set_transform(&sphere2, scale(0.5, 0.5, 0.5));
-	sphere2.matter.roughness = 0.8;
-	sphere2.matter.specular = 0.6;
+	sphere2.matter.roughness = 1;
+	sphere2.matter.specular = 0.5;
 
 	wall1 = cube_default();
 	// wall1.matter = emissive_material();
@@ -261,11 +262,11 @@ t_data	scene_walled(void)
 	world.obj[5] = wall5;
 	world.obj[6] = cube_light;
 	world.obj[7] = wall6;
-	world.obj_count = 8;
+	world.obj_count = 7;
 
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
-	cam.from =  point_new(0, 0.3, 1.5);
-	cam.to =  point_new(0, 0, 1);
+	cam.from =  point_new(0, 0.3, 3);
+	cam.to =  point_new(0, 0, -1);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
@@ -286,7 +287,7 @@ t_data	scene_default(void)
 	t_shape		left_sph;
 	t_data		data;
 
-	floor = plane_new();
+	floor = plane_default();
 	set_transform(&floor, translate(0, -2, 0));
 	// floor.transform = translate(1, 0, 3);
 	floor.matter = material();
@@ -296,7 +297,7 @@ t_data	scene_default(void)
 	floor.matter.ambient = 0.7;
 	// floor.matter.reflective = 0.5;
 
-	wall = plane_new();
+	wall = plane_default();
 	set_transform(&wall, multiply_matrix(multiply_matrix(translate(0, 0, 20), rotate_x(radians(90))),
 											rotate_z(radians(60))));
 	wall.matter = material();
@@ -306,7 +307,7 @@ t_data	scene_default(void)
 	wall.matter.color = red();
 
 
-	wall2 = plane_new();
+	wall2 = plane_default();
 	set_transform(&wall2, multiply_matrix(multiply_matrix(translate(0, 0, -4), rotate_x(radians(90))),
 											rotate_z(radians(120))));
 	wall2.matter = material();
@@ -319,7 +320,7 @@ t_data	scene_default(void)
 	wall2.matter.ambient = 0.01;
 	wall2.matter.refractive_index = 1.458;
 
-	sky = plane_new();
+	sky = plane_default();
 	set_transform(&sky, translate(0, 10, 0));
 	sky.matter = material();
 	sky.matter.color = color_new(1, 0.957, 1);
@@ -391,7 +392,7 @@ t_data	scene_watchful_eye(void)
 	t_shape		right_sph;
 	t_data		data;
 
-	floor = plane_new();
+	floor = plane_default();
 	set_transform(&floor, translate(0, -1, 0));
 	floor.matter.pattern = checkers_pattern(color_new(0.929, 0, 0), color_new(0, 0, 0));
 
@@ -434,7 +435,7 @@ t_data	scene_cube(void)
 	t_shape		cube;
 	t_data		data;
 
-	floor = plane_new();
+	floor = plane_default();
 	set_transform(&floor, translate(0, -1, 0));
 	floor.matter.pattern = checkers_pattern(black(), red());
 
@@ -482,7 +483,7 @@ t_data	scene_cylinder(void)
 	sun.matter.emission_power = 20;
 	set_transform(&sun, translate(0, 4, 5));
 	
-	floor = plane_new();
+	floor = plane_default();
 	set_transform(&floor, translate(0, -1, 0));
 	// floor.transform = translate(1, 0, 3);
 	floor.matter = material();
@@ -543,11 +544,11 @@ t_data	scene_complex(void)
 	cylinder.min = -1;
 	cylinder.max = 1;
 
-	wall = plane_new();
+	wall = plane_default();
 	set_transform(&wall, multiply_matrix(translate(0, 0, 5), rotate_x(radians(90))));
 	wall.matter.pattern = checkers_pattern(red(), black());
 
-	floor = plane_new();
+	floor = plane_default();
 	set_transform(&floor, translate(0, -1, 0));
 	floor.matter.pattern = checkers_pattern(black(), white());
 	floor.matter.reflective = 0.1;
@@ -605,11 +606,11 @@ t_data	scene_standby(void)
 	cylinder.min = -1;
 	cylinder.max = 1;
 
-	wall = plane_new();
+	wall = plane_default();
 	set_transform(&wall, multiply_matrix(translate(0, 0, 5), rotate_x(radians(90))));
 	wall.matter.pattern = checkers_pattern(red(), black());
 
-	floor = plane_new();
+	floor = plane_default();
 	set_transform(&floor, translate(0, 0, 0));
 	floor.matter.pattern = checkers_pattern(black(), white());
 	floor.matter.reflective = 0.1;
@@ -644,7 +645,7 @@ t_data	scene_triangle(void)
 	// cube.matter = glass_material();
 	// cube.matter.pattern = stripe_pattern(green(), blue());
 	tri.matter = emissive_material();
-	floor = plane_new();
+	floor = plane_default();
 	set_transform(&floor, translate(0, -2, 0));
 
 	world.light = point_light(point_new(0, 3, 3), color_new(1, 1, 1));
@@ -654,6 +655,143 @@ t_data	scene_triangle(void)
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
 	cam.from =  point_new(0, 0.5, -5);
 	cam.to =  point_new(0, 1, 0);
+	cam.up =  vector_new(0, 1, 0);
+	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	data.cam = cam;
+	data.world = world;
+	return (data);
+}
+
+t_data	scene_uv_sphere(void)
+{
+	t_world		world;
+	t_camera	cam;
+	t_shape		sphere;
+	t_pattern	checkers;
+	t_data		data;
+
+	sphere = sphere_default();
+	checkers = uv_checkers(10, 20, green(), white());
+	sphere.matter.pattern = texture_map(&checkers, &spherical_map);
+
+	world.light = point_light(point_new(-10, 10, -10), color_new(1, 1, 1));
+	world.obj[0] = sphere;
+	world.obj_count = 1;
+	cam = camera_new(WIDTH, HEIGHT, radians(70));
+	cam.from =  point_new(0, 0, -5);
+	cam.to =  point_new(0, 0, 0);
+	cam.up =  vector_new(0, 1, 0);
+	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	data.cam = cam;
+	data.world = world;
+	return (data);
+}
+
+t_data	scene_uv_plane(void)
+{
+	t_world		world;
+	t_camera	cam;
+	t_shape		plane;
+	t_shape		cyl;
+	t_pattern	checkers;
+	t_data		data;
+
+	plane = plane_default();
+	set_transform(&plane, translate(0, -1, 0));
+	checkers = uv_checkers(2, 2, green(), white());
+	plane.matter.pattern = texture_map(&checkers, &planar_map);
+
+	cyl = cylinder_default();
+	set_transform(&cyl, scale(1, 3.1415, 1));
+	checkers = uv_checkers(10, 20, red(), black());
+	cyl.matter.pattern = texture_map(&checkers, &cylindrical_map);
+	
+	world.light = point_light(point_new(-10, 10, -10), white());
+
+	world.obj[0] = plane;
+	world.obj[1] = cyl;
+	world.obj_count = 2;
+
+	cam = camera_new(WIDTH, HEIGHT, radians(70));
+	cam.from =  point_new(0, 0, -5);
+	cam.to =  point_new(0, 0, 0);
+	cam.up =  vector_new(0, 1, 0);
+	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	data.cam = cam;
+	data.world = world;
+	return (data);
+}
+
+t_data	scene_cube_pattern()
+{
+	t_faces		left;
+	t_faces		front;
+	t_faces		right;
+	t_faces		back;
+	t_faces		up;
+	t_faces		down;
+	t_pattern	pat;
+	t_shape		cube;
+	t_world		world;
+	t_data		data;
+	t_camera	cam;
+
+	left = uv_align_check(yellow(), cyan(), red(), blue(), brown());
+	front = uv_align_check(cyan(), red(), yellow(), brown(), green());
+	right = uv_align_check(red(), yellow(), purple(), green(), white());
+	back = uv_align_check(green(), purple(), cyan(), white(), blue());
+	up = uv_align_check(brown(), cyan(), purple(), red(), yellow());
+	down = uv_align_check(purple(), brown(), green(), blue(), white());
+	pat = cube_map(right, left, up, down, front, back);
+	
+	cube = cube_default();
+	cube.matter.pattern = pat;
+
+	world.light = point_light(point_new(-10, 10, -10), white());
+
+	world.obj[0] = cube;
+	world.obj_count = 1;
+
+	cam = camera_new(WIDTH, HEIGHT, radians(70));
+	cam.from =  point_new(0, 0, -5);
+	cam.to =  point_new(0, 0, 0);
+	cam.up =  vector_new(0, 1, 0);
+	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	data.cam = cam;
+	data.world = world;
+	return (data);
+}
+
+t_data	scene_spherical_pattern(t_mlx *mlx)
+{
+	t_shape		sphere;
+	t_shape		sun;
+	t_world		world;
+	t_data		data;
+	t_camera	cam;
+	t_img		map;
+
+	
+	sphere = sphere_default();
+	map.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr, "./earthmap.xpm", &map.img_width, &map.img_height);
+	map.addr = mlx_get_data_addr(map.img_ptr, &map.bits_per_pixel, &map.line_length, &map.endian);
+	sphere.matter.pattern = spherical_pattern(&map);
+	set_transform_pattern(&sphere.matter.pattern, rotate_x(radians(10)));
+	sun = sphere_default();
+	set_transform(&sun, multiply_matrix(translate(0 , 2, 50), scale(20, 20, 20)));
+	sun.matter = emissive_material();
+	sun.matter.emission_power = 2;
+	sun.matter.emission_color = white();
+	
+	world.light = point_light(point_new(-10, 10, -10), white());
+
+	world.obj[0] = sphere;
+	world.obj[1] = sun;
+	world.obj_count = 2;
+
+	cam = camera_new(WIDTH, HEIGHT, radians(70));
+	cam.from =  point_new(0, 0, -5);
+	cam.to =  point_new(0, 0, 0);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;

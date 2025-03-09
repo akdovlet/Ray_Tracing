@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/03/03 16:12:10 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/03/09 18:41:48 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC		:=	main.c							\
 			camera/view_transform.c			\
 			colors/colors.c					\
 			colors/get_emission.c			\
+			colors/more_colors.c			\
 			light/light.c					\
 			light/shading.c					\
 			mlx/init_mlx.c					\
@@ -28,15 +29,21 @@ SRC		:=	main.c							\
 			mlx/mlx_clear.c					\
 			mlx/mlx_pixel_put.c				\
 			mlx/mouse_manager.c				\
+			mlx/pixel_at.c					\
 			shapes/cube.c					\
 			pattern/checker.c				\
+			pattern/cubical_map.c			\
+			pattern/cylindrical_map.c		\
 			pattern/gradient.c				\
+			pattern/planar_map.c			\
 			pattern/pattern.c				\
 			pattern/radial.c				\
 			pattern/ring.c					\
 			pattern/stripe.c				\
+			pattern/uv_mapping.c			\
+			pattern/texture_map.c			\
 			ray/ray_transform.c				\
-			ray/ray_for_pixel.c				\
+			ray/cache_ray.c					\
 			ray/ray.c						\
 			ray/reflect.c					\
 			ray/refract.c					\

@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.h                                           :+:      :+:    :+:   */
+/*   cylindrical_map.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 13:45:25 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/08 14:02:01 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/03/08 11:14:25 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/03/08 11:17:29 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COLORS_H
-# define COLORS_H
+#include "minirt.h"
 
-# include "data_struct.h"
+t_vec2f	cylindrical_map(t_tuple p)
+{
+	double	theta;
+	double	raw_u;
+	double	u;
+	double	v;
 
-t_tuple	black(void);
-t_tuple	white(void);
-t_tuple	red(void);
-t_tuple	blue(void);
-t_tuple	green(void);
-t_tuple	purple(void);
-t_tuple	yellow(void);
-t_tuple	brown(void);
-t_tuple	cyan(void);
-
-t_tuple	get_emission(t_shape *obj);
-
-#endif
+	theta = atan2(p.x, p.z);
+	raw_u = theta / (2.0 * M_PI);
+	u = 1.0 - (raw_u + 0.5);
+	v = fmod(p.y, 1.0);
+	return ((t_vec2f){u, v});
+}

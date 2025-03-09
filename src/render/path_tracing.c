@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 20:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/03 14:29:09 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/09 18:23:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed)
+t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed, int frame_index)
 {
 	int		bounces;
 	int		i;
@@ -24,7 +24,10 @@ t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed)
 	t_tuple	diffusev;
 	t_junction	hits;
 	t_comps		comps;
+	// t_tuple jitter;
+	// t_tuple		target;
 
+	(void)frame_index;
 	incoming_light = black();
 	ray_color = white();
 	sky = color_new(0.6, 0.7, 0.9);
@@ -32,6 +35,11 @@ t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed)
 	sky = color_new(0, 0, 0);
 	bounces = 5;
 	i = 0;
+	// if (frame_index != 1)
+	// {
+	// 	jitter = tuple_substract(tuple_new(random_range(&seed, -0.5, 0.5), random_range(&seed, -0.5, 0.5), 0, 0), vector_new(0.5, 0.5, 0));
+	// 	ray.direction = tuple_normalize(tuple_add(ray.direction, jitter));
+	// }
 	while (i < bounces)
 	{
 		seed += i;
@@ -41,15 +49,23 @@ t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed)
 			pre_compute(&comps, hits.closest, ray, hits);
 			ray.origin = comps.overz;
 			diffusev = tuple_normalize(tuple_add(comps.normalv, random_unit_vec(&seed)));
-			is_specualar = hits.closest.obj->matter.specular >= random_float(&seed);
-				ray.direction = lerp(diffusev, comps.reflectv, hits.closest.obj->matter.roughness
+			is_specualar = hits.closest.obj->matter.specular >= random_range(&seed, 0, 1.0);
+			ray.direction = lerp(diffusev, comps.reflectv, hits.closest.obj->matter.roughness
 										* is_specualar);
 			if (tuple_dot(ray.direction, comps.normalv) < 0.0)
 				tuple_negate(ray.direction);
 			emitted_light = get_emission(hits.closest.obj);
 			incoming_light = tuple_add(incoming_light, color_hadamard(emitted_light, ray_color));
-			ray_color = color_hadamard(ray_color, lerp(hits.closest.obj->matter.color,
+			if (hits.closest.obj->matter.pattern.exists)
+				ray_color = color_hadamard(ray_color, lerp(pattern_at_shape(&hits.closest.obj->matter.pattern, hits.closest.obj, comps.world_point),
+							hits.closest.obj->matter.specular_color, is_specualar));
+			else
+				ray_color = color_hadamard(ray_color, lerp(hits.closest.obj->matter.color,
 			hits.closest.obj->matter.specular_color, is_specualar));
+			double rl = fmax(ray_color.x, fmax(ray_color.y, ray_color.z));
+			if (random_range(&seed, 0, 1.0) > rl)
+					break ;
+			ray_color = tuple_multiply(ray_color, 1.0 / rl);
 		}
 		else
 		{

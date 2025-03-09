@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/05 13:16:38 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/09 18:48:56 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,15 @@ typedef struct	s_light
 	t_tuple	position;
 }	t_light;
 
+typedef struct	s_faces
+{
+	t_tuple	main;
+	t_tuple	ul;
+	t_tuple	ur;
+	t_tuple	bl;
+	t_tuple	br;
+}	t_faces;
+
 typedef struct	s_pattern
 {
 	int			exists;
@@ -88,8 +97,11 @@ typedef struct	s_pattern
 	t_tuple		color1;
 	t_tuple		color2;
 	t_matrix	transform;
-	t_tuple		(*uv_pattern_at)(struct s_pattern *, double, double);
+	t_vec2f		(*uv_mapping)(t_tuple);
 	t_tuple		(*pattern_at)(struct s_pattern *, t_tuple );
+	struct s_pattern	*uv_pattern;
+	t_faces		faces[6];
+	t_img		map;
 }	t_pattern;
 
 typedef struct s_material
@@ -207,11 +219,15 @@ typedef struct s_camera
 	double		half_view;
 	double		half_width;
 	double		half_height;
+	double		cam_distance;
 	t_matrix	transform;
 	t_matrix	view;
 	t_tuple		from;
 	t_tuple		to;
 	t_tuple		up;
+	t_tuple		true_up;
+	t_tuple		left;
+	t_tuple		forward;
 }	t_camera;
 
 typedef struct	s_data
