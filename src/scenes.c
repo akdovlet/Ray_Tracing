@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/09 18:27:03 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:19:56 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -762,35 +762,73 @@ t_data	scene_cube_pattern()
 	return (data);
 }
 
+void	print_pixel(t_img *img)
+{
+	int	i;
+	int	j;
+	uint32_t	color;
+	
+	i = 0;
+	while (i < img->img_height)
+	{
+		j = 0;
+		while (j < img->img_width)
+		{
+			color = pixel_at(img, j, i);
+			printf("color is: %u\n", color);
+			j++;
+		}
+		i++;
+	}
+}
+
 t_data	scene_spherical_pattern(t_mlx *mlx)
 {
 	t_shape		sphere;
 	t_shape		sun;
+	t_shape		plane;
 	t_world		world;
 	t_data		data;
 	t_camera	cam;
-	t_img		map;
+	// t_img		map;
+	t_img		height;
 
-	
 	sphere = sphere_default();
-	map.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr, "./earthmap.xpm", &map.img_width, &map.img_height);
-	map.addr = mlx_get_data_addr(map.img_ptr, &map.bits_per_pixel, &map.line_length, &map.endian);
-	sphere.matter.pattern = spherical_pattern(&map);
-	set_transform_pattern(&sphere.matter.pattern, rotate_x(radians(10)));
+	// map.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr, "./brickwall_normal.xpm", &map.img_width, &map.img_height);
+	// map.addr = mlx_get_data_addr(map.img_ptr, &map.bits_per_pixel, &map.line_length, &map.endian);
+	// sphere.matter.pattern = spherical_pattern(NULL);
+	// sphere.matter.pattern.map.img_ptr = NULL;
+
+	height.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr, "./brickwall_normal.xpm", &height.img_width, &height.img_height);
+	height.addr = mlx_get_data_addr(height.img_ptr, &height.bits_per_pixel, &height.line_length, &height.endian);
+	sphere.matter.pattern.height_map = height;
+	set_transform_pattern(&sphere.matter.pattern, scale(0.2, 0.2, 0.2));
+	sphere.matter.pattern.uv_mapping = spherical_map;
+	sphere.matter.pattern.exists = 1;
+	sphere.matter.pattern.transform = identity();
+	sphere.matter.pattern.pattern_at = color_at_texture;
+
 	sun = sphere_default();
 	set_transform(&sun, multiply_matrix(translate(0 , 2, 50), scale(20, 20, 20)));
 	sun.matter = emissive_material();
 	sun.matter.emission_power = 2;
 	sun.matter.emission_color = white();
 	
+	plane = plane_default();
+	set_transform(&plane, translate(0, -2, 1));
+	// print_pixel(&)
+	// plane.matter.pattern = planar_pattern(&map, &height);
+	
 	world.light = point_light(point_new(-10, 10, -10), white());
+	
 
 	world.obj[0] = sphere;
 	world.obj[1] = sun;
+	world.obj[2] = plane;
 	world.obj_count = 2;
 
 	cam = camera_new(WIDTH, HEIGHT, radians(70));
-	cam.from =  point_new(0, 0, -5);
+	cam.from =  point_new(3, 0, -2);
 	cam.to =  point_new(0, 0, 0);
 	cam.up =  vector_new(0, 1, 0);
 	camera_update_transform(&cam, cam.from, cam.to, cam.up);

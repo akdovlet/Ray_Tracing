@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/05 13:10:53 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/09 13:07:03 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:13:28 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_tuple	color_at_texture(t_pattern *patter, t_tuple p)
 	t_vec2f			uv;
 	unsigned int	color;
 
+	if (!patter->map.img_ptr)
+		return (white());
 	uv = patter->uv_mapping(p);
 	x = round(uv.x * patter->map.img_width);
 	y = round(patter->map.img_height - (uv.y * patter->map.img_height));
@@ -60,5 +62,17 @@ t_pattern	spherical_pattern(t_img *img)
 		.pattern_at = &color_at_texture,
 		.transform = identity(),
 		.uv_mapping = spherical_map
+	});
+}
+
+t_pattern	planar_pattern(t_img *texture, t_img *normal_map)
+{
+	return ((t_pattern){
+		.exists = 1,
+		.map = *texture,
+		.pattern_at = &color_at_texture,
+		.transform = identity(),
+		.uv_mapping = &planar_map,
+		.height_map = *normal_map,
 	});
 }

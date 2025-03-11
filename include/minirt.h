@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/09 13:22:38 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/11 13:29:27 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # include "tuple.h"
 # include "ray.h"
 
-# define WIDTH 1920 / 2
+# define WIDTH 1920
 # define HEIGHT 1080
 
 t_tuple		position(t_ray ray, double factor);

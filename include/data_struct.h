@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/09 18:48:56 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:48:08 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct	s_pattern
 	struct s_pattern	*uv_pattern;
 	t_faces		faces[6];
 	t_img		map;
+	t_img		height_map;
 }	t_pattern;
 
 typedef struct s_material

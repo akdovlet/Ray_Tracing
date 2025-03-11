@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 19:10:10 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/09 18:19:17 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/10 15:41:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_material	material(void)
 		.diffuse = 0.9,
 		.specular = 0.1,
 		.shininess = 200,
-		.roughness = 0.0,
+		.roughness = 0.1,
 		.metalic = 0.1,
 		.reflective = 0.0,
 		.transparency = 0.0,

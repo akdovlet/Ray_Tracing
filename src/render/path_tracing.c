@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 20:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/09 18:23:08 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:32:15 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_tuple		bounce_rays(t_world *world, t_ray ray, uint32_t seed)
 	bool		is_specular;
 	
 	i = 0;
-	bounces = 5;
+	bounces = 8;
 	contribution = white();
 	light = black();
 	sky = color_new(0.6, 0.7, 0.9);
@@ -106,7 +106,6 @@ t_tuple		bounce_rays(t_world *world, t_ray ray, uint32_t seed)
 		pre_compute(&comps, hits.closest, ray, hits);
 		is_specular = hits.closest.obj->matter.specular >= random_float(&seed);
 		diffusev = tuple_normalize(tuple_add(comps.normalv, random_unit_vec(&seed)));
-		// light = tuple_add(light, shade_hit(world, &comps, 5));
 		light = tuple_add(light, get_emission(hits.closest.obj));
 		
 		contribution = color_hadamard(contribution, lerp(hits.closest.obj->matter.color,

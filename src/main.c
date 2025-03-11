@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/09 18:11:28 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:33:07 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int main(int ac, char **av)
 	init_mlx(&mlx, &img);
 	
 	// data = scene_spherical_pattern(&mlx);
-	data = scene_walled();
+	data = scene_spherical_pattern(&mlx);
 	data.img = img;
 	data.mlx = mlx;
 	data.frame_index = 1;
@@ -57,7 +57,7 @@ int main(int ac, char **av)
 	mlx_mouse_hook(mlx.win_ptr, &mouse_manager, &data);
 	mlx_hook(mlx.win_ptr, 17, 0, mlx_loop_end, mlx.mlx_ptr);
 	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, &key_manager, &data);
-	mlx_loop_hook(mlx.mlx_ptr, &render_accumulation, &data);
+	mlx_loop_hook(mlx.mlx_ptr, &render_and_move, &data);
 	mlx_loop(mlx.mlx_ptr);
 	mlx_clear(&mlx, &img);
 	
