@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/11 14:33:07 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/12 11:44:21 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,6 @@
 #include "tuple.h"
 #include <X11/X.h>
 
-void	print_image(char *file)
-{
-	char	*buff;
-	int		fd;
-
-	fd = open(file, O_RDONLY);
-	if (fd <0)
-		return ;
-	while (1)
-	{
-		buff = get_next_line(fd);
-		if (!buff)
-			break ;
-		printf("%s", buff);
-		free(buff);
-	}
-}
-
 int main(int ac, char **av)
 {
 	t_img	img;
@@ -40,9 +22,10 @@ int main(int ac, char **av)
 	t_data	data;
 
 	init_mlx(&mlx, &img);
-	
+	(void)ac;
+	(void)av;
 	// data = scene_spherical_pattern(&mlx);
-	data = scene_spherical_pattern(&mlx);
+	data = scene_single_sphere();
 	data.img = img;
 	data.mlx = mlx;
 	data.frame_index = 1;
@@ -52,12 +35,10 @@ int main(int ac, char **av)
 	data.rays = malloc(sizeof(t_ray) * WIDTH * HEIGHT);
 	cache_ray(data.rays, &data.cam);
 
-	if (ac > 1)
-		print_image(av[1]);
 	mlx_mouse_hook(mlx.win_ptr, &mouse_manager, &data);
 	mlx_hook(mlx.win_ptr, 17, 0, mlx_loop_end, mlx.mlx_ptr);
 	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, &key_manager, &data);
-	mlx_loop_hook(mlx.mlx_ptr, &render_and_move, &data);
+	mlx_loop_hook(mlx.mlx_ptr, &render_accumulation, &data);
 	mlx_loop(mlx.mlx_ptr);
 	mlx_clear(&mlx, &img);
 	

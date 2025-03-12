@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:58:39 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/11 15:05:44 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/12 11:04:24 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_tuple	color_to_normal(uint32_t color)
 
 	col.x = (double)((color >> 16) & 0xFF) / 127.5 - 1.0;
 	col.y = (double)((color >> 8) & 0xFF) / 127.5 - 1.0;
-	col.z = (double)((color & 0xFF)) / 127.5 - 1.0;
+	col.z = 1.0 - (double)((color & 0xFF)) / 127.5;
 	col.w = 0;
 	return (col);
 }
@@ -59,6 +59,11 @@ t_tuple	normal_map(t_shape *obj, t_tuple p)
 	t_tuple		T;
 	t_tuple		B;
 	t_matrix	TBN;
+	// t_tuple		center;
+	// t_tuple		A;
+	// double		theta;
+	// double		phi;
+	// double		delta_phi;
 
 	img = &obj->matter.pattern.height_map;
 	uv = obj->matter.pattern.uv_mapping(p);
@@ -69,25 +74,16 @@ t_tuple	normal_map(t_shape *obj, t_tuple p)
 	color = pixel_at(img, x, y);
 	// normal = color_to_tuple(color);
 	normal = color_to_normal(color);
-	T = (t_tuple){
-		.x = p.x / uv.x,
-		.y = p.y / uv.x,
-		.z = p.z / uv.x,
-		.w = 0,
-	};
-	B = (t_tuple){
-		.x = p.x / uv.y,
-		.y = p.y / uv.y,
-		.z = p.z / uv.y,
-		.w = 0,
-	};
+	T = tuple_normalize(tuple_cross(vector_new(0, 1, 0), p));
+	B = tuple_cross(normal, T);
 	TBN = (t_matrix){
 		.r1 = T,
 		.r2 = B,
 		.r3 = normal,
-		{1, 1, 1, 1},
+		{0, 0, 0, 1},
 	};
-	normal = matrix_multiply_tuple(TBN, normal);
+	normal = matrix_multiply_tuple(matrix_transpose(TBN), normal);
+	normal.w = 0;
 	return (normal);
 }
 
@@ -107,8 +103,8 @@ t_tuple	normal_at(t_shape *obj, t_tuple world_point)
 		// if (tuple_equal(heightv, (t_tuple){0, 0, -1, 0}))
 		// 	return (tuple_normalize(normalv));
 		// normalv = tuple_add(normalv, heightv);
-		// normalv.w = 0;
-		normalv = tuple_normalize(tuple_add(normalv, normal_map(obj, world_point)));
+		normalv.w = 0;
+		normalv = tuple_normalize(normal_map(obj, local_point));
 	}
 	normalv = matrix_multiply_tuple(matrix_transpose(obj->transform), normalv);
 	normalv.w = 0;

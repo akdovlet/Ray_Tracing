@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/11 14:19:56 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/12 11:33:52 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -790,23 +790,22 @@ t_data	scene_spherical_pattern(t_mlx *mlx)
 	t_world		world;
 	t_data		data;
 	t_camera	cam;
-	// t_img		map;
+	t_img		map;
 	t_img		height;
 
 	sphere = sphere_default();
-	// map.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr, "./brickwall_normal.xpm", &map.img_width, &map.img_height);
-	// map.addr = mlx_get_data_addr(map.img_ptr, &map.bits_per_pixel, &map.line_length, &map.endian);
-	// sphere.matter.pattern = spherical_pattern(NULL);
-	// sphere.matter.pattern.map.img_ptr = NULL;
+	map.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr, "./brickwall.xpm", &map.img_width, &map.img_height);
+	map.addr = mlx_get_data_addr(map.img_ptr, &map.bits_per_pixel, &map.line_length, &map.endian);
+	sphere.matter.pattern = spherical_pattern(&map);
 
 	height.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr, "./brickwall_normal.xpm", &height.img_width, &height.img_height);
 	height.addr = mlx_get_data_addr(height.img_ptr, &height.bits_per_pixel, &height.line_length, &height.endian);
 	sphere.matter.pattern.height_map = height;
 	set_transform_pattern(&sphere.matter.pattern, scale(0.2, 0.2, 0.2));
-	sphere.matter.pattern.uv_mapping = spherical_map;
-	sphere.matter.pattern.exists = 1;
-	sphere.matter.pattern.transform = identity();
-	sphere.matter.pattern.pattern_at = color_at_texture;
+	// sphere.matter.pattern.uv_mapping = spherical_map;
+	// sphere.matter.pattern.exists = 1;
+	// sphere.matter.pattern.transform = identity();
+	// sphere.matter.pattern.pattern_at = color_at_texture;
 
 	sun = sphere_default();
 	set_transform(&sun, multiply_matrix(translate(0 , 2, 50), scale(20, 20, 20)));
