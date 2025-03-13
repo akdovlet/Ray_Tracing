@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 20:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/11 14:32:15 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:39:43 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,8 +113,8 @@ t_tuple		bounce_rays(t_world *world, t_ray ray, uint32_t seed)
 		ray.origin = comps.overz;
 		ray.direction = lerp(diffusev, comps.reflectv,
 						hits.closest.obj->matter.roughness * is_specular);
-		if (tuple_dot(ray.direction, comps.normalv) < 0.0)
-			tuple_negate(ray.direction);
+		// if (tuple_dot(ray.direction, comps.normalv) < 0.0)
+		// 	tuple_negate(ray.direction);
 		i++;
 	}
 	return (light);

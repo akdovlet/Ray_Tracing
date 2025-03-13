@@ -6,19 +6,19 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 12:05:06 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/28 16:13:28 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:01:31 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "tuple.h"
 
-t_matrix multiply_matrix(t_matrix a, t_matrix b)
+t_matrix	multiply_matrix(t_matrix a, t_matrix b)
 {
-	int		i;
-	int		j;
-	t_matrix result;
-	
+	int			i;
+	int			j;
+	t_matrix	result;
+
 	result = (t_matrix){};
 	i = 0;
 	while (i < 4)
@@ -26,10 +26,10 @@ t_matrix multiply_matrix(t_matrix a, t_matrix b)
 		j = 0;
 		while (j < 4)
 		{
-			result.raw[i][j]	= (a.raw[i][0] * b.raw[0][j])
-								+ (a.raw[i][1] * b.raw[1][j])
-								+ (a.raw[i][2] * b.raw[2][j])
-								+ (a.raw[i][3] * b.raw[3][j]);
+			result.raw[i][j] = (a.raw[i][0] * b.raw[0][j])
+				+ (a.raw[i][1] * b.raw[1][j])
+				+ (a.raw[i][2] * b.raw[2][j])
+				+ (a.raw[i][3] * b.raw[3][j]);
 			j++;
 		}
 		i++;
@@ -39,7 +39,7 @@ t_matrix multiply_matrix(t_matrix a, t_matrix b)
 
 t_tuple	matrix_multiply_tuple(t_matrix m, t_tuple t1)
 {
-	return ((t_tuple) {
+	return ((t_tuple){
 		.x = 0
 		+ (m.raw[0][0] * t1.x)
 		+ (m.raw[0][1] * t1.y)

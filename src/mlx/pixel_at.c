@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/09 12:29:29 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/09 12:45:26 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:12:41 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ uint32_t	pixel_at(t_img *data, int dx, int dy)
 {
 	char	*dst;
 
-	dst = data->addr + (dy * data->line_length + dx * (data->bits_per_pixel / 8));
+	dst = data->addr + (dy * data->line_length + \
+		dx * (data->bits_per_pixel / 8));
 	return (*(unsigned int *)dst);
 }

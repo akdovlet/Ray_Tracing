@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/11 16:56:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/06 12:23:31 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:05:34 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_pattern	uv_checkers(int width, int height, t_tuple c1, t_tuple c2)
 	});
 }
 
-t_pattern checkers_pattern(t_tuple c1, t_tuple c2)
+t_pattern	checkers_pattern(t_tuple c1, t_tuple c2)
 {
 	return ((t_pattern){
 		.color1 = c1,

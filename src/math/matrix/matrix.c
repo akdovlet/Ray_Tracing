@@ -6,14 +6,14 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 18:34:32 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/04 14:54:01 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:58:45 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "tuple.h"
 
-t_matrix compose(size_t operation_count, t_matrix* ops)
+t_matrix	compose(size_t operation_count, t_matrix *ops)
 {
 	int			index;
 	t_matrix	result;
@@ -28,7 +28,7 @@ t_matrix compose(size_t operation_count, t_matrix* ops)
 	return (result);
 }
 
-t_tuple transform(t_tuple t1, t_matrix m)
+t_tuple	transform(t_tuple t1, t_matrix m)
 {
 	return (matrix_multiply_tuple(m, t1));
 }

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 21:45:54 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/03 21:46:50 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:02:48 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 t_tuple	rotate_xyz(t_matrix x, t_matrix y, t_matrix z, t_tuple t1)
 {
-	
+	return (x);
 }

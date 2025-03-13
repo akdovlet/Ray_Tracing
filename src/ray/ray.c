@@ -6,17 +6,17 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:42:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/05 13:13:38 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:10:56 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-	
+
 t_ray	ray_new(t_tuple origin, t_tuple direction)
 {
 	return ((t_ray){
-	.origin = origin,
-	.direction = direction	
+		.origin = origin,
+		.direction = direction
 	});
 }
 
@@ -56,9 +56,9 @@ t_intersection	intersection(t_shape shape, t_vec3f vec)
 		new.xs.y = tmp;
 	}
 	return (new);
-} 
+}
 
-void hit(t_intersection *hit, t_vec3f vec)
+void	hit(t_intersection *hit, t_vec3f vec)
 {
 	hit->hit = false;
 	hit->count = 0;
@@ -73,7 +73,7 @@ void hit(t_intersection *hit, t_vec3f vec)
 			hit->hit = true;
 			hit->count = 1;
 		}
-		return;
+		return ;
 	}
 	hit->t = fmin(hit->xs.x, hit->xs.y);
 	hit->count = vec.x >= 0.0 + vec.y >= 0.0;

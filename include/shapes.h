@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/09 18:47:43 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:14:04 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_matrix		view_transform(t_tuple from, t_tuple to, t_tuple up, t_camera *cam);
 t_shape			sphere_default(void);
 
 t_camera		camera_new(double hsize, double vsize, double fov);
-void 			camera_update_transform(t_camera *cam, t_tuple from, t_tuple to, t_tuple up);
+void 			cam_update(t_camera *cam, t_tuple from, t_tuple to, t_tuple up);
 
 t_shape			plane_default(void);
 

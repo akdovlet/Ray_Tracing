@@ -6,79 +6,66 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 16:57:57 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/26 16:41:18 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:10:02 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+int	controller_forward(int keysym, t_data *data)
+{
+	if (keysym == XK_w)
+	{
+		data->cam.from = tuple_add(data->cam.from, data->cam.forward);
+		data->moved = true;
+	}
+	else if (keysym == XK_s)
+	{
+		data->cam.from = tuple_substract(data->cam.from, data->cam.forward);
+		data->moved = true;
+	}
+	return (0);
+}
+
+int	controller_side(int keysym, t_data *data)
+{
+	if (keysym == XK_a)
+	{
+		data->cam.from = tuple_add(data->cam.from, data->cam.left);
+		data->moved = true;
+	}
+	else if (keysym == XK_d)
+	{
+		data->cam.from = tuple_substract(data->cam.from, data->cam.left);
+		data->moved = true;
+	}
+	return (0);
+}
+
+int	controller_up_down(int keysym, t_data *data)
+{
+	if (keysym == XK_q)
+	{
+		data->cam.from = tuple_substract(data->cam.from, data->cam.true_up);
+		data->moved = true;
+	}
+	else if (keysym == XK_e)
+	{
+		data->cam.from = tuple_add(data->cam.from, data->cam.true_up);
+		data->moved = true;
+	}
+	return (0);
+}
+
 int	key_manager(int keysym, t_data *data)
 {
-	t_tuple	left;
-	t_tuple	forward;
-	t_tuple	up;
-
-	forward = tuple_normalize(tuple_substract(data->cam.to, data->cam.from));
-	left = tuple_cross(forward, tuple_normalize(data->cam.up));
-	up = tuple_cross(left, forward);
 	if (keysym == XK_Escape)
 	{
 		mlx_loop_end(data->mlx.mlx_ptr);
 		return (1);
 	}
-	if (keysym == XK_w)
-	{
-		data->cam.from = tuple_add(data->cam.from, tuple_multiply(forward, 1));
-		data->moved = true;
-	}
-	else if (keysym == XK_s)
-	{
-		data->cam.from = tuple_substract(data->cam.from, tuple_multiply(forward, 1));
-		data->moved = true;
-	}
-	if (keysym == XK_a)
-	{
-		data->cam.from = tuple_add(data->cam.from, tuple_multiply(left, 1));
-		data->moved = true;
-	}
-	else if (keysym == XK_d)
-	{
-		data->cam.from = tuple_substract(data->cam.from, tuple_multiply(left, 1));
-		data->moved = true;
-	}
-	if (keysym == XK_q)
-	{
-		data->cam.from = tuple_substract(data->cam.from, tuple_multiply(up, 1));
-		data->moved = true;
-	}
-	else if (keysym == XK_e)
-	{
-		data->cam.from = tuple_add(data->cam.from, tuple_multiply(up, 1));
-		data->moved = true;
-	}
-	if (keysym == XK_Left)
-	{
-		data->cam.to = tuple_add(data->cam.to, tuple_multiply(left, 1));
-		data->moved = true;
-	}
-	else if (keysym == XK_Right)
-	{
-		data->cam.to = tuple_substract(data->cam.to, tuple_multiply(left, 1));
-		data->moved = true;
-	}
-	if (keysym == XK_Up)
-	{
-		data->cam.to = tuple_add(data->cam.to, tuple_multiply(up, 1));
-		data->moved = true;
-	}
-	else if (keysym == XK_Down)
-	{
-		data->cam.to = tuple_substract(data->cam.to, tuple_multiply(up, 1));
-		data->moved = true;
-	}
-	camera_update_transform(&data->cam, data->cam.from,
-			data->cam.to,
-			data->cam.up);
+	controller_forward(keysym, data);
+	controller_side(keysym, data);
+	controller_up_down(keysym, data);
 	return (0);
 }
-

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/12 11:33:52 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:45:38 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ t_data	scene_inside_sphere(void)
 	cam.from =  point_new(0, 0, -3);
 	cam.to =  point_new(-0.4, -0.5, 0);
 	cam.up =  vector_new(0, 1, 0);
-	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	cam_update(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
 	return (data);
@@ -169,7 +169,7 @@ t_data	scene_single_sphere(void)
 	cam.from =  point_new(0, -0.5, -3);
 	cam.to =  point_new(0, 0, -1);
 	cam.up =  vector_new(0, 1, 0);
-	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	cam_update(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
 	return (data);
@@ -268,7 +268,7 @@ t_data	scene_walled(void)
 	cam.from =  point_new(0, 0.3, 3);
 	cam.to =  point_new(0, 0, -1);
 	cam.up =  vector_new(0, 1, 0);
-	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	cam_update(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
 	return (data);
@@ -377,7 +377,7 @@ t_data	scene_default(void)
 	cam.from =  point_new(2, 0, -3);
 	cam.to =  point_new(-0.4, -0.5, 0);
 	cam.up =  vector_new(0, 1, 0);
-	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	cam_update(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
 	return (data);
@@ -421,7 +421,7 @@ t_data	scene_watchful_eye(void)
 	cam.from =  point_new(0, 0.5, 0);
 	cam.to =  point_new(0, 1, 0);
 	cam.up =  vector_new(1, 0, 0);
-	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	cam_update(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
 	return (data);
@@ -451,7 +451,7 @@ t_data	scene_cube(void)
 	cam.from =  point_new(0, 2, -5);
 	cam.to =  point_new(0, 1, 0);
 	cam.up =  vector_new(0, 1, 0);
-	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	cam_update(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
 	return (data);
@@ -502,7 +502,7 @@ t_data	scene_cylinder(void)
 	cam.from =  point_new(0, 2, -3);
 	cam.to =  point_new(0, 0, 1);
 	cam.up =  vector_new(0, 1, 0);
-	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	cam_update(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
 	return (data);
@@ -564,7 +564,7 @@ t_data	scene_complex(void)
 	cam.from =  point_new(-7, 5, -7);
 	cam.to =  point_new(0, 0, -1);
 	cam.up =  vector_new(0, 1, 0);
-	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	cam_update(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
 	return (data);
@@ -626,7 +626,7 @@ t_data	scene_standby(void)
 	cam.from =  point_new(0, 0.5, -5);
 	cam.to =  point_new(0, 1, 0);
 	cam.up =  vector_new(0, 1, 0);
-	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	cam_update(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
 	return (data);
@@ -656,7 +656,7 @@ t_data	scene_triangle(void)
 	cam.from =  point_new(0, 0.5, -5);
 	cam.to =  point_new(0, 1, 0);
 	cam.up =  vector_new(0, 1, 0);
-	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	cam_update(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
 	return (data);
@@ -681,7 +681,7 @@ t_data	scene_uv_sphere(void)
 	cam.from =  point_new(0, 0, -5);
 	cam.to =  point_new(0, 0, 0);
 	cam.up =  vector_new(0, 1, 0);
-	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	cam_update(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
 	return (data);
@@ -716,7 +716,7 @@ t_data	scene_uv_plane(void)
 	cam.from =  point_new(0, 0, -5);
 	cam.to =  point_new(0, 0, 0);
 	cam.up =  vector_new(0, 1, 0);
-	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	cam_update(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
 	return (data);
@@ -756,7 +756,7 @@ t_data	scene_cube_pattern()
 	cam.from =  point_new(0, 0, -5);
 	cam.to =  point_new(0, 0, 0);
 	cam.up =  vector_new(0, 1, 0);
-	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	cam_update(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
 	return (data);
@@ -794,14 +794,14 @@ t_data	scene_spherical_pattern(t_mlx *mlx)
 	t_img		height;
 
 	sphere = sphere_default();
-	map.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr, "./brickwall.xpm", &map.img_width, &map.img_height);
+	map.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr, "./xpm/earthmap.xpm", &map.img_width, &map.img_height);
 	map.addr = mlx_get_data_addr(map.img_ptr, &map.bits_per_pixel, &map.line_length, &map.endian);
 	sphere.matter.pattern = spherical_pattern(&map);
 
-	height.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr, "./brickwall_normal.xpm", &height.img_width, &height.img_height);
+	height.img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr, "./xpm/earthbump.xpm", &height.img_width, &height.img_height);
 	height.addr = mlx_get_data_addr(height.img_ptr, &height.bits_per_pixel, &height.line_length, &height.endian);
 	sphere.matter.pattern.height_map = height;
-	set_transform_pattern(&sphere.matter.pattern, scale(0.2, 0.2, 0.2));
+	// set_transform_pattern(&sphere.matter.pattern, scale(0.2, 0.2, 0.2));
 	// sphere.matter.pattern.uv_mapping = spherical_map;
 	// sphere.matter.pattern.exists = 1;
 	// sphere.matter.pattern.transform = identity();
@@ -830,7 +830,7 @@ t_data	scene_spherical_pattern(t_mlx *mlx)
 	cam.from =  point_new(3, 0, -2);
 	cam.to =  point_new(0, 0, 0);
 	cam.up =  vector_new(0, 1, 0);
-	camera_update_transform(&cam, cam.from, cam.to, cam.up);
+	cam_update(&cam, cam.from, cam.to, cam.up);
 	data.cam = cam;
 	data.world = world;
 	return (data);

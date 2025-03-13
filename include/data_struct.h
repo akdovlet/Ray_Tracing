@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/10 12:48:08 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:03:25 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "mlx_utils.h"
 # include <stdint.h>
+# include <stdbool.h>
 
 typedef union u_matrix			t_matrix;
 typedef	union u_color			t_color;

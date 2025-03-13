@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:27:07 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/15 14:09:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:59:37 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@ double	cofactor(t_matrix m, size_t y, size_t x)
 	double	result;
 	t_vec3	col;
 	t_vec3	row;
-	
+
 	col = sliding_window(x, 4);
 	row = sliding_window(y, 4);
-	result = 0.0
-		+ (m.raw[row.x][col.x] * m.raw[row.y][col.y] * m.raw[row.z][col.z]) \
-		+ (m.raw[row.x][col.y] * m.raw[row.y][col.z] * m.raw[row.z][col.x]) \
-		+ (m.raw[row.x][col.z] * m.raw[row.y][col.x] * m.raw[row.z][col.y]) \
-		- (m.raw[row.x][col.z] * m.raw[row.y][col.y] * m.raw[row.z][col.x]) \
-		- (m.raw[row.x][col.y] * m.raw[row.y][col.x] * m.raw[row.z][col.z]) \
-		- (m.raw[row.x][col.x] * m.raw[row.y][col.z] * m.raw[row.z][col.y]);
-	if ((x +y) % 2)
+	result = 0.0 + (m.raw[row.x][col.x] * m.raw[row.y][col.y]
+			* m.raw[row.z][col.z]) + (m.raw[row.x][col.y] * m.raw[row.y][col.z]
+			* m.raw[row.z][col.x]) + (m.raw[row.x][col.z] * m.raw[row.y][col.x]
+			* m.raw[row.z][col.y]) - (m.raw[row.x][col.z] * m.raw[row.y][col.y]
+			* m.raw[row.z][col.x]) - (m.raw[row.x][col.y] * m.raw[row.y][col.x]
+			* m.raw[row.z][col.z]) - (m.raw[row.x][col.x] * m.raw[row.y][col.z]
+			* m.raw[row.z][col.y]);
+	if ((x + y) % 2)
 		result *= -1;
 	return (result);
 }

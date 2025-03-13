@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 20:32:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/15 20:32:46 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:15:42 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,6 @@
 
 t_tuple	get_emission(t_shape *obj)
 {
-	return (tuple_multiply(obj->matter.emission_color,
-							obj->matter.emission_power));
+	return (tuple_multiply(obj->matter.emission_color, \
+		obj->matter.emission_power));
 }

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/08 18:43:57 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/05 13:10:16 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:07:35 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,3 @@ t_pattern	stripe_pattern(t_tuple c1, t_tuple c2)
 		.pattern_at = &stripe_at
 	});
 }
-

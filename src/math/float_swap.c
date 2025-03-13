@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:08:49 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/24 15:08:55 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 17:50:47 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	float_swap(double *a, double *b)
 {
-	double tmp;
+	double	tmp;
 
 	tmp = *a;
 	*a = *b;

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/12 10:51:40 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 16:28:22 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <pthread.h>
 # include <time.h>
 # include <sys/time.h>
+# include <X11/X.h>
 
 # include "random.h"
 # include "X11/keysym.h"

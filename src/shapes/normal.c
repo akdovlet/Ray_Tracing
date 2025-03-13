@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:58:39 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/12 11:04:24 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 15:14:18 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_tuple	height_normal(t_shape *obj, t_tuple world_point)
 	center_r = (double)pixel_at(img, x + 1, y);
 	center_u = (double)pixel_at(img, x, y - 1);
 	center_d = (double)pixel_at(img, x, y + 1);
-	normal = tuple_normalize(vector_new(2.0 * (center_r - center_l), 2.0 * (center_d - center_u), -4.0));
+	normal = tuple_normalize(vector_new(2 * (center_r - center_l), 2 *  (center_d - center_u), -4));
 	return (normal);
 }
 
@@ -91,7 +91,7 @@ t_tuple	normal_at(t_shape *obj, t_tuple world_point)
 {
 	t_tuple	normalv;
 	t_tuple	local_point;
-	// t_tuple	heightv;
+	t_tuple	heightv;
 
 	if (!obj->local_normalat)
 		return (obj->normal);
@@ -99,12 +99,12 @@ t_tuple	normal_at(t_shape *obj, t_tuple world_point)
 	normalv = obj->local_normalat(obj, local_point);\
 	if (obj->matter.pattern.height_map.img_ptr)
 	{
-		// heightv = height_normal(obj, world_point);
-		// if (tuple_equal(heightv, (t_tuple){0, 0, -1, 0}))
-		// 	return (tuple_normalize(normalv));
-		// normalv = tuple_add(normalv, heightv);
+		heightv = height_normal(obj, world_point);
+		if (tuple_equal(heightv, (t_tuple){0, 0, -1, 0}))
+			return (tuple_normalize(normalv));
+		normalv = tuple_add(normalv, heightv);
 		normalv.w = 0;
-		normalv = tuple_normalize(normal_map(obj, local_point));
+		// normalv = tuple_normalize(normal_map(obj, local_point));
 	}
 	normalv = matrix_multiply_tuple(matrix_transpose(obj->transform), normalv);
 	normalv.w = 0;

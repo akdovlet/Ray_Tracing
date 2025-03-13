@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:09:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/01/15 18:35:45 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:01:56 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,3 @@ void	print_matrix(double m[4][4])
 		fprintf(stderr, "\n");
 	}
 }
-

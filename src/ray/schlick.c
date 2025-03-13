@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:24:39 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/02/25 17:08:32 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:10:33 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ double	schlick(t_comps *comps)
 		if (sin2_t > 1.0)
 			return (1.0);
 		cos_t = sqrt(1.0 - sin2_t);
-		cos_i = cos_t; 		
+		cos_i = cos_t;
 	}
 	n = pow((comps->n1 - comps->n2) / (comps->n1 + comps->n2), 2.0);
 	return (n + (1.0 - n) * pow(1.0 - cos_i, 5));
