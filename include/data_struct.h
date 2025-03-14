@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/13 18:03:25 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/14 14:09:40 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,13 @@ typedef struct	s_light
 	t_tuple	intensity;
 	t_tuple	position;
 }	t_light;
+
+typedef struct	s_sky
+{
+	double	intensity;
+	t_tuple	color;
+	bool	sky_box;
+}	t_sky;
 
 typedef struct	s_faces
 {
@@ -186,8 +193,9 @@ typedef struct s_junction
 typedef struct s_world
 {
 	int			obj_count;
-	t_shape		obj[20];
+	t_shape		*obj;
 	t_light		light;
+	t_sky		sky;
 }	t_world;
 
 typedef struct s_comps

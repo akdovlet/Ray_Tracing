@@ -6,11 +6,22 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 20:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/13 13:39:43 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/14 16:26:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+int	russian_roulette(t_tuple	*ray_color, uint32_t *seed)
+{
+	double	russian_roulette;
+
+	russian_roulette = fmax(ray_color->x, fmax(ray_color->y, ray_color->z));
+	if (random_range(seed, 0, 1.0) > russian_roulette)
+		return (1);
+	*ray_color = tuple_multiply(*ray_color, 1.0 / russian_roulette);
+	return (0);
+}
 
 t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed, int frame_index)
 {
@@ -20,7 +31,6 @@ t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed, int frame_index)
 	t_tuple	incoming_light;
 	t_tuple	emitted_light;
 	t_tuple	ray_color;
-	t_tuple	sky;
 	t_tuple	diffusev;
 	t_junction	hits;
 	t_comps		comps;
@@ -30,10 +40,7 @@ t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed, int frame_index)
 	(void)frame_index;
 	incoming_light = black();
 	ray_color = white();
-	sky = color_new(0.6, 0.7, 0.9);
-	// sky = color_new(0.06, 0.07, 0.09);
-	sky = color_new(0, 0, 0);
-	bounces = 5;
+	bounces = 8;
 	i = 0;
 	// if (frame_index != 1)
 	// {
@@ -62,14 +69,12 @@ t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed, int frame_index)
 			else
 				ray_color = color_hadamard(ray_color, lerp(hits.closest.obj->matter.color,
 			hits.closest.obj->matter.specular_color, is_specualar));
-			double rl = fmax(ray_color.x, fmax(ray_color.y, ray_color.z));
-			if (random_range(&seed, 0, 1.0) > rl)
+			if (russian_roulette(&ray_color, &seed))
 					break ;
-			ray_color = tuple_multiply(ray_color, 1.0 / rl);
 		}
 		else
 		{
-			incoming_light = tuple_add(incoming_light, color_hadamard(sky, ray_color));
+			incoming_light = tuple_add(incoming_light, color_hadamard(world->sky.color, ray_color));
 			break ;
 		}
 	}

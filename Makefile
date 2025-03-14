@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/03/13 17:11:49 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/03/14 14:00:35 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRC		:=	main.c							\
 			mlx/mlx_clear.c					\
 			mlx/mlx_pixel_put.c				\
 			mlx/pixel_at.c					\
-			shapes/cube.c					\
+			parsing/ak_atof.c				\
+			parsing/parsing.c				\
 			pattern/checker.c				\
 			pattern/cubical_map.c			\
 			pattern/cylindrical_map.c		\
@@ -48,7 +49,7 @@ SRC		:=	main.c							\
 			ray/refract.c					\
 			ray/schlick.c					\
 			render/path_tracing.c			\
-			render/per_pixel.c				\
+			shapes/cube.c					\
 			render/render.c					\
 			shapes/cone.c					\
 			shapes/cylinder_intersect.c		\

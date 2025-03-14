@@ -2797,4 +2797,23 @@ void	test_spherical_mapping(void)
 	}
 }
 
+void	test_atof(char *str)
+{
+	int	i;
+
+	i = 0;
+	printf("%f\n", ak_atof(str, &i));
+}
+
+void	test_parsing(char *str)
+{
+	t_world	world;
+	int	error;
+
+	error = parse_scene(str, &world);
+	printf("error is: %d\n", error);
+	tuple_print(world.sky.color);
+	printf("sky intensity is: %f\n", world.sky.intensity);
+}
+
 

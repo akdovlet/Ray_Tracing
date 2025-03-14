@@ -1,0 +1,300 @@
+src/main.c: Error!
+Error: SPACE_BEFORE_FUNC    (line:  16, col:   4):	space before function name
+Error: WRONG_SCOPE_COMMENT  (line:  25, col:   5):	Comment is invalid in this scope
+Error: EMPTY_LINE_FUNCTION  (line:  35, col:   1):	Empty line in function
+Error: EMPTY_LINE_FUNCTION  (line:  41, col:   1):	Empty line in function
+Error: TOO_MANY_LINES       (line:  45, col:   1):	Function has more than 25 lines
+Error: SPACE_BEFORE_FUNC    (line:  64, col:   4):	space before function name
+Error: WRONG_SCOPE_COMMENT  (line:  73, col:   5):	Comment is invalid in this scope
+src/light/light.c: OK!
+src/light/shading.c: OK!
+src/mlx/init_mlx.c: OK!
+src/mlx/mlx_clear.c: OK!
+src/mlx/mlx_pixel_put.c: OK!
+src/mlx/key_manager.c: OK!
+src/mlx/pixel_at.c: OK!
+src/camera/camera.c: OK!
+src/camera/view_transform.c: OK!
+src/colors/colors.c: OK!
+src/colors/get_emission.c: OK!
+src/colors/more_colors.c: OK!
+src/pattern/checker.c: OK!
+src/pattern/gradient.c: OK!
+src/pattern/pattern.c: OK!
+src/pattern/radial.c: OK!
+src/pattern/ring.c: OK!
+src/pattern/stripe.c: OK!
+src/pattern/uv_mapping.c: OK!
+src/pattern/texture_map.c: OK!
+src/pattern/planar_map.c: OK!
+src/pattern/cylindrical_map.c: OK!
+src/pattern/cubical_map.c: Error!
+Error: TOO_MANY_FUNCS       (line:  66, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line:  74, col:   1):	Too many functions in file
+Error: SPC_BEFORE_NL        (line:  74, col:  30):	Space before newline
+Error: SPC_BEFORE_NL        (line:  74, col:  31):	Space before newline
+Error: TOO_MANY_FUNCS       (line:  82, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 100, col:   1):	Too many functions in file
+Error: TOO_MANY_FUNCS       (line: 121, col:   1):	Too many functions in file
+Error: LINE_TOO_LONG        (line: 121, col:  82):	line too long
+Error: TOO_MANY_ARGS        (line: 121, col:  85):	Function has more than 4 arguments
+Error: TOO_MANY_FUNCS       (line: 126, col:   1):	Too many functions in file
+Error: LINE_TOO_LONG        (line: 126, col:  84):	line too long
+Error: TOO_MANY_ARGS        (line: 126, col: 105):	Function has more than 4 arguments
+src/ray/ray_transform.c: OK!
+src/ray/refract.c: OK!
+src/ray/reflect.c: OK!
+src/ray/schlick.c: OK!
+src/ray/ray.c: OK!
+src/ray/cache_ray.c: OK!
+src/render/path_tracing.c: Error!
+Error: TOO_MANY_VARS_FUNC   (line:  22, col:   1):	Too many variables declarations in a function
+Error: TOO_MANY_VARS_FUNC   (line:  23, col:   1):	Too many variables declarations in a function
+Error: TOO_MANY_VARS_FUNC   (line:  24, col:   1):	Too many variables declarations in a function
+Error: TOO_MANY_VARS_FUNC   (line:  25, col:   1):	Too many variables declarations in a function
+Error: MISALIGNED_VAR_DECL  (line:  25, col:  17):	Misaligned variable declaration
+Error: TOO_MANY_VARS_FUNC   (line:  26, col:   1):	Too many variables declarations in a function
+Error: MISALIGNED_VAR_DECL  (line:  26, col:  17):	Misaligned variable declaration
+Error: WRONG_SCOPE_COMMENT  (line:  27, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  28, col:   5):	Comment is invalid in this scope
+Error: EMPTY_LINE_FUNCTION  (line:  29, col:   1):	Empty line in function
+Error: WRONG_SCOPE_COMMENT  (line:  34, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  38, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  39, col:   5):	Comment is invalid in this scope
+Error: LINE_TOO_LONG        (line:  40, col:   1):	line too long
+Error: WRONG_SCOPE_COMMENT  (line:  40, col:   5):	Comment is invalid in this scope
+Error: LINE_TOO_LONG        (line:  40, col: 140):	line too long
+Error: WRONG_SCOPE_COMMENT  (line:  41, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  42, col:   5):	Comment is invalid in this scope
+Error: LINE_TOO_LONG        (line:  51, col:  82):	line too long
+Error: LINE_TOO_LONG        (line:  52, col:  83):	line too long
+Error: LINE_TOO_LONG        (line:  53, col:  84):	line too long
+Error: TOO_MANY_TAB         (line:  54, col:   1):	Extra tabs for indent level
+Error: LINE_TOO_LONG        (line:  58, col:  84):	line too long
+Error: LINE_TOO_LONG        (line:  60, col:  82):	line too long
+Error: LINE_TOO_LONG        (line:  61, col:  82):	line too long
+Error: LINE_TOO_LONG        (line:  63, col:  84):	line too long
+Error: TOO_FEW_TAB          (line:  64, col:   1):	Missing tabs for indent level
+Error: WRONG_SCOPE_VAR      (line:  65, col:   1):	Variable declared in incorrect scope
+Error: SPACE_REPLACE_TAB    (line:  65, col:  19):	Found space when expecting tab
+Error: DECL_ASSIGN_LINE     (line:  65, col:  23):	Declaration and assignation on a single line
+Error: TOO_MANY_TAB         (line:  67, col:   1):	Extra tabs for indent level
+Error: LINE_TOO_LONG        (line:  72, col:  85):	line too long
+Error: TOO_MANY_LINES       (line:  77, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_TABS_FUNC   (line:  79, col:   9):	extra tabs before function name
+Error: TOO_MANY_VARS_FUNC   (line:  86, col:   1):	Too many variables declarations in a function
+Error: TOO_MANY_VARS_FUNC   (line:  87, col:   1):	Too many variables declarations in a function
+Error: TOO_MANY_VARS_FUNC   (line:  88, col:   1):	Too many variables declarations in a function
+Error: TOO_MANY_VARS_FUNC   (line:  89, col:   1):	Too many variables declarations in a function
+Error: SPACE_EMPTY_LINE     (line:  90, col:   1):	Space on empty line
+Error: LINE_TOO_LONG        (line: 108, col:  82):	line too long
+Error: EMPTY_LINE_FUNCTION  (line: 110, col:   1):	Empty line in function
+Error: SPACE_EMPTY_LINE     (line: 110, col:   1):	Space on empty line
+Error: LINE_TOO_LONG        (line: 111, col:  82):	line too long
+Error: TOO_MANY_TAB         (line: 112, col:   1):	Extra tabs for indent level
+Error: LINE_TOO_LONG        (line: 112, col:  82):	line too long
+Error: TOO_MANY_TAB         (line: 115, col:   1):	Extra tabs for indent level
+Error: WRONG_SCOPE_COMMENT  (line: 116, col:   9):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line: 117, col:   9):	Comment is invalid in this scope
+Error: TOO_MANY_LINES       (line: 121, col:   1):	Function has more than 25 lines
+src/render/per_pixel.c: Error!
+Error: LINE_TOO_LONG        (line:  25, col:  82):	line too long
+Error: EMPTY_LINE_EOF       (line:  30, col:   1):	Empty line at end of file
+src/render/render.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  22, col:  13):	Misaligned variable declaration
+Error: MISALIGNED_VAR_DECL  (line:  23, col:  13):	Misaligned variable declaration
+Error: LINE_TOO_LONG        (line:  63, col:  82):	line too long
+Error: LINE_TOO_LONG        (line:  69, col:  84):	line too long
+Error: TOO_MANY_ARGS        (line:  90, col:  81):	Function has more than 4 arguments
+Error: LINE_TOO_LONG        (line:  98, col:  83):	line too long
+Error: SPACE_EMPTY_LINE     (line: 107, col:   1):	Space on empty line
+Error: TOO_MANY_FUNCS       (line: 124, col:   1):	Too many functions in file
+Error: NO_SPC_AFR_PAR       (line: 143, col:  24):	Extra space after parenthesis (brace/bracket)
+Error: SPC_AFTER_OPERATOR   (line: 145, col:  36):	missing space after operator
+Error: TOO_MANY_FUNCS       (line: 151, col:   1):	Too many functions in file
+Error: LINE_TOO_LONG        (line: 176, col:  84):	line too long
+Error: EMPTY_LINE_EOF       (line: 179, col:   1):	Empty line at end of file
+src/world/pre_compute.c: Error!
+Error: CONSECUTIVE_NEWLINES (line:  36, col:   1):	Consecutive newlines
+Error: NO_SPC_BFR_OPR       (line:  62, col:  16):	extra space before operator
+Error: TAB_INSTEAD_SPC      (line:  62, col:  17):	Found tab when expecting space
+Error: TOO_MANY_LINES       (line:  66, col:   1):	Function has more than 25 lines
+Error: TOO_MANY_FUNCS       (line: 102, col:   1):	Too many functions in file
+Error: LINE_TOO_LONG        (line: 122, col:  82):	line too long
+src/world/world.c: Error!
+Error: NO_SPC_BFR_OPR       (line:  29, col:  46):	extra space before operator
+Error: CONSECUTIVE_NEWLINES (line:  41, col:   1):	Consecutive newlines
+Error: EMPTY_LINE_FUNCTION  (line:  41, col:   1):	Empty line in function
+Error: TOO_MANY_LINES       (line: 121, col:   1):	Function has more than 25 lines
+src/shapes/glass_sphere.c: Error!
+Error: LINE_TOO_LONG        (line:  46, col:   1):	line too long
+Error: LINE_TOO_LONG        (line:  46, col:   1):	line too long
+Error: LINE_TOO_LONG        (line:  46, col:   1):	line too long
+Error: LINE_TOO_LONG        (line:  46, col:   1):	line too long
+Error: LINE_TOO_LONG        (line:  46, col:   1):	line too long
+Error: LINE_TOO_LONG        (line:  46, col:   1):	line too long
+Error: LINE_TOO_LONG        (line:  46, col:   1):	line too long
+Error: LINE_TOO_LONG        (line:  46, col:   1):	line too long
+Error: LINE_TOO_LONG        (line:  46, col:   1):	line too long
+Error: LINE_TOO_LONG        (line:  46, col:   1):	line too long
+Error: LINE_TOO_LONG        (line:  46, col:   1):	line too long
+Error: LINE_TOO_LONG        (line:  46, col:   1):	line too long
+src/shapes/material.c: Error!
+Error: TOO_FEW_TAB          (line:  19, col:   5):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  20, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  21, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  22, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  23, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  24, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  25, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  26, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  27, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  28, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  29, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  30, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  31, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  32, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  33, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  34, col:   5):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  40, col:   5):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  41, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  42, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  43, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  44, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  45, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  46, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  47, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  48, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  49, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  50, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  51, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  52, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  53, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  54, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  55, col:   5):	Missing tabs for indent level
+src/shapes/normal.c: Error!
+Error: MISALIGNED_VAR_DECL  (line:  22, col:  13):	Misaligned variable declaration
+Error: TOO_MANY_VARS_FUNC   (line:  23, col:   1):	Too many variables declarations in a function
+Error: MISALIGNED_VAR_DECL  (line:  23, col:  13):	Misaligned variable declaration
+Error: TOO_MANY_VARS_FUNC   (line:  24, col:   1):	Too many variables declarations in a function
+Error: MISALIGNED_VAR_DECL  (line:  24, col:  13):	Misaligned variable declaration
+Error: TOO_MANY_VARS_FUNC   (line:  25, col:   1):	Too many variables declarations in a function
+Error: MISALIGNED_VAR_DECL  (line:  25, col:  13):	Misaligned variable declaration
+Error: TOO_MANY_VARS_FUNC   (line:  26, col:   1):	Too many variables declarations in a function
+Error: LINE_TOO_LONG        (line:  31, col:  86):	line too long
+Error: CONSECUTIVE_SPC      (line:  36, col:  71):	Two or more consecutives spaces
+Error: LINE_TOO_LONG        (line:  36, col:  82):	line too long
+Error: TOO_MANY_VARS_FUNC   (line:  58, col:   1):	Too many variables declarations in a function
+Error: TOO_MANY_VARS_FUNC   (line:  59, col:   1):	Too many variables declarations in a function
+Error: FORBIDDEN_CHAR_NAME  (line:  59, col:  17):	user defined identifiers should contain only lowercase characters, digits or '_'
+Error: TOO_MANY_VARS_FUNC   (line:  60, col:   1):	Too many variables declarations in a function
+Error: FORBIDDEN_CHAR_NAME  (line:  60, col:  17):	user defined identifiers should contain only lowercase characters, digits or '_'
+Error: TOO_MANY_VARS_FUNC   (line:  61, col:   1):	Too many variables declarations in a function
+Error: FORBIDDEN_CHAR_NAME  (line:  61, col:  17):	user defined identifiers should contain only lowercase characters, digits or '_'
+Error: WRONG_SCOPE_COMMENT  (line:  62, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  63, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  64, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  65, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  66, col:   5):	Comment is invalid in this scope
+Error: EMPTY_LINE_FUNCTION  (line:  67, col:   1):	Empty line in function
+Error: LINE_TOO_LONG        (line:  71, col:  86):	line too long
+Error: WRONG_SCOPE_COMMENT  (line:  72, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  73, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  75, col:   5):	Comment is invalid in this scope
+Error: TOO_MANY_TAB         (line:  83, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_LINES       (line:  88, col:   1):	Function has more than 25 lines
+Error: TOO_FEW_TAB          (line:  99, col:  53):	Missing tabs for indent level
+Error: TOO_MANY_INSTR       (line:  99, col:  53):	Too many instructions on a single line
+Error: WRONG_SCOPE_COMMENT  (line: 107, col:   9):	Comment is invalid in this scope
+src/shapes/plane.c: Error!
+Error: NO_SPC_AFR_PAR       (line:  23, col:  25):	Extra space after parenthesis (brace/bracket)
+Error: WRONG_SCOPE_COMMENT  (line:  24, col:   5):	Comment is invalid in this scope
+Error: NO_SPC_AFR_PAR       (line:  28, col:  25):	Extra space after parenthesis (brace/bracket)
+Error: NO_SPC_AFR_PAR       (line:  31, col:  25):	Extra space after parenthesis (brace/bracket)
+Error: NO_SPC_AFR_PAR       (line:  32, col:  21):	Extra space after parenthesis (brace/bracket)
+Error: TOO_FEW_TAB          (line:  33, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  34, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  35, col:   9):	Missing tabs for indent level
+Error: TOO_FEW_TAB          (line:  36, col:   5):	Missing tabs for indent level
+Error: NO_SPC_AFR_PAR       (line:  50, col:  19):	Extra space after parenthesis (brace/bracket)
+src/shapes/cube.c: Error!
+Error: TOO_MANY_VARS_FUNC   (line:  46, col:   1):	Too many variables declarations in a function
+Error: TAB_INSTEAD_SPC      (line:  50, col:  51):	Found tab when expecting space
+Error: TAB_INSTEAD_SPC      (line:  51, col:  51):	Found tab when expecting space
+src/shapes/cylinder.c: Error!
+Error: SPACE_REPLACE_TAB    (line:  17, col:  11):	Found space when expecting tab
+src/shapes/cylinder_intersect.c: Error!
+Error: SPACE_REPLACE_TAB    (line:  46, col:  11):	Found space when expecting tab
+Error: MISALIGNED_VAR_DECL  (line:  46, col:  12):	Misaligned variable declaration
+Error: SPACE_EMPTY_LINE     (line:  47, col:   1):	Space on empty line
+Error: TOO_MANY_LINES       (line:  87, col:   1):	Function has more than 25 lines
+Error: LINE_TOO_LONG        (line:  96, col:  82):	line too long
+Error: EOL_OPERATOR         (line:  99, col:  49):	Logic operator at the end of line
+Error: TOO_MANY_TAB         (line: 100, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line: 100, col:   1):	Extra tabs for indent level
+Error: LINE_TOO_LONG        (line: 101, col:  82):	line too long
+Error: SPC_AFTER_PAR        (line: 105, col:  20):	Missing space after parenthesis (brace/bracket)
+Error: TOO_MANY_TAB         (line: 106, col:   1):	Extra tabs for indent level
+Error: TOO_MANY_TAB         (line: 107, col:   1):	Extra tabs for indent level
+src/shapes/sphere.c: Error!
+Error: WRONG_SCOPE_COMMENT  (line:  47, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  48, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  49, col:   5):	Comment is invalid in this scope
+Error: WRONG_SCOPE_COMMENT  (line:  50, col:   5):	Comment is invalid in this scope
+src/shapes/cone.c: Error!
+Error: SPACE_REPLACE_TAB    (line:  19, col:  11):	Found space when expecting tab
+Error: MISALIGNED_VAR_DECL  (line:  19, col:  12):	Misaligned variable declaration
+Error: SPACE_EMPTY_LINE     (line:  20, col:   1):	Space on empty line
+Error: TOO_MANY_LINES       (line:  60, col:   1):	Function has more than 25 lines
+Error: SPC_AFTER_PAR        (line:  70, col:  81):	Missing space after parenthesis (brace/bracket)
+Error: LINE_TOO_LONG        (line:  70, col:  82):	line too long
+Error: LINE_TOO_LONG        (line:  72, col:  82):	line too long
+Error: SPC_AFTER_PAR        (line:  72, col:  83):	Missing space after parenthesis (brace/bracket)
+Error: LINE_TOO_LONG        (line:  76, col:  82):	line too long
+Error: NL_AFTER_VAR_DECL    (line:  95, col:   1):	Variable declarations must be followed by a newline
+Error: NO_ARGS_VOID         (line: 106, col:  22):	Empty function argument requires void
+src/shapes/triangle.c: Error!
+Error: TOO_MANY_VARS_FUNC   (line:  22, col:   1):	Too many variables declarations in a function
+Error: TOO_MANY_VARS_FUNC   (line:  23, col:   1):	Too many variables declarations in a function
+Error: TOO_MANY_VARS_FUNC   (line:  24, col:   1):	Too many variables declarations in a function
+Error: TAB_INSTEAD_SPC      (line:  49, col:  39):	Found tab when expecting space
+Error: TOO_FEW_TAB          (line:  58, col:   1):	Missing tabs for indent level
+Error: MULT_ASSIGN_LINE     (line:  58, col:  14):	Multiple assignations on a single line
+src/math/color_new.c: OK!
+src/math/float_swap.c: OK!
+src/math/hadamard_product.c: OK!
+src/math/interpolation.c: OK!
+src/math/random.c: OK!
+src/math/time.c: OK!
+src/math/tuple_add.c: OK!
+src/math/tuple_cross.c: OK!
+src/math/tuple_dot.c: OK!
+src/math/tuple_equal.c: OK!
+src/math/tuple_magnitude.c: OK!
+src/math/tuple_negate.c: OK!
+src/math/tuple_new.c: OK!
+src/math/tuple_normalize.c: OK!
+src/math/tuple_print.c: OK!
+src/math/tuple_scalar.c: OK!
+src/math/tuple_substract.c: OK!
+src/math/tuple_tocolor.c: OK!
+src/math/matrix/degrees_to_radians.c: OK!
+src/math/matrix/matrix.c: OK!
+src/math/matrix/matrix_cmp.c: OK!
+src/math/matrix/matrix_determinant.c: OK!
+src/math/matrix/matrix_inverse.c: OK!
+src/math/matrix/matrix_multiply.c: OK!
+src/math/matrix/matrix_print.c: OK!
+src/math/matrix/matrix_transpose.c: OK!
+src/math/matrix/rotate.c: OK!
+src/math/matrix/rotate_xyz.c: OK!
+src/math/matrix/transform.c: OK!
+src/parsing/parsing.c: Error!
+Error: TOO_FEW_TAB          (line:  27, col:   1):	Missing tabs for indent level
+Error: EMPTY_LINE_FUNCTION  (line:  28, col:   1):	Empty line in function
+Error: TOO_FEW_TAB          (line:  29, col:   1):	Missing tabs for indent level
+Error: TAB_INSTEAD_SPC      (line:  29, col:   5):	Found tab when expecting space
+Error: TOO_FEW_TAB          (line:  30, col:   1):	Missing tabs for indent level
+Error: SPC_BEFORE_NL        (line:  31, col:   1):	Space before newline
+Error: VAR_DECL_START_FUNC  (line:  37, col:   1):	Variable declaration not at start of function
+Error: TOO_MANY_LINES       (line:  50, col:   1):	Function has more than 25 lines

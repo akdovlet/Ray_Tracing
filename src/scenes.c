@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/19 12:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/13 17:45:38 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/14 12:01:19 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -351,7 +351,7 @@ t_data	scene_default(void)
 	right_sph.matter.emission_power = 2.0;
 	right_sph.matter.emission_color = color_new(0.8, 0.5, 0.2);
 	right_sph.matter = emissive_material();
-	right_sph.matter.emission_power = 10;
+	right_sph.matter.emission_color = white();
 
 	left_sph = sphere_default();
 	set_transform(&left_sph, multiply_matrix(translate(-2, 0, 2), scale(1.5, 1.5, 1.5)));

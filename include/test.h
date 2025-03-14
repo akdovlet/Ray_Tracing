@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:23:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/09 13:04:14 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/14 14:34:56 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void		test_triangle_normal(void);
 void		test_triangle_intersect(void);
 t_data		scene_triangle(void);
 void		test_spherical_mapping(void);
-
+void	test_atof(char *str);
+void	test_parsing(char *str);
 #endif
