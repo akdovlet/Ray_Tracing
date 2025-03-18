@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/13 22:33:53 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/05/03 14:16:24 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/18 13:21:51 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ char	*read_to_newline(int fd, char *buffer);
 void	clean_static(char *buffer);
 char	*extract_line(char *tmp);
 char	*get_next_line_multi(int fd);
+char	*gnl_no_nl(int fd);
 
 #endif

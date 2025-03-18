@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 11:43:11 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/14 11:44:23 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/18 12:29:18 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	render_and_move(t_data *data)
+int	ray_tracing(t_data *data)
 {
 	int		y;
 	int		x;

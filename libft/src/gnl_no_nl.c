@@ -1,61 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   gnl_no_nl.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/13 16:18:24 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/18 06:02:13 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/03/18 06:10:09 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/03/18 06:12:32 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*read_to_newline(int fd, char *buffer)
-{
-	char	*tmp;
-	int		i;
-
-	tmp = NULL;
-	if (buffer[0])
-	{
-		tmp = ak_strjoin(tmp, buffer);
-		if (!tmp)
-			return (NULL);
-	}
-	while (ak_strchr(buffer, '\n') == -1)
-	{
-		i = read(fd, buffer, BUFFER_SIZE);
-		if (i <= 0)
-			break ;
-		buffer[i] = 0;
-		tmp = ak_strjoin(tmp, buffer);
-		if (!tmp)
-			return (NULL);
-	}
-	return (tmp);
-}
-
-void	clean_static(char *buffer)
-{
-	int	j;
-	int	i;
-
-	j = 0;
-	i = 0;
-	if (!buffer)
-		return ;
-	while (buffer[j] != '\n' && buffer[j])
-		j++;
-	if (buffer[j] == '\n')
-		j++;
-	while (buffer[j])
-		buffer[i++] = buffer[j++];
-	buffer[i] = 0;
-}
-
-char	*extract_line(char *tmp)
+static char	*extract_line_no_nl(char *tmp)
 {
 	char	*line;
 	int		i;
@@ -65,24 +22,20 @@ char	*extract_line(char *tmp)
 		return (NULL);
 	while (tmp[i] && tmp[i] != '\n')
 		i++;
-	if (tmp[i] == '\n')
-		i++;
 	line = malloc(sizeof(char) * (i + 1));
 	if (!line)
 		return (NULL);
 	i = 0;
-	while (tmp[i] != '\n' && tmp[i])
+	while (tmp[i] && tmp[i] != '\n')
 	{
 		line[i] = tmp[i];
 		i++;
 	}
-	if (tmp[i] == '\n')
-		line[i++] = '\n';
 	line[i] = 0;
 	return (line);
 }
 
-char	*get_next_line(int fd)
+char	*gnl_no_nl(int fd)
 {
 	static char	buffer[BUFFER_SIZE + 1];
 	char		*tmp;
@@ -93,7 +46,7 @@ char	*get_next_line(int fd)
 	tmp = read_to_newline(fd, buffer);
 	if (!tmp)
 		return (NULL);
-	line = extract_line(tmp);
+	line = extract_line_no_nl(tmp);
 	free(tmp);
 	clean_static(buffer);
 	return (line);

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/14 16:12:53 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/18 18:01:46 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,13 @@
 # include "renderer.h"
 # include "tuple.h"
 # include "ray.h"
-# include "parsing.h"
 
 # define WIDTH 1920 / 2
 # define HEIGHT 1080
 
 t_tuple		position(t_ray ray, double factor);
-void		render(t_camera cam, t_world world, t_img *img, t_mlx *mlx);
 bool		is_shadowed(t_world *world, t_tuple point);
-int			render_and_move(t_data *data);
+int			ray_tracing(t_data *data);
 int			key_manager(int keysym, t_data *data);
-int			mouse_manager(int button, int x, int y, t_data *data);
 
 #endif

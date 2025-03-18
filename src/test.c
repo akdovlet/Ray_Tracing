@@ -6,6 +6,7 @@
 #include "mlx_utils.h"
 #include "test.h"
 #include "colors.h"
+#include "parsing.h"
 
 void test_init_tuple()
 {
@@ -2808,12 +2809,19 @@ void	test_atof(char *str)
 void	test_parsing(char *str)
 {
 	t_world	world;
-	int	error;
+	t_parse	parse;
+	int		error;
 
-	error = parse_scene(str, &world);
-	printf("error is: %d\n", error);
+	error = parse_scene(str, &world, &parse);
 	tuple_print(world.sky.color);
-	printf("sky intensity is: %f\n", world.sky.intensity);
+	tuple_print(world.cam.from);
+	tuple_print(world.cam.to);
+	printf("camera fov is: %f\n", world.cam.fov);
+	printf("error is: %d\n", error);
+	tuple_print(parse.light->light.intensity);
+	tuple_print(parse.light->light.position);
+	printf("light count is: %d\n", parse.light_count);
+	clear_light(&parse.light);
 }
 
 

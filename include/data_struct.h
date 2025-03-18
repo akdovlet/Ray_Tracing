@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/14 14:09:40 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/18 16:27:00 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,13 +190,53 @@ typedef struct s_junction
 	t_crossing	cross[100];
 }	t_junction;
 
+typedef struct s_camera
+{
+	int			hsize;
+	int			vsize;
+	double		fov;
+	double		psize;
+	double		half_view;
+	double		half_width;
+	double		half_height;
+	double		cam_distance;
+	t_matrix	transform;
+	t_matrix	view;
+	t_tuple		from;
+	t_tuple		to;
+	t_tuple		up;
+	t_tuple		true_up;
+	t_tuple		left;
+	t_tuple		forward;
+}	t_camera;
+
 typedef struct s_world
 {
 	int			obj_count;
 	t_shape		*obj;
 	t_light		light;
 	t_sky		sky;
+	t_camera	cam;
 }	t_world;
+
+typedef struct	s_objlst
+{
+	struct s_objlst	*next;
+}	t_objlst;
+
+typedef struct s_lightlst
+{
+	t_light				light;
+	struct s_lightlst	*next;
+}	t_lightlst;
+
+typedef struct	s_parse
+{
+	int			obj_count;
+	int			light_count;
+	t_objlst	*obj;
+	t_lightlst	*light;
+}	t_parse;
 
 typedef struct s_comps
 {
@@ -220,26 +260,6 @@ typedef struct s_container
 	struct s_container	*next;
 }	t_container;
 
-typedef struct s_camera
-{
-	int			hsize;
-	int			vsize;
-	double		fov;
-	double		psize;
-	double		half_view;
-	double		half_width;
-	double		half_height;
-	double		cam_distance;
-	t_matrix	transform;
-	t_matrix	view;
-	t_tuple		from;
-	t_tuple		to;
-	t_tuple		up;
-	t_tuple		true_up;
-	t_tuple		left;
-	t_tuple		forward;
-}	t_camera;
-
 typedef struct	s_data
 {
 	int			job_end;
@@ -258,7 +278,7 @@ typedef struct	s_data
 
 typedef struct s_groups
 {
-	t_shape	*trianglesm;
+	t_shape	*triangles;
 }	t_groups;
 
 

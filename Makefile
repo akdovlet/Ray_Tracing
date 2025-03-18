@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/03/14 14:00:35 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/03/18 17:49:21 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,17 @@ SRC		:=	main.c							\
 			mlx/mlx_clear.c					\
 			mlx/mlx_pixel_put.c				\
 			mlx/pixel_at.c					\
-			parsing/ak_atof.c				\
+			parsing/ambient_light.c			\
+			parsing/bad_syntax.c			\
+			parsing/get_camera_fov.c		\
+			parsing/get_camera.c			\
+			parsing/get_light.c				\
+			parsing/get_light_color.c		\
+			parsing/get_light_position.c	\
+			parsing/get_color.c				\
+			parsing/get_position.c			\
 			parsing/parsing.c				\
+			parsing/valid_value.c			\
 			pattern/checker.c				\
 			pattern/cubical_map.c			\
 			pattern/cylindrical_map.c		\
@@ -204,6 +213,10 @@ $(MLX):
 $(LIBFT):
 	@$(MAKE) --no-print-directory -C libft
 
+libft:
+	@$(MAKE) --no-print-directory -C libft
+	@$(MAKE)
+
 clean:
 	@if [ -d $(BUILD) ]; then $(RM) -rf $(BUILD) && printf "\033[1;31m\tDeleted: $(NAME) $(BUILD)\033[0m\n"; fi
 	@$(MAKE) --no-print-directory clean -C libft
@@ -225,5 +238,5 @@ re:
 
 -include $(DEP)
 
-.PHONY: all clean fclean re create_dir
+.PHONY: all clean fclean re create_dir libft
 

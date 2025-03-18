@@ -6,11 +6,12 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/14 16:07:11 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/18 18:01:55 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include "parsing.h"
 #include "test.h"
 
 int	main(int ac, char **av)
@@ -31,7 +32,6 @@ int	main(int ac, char **av)
 	// data.moved = false;
 	if (ac > 1)
 	{
-		test_atof(av[1]);
 		test_parsing(av[1]);
 	}
 	// data.accumulation = malloc(sizeof(t_tuple) * WIDTH * HEIGHT);

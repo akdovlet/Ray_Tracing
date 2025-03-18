@@ -1,38 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.c                                           :+:      :+:    :+:   */
+/*   get_camera_fov.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 13:43:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/18 16:59:46 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/03/18 14:48:46 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/03/18 18:03:16 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "data_struct.h"
+#include "libft.h"
+#include "parsing.h"
 
-t_tuple	black(void)
+int	get_camera_fov(double *f, char *str, int *i, int line)
 {
-	return ((t_tuple){0.01, 0.01, 0.01, 0.01});
-}
+	char	*err;
 
-t_tuple	white(void)
-{
-	return ((t_tuple){0.999, 0.999, 0.999, 0.0});
-}
-
-t_tuple	red(void)
-{
-	return ((t_tuple){1.0, 0.0, 0.0, 0.0});
-}
-
-t_tuple	blue(void)
-{
-	return ((t_tuple){0.0, 0.0, 1.0, 0.0});
-}
-
-t_tuple	green(void)
-{
-	return ((t_tuple){0.0, 1.0, 0.0, 0.0});
+	skip_whitespace(str, i);
+	if (!is_valid(str[*i]))
+		return (bad_syntax(line, str, 1));
+	*f = ak_atof(str, i);
+	if (*f > 180 || *f < 0.0)
+	{
+		err = "Error: line %d: value %f exceeds [0-180] range\n";
+		return (ft_dprintf(2, err, line, *f), 1);		 
+	}
+	return (0);
 }

@@ -6,14 +6,15 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/09/15 16:05:42 by akdovlet          #+#    #+#              #
-#    Updated: 2024/12/20 12:23:26 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/03/18 13:23:13 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	libft.a
 
 SRCDIR	:=	src
-SRC		:=	ak_countword.c			\
+SRC		:=	ak_atof.c				\
+			ak_countword.c			\
 			ft_free_array.c			\
 			ft_ischarset.c			\
 			ft_multi_split.c		\
@@ -66,12 +67,14 @@ SRC		:=	ak_countword.c			\
 			ft_lstiter_bonus.c		\
 			ft_lstmap_bonus.c		\
 			get_next_line.c			\
+			gnl_no_nl.c				\
 			get_next_line_utils.c	\
 			get_next_line_multi.c	\
 			printf_c_handler.c		\
 			printf_d_handler.c		\
 			printf_dprint_utils.c	\
 			printf_dprint.c			\
+			printf_dprintf_float.c	\
 			printf_ft_draft.c		\
 			printf_ft_int.c			\
 			printf_ft_printf.c		\

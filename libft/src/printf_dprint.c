@@ -6,12 +6,11 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:18:45 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/11/14 16:19:46 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/18 13:19:02 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_dprintf.h"
-#include <stdio.h>
 
 int	ak_printf(int fd, const char *str, va_list *arg)
 {

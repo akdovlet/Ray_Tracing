@@ -1,38 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors.c                                           :+:      :+:    :+:   */
+/*   valid_value.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/21 13:43:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/18 16:59:46 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/03/18 14:24:47 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/03/18 14:25:56 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_tuple	black(void)
+int	is_valid(char c)
 {
-	return ((t_tuple){0.01, 0.01, 0.01, 0.01});
-}
-
-t_tuple	white(void)
-{
-	return ((t_tuple){0.999, 0.999, 0.999, 0.0});
-}
-
-t_tuple	red(void)
-{
-	return ((t_tuple){1.0, 0.0, 0.0, 0.0});
-}
-
-t_tuple	blue(void)
-{
-	return ((t_tuple){0.0, 0.0, 1.0, 0.0});
-}
-
-t_tuple	green(void)
-{
-	return ((t_tuple){0.0, 1.0, 0.0, 0.0});
+	if (ft_isdigit(c) || c == '.' || c == '-' || c == '+')
+		return (1);
+	return (0);
 }

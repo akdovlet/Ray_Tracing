@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/13 11:30:21 by akdovlet          #+#    #+#             */
-/*   Updated: 2024/11/28 23:48:45 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/18 13:19:21 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,12 @@ int	ft_ddraft(char flag, t_print *data, va_list *arg)
 	wrote = 0;
 	if (flag == 's')
 		wrote += string_tobuffer(va_arg(*arg, char *), data);
-	if (flag == 'c')
+	else if (flag == 'c')
 		wrote += char_tobuffer(va_arg(*arg, int), data);
-	if (flag == 'd')
+	else if (flag == 'd')
 		wrote += int_tobuffer(va_arg(*arg, int), data);
+	else if (flag == 'f')
+		wrote += float_tobuffer(va_arg(*arg, double), data);
 	else
 		return (0);
 	return (wrote);

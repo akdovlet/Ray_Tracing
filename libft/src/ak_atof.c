@@ -6,11 +6,12 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 14:00:12 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/14 14:00:20 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/18 12:54:24 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "libft.h"
+#include "math.h"
 
 double	divide_value(double f, int divisor)
 {
@@ -44,7 +45,7 @@ double	ak_atof(char *str, int *i)
 	flip = check_sign(str, i);
 	while (str[*i])
 	{
-		if (!ft_isdigit(str[*i]) && str[*i] != '.')
+		if ((!ft_isdigit(str[*i]) && str[*i] != '.') || f > INT_MAX)
 			break ;
 		if (divisor)
 			divisor++;
