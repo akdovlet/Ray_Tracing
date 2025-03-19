@@ -75,7 +75,7 @@ void test_matrix_determinant()
 	}
 	matrix_free(mfour2, 4);
 	matrix_free(mfour3, 4);
-	t_tuple result = matrix_multiply_tuple(mfour, tuple_new(1, 2, 3, 1));
+	t_tuple result = transform(mfour, tuple_new(1, 2, 3, 1));
 	fprintf(stderr, "matrix multiply_matrix by tuple result: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", result.x, result.y, result.z, result.w);
 	fprintf(stderr, "c2 is: x: %.2f, y: %.2f, z: %.2f, w: %.2f\n\n", c2.x, c2.y, c2.z, c2.w);
 	matrix_free(mfour, 4);
@@ -242,9 +242,9 @@ void test_matrix_operation()
 	A = matrix_translation(tuple_new(5, -3, 2, 1));
 	inverse = matrix_inverse(A, 4);
 	t1 = point_new(-3, 4, 5);
-	t2 = matrix_multiply_tuple(inverse, t1);
+	t2 = transform(inverse, t1);
 	v1 = vector_new(-3, 4, 5);
-	v2 = matrix_multiply_tuple(A, v1);
+	v2 = transform(A, v1);
 	tuple_print(t2);
 	fprintf(stderr, "Vector translation has no effect:\n");
 	tuple_print(v1);
@@ -256,18 +256,18 @@ void test_matrix_operation()
 	fprintf(stderr, "point: -4, 6, 8 scaling to 2, 3, 4\n");
 	A = matrix_scaling(2, 3, 4);
 	p1 = point_new(-4, 6, 8);
-	p2 = matrix_multiply_tuple(A, p1);
+	p2 = transform(A, p1);
 	tuple_print(p2);
 
 	fprintf(stderr, "scaling vector test\n");
 	fprintf(stderr, "vector -4, 6, 8 scaled with 2, 3, 4\n");
 	v1 = vector_new(-4, 6, 8);
-	v2 = matrix_multiply_tuple(A, v1);
+	v2 = transform(A, v1);
 	tuple_print(v2);	
 
 	fprintf(stderr, "multiply vector by inverse test\n");
 	inverse = matrix_inverse(A, 4);
-	v2 = matrix_multiply_tuple(inverse, v1);
+	v2 = transform(inverse, v1);
 	tuple_print(v2);
 	matrix_free(inverse, 4);
 	matrix_free(A, 4);
@@ -276,7 +276,7 @@ void test_matrix_operation()
 	fprintf(stderr, "Given scaling -1, 1, 1 and point 2, 3, 4\n");
 	p1 = point_new(2, 3, 4);
 	A = matrix_scaling(-1, 1, 1);
-	p2 = matrix_multiply_tuple(A, p1);
+	p2 = transform(A, p1);
 	tuple_print(p2);
 	matrix_free(A, 4);
 
@@ -318,15 +318,15 @@ void test_matrix_operation()
 	// double **rx = matrix_rotate_x(M_PI / 2);
 	// double **scale = matrix_scaling(5, 5, 5);
 	// double **translation = matrix_translation(tuple_new(10, 5, 7, 0));
-	// p2 = matrix_multiply_tuple(rx, p1);
+	// p2 = transform(rx, p1);
 	// tuple_print(p2);
-	// p2 = matrix_multiply_tuple(scale, p2);
+	// p2 = transform(scale, p2);
 	// tuple_print(p2);
-	// t_tuple p3 = matrix_multiply_tuple(translation, p2);
+	// t_tuple p3 = transform(translation, p2);
 	// tuple_print(p3);
 	// T = matrix_multiply(translation, scale);
 	// F = matrix_multiply(T, A);
-	// p3 = matrix_multiply_tuple(F, p1);
+	// p3 = transform(F, p1);
 	// tuple_print(p3);
 	*/
 }
@@ -2821,7 +2821,12 @@ void	test_parsing(char *str)
 	tuple_print(parse.light->light.intensity);
 	tuple_print(parse.light->light.position);
 	printf("light count is: %d\n", parse.light_count);
-	clear_light(&parse.light);
+
+	printf("Objects: %d\n", parse.obj_count);
+	tuple_print(parse.obj->obj.coordinates);
+	tuple_print(parse.obj->obj.color);
+	clear_lights(&parse.light);
+	clear_objects(&parse.obj);
 }
 
 

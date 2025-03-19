@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:56:26 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/18 18:54:28 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:57:46 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	skip_whitespace(char *str, int *i)
 		(*i)++;
 }
 
-int	add_object(char *str, t_world *world, t_parse *parse, int line)
+int	parse_line(char *str, t_world *world, t_parse *parse, int line)
 {
 	int	i;
 
@@ -35,8 +35,8 @@ int	add_object(char *str, t_world *world, t_parse *parse, int line)
 		return (camera(str + i + 1, &world->cam, line));
 	else if (!ft_strncmp(str + i, "L", 1))
 		return (light(str + i + 1, parse, line));
-	else if (!ft_strncmp(str, "sp", 2))
-		return (sphere());
+	else if (!ft_strncmp(str + i, "sp", 2))
+		return (sphere(str + i + 2, parse, line));
 	// else if (!ft_strncmp(str, "pl", 2))
 	// 	return (plane());
 	// else if (!ft_strncmp(str, "cy", 2))
@@ -92,7 +92,7 @@ int	parse_scene(char *str, t_world *world, t_parse *parse)
 		buff = gnl_no_nl(fd);
 		if (!buff)
 			break ;
-		error = add_object(buff, world, parse, line);
+		error = parse_line(buff, world, parse, line);
 		free(buff);
 		if (error)
 			break ;

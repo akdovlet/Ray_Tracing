@@ -31,10 +31,9 @@ t_matrix	inverse(t_matrix m);
 /*	matrix	*/
 t_matrix	multiply_matrix(t_matrix a, t_matrix b);
 t_matrix	compose(size_t operation_count, t_matrix* ops);
-t_tuple		transform(t_tuple t1, t_matrix m);
 
 void		print_matrix(double m[4][4]);
-t_tuple		matrix_multiply_tuple(t_matrix m, t_tuple t1);
+t_tuple		transform(t_matrix m, t_tuple t1);
 
 //	turns rows into columns
 t_matrix	matrix_transpose(t_matrix m);

@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/03/18 17:49:21 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/03/19 11:53:54 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,10 @@ SRC		:=	main.c							\
 			parsing/get_camera.c			\
 			parsing/get_light.c				\
 			parsing/get_light_color.c		\
-			parsing/get_light_position.c	\
 			parsing/get_color.c				\
 			parsing/get_position.c			\
+			parsing/get_sphere.c			\
+			parsing/object.c				\
 			parsing/parsing.c				\
 			parsing/valid_value.c			\
 			pattern/checker.c				\

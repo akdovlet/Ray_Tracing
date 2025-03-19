@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:22:56 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/18 18:04:24 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:57:16 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	add_light(t_lightlst **lst, t_light *light)
 	return (0);
 }
 
-void	clear_light(t_lightlst **lst)
+void	clear_lights(t_lightlst **lst)
 {
 	t_lightlst	*tmp;
 
@@ -78,7 +78,7 @@ int	light(char *str, t_parse *parse, int line)
 	skip_whitespace(str, &i);
 	if (is_valid(str[i]))
 	{
-		if (get_light_position(&light.position, str, &i, line))
+		if (get_position(&light.position, str, &i, line))
 			return (1);
 		if (get_light_intensity(&divider, str, &i, line))
 			return (1);

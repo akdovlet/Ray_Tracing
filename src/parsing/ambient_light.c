@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 13:55:06 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/18 18:02:50 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:16:14 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	ambient_light(char *str, t_world *world, int line)
 	{
 		if (get_sky_intensity(&world->sky.intensity, str, &i, line))
 			return (1);
-		if (get_color(str, &i, &world->sky.color, line))
+		if (get_color(&world->sky.color, str, &i, line))
 			return (1);
 	}
 	else

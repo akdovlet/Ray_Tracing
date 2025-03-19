@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:58:39 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/13 15:14:18 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/19 09:19:30 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_tuple	normal_map(t_shape *obj, t_tuple p)
 		.r3 = normal,
 		{0, 0, 0, 1},
 	};
-	normal = matrix_multiply_tuple(matrix_transpose(TBN), normal);
+	normal = transform(matrix_transpose(TBN), normal);
 	normal.w = 0;
 	return (normal);
 }
@@ -95,7 +95,7 @@ t_tuple	normal_at(t_shape *obj, t_tuple world_point)
 
 	if (!obj->local_normalat)
 		return (obj->normal);
-	local_point = matrix_multiply_tuple(obj->transform, world_point);
+	local_point = transform(obj->transform, world_point);
 	normalv = obj->local_normalat(obj, local_point);\
 	if (obj->matter.pattern.height_map.img_ptr)
 	{
@@ -106,7 +106,7 @@ t_tuple	normal_at(t_shape *obj, t_tuple world_point)
 		normalv.w = 0;
 		// normalv = tuple_normalize(normal_map(obj, local_point));
 	}
-	normalv = matrix_multiply_tuple(matrix_transpose(obj->transform), normalv);
+	normalv = transform(matrix_transpose(obj->transform), normalv);
 	normalv.w = 0;
 	return (tuple_normalize(normalv));
 }

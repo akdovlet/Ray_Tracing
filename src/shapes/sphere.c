@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:09:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/05 13:13:38 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:36:33 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,8 @@ t_vec3f	sphere_intersect(t_shape *shape, t_ray ray)
 	});
 }
 
-// t_tuple	bump_normal(t_tuple normal, t_tuple *map)
-// {
-// 	double	x;
-// 	double	y;
-// 	double	z;
-
-//  	x = 
-// }
 t_tuple	sphere_normal_at(t_shape *shape, t_tuple point)
 {
-	// if (shape->normal_map)
-	// {
-	// 	return (bump_normal(point, shape->normal_map)); 
-	// }
 	return (tuple_substract(point, shape->coordinates));
 }
 

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 12:31:18 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/18 17:51:26 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:59:55 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ int		camera(char *str, t_camera *cam, int line);
 int		get_camera_fov(double *f, char *str, int *i, int line);
 int		bad_syntax(int line, char *str, int err);
 int		get_position(t_tuple *t, char *str, int *i, int line);
-int		get_light_position(t_tuple *t, char *str, int *i, int line);
-int		get_color(char *str, int *i, t_tuple *tuple, int line);
+int		get_color(t_tuple *t, char *str, int *i, int line);
 int		light(char *str, t_parse *parse, int line);
 int		get_light_color(t_tuple *t, char *str, int *i, int line);
-void	clear_light(t_lightlst **lst);
+void	clear_lights(t_lightlst **lst);
+int		sphere(char *str, t_parse *parse, int line);
+int		add_object(t_objlst **lst, t_shape *obj);
+void	clear_objects(t_objlst **lst);
 
 #endif
