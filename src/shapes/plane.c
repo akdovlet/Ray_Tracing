@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:46:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/06 12:44:25 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:01:17 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ static t_vec3f	local_intersect(t_shape *shape, t_ray ray)
 	});
 }
 
-static t_tuple	local_normalat(t_shape *shape, t_tuple point)
-{
-	(void)point;
-	(void)shape;
-	return (vector_new(0, 1, 0));
-}
+// static t_tuple	local_normalat(t_shape *shape, t_tuple point)
+// {
+// 	(void)point;
+// 	(void)shape;
+// 	return (vector_new(0, 1, 0));
+// }
 
 t_shape	plane_default(void)
 {
@@ -49,9 +49,10 @@ t_shape	plane_default(void)
 
 	new = (t_shape) {
 		.coordinates = point_new(0, 0, 0),
+		.normal	= vector_new(0, 1, 0),
 		.id = new_id(),
 		.matter = material(),
-		.local_normalat = &local_normalat,
+		.local_normalat = NULL,
 		.local_intersect = &local_intersect,
 		.transform = identity()
 	};

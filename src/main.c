@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/18 18:01:55 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/20 15:00:36 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,34 @@
 
 int	main(int ac, char **av)
 {
-	// t_img	img;
-	// t_mlx	mlx;
-	// t_data	data;
+	t_img	img;
+	t_mlx	mlx;
+	t_data	data;
 
-	// init_mlx(&mlx, &img);
-	// (void)ac;
-	// (void)av;
-	// data = scene_spherical_pattern(&mlx);
-	// data = scene_single_sphere();
-	// data.img = img;
-	// data.mlx = mlx;
-	// data.frame_index = 1;
-	// data.ts_last = 0;
-	// data.moved = false;
+	init_mlx(&mlx, &img);
+	(void)ac;
+	(void)av;
+	// data = scene_complex(&mlx);
+	data = scene_default();
+	data.img = img;
+	data.mlx = mlx;
+	data.frame_index = 1;
+	data.ts_last = 0;
+	data.moved = false;
 	if (ac > 1)
 	{
 		test_parsing(av[1]);
 	}
-	// data.accumulation = malloc(sizeof(t_tuple) * WIDTH * HEIGHT);
-	// data.rays = malloc(sizeof(t_ray) * WIDTH * HEIGHT);
-	// cache_ray(data.rays, &data.cam);
-	// mlx_hook(mlx.win_ptr, 17, 0, mlx_loop_end, mlx.mlx_ptr);
-	// mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, &key_manager, &data);
-	// mlx_loop_hook(mlx.mlx_ptr, &render_accumulation, &data);
-	// mlx_loop(mlx.mlx_ptr);
-	// mlx_clear(&mlx, &img);
-	// free(data.rays);
-	// free(data.accumulation);
+	data.accumulation = malloc(sizeof(t_tuple) * WIDTH * HEIGHT);
+	data.rays = malloc(sizeof(t_ray) * WIDTH * HEIGHT);
+	cache_ray(data.rays, &data.cam);
+	mlx_hook(mlx.win_ptr, 17, 0, mlx_loop_end, mlx.mlx_ptr);
+	mlx_hook(mlx.win_ptr, KeyPress, KeyPressMask, &key_manager, &data);
+	mlx_loop_hook(mlx.mlx_ptr, &render_accumulation, &data);
+	mlx_loop(mlx.mlx_ptr);
+	mlx_clear(&mlx, &img);
+	free(data.rays);
+	free(data.accumulation);
 	return (0);
 }
 

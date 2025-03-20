@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/19 09:01:20 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:27:18 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,7 @@ typedef struct	s_shape
 	uintptr_t		id;
 	t_tuple			coordinates;
 	t_tuple			color;
+	t_tuple			normal;
 	t_matrix		transform;
 	t_material		matter;
 	union{
@@ -157,7 +158,6 @@ typedef struct	s_shape
 			t_tuple	p3;
 			t_tuple	e1;
 			t_tuple	e2;
-			t_tuple	normal;
 		};
 		struct{
 			bool	closed;
