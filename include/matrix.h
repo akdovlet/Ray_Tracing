@@ -24,7 +24,9 @@ t_matrix	rotate_y(double angle);
 t_matrix	rotate_z(double angle);
 t_matrix	shear(t_tuple s1, t_tuple s2);
 t_matrix	scale(double x, double y, double z);
+t_matrix	t_scale(t_tuple t);
 t_matrix	translate(double x, double y, double z);
+t_matrix	t_translate(t_tuple t);
 double		cofactor(t_matrix m, size_t x, size_t y);
 t_matrix	inverse(t_matrix m);
 
@@ -32,7 +34,7 @@ t_matrix	inverse(t_matrix m);
 t_matrix	multiply_matrix(t_matrix a, t_matrix b);
 t_matrix	compose(size_t operation_count, t_matrix* ops);
 
-void		print_matrix(double m[4][4]);
+void		print_matrix(t_matrix m);
 t_tuple		transform(t_matrix m, t_tuple t1);
 
 //	turns rows into columns

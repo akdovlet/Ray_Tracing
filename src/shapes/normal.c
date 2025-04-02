@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:58:39 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/20 14:56:21 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:07:24 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ t_tuple	normal_map(t_shape *obj, t_tuple p)
 	uint32_t	x;
 	uint32_t	y;
 	t_tuple		normal;
-	uint32_t	color;
 	t_tuple		T;
 	t_tuple		B;
 	t_matrix	TBN;
@@ -71,9 +70,7 @@ t_tuple	normal_map(t_shape *obj, t_tuple p)
 	y = round(obj->matter.pattern.height_map.img_height - (uv.y * obj->matter.pattern.height_map.img_height));
 	// x = x % obj->matter.pattern.height_map.img_width;
 	// y = y % obj->matter.pattern.height_map.img_height;
-	color = pixel_at(img, x, y);
-	// normal = color_to_tuple(color);
-	normal = color_to_normal(color);
+	normal = color_to_normal(pixel_at(img, x, y));
 	T = tuple_normalize(tuple_cross(vector_new(0, 1, 0), p));
 	B = tuple_cross(normal, T);
 	TBN = (t_matrix){

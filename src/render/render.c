@@ -6,14 +6,12 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/19 09:19:30 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/02 21:29:35 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "shapes.h"
-
-void	rand_cache_ray(t_ray *ray, t_camera *cam, uint32_t seed);
 
 void	path_tracing(t_data *data)
 {
@@ -45,42 +43,6 @@ void	path_tracing(t_data *data)
 		data->img.img_ptr, 0, 0);
 }
 
-void	rand_pixel(t_camera *cam, t_ray *ray, double x, double y, uint32_t seed)
-{
-	double	world_y;
-	double	world_x;
-	t_tuple	pixel;
-
-	world_x = cam->half_width - ((x + 0.5) * cam->psize);
-	world_y = cam->half_height - ((y + 0.5) * cam->psize);
-	pixel = transform(cam->transform, point_new(world_x
-				+ random_range(&seed, 0, 0.5), world_y + random_range(&seed, 0,
-					0.5), -1));
-	ray->direction = tuple_normalize(tuple_substract(pixel, ray->origin));
-}
-
-void	rand_cache_ray(t_ray *ray, t_camera *cam, uint32_t seed)
-{
-	int		y;
-	int		x;
-	t_tuple	origin;
-
-	y = 0;
-	origin = transform(cam->transform, point_new(0, 0, 0));
-	while (y < HEIGHT)
-	{
-		x = 0;
-		seed += y;
-		while (x < WIDTH)
-		{
-			ray[x + y * WIDTH].origin = origin;
-			rand_pixel(cam, &ray[x + y * WIDTH], x, y, seed);
-			x++;
-		}
-		y++;
-	}
-}
-
 int	render_accumulation(t_data *data)
 {
 	clock_t	start;
@@ -92,8 +54,8 @@ int	render_accumulation(t_data *data)
 	{
 		data->skip = 5;
 		data->frame_index = 1;
-		cam_update(&data->cam, data->cam.from, data->cam.to, data->cam.up);
-		cache_ray(data->rays, &data->cam);
+		cam_update(&data->world.cam, data->world.cam.from, data->world.cam.to, data->world.cam.up);
+		cache_ray(data->rays, &data->world.cam);
 		data->moved = false;
 	}
 	path_tracing(data);

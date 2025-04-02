@@ -6,13 +6,13 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/20 14:09:37 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/13 18:01:56 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/02 21:57:04 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	print_matrix(double m[4][4])
+void	print_matrix(t_matrix m)
 {
 	int	i;
 	int	j;
@@ -22,7 +22,7 @@ void	print_matrix(double m[4][4])
 	{
 		j = -1;
 		while (++j < 4)
-			fprintf(stderr, "%f\t", m[i][j]);
+			fprintf(stderr, "%f\t", m.raw[i][j]);
 		fprintf(stderr, "\n");
 	}
 }

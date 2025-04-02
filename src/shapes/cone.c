@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 11:36:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/05 13:13:38 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:54:05 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,10 @@ void	intersect_caps_cone(t_shape *shape, t_ray *ray, t_vec3f *xs)
 		return ;
 	t1 = (shape->min - ray->origin.y) / ray->direction.y;
 	if (check_cap_cone(ray, t1, fabs(shape->min)))
-	{
 		caps.vec3[i++] = t1;
-	}
 	t2 = (shape->max - ray->origin.y) / ray->direction.y;
 	if (check_cap_cone(ray, t2, fabs(shape->max)))
-	{
 		caps.vec3[i++] = t2;
-	}
 	if (caps.x > caps.y)
 		float_swap(&caps.x, &caps.y);
 	if (caps.x < xs->x)
@@ -92,6 +88,7 @@ t_tuple	cone_normal(t_shape *shape, t_tuple point)
 {
 	double	distance;
 	double	y;
+
 	distance = point.x * point.x + point.z * point.z;
 	if (distance < 1 && point.y >= shape->max - DBL_EPSILON)
 		return (vector_new(0, 1, 0));

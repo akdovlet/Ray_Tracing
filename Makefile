@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/03/19 11:53:54 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/04/02 21:12:52 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,12 +31,19 @@ SRC		:=	main.c							\
 			mlx/pixel_at.c					\
 			parsing/ambient_light.c			\
 			parsing/bad_syntax.c			\
+			parsing/build_world.c			\
 			parsing/get_camera_fov.c		\
 			parsing/get_camera.c			\
 			parsing/get_light.c				\
+			parsing/get_normalv.c			\
+			parsing/get_plane.c				\
 			parsing/get_light_color.c		\
 			parsing/get_color.c				\
+			parsing/get_cone.c				\
+			parsing/get_cube.c				\
+			parsing/get_cylinder.c			\
 			parsing/get_position.c			\
+			parsing/get_rotation.c			\
 			parsing/get_sphere.c			\
 			parsing/object.c				\
 			parsing/parsing.c				\
@@ -59,8 +66,9 @@ SRC		:=	main.c							\
 			ray/refract.c					\
 			ray/schlick.c					\
 			render/path_tracing.c			\
-			shapes/cube.c					\
+			render/ray_tracing.c			\
 			render/render.c					\
+			shapes/cube.c					\
 			shapes/cone.c					\
 			shapes/cylinder_intersect.c		\
 			shapes/cylinder.c				\

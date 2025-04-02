@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 20:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/14 16:26:57 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/02 16:43:45 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,12 @@ t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed, int frame_index)
 	t_tuple	diffusev;
 	t_junction	hits;
 	t_comps		comps;
-	// t_tuple jitter;
-	// t_tuple		target;
 
 	(void)frame_index;
 	incoming_light = black();
 	ray_color = white();
 	bounces = 8;
 	i = 0;
-	// if (frame_index != 1)
-	// {
-	// 	jitter = tuple_substract(tuple_new(random_range(&seed, -0.5, 0.5), random_range(&seed, -0.5, 0.5), 0, 0), vector_new(0.5, 0.5, 0));
-	// 	ray.direction = tuple_normalize(tuple_add(ray.direction, jitter));
-	// }
 	while (i < bounces)
 	{
 		seed += i;

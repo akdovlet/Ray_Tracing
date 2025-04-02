@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/18 16:57:57 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/13 17:10:02 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/02 21:28:49 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ int	controller_forward(int keysym, t_data *data)
 {
 	if (keysym == XK_w)
 	{
-		data->cam.from = tuple_add(data->cam.from, data->cam.forward);
+		data->world.cam.from = tuple_add(data->world.cam.from, data->world.cam.forward);
 		data->moved = true;
 	}
 	else if (keysym == XK_s)
 	{
-		data->cam.from = tuple_substract(data->cam.from, data->cam.forward);
+		data->world.cam.from = tuple_substract(data->world.cam.from, data->world.cam.forward);
 		data->moved = true;
 	}
 	return (0);
@@ -31,12 +31,12 @@ int	controller_side(int keysym, t_data *data)
 {
 	if (keysym == XK_a)
 	{
-		data->cam.from = tuple_add(data->cam.from, data->cam.left);
+		data->world.cam.from = tuple_add(data->world.cam.from, data->world.cam.left);
 		data->moved = true;
 	}
 	else if (keysym == XK_d)
 	{
-		data->cam.from = tuple_substract(data->cam.from, data->cam.left);
+		data->world.cam.from = tuple_substract(data->world.cam.from, data->world.cam.left);
 		data->moved = true;
 	}
 	return (0);
@@ -46,12 +46,12 @@ int	controller_up_down(int keysym, t_data *data)
 {
 	if (keysym == XK_q)
 	{
-		data->cam.from = tuple_substract(data->cam.from, data->cam.true_up);
+		data->world.cam.from = tuple_substract(data->world.cam.from, data->world.cam.true_up);
 		data->moved = true;
 	}
 	else if (keysym == XK_e)
 	{
-		data->cam.from = tuple_add(data->cam.from, data->cam.true_up);
+		data->world.cam.from = tuple_add(data->world.cam.from, data->world.cam.true_up);
 		data->moved = true;
 	}
 	return (0);

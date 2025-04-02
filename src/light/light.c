@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/01 19:46:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/13 17:49:52 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:08:06 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ t_tuple	effective_color(t_shape *shape, t_comps *comps, t_light *light)
 	if (shape->matter.pattern.exists)
 	{
 		e_color = pattern_at_shape(&shape->matter.pattern, shape, comps->overz);
-		e_color = color_hadamard(e_color, color_hadamard(shape->matter.color,
+		e_color = color_hadamard(e_color, color_hadamard(shape->color,
 					light->intensity));
 	}
 	else
-		e_color = color_hadamard(shape->matter.color, light->intensity);
+		e_color = color_hadamard(shape->color, light->intensity);
 	return (e_color);
 }
 

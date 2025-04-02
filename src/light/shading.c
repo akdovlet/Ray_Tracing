@@ -6,14 +6,14 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:32:02 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/13 17:50:18 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:02:53 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "light.h"
 #include "minirt.h"
 
-bool	is_shadowed(t_world *world, t_tuple point)
+bool	is_shadowed(t_world *world, t_light *light, t_tuple point)
 {
 	t_tuple		v;
 	double		distance;
@@ -21,7 +21,7 @@ bool	is_shadowed(t_world *world, t_tuple point)
 	t_ray		ray;
 	t_junction	hits;
 
-	v = tuple_substract(world->light.position, point);
+	v = tuple_substract(light->position, point);
 	distance = tuple_magnitude(v);
 	direction = tuple_normalize(v);
 	ray = ray_new(point, direction);
@@ -34,14 +34,21 @@ bool	is_shadowed(t_world *world, t_tuple point)
 
 t_tuple	shade_hit(t_world *world, t_comps *comps, int depth)
 {
+	int		i;
 	bool	shadowed;
 	double	reflectance;
 	t_tuple	surface;
 	t_tuple	reflected;
 	t_tuple	refracted;
 
-	shadowed = is_shadowed(world, comps->overz);
-	surface = blinn_phong(world->light, comps->obj, comps, shadowed);
+	i = 0;
+	surface = black();
+	while (i < world->light_count)
+	{
+		shadowed = is_shadowed(world, &world->light[i], comps->overz);
+		surface = tuple_add(surface, blinn_phong(world->light[i], comps->obj, comps, shadowed));
+		i++;
+	}
 	reflected = reflected_color(world, comps, depth - 1);
 	refracted = refracted_color(world, comps, depth - 1);
 	if (comps->obj->matter.reflective && comps->obj->matter.transparency)

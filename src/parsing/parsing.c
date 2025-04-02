@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:56:26 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/19 11:57:46 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/02 20:23:37 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ int	parse_line(char *str, t_world *world, t_parse *parse, int line)
 		return (light(str + i + 1, parse, line));
 	else if (!ft_strncmp(str + i, "sp", 2))
 		return (sphere(str + i + 2, parse, line));
-	// else if (!ft_strncmp(str, "pl", 2))
-	// 	return (plane());
-	// else if (!ft_strncmp(str, "cy", 2))
-	// 	return (cylinder());
-	// else if (!ft_strncmp(str, "cu", 2))
-	// 	return (cube());
-	// else if (!ft_strncmp(str, "co", 2))
-	// 	return (cone());
+	else if (!ft_strncmp(str, "pl", 2))
+		return (plane(str + i + 2, parse, line));
+	else if (!ft_strncmp(str, "cy", 2))
+		return (cylinder(str + i + 2, parse, line));
+	else if (!ft_strncmp(str, "cu", 2))
+		return (cube(str + i + 2, parse, line));
+	else if (!ft_strncmp(str, "co", 2))
+		return (cone(str + i + 2, parse, line));
 	else
 		return (0);
 }

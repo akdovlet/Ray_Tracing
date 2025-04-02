@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_sphere.c                                       :+:      :+:    :+:   */
+/*   get_cube.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/18 18:05:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/02 21:43:39 by akdovlet         ###   ########.fr       */
+/*   Created: 2025/04/02 19:25:43 by akdovlet          #+#    #+#             */
+/*   Updated: 2025/04/02 19:48:20 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,44 +15,42 @@
 #include "parsing.h"
 #include "shapes.h"
 
-int	get_radius(double *f, char *str, int *i, int line)
+int	get_cube_values(t_shape *cube, char *str, int *i, int line)
 {
-	skip_whitespace(str, i);
-	if (!is_valid(str[*i]))
-		return (bad_syntax(line, str, 1));
-	*f = ak_atof(str, i);
-	*f = *f / 2.0;
+	t_tuple		cs;
+	t_tuple		rot;
+	t_matrix	m;
+
+	if (get_position(&cube->coordinates, str, i, line))
+	return (1);
+	if (get_position(&cs, str, i, line))
+		return (1);
+	if (get_rotation(&rot, str, i, line))
+		return (1);
+	if (get_color(&cube->color, str, i, line))
+		return (1);
+	m = multiply_matrix(translate(rot.x, rot.y, rot.z), scale(cs.x, cs.y, cs.z));
+	set_transform(cube, m);
 	return (0);
 }
 
-void	set_sph_values(t_shape *obj, t_tuple coord, double radius)
-{
-	obj->coordinates = coord;
-	set_transform(obj, multiply_matrix(translate(coord.x, coord.y, coord.z),
-			scale(radius, radius, radius)));
-}
-
-int	sphere(char *str, t_parse *parse, int line)
+int	cube(char *str, t_parse *parse, int line)
 {
 	int		i;
-	t_shape	sphere;
+	t_shape	cube;
 
 	i = 0;
-	sphere = sphere_default();
+	cube = cube_default();
 	skip_whitespace(str, &i);
 	if (is_valid(str[i]))
 	{
-		if (get_position(&sphere.coordinates, str, &i, line))
-			return (1);
-		if (get_radius(&sphere.radius, str, &i, line))
-			return (1);
-		if (get_color(&sphere.color, str, &i, line))
+		if (get_cube_values(&cube, str, &i, line))
 			return (1);
 	}
 	else
 		return (ft_dprintf(2, "Error: line %d: bad syntax: `%s'\n", line, str),
 			1);
-	if (add_object(&parse->obj, &sphere))
+	if (add_object(&parse->obj, &cube))
 		return (1);
 	parse->obj_count++;
 	return (0);

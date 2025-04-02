@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 11:43:11 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/18 12:29:18 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/02 22:09:12 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ int	ray_tracing(t_data *data)
 	y = 0;
 	if (data->moved)
 	{
-		cam_update(&data->cam, data->cam.from,
-			data->cam.to,
-			data->cam.up);
-		cache_ray(data->rays, &data->cam);
+		cam_update(&data->world.cam, data->world.cam.from,
+			data->world.cam.to,
+			data->world.cam.up);
+		cache_ray(data->rays, &data->world.cam);
+		data->moved = 0;
 	}
 	while (y < HEIGHT)
 	{

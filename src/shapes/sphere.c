@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:09:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/19 11:36:33 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/02 21:48:47 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_vec3f	sphere_intersect(t_shape *shape, t_ray ray)
 	ray_sph_vector = tuple_substract(ray.origin, shape->coordinates);
 	a = tuple_dot(ray.direction, ray.direction);
 	b = 2 * tuple_dot(ray.direction, ray_sph_vector);
-	c = tuple_dot(ray_sph_vector, ray_sph_vector) - 1.0;
+	c = tuple_dot(ray_sph_vector, ray_sph_vector) - shape->radius * shape->radius;
 	dis = b * b - 4.0 * a * c;
 	if (dis < 0.0)
 		return ((t_vec3f){.dis = -1});

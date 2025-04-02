@@ -481,39 +481,6 @@ void	test_cofactor2(t_matrix m, t_matrix expected)
 }
 
 
-void	test_clock(t_img *img)
-{
-	fprintf(stderr, "\nClock test\n");
-	t_tuple	center = {};
-	(void)img;
-	// ak_mlx_pixel_put(img, 0xFF0000, center);
-		
-	t_tuple	translation = point_new(1, -HEIGHT * 0.375, 1);
-	t_tuple twelve = tuple_add(center, translation);
-	fprintf(stderr, "twelve\n");
-	tuple_print(twelve);
-	fprintf(stderr, "translation\n");
-	tuple_print(translation);
-
-	// t_matrix l = {{
-	// 	{ -2, -8 , 3 , 5 },
-	// 	{ -3, 1 , 7 , 3 },
-	// 	{ 1 , 2 , -9 , 6 },
-	// 	{ -6, 7 , 7 , -9 },
-	// }};
-
-	// fprintf(stderr, "determinant is: %f\n", determinant(l));
-
-	t_matrix t = compose(2, (t_matrix[]){
-		rotate_z(radians(90)),
-		translate(1, -HEIGHT * 0.375, 1),
-	});
-	fprintf(stderr, "compose matrix:\n");
-	print_matrix(t.raw);
-	// ak_mlx_pixel_put(img, 0x00FF00, transform(twelve, t));
-	// ak_mlx_pixel_put(img, 0xFFFFFF, transform(twelve, rotate_z(radians(0))));
-}
-
 // void	inverse_test()
 // {
 // 	printf("\nInverse test\n");
@@ -527,7 +494,6 @@ void	test_clock(t_img *img)
 
 // 	id = identity();
 // 	inverse(matrix, &id);
-// 	print_matrix(id.raw);
 // }
 
 void	determinant_test()
@@ -950,9 +916,7 @@ void	transpose_test(void)
 	if (matrix_cmp(new, expected, 4, 4))
 	{
 		fprintf(stderr, "\terror:\texpected:\n");
-		print_matrix(expected.raw);
 		fprintf(stderr, "\tgot:\n");
-		print_matrix(new.raw);
 	}
 	else
 		printf("\tOK");
@@ -1105,24 +1069,24 @@ void	reflect_test(void)
 // 	}
 // }
 
-void	test_intersect_world(void)
-{
-	int			i;
-	t_ray		ray;
-	t_world		world;
-	t_junction	hits;
+// void	test_intersect_world(void)
+// {
+// 	int			i;
+// 	t_ray		ray;
+// 	t_world		world;
+// 	t_junction	hits;
 
-	i = 0;
-	world = default_world();
-	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
-	intersect_world(&world, ray, &hits);
-	printf("hits count is: %d\n", hits.count);
-	while (i < hits.count)
-	{
-		printf("hits[%d].t: %f\n", i, hits.cross[i].t);
-		i++;
-	}
-}
+// 	i = 0;
+// 	world = default_world();
+// 	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
+// 	intersect_world(&world, ray, &hits);
+// 	printf("hits count is: %d\n", hits.count);
+// 	while (i < hits.count)
+// 	{
+// 		printf("hits[%d].t: %f\n", i, hits.cross[i].t);
+// 		i++;
+// 	}
+// }
 
 void	test_pre_compute(void)
 {
@@ -1259,67 +1223,67 @@ void	test_shading(void)
 	// }
 }
 
-void	test_color_at(void)
-{
-	t_world	world;
-	t_ray	ray;
-	t_tuple	color;
-	t_tuple	expected;
+// void	test_color_at(void)
+// {
+// 	t_world	world;
+// 	t_ray	ray;
+// 	t_tuple	color;
+// 	t_tuple	expected;
 
-	printf("\nColor at test\n");
-	world = default_world();
-	ray = ray_new(point_new(0, 0, -5), vector_new(0, 1, 0));
-	color = color_at(&world, ray, 5);
-	expected = color_new(0, 0, 0);
-	if (tuple_equal(color, expected))
-	{
-		fprintf(stderr, "\tError:\texpected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
+// 	printf("\nColor at test\n");
+// 	world = default_world();
+// 	ray = ray_new(point_new(0, 0, -5), vector_new(0, 1, 0));
+// 	color = color_at(&world, ray, 5);
+// 	expected = color_new(0, 0, 0);
+// 	if (tuple_equal(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError:\texpected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
 
 
-	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
-	color = color_at(&world, ray, 5);
-	expected = color_new(0.38066, 0.47583, 0.2855);
-	if (tuple_equal(color, expected))
-	{
-		fprintf(stderr, "\tError:\texpected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
+// 	ray = ray_new(point_new(0, 0, -5), vector_new(0, 0, 1));
+// 	color = color_at(&world, ray, 5);
+// 	expected = color_new(0.38066, 0.47583, 0.2855);
+// 	if (tuple_equal(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError:\texpected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
 
-	t_shape tmp;
-	world.obj[1].matter.ambient = 1;
-	world.obj[0].matter.ambient = 1;
-	tmp = world.obj[0];
-	world.obj[0] = world.obj[1];
-	world.obj[1] = tmp;
-	ray = ray_new(point_new(0, 0, 0.75), vector_new(0, 0, -1));
-	color = color_at(&world, ray, 5);
-	expected = world.obj[1].matter.color;
-	if (tuple_equal(color, expected))
-	{
-		fprintf(stderr, "\tError:\texpected:\t");
-		tuple_print(expected);
-		fprintf(stderr, "\tgot:\t\t\t");
-		tuple_print(color);
-	}
-	else
-	{
-		printf("\tOK\n");
-	}
-}
+// 	t_shape tmp;
+// 	world.obj[1].matter.ambient = 1;
+// 	world.obj[0].matter.ambient = 1;
+// 	tmp = world.obj[0];
+// 	world.obj[0] = world.obj[1];
+// 	world.obj[1] = tmp;
+// 	ray = ray_new(point_new(0, 0, 0.75), vector_new(0, 0, -1));
+// 	color = color_at(&world, ray, 5);
+// 	expected = world.obj[1].matter.color;
+// 	if (tuple_equal(color, expected))
+// 	{
+// 		fprintf(stderr, "\tError:\texpected:\t");
+// 		tuple_print(expected);
+// 		fprintf(stderr, "\tgot:\t\t\t");
+// 		tuple_print(color);
+// 	}
+// 	else
+// 	{
+// 		printf("\tOK\n");
+// 	}
+// }
 
 // void	test_view_transform(void)
 // {
@@ -1337,9 +1301,7 @@ void	test_color_at(void)
 // 	if (matrix_cmp(m, identity(), 4, 4))
 // 	{
 // 		fprintf(stderr, "\tError:\texpected:\n");
-// 		print_matrix(identity().raw);
 // 		fprintf(stderr, "\tgot:\n");
-// 		print_matrix(m.raw);
 // 	}
 // 	else
 // 	{
@@ -1359,9 +1321,7 @@ void	test_color_at(void)
 // 	if (matrix_cmp(m, expected, 4, 4))
 // 	{
 // 		fprintf(stderr, "\tError:\texpected:\n");
-// 		print_matrix(expected.raw);
 // 		fprintf(stderr, "\tgot:\n");
-// 		print_matrix(m.raw);
 // 	}
 // 	else
 // 	{
@@ -1378,7 +1338,6 @@ void	test_camera(void)
 	printf("\nCamera test\n");
 	cam = camera_new(200, 125, M_PI / 2);
 	// printf("camera hsize: %f, vsize: %f, fov: %f\n", cam.hsize, cam.vsize, cam.fov);
-	// print_matrix(cam.transform.raw);
 	if (!float_equal(0.01, cam.psize))
 	{
 		fprintf(stderr, "\tError: expected: 0.01, got: %f\n", cam.psize);
@@ -1389,7 +1348,6 @@ void	test_camera(void)
 	}
 	cam = camera_new(125, 200, M_PI / 2);
 	// printf("camera hsize: %f, vsize: %f, fov: %f\n", cam.hsize, cam.vsize, cam.fov);
-	// print_matrix(cam.transform.raw);
 	if (!float_equal(0.01, cam.psize))
 	{
 		fprintf(stderr, "\tError: expected: 0.01, got: %f\n", cam.psize);
@@ -1479,43 +1437,43 @@ void	test_ray_for_pixel(void)
 // 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, img->img_ptr, 0, 0);
 // }
 
-void	test_is_shadowed(void)
-{
-	t_world	world;
+// void	test_is_shadowed(void)
+// {
+// 	t_world	world;
 
 
-	printf("\nTest is_shadowed\n");
+// 	printf("\nTest is_shadowed\n");
 
-	world = default_world();
-	if (!is_shadowed(&world, point_new(0, 10, 0)))
-		printf("\tOK\n");
-	else
-	{
-		fprintf(stderr, "\tError: should false\n");
-	}
+// 	world = default_world();
+// 	if (!is_shadowed(&world, point_new(0, 10, 0)))
+// 		printf("\tOK\n");
+// 	else
+// 	{
+// 		fprintf(stderr, "\tError: should false\n");
+// 	}
 	
 
-	if (is_shadowed(&world, point_new(10, -10, 10)))
-		printf("\tOK\n");
-	else
-	{
-		fprintf(stderr, "\tError: should be true\n");
-	}
-	if (!is_shadowed(&world, point_new(-20, 20, -20)))
-		printf("\tOK\n");
-	else
-	{
-		fprintf(stderr, "\tError: should be false\n");
-	}
+// 	if (is_shadowed(&world, point_new(10, -10, 10)))
+// 		printf("\tOK\n");
+// 	else
+// 	{
+// 		fprintf(stderr, "\tError: should be true\n");
+// 	}
+// 	if (!is_shadowed(&world, point_new(-20, 20, -20)))
+// 		printf("\tOK\n");
+// 	else
+// 	{
+// 		fprintf(stderr, "\tError: should be false\n");
+// 	}
 
 
-	if (!is_shadowed(&world, point_new(-2, 2, -2)))
-		printf("\tOK\n");
-	else
-	{
-		fprintf(stderr, "\tError: should be false\n");
-	}
-}
+// 	if (!is_shadowed(&world, point_new(-2, 2, -2)))
+// 		printf("\tOK\n");
+// 	else
+// 	{
+// 		fprintf(stderr, "\tError: should be false\n");
+// 	}
+// }
 
 t_shape	test_shape(void)
 {
@@ -1531,7 +1489,6 @@ t_shape	test_shape(void)
 // 	s = test_shape();
 // 	s.transform = translate(2, 3, 4);
 // 	s.matter.ambient = 1;
-// 	print_matrix(s.transform.raw);
 // }
 
 // void	test_intersect_plane(void)
@@ -1926,38 +1883,38 @@ void	test_negative_intersection(void)
 	printf("hit is: %f\n", junc.closest.t);
 }
 
-void	test_shade_hit_refraction(void)
-{
-	t_world	world;
-	t_shape	floor;
-	t_shape	ball;
-	t_ray	ray;
-	t_comps	comps;
-	t_junction	junc;
-	t_tuple		color;
+// void	test_shade_hit_refraction(void)
+// {
+// 	t_world	world;
+// 	t_shape	floor;
+// 	t_shape	ball;
+// 	t_ray	ray;
+// 	t_comps	comps;
+// 	t_junction	junc;
+// 	t_tuple		color;
 
-	world = default_world();
-	floor = plane_default();
-	set_transform(&floor, translate(0, -1, 0));
-	floor.matter.transparency = 0.5;
-	floor.matter.refractive_index = 1.5;
-	world.obj[0] = floor;
+// 	world = default_world();
+// 	floor = plane_default();
+// 	set_transform(&floor, translate(0, -1, 0));
+// 	floor.matter.transparency = 0.5;
+// 	floor.matter.refractive_index = 1.5;
+// 	world.obj[0] = floor;
 	
-	ball = sphere_default();
-	ball.matter.color = red();
-	ball.matter.ambient = 0.5;
-	set_transform(&ball, translate(0, -3.5, -0.5));
-	world.obj[1] = ball;
-	world.obj_count = 2;
+// 	ball = sphere_default();
+// 	ball.matter.color = red();
+// 	ball.matter.ambient = 0.5;
+// 	set_transform(&ball, translate(0, -3.5, -0.5));
+// 	world.obj[1] = ball;
+// 	world.obj_count = 2;
 
-	ray = ray_new(point_new(0, 0, -3), vector_new(0, -sqrt(2/2), sqrt(2/2)));
-	junc.cross[0].t = sqrt(2);
-	junc.cross[0].obj = &floor;
-	junc.count = 1;
-	pre_compute(&comps, junc.cross[0], ray, junc);
-	color = shade_hit(&world, &comps, 5);
-	tuple_print(color);
-}
+// 	ray = ray_new(point_new(0, 0, -3), vector_new(0, -sqrt(2/2), sqrt(2/2)));
+// 	junc.cross[0].t = sqrt(2);
+// 	junc.cross[0].obj = &floor;
+// 	junc.count = 1;
+// 	pre_compute(&comps, junc.cross[0], ray, junc);
+// 	color = shade_hit(&world, &comps, 5);
+// 	tuple_print(color);
+// }
 
 void	evaluate(double a, double b, double ea, double eb)
 {

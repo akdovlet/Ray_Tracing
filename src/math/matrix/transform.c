@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 10:22:22 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/19 09:20:28 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/02 20:04:59 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,32 @@ t_matrix	scale(double x, double y, double z)
 	}});
 }
 
+t_matrix	t_scale(t_tuple t)
+{
+	return ((t_matrix){{
+			{t.x, 0, 0, 0}, \
+			{0, t.y, 0, 0}, \
+			{0, 0, t.z, 0}, \
+			{0, 0, 0, 1} \
+	}});
+}
+
 t_matrix	translate(double x, double y, double z)
 {
 	return ((t_matrix){{
 			{1, 0, 0, x}, \
 			{0, 1, 0, y}, \
 			{0, 0, 1, z}, \
+			{0, 0, 0, 1} \
+	}});
+}
+
+t_matrix	t_translate(t_tuple t)
+{
+	return ((t_matrix){{
+			{1, 0, 0, t.x}, \
+			{0, 1, 0, t.y}, \
+			{0, 0, 1, t.z}, \
 			{0, 0, 0, 1} \
 	}});
 }
