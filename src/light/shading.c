@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 15:32:02 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/02 22:02:53 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/03 15:42:47 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,13 @@ bool	is_shadowed(t_world *world, t_light *light, t_tuple point)
 {
 	t_tuple		v;
 	double		distance;
-	t_tuple		direction;
 	t_ray		ray;
 	t_junction	hits;
 
 	v = tuple_substract(light->position, point);
 	distance = tuple_magnitude(v);
-	direction = tuple_normalize(v);
-	ray = ray_new(point, direction);
+	ray.origin = point;
+	ray.direction = tuple_normalize(v);
 	intersect_world(world, ray, &hits);
 	if (hits.hit && hits.closest.t < distance
 		&& !hits.closest.obj->matter.transparency)
@@ -42,7 +41,7 @@ t_tuple	shade_hit(t_world *world, t_comps *comps, int depth)
 	t_tuple	refracted;
 
 	i = 0;
-	surface = black();
+	surface = (t_tuple){0, 0, 0, 0};
 	while (i < world->light_count)
 	{
 		shadowed = is_shadowed(world, &world->light[i], comps->overz);

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/02 22:03:36 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:45:12 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_tuple	color_at(t_world *world, t_ray ray, int depth)
 	t_comps		comps;
 	t_junction	hits;
 
-	color = tuple_multiply(world->sky.color, world->sky.intensity);
+	color = world->sky.color;
 	if (!depth)
 		return (color);
 	intersect_world(world, ray, &hits);

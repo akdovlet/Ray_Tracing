@@ -6,13 +6,14 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 13:55:06 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/19 11:16:14 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/03 14:46:19 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "data_struct.h"
 #include "libft.h"
 #include "parsing.h"
+#include "tuple.h"
 
 int	get_sky_intensity(double *f, char *str, int *i, int line)
 {
@@ -45,6 +46,7 @@ int	ambient_light(char *str, t_world *world, int line)
 	else
 		return (ft_dprintf(2, "Error: line %d: bad syntax: `%s'\n", line, str),
 			1);
+	world->sky.color = tuple_multiply(world->sky.color, world->sky.intensity);
 	data++;
 	return (0);
 }
