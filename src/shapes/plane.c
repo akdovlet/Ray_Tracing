@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/07 14:46:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/14 20:57:49 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/18 14:21:57 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,6 @@ static t_vec3f	local_intersect(t_shape *shape, t_ray ray)
 		.y = 0
 	});
 }
-
-// static t_tuple	local_normalat(t_shape *shape, t_tuple point)
-// {
-// 	(void)point;
-// 	(void)shape;
-// 	return (vector_new(0, 1, 0));
-// }
 
 t_shape	plane_default(void)
 {
