@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:09:52 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/18 17:29:49 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/18 18:17:58 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	intersect_caps(t_shape *cyl, t_ray *ray, t_vec3f *xs)
 	double	t1;
 	double	t2;
 
-	if (!cyl->closed || fabs(ray->direction.y) < DBL_EPSILON)
+	if (!cyl->closed || fabs(ray->direction.y) < FLT_EPSILON)
 		return ;
 	t1 = (cyl->min - ray->origin.y) / ray->direction.y;
 	if (check_cap(ray, t1))
@@ -86,7 +86,7 @@ t_vec3f	cylinder_intersect(t_shape *shape, t_ray ray)
 
 	new = (t_vec3f){.dis = -1, .x = DBL_MAX, .y = DBL_MAX};
 	vec.a = ray.direction.x * ray.direction.x + ray.direction.z * ray.direction.z;
-	if (fabs(vec.a) < DBL_EPSILON)
+	if (fabs(vec.a) < FLT_EPSILON)
 		return (intersect_caps(shape, &ray, &new), new);
 	vec.b = 2 * ray.origin.x * ray.direction.x +
 			2 * ray.origin.z * ray.direction.z;
