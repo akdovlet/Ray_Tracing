@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/04 14:43:28 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/18 13:11:25 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/18 15:10:22 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	intersect_world(t_world *world, t_ray ray, t_junction *hits)
 				hits->hit = true;
 				closest_t = hits->cross[j].t;
 			}
+
 		}
 		i++;
 	}

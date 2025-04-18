@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/24 15:09:52 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/05 13:13:38 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/18 17:29:49 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,35 +55,27 @@ void	intersect_caps(t_shape *cyl, t_ray *ray, t_vec3f *xs)
 {
 	double	t1;
 	double	t2;
-	int		i;
-	t_vec3f	caps;
 
-	i = 1;
-	caps = (t_vec3f){.x = DBL_MAX, .y = DBL_MAX};
 	if (!cyl->closed || fabs(ray->direction.y) < DBL_EPSILON)
 		return ;
 	t1 = (cyl->min - ray->origin.y) / ray->direction.y;
 	if (check_cap(ray, t1))
 	{
-		caps.vec3[i++] = t1;
+		if (t1 >= 0 && t1 < xs->x)
+		{
+			xs->x = t1;		
+			xs->dis = 0;
+		}
 	}
 	t2 = (cyl->max - ray->origin.y) / ray->direction.y;
 	if (check_cap(ray, t2))
 	{
-		caps.vec3[i++] = t2;
+		if (t2 >= 0 && t2 < xs->y)
+		{
+			xs->y = t2;
+			xs->dis = 1;
+		}
 	}
-	if (caps.x > caps.y)
-		float_swap(&caps.x, &caps.y);
-	if (caps.x < xs->x)
-		xs->x = caps.x;
-	else if (caps.x < xs->y)
-		xs->y = caps.y;
-	if (i > 2 && caps.y < xs->y)
-		xs->y = caps.y;
-	if (i == 2)
-		xs->dis += 1;
-	else if (i == 3)
-		xs->dis += 2;
 }
 
 t_vec3f	cylinder_intersect(t_shape *shape, t_ray ray)
@@ -107,5 +99,7 @@ t_vec3f	cylinder_intersect(t_shape *shape, t_ray ray)
 					.y = (-vec.b + sqrt(dis)) / (2.0 * vec.a)};
 	check_trunc(&new, shape, &ray);
 	intersect_caps(shape, &ray, &new);
+	if (new.x > new.y)
+		float_swap(&new.x, &new.y);
 	return (new);
 }
