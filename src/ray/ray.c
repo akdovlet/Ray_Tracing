@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/26 15:42:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/02 21:52:44 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/28 22:05:48 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	hit(t_intersection *hit, t_vec3f vec)
 	hit->xs = vec;
 	if (!vec.dis)
 	{
-		hit->t = vec.x;
+		hit->t = fmax(fmax(vec.x, 0.0), fmax(vec.y, 0.0));
 		if (hit->t >= 0.0)
 		{
 			hit->hit = true;
@@ -75,7 +75,10 @@ void	hit(t_intersection *hit, t_vec3f vec)
 		}
 		return ;
 	}
-	hit->t = fmin(hit->xs.x, hit->xs.y);
+	if (hit->xs.x < 0.0)
+		hit->t = hit->xs.y;
+	else
+		hit->t = hit->xs.x;
 	hit->count = vec.x >= 0.0 + vec.y >= 0.0;
 	if (hit->t >= 0.0)
 		hit->hit = true;

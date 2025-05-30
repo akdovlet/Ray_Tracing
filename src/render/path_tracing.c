@@ -6,13 +6,18 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 20:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/02 16:43:45 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:42:18 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	russian_roulette(t_tuple	*ray_color, uint32_t *seed)
+t_tuple	emit_light(t_shape *shape)
+{
+	return (tuple_multiply(shape->color, shape->e_power));
+}
+
+int	russian_roulette(t_tuple *ray_color, uint32_t *seed)
 {
 	double	russian_roulette;
 
@@ -54,7 +59,7 @@ t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed, int frame_index)
 										* is_specualar);
 			if (tuple_dot(ray.direction, comps.normalv) < 0.0)
 				tuple_negate(ray.direction);
-			emitted_light = get_emission(hits.closest.obj);
+			emitted_light = emit_light(hits.closest.obj);
 			incoming_light = tuple_add(incoming_light, color_hadamard(emitted_light, ray_color));
 			if (hits.closest.obj->matter.pattern.exists)
 				ray_color = color_hadamard(ray_color, lerp(pattern_at_shape(&hits.closest.obj->matter.pattern, hits.closest.obj, comps.world_point),
@@ -90,8 +95,7 @@ t_tuple		bounce_rays(t_world *world, t_ray ray, uint32_t seed)
 	bounces = 8;
 	contribution = white();
 	light = black();
-	sky = color_new(0.6, 0.7, 0.9);
-	sky = color_new(0.002, 0.002, 0.002);
+	sky = world->sky.color;
 	while (i < bounces)
 	{
 		seed += i;
@@ -104,7 +108,7 @@ t_tuple		bounce_rays(t_world *world, t_ray ray, uint32_t seed)
 		pre_compute(&comps, hits.closest, ray, hits);
 		is_specular = hits.closest.obj->matter.specular >= random_float(&seed);
 		diffusev = tuple_normalize(tuple_add(comps.normalv, random_unit_vec(&seed)));
-		light = tuple_add(light, get_emission(hits.closest.obj));
+		light = tuple_add(light, emit_light(hits.closest.obj));
 		
 		contribution = color_hadamard(contribution, lerp(hits.closest.obj->matter.color,
 										hits.closest.obj->matter.specular_color, is_specular));

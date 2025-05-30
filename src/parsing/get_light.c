@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 16:22:56 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/19 11:57:16 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/28 22:14:22 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ int	light(char *str, t_parse *parse, int line)
 	if (add_light(&parse->light, &light))
 		return (1);
 	parse->light_count++;
+	printf("light intensity is: %f\n", divider);
 	return (0);
 }

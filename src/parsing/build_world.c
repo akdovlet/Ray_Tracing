@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/02 20:19:55 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/02 21:26:05 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:45:53 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ int	build_lights(t_world *world, t_parse *parse)
 	return (0);
 }
 
-int	build_world(char *str, t_world *world)
+int	build_world(char **strs, t_world *world)
 {
 	t_parse	parse;
 
-	if (parse_scene(str, world, &parse))
+	if (parse_scene(strs, world, &parse))
 	{
 		clear_lights(&parse.light);
 		clear_objects(&parse.obj);
@@ -101,6 +101,5 @@ int	build_world(char *str, t_world *world)
 		clear_objects(&parse.obj);
 		return (free(world->obj), 1);
 	}
-	printf("light: %d, obj: %d\n", world->light_count, world->obj_count);
 	return (0);
 }

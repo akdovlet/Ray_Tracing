@@ -6,14 +6,14 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 12:31:18 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/02 20:48:32 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:53:45 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSING_H
 # define PARSING_H
 
-int		parse_scene(char *str, t_world *world, t_parse *parse);
+int		parse_scene(char **strs, t_world *world, t_parse *parse);
 void	skip_whitespace(char *str, int *i);
 int		is_valid(char c);
 int		get_camera_fov(double *f, char *str, int *i, int line);
@@ -27,7 +27,10 @@ void	clear_objects(t_objlst **lst);
 int		get_normalv(t_tuple *t, char *str, int *i, int line);
 int		get_radius(double *f, char *str, int *i, int line);
 int		get_rotation(t_tuple *t, char *str, int *i, int line);
-int		build_world(char *str, t_world *world);
+int		build_world(char **strs, t_world *world);
+int		get_surface_info(t_shape *obj, char *str, int *i, int line);
+int		check_flag(char *str);
+int		check_file(char *str);
 
 int		ambient_light(char *str, t_world *world, int line);
 int		camera(char *str, t_camera *cam, int line);

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:20:16 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/02 21:28:13 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/29 13:21:25 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,8 @@ typedef struct s_ray
 typedef struct	s_shape
 {
 	double			radius;
+	double			s_prob;
+	double			e_power;
 	uintptr_t		id;
 	t_tuple			coordinates;
 	t_tuple			color;
@@ -220,6 +222,7 @@ typedef struct s_camera
 
 typedef struct s_world
 {
+	bool		path_or_ray;
 	int			obj_count;
 	int			light_count;
 	t_shape		*obj;
@@ -242,6 +245,7 @@ typedef struct s_lightlst
 
 typedef struct	s_parse
 {
+	bool		path_or_ray;
 	int			obj_count;
 	int			light_count;
 	t_objlst	*obj;

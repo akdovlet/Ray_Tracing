@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/02 20:59:48 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/28 22:11:29 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 
 # define WIDTH 1920 / 2
 # define HEIGHT 1080
+# define RAY 0
+# define PATH 1
 
 t_tuple		position(t_ray ray, double factor);
 bool		is_shadowed(t_world *world, t_light *light, t_tuple point);

@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/04 15:56:26 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/02 20:23:37 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/29 13:21:34 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	parse_line(char *str, t_world *world, t_parse *parse, int line)
 
 	i = 0;
 	skip_whitespace(str, &i);
+	parse->path_or_ray = world->path_or_ray;
 	if (!ft_strncmp(str + i, "A", 1))
 		return (ambient_light(str + i + 1, world, line));
 	else if (!ft_strncmp(str + i, "C", 1))
@@ -49,31 +50,7 @@ int	parse_line(char *str, t_world *world, t_parse *parse, int line)
 		return (0);
 }
 
-int	check_extension(char *str, int len)
-{
-	if (str[len--] == 't' && str[len--] == 'r' && str[len] == '.')
-		return (0);
-	return (1);
-}
-
-int	check_file(char *str)
-{
-	int	len;
-	int	fd;
-
-	len = ft_strlen(str);
-	if (len < 4 || check_extension(str, len - 1))
-	{
-		ft_dprintf(2, "Error: wrong file format: `%s'\n", str);
-		return (-1);
-	}
-	fd = open(str, O_RDONLY);
-	if (fd < 0)
-		ft_dprintf(2, "Error: %s: `%s'\n", strerror(errno), str);
-	return (fd);
-}
-
-int	parse_scene(char *str, t_world *world, t_parse *parse)
+int	parse_scene(char **strs, t_world *world, t_parse *parse)
 {
 	char	*buff;
 	int		fd;
@@ -82,11 +59,12 @@ int	parse_scene(char *str, t_world *world, t_parse *parse)
 
 	*world = (t_world){};
 	*parse = (t_parse){};
-	fd = check_file(str);
-	line = 0;
-	error = 0;
+	fd = check_file(strs[1]);
 	if (fd < 0)
 		return (1);
+	world->path_or_ray = check_flag(strs[2]);
+	line = 0;
+	error = 0;
 	while (++line)
 	{
 		buff = gnl_no_nl(fd);

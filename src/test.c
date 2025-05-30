@@ -2763,27 +2763,4 @@ void	test_atof(char *str)
 	printf("%f\n", ak_atof(str, &i));
 }
 
-void	test_parsing(char *str)
-{
-	t_world	world;
-	t_parse	parse;
-	int		error;
-
-	error = parse_scene(str, &world, &parse);
-	tuple_print(world.sky.color);
-	tuple_print(world.cam.from);
-	tuple_print(world.cam.to);
-	printf("camera fov is: %f\n", world.cam.fov);
-	printf("error is: %d\n", error);
-	tuple_print(parse.light->light.intensity);
-	tuple_print(parse.light->light.position);
-	printf("light count is: %d\n", parse.light_count);
-
-	printf("Objects: %d\n", parse.obj_count);
-	tuple_print(parse.obj->obj.coordinates);
-	tuple_print(parse.obj->obj.color);
-	clear_lights(&parse.light);
-	clear_objects(&parse.obj);
-}
-
 

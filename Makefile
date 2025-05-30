@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/04/02 21:12:52 by akdovlet         ###   ########.fr        #
+#    Updated: 2025/04/28 21:52:55 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC		:=	main.c							\
 			parsing/ambient_light.c			\
 			parsing/bad_syntax.c			\
 			parsing/build_world.c			\
+			parsing/check_args.c			\
 			parsing/get_camera_fov.c		\
 			parsing/get_camera.c			\
 			parsing/get_light.c				\
@@ -45,6 +46,7 @@ SRC		:=	main.c							\
 			parsing/get_position.c			\
 			parsing/get_rotation.c			\
 			parsing/get_sphere.c			\
+			parsing/get_surface.c			\
 			parsing/object.c				\
 			parsing/parsing.c				\
 			parsing/valid_value.c			\
@@ -69,82 +71,6 @@ SRC		:=	main.c							\
 			render/ray_tracing.c			\
 			render/render.c					\
 			shapes/cube.c					\
-			shapes/cone.c					\
-			shapes/cylinder_intersect.c		\
-			shapes/cylinder.c				\
-			shapes/glass_sphere.c			\
-			shapes/material.c				\
-			shapes/normal.c					\
-			shapes/plane.c					\
-			shapes/sphere.c					\
-			shapes/triangle.c				\
-			math/matrix/rotate.c			\
-			math/matrix/transform.c			\
-			math/matrix/degrees_to_radians.c\
-			math/matrix/matrix_cmp.c		\
-			math/matrix/matrix_determinant.c\
-			math/matrix/matrix_inverse.c	\
-			math/matrix/matrix_multiply.c	\
-			math/matrix/matrix_print.c		\
-			math/matrix/matrix_transpose.c	\
-			math/matrix/matrix.c			\
-			math/color_new.c				\
-			math/float_swap.c				\
-			math/hadamard_product.c			\
-			math/interpolation.c			\
-			math/random.c					\
-			math/time.c						\
-			math/tuple_add.c				\
-			math/tuple_equal.c				\
-			math/tuple_cross.c				\
-			math/tuple_dot.c				\
-			math/tuple_magnitude.c			\
-			math/tuple_negate.c				\
-			math/tuple_new.c				\
-			math/tuple_normalize.c			\
-			math/tuple_print.c				\
-			math/tuple_scalar.c				\
-			math/tuple_substract.c			\
-			math/tuple_tocolor.c			\
-			world/pre_compute.c				\
-			world/world.c
-
-SRC_BONUS	:=	main.c						\
-			test.c							\
-			scenes.c						\
-			camera/camera.c					\
-			camera/view_transform.c			\
-			colors/colors.c					\
-			colors/get_emission.c			\
-			colors/more_colors.c			\
-			light/light.c					\
-			light/shading.c					\
-			mlx/init_mlx.c					\
-			mlx/key_manager.c				\
-			mlx/mlx_clear.c					\
-			mlx/mlx_pixel_put.c				\
-			mlx/pixel_at.c					\
-			shapes/cube.c					\
-			pattern/checker.c				\
-			pattern/cubical_map.c			\
-			pattern/cylindrical_map.c		\
-			pattern/gradient.c				\
-			pattern/planar_map.c			\
-			pattern/pattern.c				\
-			pattern/radial.c				\
-			pattern/ring.c					\
-			pattern/stripe.c				\
-			pattern/uv_mapping.c			\
-			pattern/texture_map.c			\
-			ray/ray_transform.c				\
-			ray/cache_ray.c					\
-			ray/ray.c						\
-			ray/reflect.c					\
-			ray/refract.c					\
-			ray/schlick.c					\
-			render/path_tracing.c			\
-			render/per_pixel.c				\
-			render/render.c					\
 			shapes/cone.c					\
 			shapes/cylinder_intersect.c		\
 			shapes/cylinder.c				\

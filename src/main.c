@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:21:08 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/18 17:26:33 by akdovlet         ###   ########.fr       */
+/*   Updated: 2025/04/28 21:35:54 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ int	setup_data(char **av, t_data *data)
 {
 	*data = (t_data){};
 	data->frame_index = 1;
-	if (build_world(av[1], &data->world))
+	if (build_world(av, &data->world))
 		return (1);
 	if (init_mlx(&data->mlx, &data->img))
-		return (ft_dprintf(2, "Error: failed mlx initialization\n"), 1);
+		return (ft_dprintf(2, "Error: failed mlx initialization\n"),
+			free_data(data), 1);
 	data->rays = malloc(sizeof(t_ray) * WIDTH * HEIGHT);
 	if (!data->rays)
 	{
