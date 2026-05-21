@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2026/05/20 10:58:18 by akdovlet         ###   ########.fr        #
+#    Updated: 2026/05/21 16:56:30 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -121,6 +121,7 @@ DEP		:=	$(OBJ:.o=.d)
 
 LIBFT	:=	libft/libft.a
 MLX		:=	mlx_linux/libmlx_Linux.a
+MLX_DIR	:=	mlx_linux
 CC		:=	cc
 CFLAGS	:=	-Wall -Werror -Wextra -std=gnu11 -MMD -MP -Iinclude -Ilibft/include -Imlx_linux -g
 MATH	:=	-lm -lpthread
@@ -163,6 +164,7 @@ clean:
 fclean:
 	@make --no-print-directory clean
 	@if [ -f $(NAME) ]; then $(RM) -rf $(NAME) && printf "\033[1;31m\tDeleted: $(NAME)\033[0m\n"; fi
+	@if [ -d $(MLX_DIR) ]; then $(RM) -rf $(MLX_DIR) && printf "\033[1;31m\tDeleted: $(MLX_DIR)\033[0m\n"; fi
 	@$(MAKE) --no-print-directory fclean -C libft
 
 full: all
