@@ -1,0 +1,30 @@
+# Cornell Box — path tracing scene
+#
+# Set ambient to 0: all illumination comes from the emissive ceiling lamp.
+# Switch to path tracing mode (Tab) for converged global illumination.
+#
+# A  [ratio]  [RGB]
+# C  [pos]  [dir]  [fov]
+# sp [pos]  [diameter]  [RGB]  [emission]
+# pl [pos]  [normal]    [RGB]  [emission]
+# cy [pos]  [normal]  [diameter]  [height]  [RGB]  [emission]
+
+A 0 0,0,0
+
+C 0,0,-5   0,0,1   55
+
+# ── light (ray tracing) / emissive sphere (path tracing) ────────
+L   0,1.5,4   1   255,235,200
+sp  0,1.6,4   0.6   255,235,200   5.0
+
+# ── room ────────────────────────────────────────────────────────
+pl  0,-2,0    0,1,0    210,210,210        # floor  (white)
+pl  0, 2,0    0,-1,0   210,210,210        # ceiling (white)
+pl  0, 0,9    0,0,-1   210,210,210        # back wall (white)
+pl -3, 0,0    1,0,0    200,55,55          # left wall (red)
+pl  3, 0,0   -1,0,0    55,190,70         # right wall (green)
+
+# ── objects ─────────────────────────────────────────────────────
+sp -1.1,-1.35,3.8   1.2   220,175,45      # warm gold sphere
+sp  1.1,-1.35,3.2   1.2   60,115,220      # cool blue sphere
+sp  0.0,-1.35,5.5   1.2   190,60,60       # deep red sphere (back)

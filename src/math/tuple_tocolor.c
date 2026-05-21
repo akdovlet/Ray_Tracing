@@ -22,9 +22,9 @@ unsigned int	tuple_tocolor(t_tuple tcolor)
 		tcolor.y = sqrt(tcolor.y);
 	if (tcolor.z > 0.0)
 		tcolor.z = sqrt(tcolor.z);
-	color.bytes[2] = fmin(round(tcolor.x * 255.0), 255.0);
-	color.bytes[1] = fmin(round(tcolor.y * 255.0), 255.0);
-	color.bytes[0] = fmin(round(tcolor.z * 255.0), 255.0);
+	color.bytes[2] = fmin(fmax(round(tcolor.x * 255.0), 0.0), 255.0);
+	color.bytes[1] = fmin(fmax(round(tcolor.y * 255.0), 0.0), 255.0);
+	color.bytes[0] = fmin(fmax(round(tcolor.z * 255.0), 0.0), 255.0);
 	color.bytes[3] = 255;
 	return (color.color);
 }

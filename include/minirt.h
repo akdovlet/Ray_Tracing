@@ -46,6 +46,8 @@
 # define HEIGHT 1080
 # define RAY 0
 # define PATH 1
+# define PATH_MT 2
+# define THREADS 4
 
 t_tuple		position(t_ray ray, double factor);
 bool		is_shadowed(t_world *world, t_light *light, t_tuple point);

@@ -100,9 +100,26 @@ t_tuple	cone_normal(t_shape *shape, t_tuple point)
 	return (vector_new(point.x, y, point.z));
 }
 
+t_tuple	cone_tangent_at(t_shape *shape, t_tuple point)
+{
+	double	dist;
+	double	r;
+
+	dist = point.x * point.x + point.z * point.z;
+	if (dist < 1.0 && (point.y >= shape->max - DBL_EPSILON
+		|| point.y <= shape->min + DBL_EPSILON))
+		return (vector_new(1, 0, 0));
+	r = sqrt(dist);
+	if (r < DBL_EPSILON)
+		return (vector_new(1, 0, 0));
+	return (vector_new(point.z / r, 0, -point.x / r));
+}
+
 t_shape	cone_default()
 {
-	return ((t_shape){
+	t_shape	co;
+
+	co = (t_shape){
 		.id = new_id(),
 		.coordinates = point_new(0, 0, 0),
 		.matter = material(),
@@ -111,6 +128,9 @@ t_shape	cone_default()
 		.min = -INFINITY,
 		.max = INFINITY,
 		.local_intersect = &cone_intersect,
-		.local_normalat = &cone_normal
-	});
+		.local_normalat = &cone_normal,
+		.local_tangent = &cone_tangent_at
+	};
+	co.matter.pattern.uv_mapping = &cylindrical_map;
+	return (co);
 }

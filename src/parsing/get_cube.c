@@ -29,6 +29,7 @@ int	get_cube_values(t_shape *cube, char *str, int *i, int line)
 		return (1);
 	if (get_color(&cube->color, str, i, line))
 		return (1);
+	get_bump_path_optional(cube->matter.pattern.bump_path, str, i);
 	m = multiply_matrix(translate(rot.x, rot.y, rot.z), scale(cs.x, cs.y, cs.z));
 	set_transform(cube, m);
 	return (0);

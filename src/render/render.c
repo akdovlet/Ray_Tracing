@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 18:22:01 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/18 17:21:10 by akdovlet         ###   ########.fr       */
+/*   Updated: 2026/05/20 11:58:27 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,17 @@ int	render_accumulation(t_data *data)
 	end = clock();
 	cpu_time = ((double)(end - start)) / CLOCKS_PER_SEC;
 	data->ts = cpu_time;
-	printf("\rframe %d time: %.f ms", data->frame_index, data->ts * 1000);
+	// printf("\rframe %d time: %.f ms", data->frame_index, data->ts * 1000);
 	fflush(stdout);
 	data->frame_index++;
 	return (0);
+}
+
+int	render_dispatch(t_data *data)
+{
+	if (data->mode == PATH_MT)
+		return (render_accumulation_mt(data));
+	if (data->mode == PATH)
+		return (render_accumulation(data));
+	return (ray_tracing(data));
 }

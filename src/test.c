@@ -1810,13 +1810,6 @@ void	test_reflection(void)
 	// tuple_print(color);
 }
 
-unsigned int		new_id(void)
-{
-	static unsigned int	random;
-
-	return (random++);
-}
-
 void	test_refraction(void)
 {
 	t_world		world;

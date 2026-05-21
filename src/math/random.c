@@ -35,9 +35,18 @@ double	random_range(uint32_t *seed, double min, double max)
 
 t_tuple	random_unit_vec(uint32_t *seed)
 {
-	return ((t_tuple){(double)random_float(seed) * 2.0 - 1.0,
-		(double)random_float(seed) * 2.0 - 1.0, (double)random_float(seed) * 2.0
-		- 1.0, 0});
+	t_tuple	v;
+	double	lensq;
+
+	while (1)
+	{
+		v = (t_tuple){random_float(seed) * 2.0 - 1.0,
+			random_float(seed) * 2.0 - 1.0,
+			random_float(seed) * 2.0 - 1.0, 0};
+		lensq = tuple_dot(v, v);
+		if (lensq > 1e-8 && lensq <= 1.0)
+			return (tuple_multiply(v, 1.0 / sqrt(lensq)));
+	}
 }
 
 t_tuple	random_vec_range(uint32_t *seed, double min, double max)

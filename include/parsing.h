@@ -28,9 +28,12 @@ int		get_normalv(t_tuple *t, char *str, int *i, int line);
 int		get_radius(double *f, char *str, int *i, int line);
 int		get_rotation(t_tuple *t, char *str, int *i, int line);
 int		build_world(char **strs, t_world *world);
+int		get_emission_optional(double *f, char *str, int *i);
+void	get_bump_path_optional(char *bump_path, char *str, int *i);
 int		get_surface_info(t_shape *obj, char *str, int *i, int line);
 int		check_flag(char *str);
 int		check_file(char *str);
+int		load_bump_maps(t_world *world, t_mlx *mlx);
 
 int		ambient_light(char *str, t_world *world, int line);
 int		camera(char *str, t_camera *cam, int line);

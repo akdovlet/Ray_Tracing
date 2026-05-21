@@ -48,6 +48,8 @@ int	sphere(char *str, t_parse *parse, int line)
 			return (1);
 		if (get_color(&sphere.color, str, &i, line))
 			return (1);
+		get_emission_optional(&sphere.e_power, str, &i);
+		get_bump_path_optional(sphere.matter.pattern.bump_path, str, &i);
 	}
 	else
 		return (ft_dprintf(2, "Error: line %d: bad syntax: `%s'\n", line, str),

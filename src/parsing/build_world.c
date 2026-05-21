@@ -13,6 +13,7 @@
 #include "data_struct.h"
 #include "parsing.h"
 #include "libft.h"
+#include "mlx.h"
 #include <stdio.h>
 
 void	eat_obj(t_objlst **node)
@@ -75,6 +76,31 @@ int	build_lights(t_world *world, t_parse *parse)
 		world->light[i] = parse->light->light;
 		eat_light(&parse->light);
 		i++;
+	}
+	return (0);
+}
+
+int	load_bump_maps(t_world *world, t_mlx *mlx)
+{
+	int		i;
+	t_shape	*obj;
+	t_img	*img;
+
+	i = -1;
+	while (++i < world->obj_count)
+	{
+		obj = &world->obj[i];
+		if (!obj->matter.pattern.bump_path[0])
+			continue ;
+		img = &obj->matter.pattern.height_map;
+		img->img_ptr = mlx_xpm_file_to_image(mlx->mlx_ptr,
+				obj->matter.pattern.bump_path,
+				&img->img_width, &img->img_height);
+		if (!img->img_ptr)
+			return (ft_dprintf(2, "Error: failed to load bump map: `%s'\n",
+					obj->matter.pattern.bump_path), 1);
+		img->addr = mlx_get_data_addr(img->img_ptr,
+				&img->bits_per_pixel, &img->line_length, &img->endian);
 	}
 	return (0);
 }

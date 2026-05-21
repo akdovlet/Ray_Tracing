@@ -82,14 +82,32 @@ t_tuple	cube_normal_at(t_shape *shape, t_tuple point)
 	return (normalv);
 }
 
+t_tuple	cube_tangent_at(t_shape *shape, t_tuple point)
+{
+	t_tuple	n;
+	t_tuple	up;
+
+	n = cube_normal_at(shape, point);
+	if (fabs(n.y) < 0.9)
+		up = vector_new(0, 1, 0);
+	else
+		up = vector_new(1, 0, 0);
+	return (tuple_normalize(tuple_cross(up, n)));
+}
+
 t_shape	cube_default(void)
 {
-	return ((t_shape){
+	t_shape	cu;
+
+	cu = (t_shape){
 		.coordinates = point_new(0, 0, 0),
 		.id = new_id(),
 		.transform = identity(),
 		.matter = material(),
 		.local_intersect = &cube_intersect,
 		.local_normalat = &cube_normal_at,
-	});
+		.local_tangent = &cube_tangent_at,
+	};
+	cu.matter.pattern.uv_mapping = &planar_map;
+	return (cu);
 }

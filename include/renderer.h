@@ -18,5 +18,7 @@ t_tuple		trace_rays(t_world *world, t_ray ray, uint32_t seed, int frame_index);
 // 			t_img *img, t_mlx *mlx, int frame_index, unsigned int *accumulation);
 void		path_tracing(t_data *data);
 int			render_accumulation(t_data *data);
+int			render_accumulation_mt(t_data *data);
+int			render_dispatch(t_data *data);
 int			ray_tracing(t_data *data);
 

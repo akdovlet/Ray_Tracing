@@ -39,6 +39,17 @@ t_tuple	sphere_normal_at(t_shape *shape, t_tuple point)
 	return (tuple_substract(point, shape->coordinates));
 }
 
+t_tuple	sphere_tangent_at(t_shape *shape, t_tuple point)
+{
+	double	r;
+
+	(void)shape;
+	r = sqrt(point.x * point.x + point.z * point.z);
+	if (r < DBL_EPSILON)
+		return (vector_new(1, 0, 0));
+	return (vector_new(point.z / r, 0, -point.x / r));
+}
+
 t_shape	sphere_default(void)
 {
 	t_shape	new;
@@ -49,8 +60,10 @@ t_shape	sphere_default(void)
 		.transform = identity(),
 		.matter = material(),
 		.local_intersect = &sphere_intersect,
-		.local_normalat = &sphere_normal_at
+		.local_normalat = &sphere_normal_at,
+		.local_tangent = &sphere_tangent_at
 	};
+	new.matter.pattern.uv_mapping = &spherical_map;
 	return (new);
 }
 

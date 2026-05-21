@@ -101,24 +101,28 @@ void	find_n1n2(t_comps *comps, t_junction arr)
 
 void	pre_compute(t_comps *new, t_crossing cross, t_ray ray, t_junction arr)
 {
+	t_tuple	geom_n;
+
 	new->t = cross.t;
 	new->obj = cross.obj;
 	new->world_point = position(ray, new->t);
 	new->eyev = tuple_negate(ray.direction);
 	new->normalv = normal_at(new->obj, new->world_point);
-	if (tuple_dot(new->normalv, new->eyev) < 0.0)
+	geom_n = geom_normal_at(new->obj, new->world_point);
+	if (tuple_dot(geom_n, new->eyev) < 0.0)
 	{
 		new->inside = true;
 		new->normalv = tuple_negate(new->normalv);
+		geom_n = tuple_negate(geom_n);
 	}
 	else
 		new->inside = false;
-	new->overz = tuple_multiply(new->normalv, 0.0001);
-	new->overz = tuple_add(new->overz, new->world_point);
+	new->overz = tuple_add(new->world_point, tuple_multiply(geom_n, 0.0001));
 	new->reflectv = reflect(ray.direction, new->normalv);
 	if (cross.obj->matter.transparency)
 	{
 		find_n1n2(new, arr);
-		new->under_point = tuple_substract(new->world_point, tuple_multiply(new->normalv, 0.0001));
+		new->under_point = tuple_substract(new->world_point,
+				tuple_multiply(geom_n, 0.0001));
 	}
 }

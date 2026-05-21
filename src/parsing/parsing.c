@@ -59,10 +59,16 @@ int	parse_scene(char **strs, t_world *world, t_parse *parse)
 
 	*world = (t_world){};
 	*parse = (t_parse){};
-	fd = check_file(strs[1]);
+	if (strs[1] && strs[1][0] == '-')
+		fd = check_file(strs[2]);
+	else
+		fd = check_file(strs[1]);
 	if (fd < 0)
 		return (1);
-	world->path_or_ray = check_flag(strs[2]);
+	if (strs[1] && strs[1][0] == '-')
+		world->path_or_ray = check_flag(strs[1]);
+	else
+		world->path_or_ray = check_flag(strs[2]);
 	line = 0;
 	error = 0;
 	while (++line)
@@ -70,6 +76,8 @@ int	parse_scene(char **strs, t_world *world, t_parse *parse)
 		buff = gnl_no_nl(fd);
 		if (!buff)
 			break ;
+		if (ft_strchr(buff, '#'))
+			*ft_strchr(buff, '#') = '\0';
 		error = parse_line(buff, world, parse, line);
 		free(buff);
 		if (error)

@@ -64,6 +64,13 @@ int	key_manager(int keysym, t_data *data)
 		mlx_loop_end(data->mlx.mlx_ptr);
 		return (1);
 	}
+	if (keysym == XK_Tab)
+	{
+		data->mode = (data->mode + 1) % 3;
+		data->frame_index = 1;
+		data->moved = true;
+		return (0);
+	}
 	controller_forward(keysym, data);
 	controller_side(keysym, data);
 	controller_up_down(keysym, data);

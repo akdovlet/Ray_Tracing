@@ -40,6 +40,8 @@ int	get_cylinder_values(t_shape *cyl, char *str, int *i, int line)
 		return (1);
 	if (get_color(&cyl->color, str, i, line))
 		return (1);
+	get_emission_optional(&cyl->e_power, str, i);
+	get_bump_path_optional(cyl->matter.pattern.bump_path, str, i);
 	return (0);
 }
 

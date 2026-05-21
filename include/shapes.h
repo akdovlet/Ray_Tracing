@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/29 10:03:35 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/03/13 17:14:04 by akdovlet         ###   ########.fr       */
+/*   Updated: 2026/05/20 10:57:49 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "minirt.h"
 #include "data_struct.h"
+
 
 void			sphere_test(void);
 
@@ -25,6 +26,7 @@ void			hit(t_intersection *hit, t_vec3f vec);
 void			set_transform(t_shape *obj, t_matrix m);
 t_tuple			reflected_color(t_world *world, t_comps *comps, int depth);
 t_tuple			normal_at(t_shape *shape, t_tuple point);
+t_tuple			geom_normal_at(t_shape *obj, t_tuple world_point);
 t_tuple			reflect(t_tuple in, t_tuple normal);
 t_material		material(void);
 t_material		emissive_material(void);
@@ -48,6 +50,10 @@ t_vec3f	cube_intersect(t_shape *shape, t_ray ray);
 t_tuple	cube_normal_at(t_shape *shape, t_tuple point);
 t_vec3f	sphere_intersect(t_shape *shape, t_ray ray);
 t_tuple	sphere_normal_at(t_shape *shape, t_tuple point);
+t_tuple	sphere_tangent_at(t_shape *shape, t_tuple point);
+t_tuple	cylinder_tangent_at(t_shape *shape, t_tuple point);
+t_tuple	cone_tangent_at(t_shape *shape, t_tuple point);
+t_tuple	cube_tangent_at(t_shape *shape, t_tuple point);
 
 
 unsigned int		new_id(void);
@@ -60,9 +66,11 @@ double	schlick(t_comps *comps);
 
 t_shape	cylinder_default(void);
 t_vec3f	cylinder_intersect(t_shape *shape, t_ray ray);
+t_tuple	cylinder_normalat(t_shape *shape, t_tuple point);
 void	check_trunc(t_vec3f *vec, t_shape *shape, t_ray *ray);
 
 t_shape	cone_default();
+t_tuple	cone_normal(t_shape *shape, t_tuple point);
 
 t_shape	triangle_default(void);
 t_shape	triangle(t_tuple p1, t_tuple p2, t_tuple p3);

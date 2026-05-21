@@ -31,6 +31,7 @@ int	plane(char *str, t_parse *parse, int line)
 			return (1);
 		if (get_color(&plane.color, str, &i, line))
 			return (1);
+		get_emission_optional(&plane.e_power, str, &i);
 	}
 	else
 		return (ft_dprintf(2, "Error: line %d: bad syntax: `%s'\n", line, str),

@@ -79,7 +79,7 @@ void	hit(t_intersection *hit, t_vec3f vec)
 		hit->t = hit->xs.y;
 	else
 		hit->t = hit->xs.x;
-	hit->count = vec.x >= 0.0 + vec.y >= 0.0;
+	hit->count = (vec.x >= 0.0) + (vec.y >= 0.0);
 	if (hit->t >= 0.0)
 		hit->hit = true;
 }

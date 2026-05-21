@@ -26,11 +26,17 @@ int	setup_data(char **av, t_data *data)
 {
 	*data = (t_data){};
 	data->frame_index = 1;
+	if (av[1] && av[1][0] == '-')
+		data->mode = check_flag(av[1]);
+	else
+		data->mode = check_flag(av[2]);
 	if (build_world(av, &data->world))
 		return (1);
 	if (init_mlx(&data->mlx, &data->img))
 		return (ft_dprintf(2, "Error: failed mlx initialization\n"),
 			free_data(data), 1);
+	if (load_bump_maps(&data->world, &data->mlx))
+		return (free_data(data), 1);
 	data->rays = malloc(sizeof(t_ray) * WIDTH * HEIGHT);
 	if (!data->rays)
 	{
@@ -60,7 +66,7 @@ int	main(int ac, char **av)
 		return (1);
 	mlx_hook(data.mlx.win_ptr, 17, 0, mlx_loop_end, data.mlx.mlx_ptr);
 	mlx_hook(data.mlx.win_ptr, KeyPress, KeyPressMask, &key_manager, &data);
-	mlx_loop_hook(data.mlx.mlx_ptr, &ray_tracing, &data);
+	mlx_loop_hook(data.mlx.mlx_ptr, &render_dispatch, &data);
 	mlx_loop(data.mlx.mlx_ptr);
 	mlx_clear(&data.mlx, &data.img);
 	free_data(&data);

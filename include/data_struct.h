@@ -117,6 +117,7 @@ typedef struct	s_pattern
 	t_faces		faces[6];
 	t_img		map;
 	t_img		height_map;
+	char		bump_path[256];
 }	t_pattern;
 
 typedef struct s_material
@@ -176,6 +177,7 @@ typedef struct	s_shape
 	};
 	t_vec3f			(*local_intersect)(struct s_shape *, t_ray);
 	t_tuple			(*local_normalat)(struct s_shape *, t_tuple);
+	t_tuple			(*local_tangent)(struct s_shape *, t_tuple);
 }	t_shape;
 
 struct s_intersection
@@ -277,6 +279,7 @@ typedef struct s_container
 typedef struct	s_data
 {
 	int			job_end;
+	int			mode;
 	int			frame_index;
 	int			skip;
 	double		ts;
@@ -288,6 +291,13 @@ typedef struct	s_data
 	t_ray		*rays;
 	t_tuple		*accumulation;
 }	t_data;
+
+typedef struct	s_thread_arg
+{
+	t_data	*data;
+	int		y_start;
+	int		y_end;
+}	t_thread_arg;
 
 typedef struct s_groups
 {

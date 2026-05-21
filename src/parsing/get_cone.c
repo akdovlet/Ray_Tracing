@@ -68,6 +68,8 @@ int	get_cone_values(t_shape *cone, char *str, int *i, int line)
 		return (1);
 	if (get_color(&cone->color, str, i, line))
 		return (1);
+	get_emission_optional(&cone->e_power, str, i);
+	get_bump_path_optional(cone->matter.pattern.bump_path, str, i);
 	m = multiply_matrix(t_translate(cone->coordinates), rotate_x(rot.x));
 	m = multiply_matrix(m, rotate_y(rot.y));
 	m = multiply_matrix(m, rotate_z(rot.z));

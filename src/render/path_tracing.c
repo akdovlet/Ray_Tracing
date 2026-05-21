@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/15 20:13:58 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/28 21:42:18 by akdovlet         ###   ########.fr       */
+/*   Updated: 2026/05/21 08:49:23 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed, int frame_index)
 	(void)frame_index;
 	incoming_light = black();
 	ray_color = white();
-	bounces = 8;
+	bounces = 5;
 	i = 0;
 	while (i < bounces)
 	{
@@ -58,7 +58,7 @@ t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed, int frame_index)
 			ray.direction = lerp(diffusev, comps.reflectv, hits.closest.obj->matter.roughness
 										* is_specualar);
 			if (tuple_dot(ray.direction, comps.normalv) < 0.0)
-				tuple_negate(ray.direction);
+				ray.direction = tuple_negate(ray.direction);
 			emitted_light = emit_light(hits.closest.obj);
 			incoming_light = tuple_add(incoming_light, color_hadamard(emitted_light, ray_color));
 			if (hits.closest.obj->matter.pattern.exists)
@@ -67,7 +67,7 @@ t_tuple	trace_rays(t_world *world, t_ray ray, uint32_t seed, int frame_index)
 			else
 				ray_color = color_hadamard(ray_color, lerp(hits.closest.obj->matter.color,
 			hits.closest.obj->matter.specular_color, is_specualar));
-			if (russian_roulette(&ray_color, &seed))
+			if (i >= 2 && russian_roulette(&ray_color, &seed))
 					break ;
 		}
 		else

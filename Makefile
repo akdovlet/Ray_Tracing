@@ -6,7 +6,7 @@
 #    By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/18 10:04:18 by akdovlet          #+#    #+#              #
-#    Updated: 2025/04/28 21:52:55 by akdovlet         ###   ########.fr        #
+#    Updated: 2026/05/20 10:58:18 by akdovlet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,6 @@
 NAME	:=	minirt
 
 SRC		:=	main.c							\
-			test.c							\
 			scenes.c						\
 			camera/camera.c					\
 			camera/view_transform.c			\
@@ -70,12 +69,14 @@ SRC		:=	main.c							\
 			render/path_tracing.c			\
 			render/ray_tracing.c			\
 			render/render.c					\
+			render/render_mt.c				\
 			shapes/cube.c					\
 			shapes/cone.c					\
 			shapes/cylinder_intersect.c		\
 			shapes/cylinder.c				\
 			shapes/glass_sphere.c			\
 			shapes/material.c				\
+			shapes/new_id.c					\
 			shapes/normal.c					\
 			shapes/plane.c					\
 			shapes/sphere.c					\
@@ -121,8 +122,8 @@ DEP		:=	$(OBJ:.o=.d)
 LIBFT	:=	libft/libft.a
 MLX		:=	mlx_linux/libmlx_Linux.a
 CC		:=	cc
-CFLAGS	:=	-Wall -Werror -Wextra -MMD -MP -Iinclude -Ilibft/include -Imlx_linux -g
-MATH	:=	-lm
+CFLAGS	:=	-Wall -Werror -Wextra -std=gnu11 -MMD -MP -Iinclude -Ilibft/include -Imlx_linux -g
+MATH	:=	-lm -lpthread
 
 all: create_dir $(NAME)
 
@@ -142,7 +143,10 @@ $(BUILD)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@printf "\033[1;32%sm\tCompiled: $(<F)\033[0m\n";
 
-$(MLX):
+mlx_linux:
+	@git clone https://github.com/42paris/minilibx-linux.git mlx_linux
+
+$(MLX): mlx_linux
 	@$(MAKE) -C mlx_linux
 
 $(LIBFT):

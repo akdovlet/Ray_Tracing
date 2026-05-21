@@ -42,5 +42,7 @@ int	check_flag(char *str)
 		return (RAY);
 	if (str[0] == '-' && str[1] == 'p' && !str[2])
 		return (PATH);
+	if (str[0] == '-' && str[1] == 't' && !str[2])
+		return (PATH_MT);
 	return (RAY);
 }

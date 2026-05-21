@@ -13,28 +13,47 @@
 #include "minirt.h"
 #include "tuple.h"
 
-t_tuple	height_normal(t_shape *obj, t_tuple world_point)
+static double	height_at(t_img *img, int x, int y)
 {
-	t_img		*img;
-	t_vec2f		uv;
-	uint32_t	x;
-	uint32_t	y;
-	double	center_l;
-	double	center_r;
-	double	center_u;
-	double	center_d;
-	t_tuple		normal;
+	if (x < 0)
+		x = 0;
+	if (y < 0)
+		y = 0;
+	if (x >= img->img_width)
+		x = img->img_width - 1;
+	if (y >= img->img_height)
+		y = img->img_height - 1;
+	return ((double)((pixel_at(img, x, y) >> 16) & 0xFF));
+}
+
+t_tuple	height_normal(t_shape *obj, t_tuple local_point)
+{
+	t_img	*img;
+	t_vec2f	uv;
+	int		px;
+	int		py;
+	double	dh_du;
+	double	dh_dv;
+	t_tuple	tangent_n;
+	t_tuple	T;
+	t_tuple	B;
+	t_tuple	N;
 
 	img = &obj->matter.pattern.height_map;
-	uv = obj->matter.pattern.uv_mapping(world_point);
-	x = round(uv.x * obj->matter.pattern.height_map.img_width);
-	y = round(obj->matter.pattern.height_map.img_height - (uv.y * obj->matter.pattern.height_map.img_height));
-	center_l = (double)pixel_at(img, x - 1, y);
-	center_r = (double)pixel_at(img, x + 1, y);
-	center_u = (double)pixel_at(img, x, y - 1);
-	center_d = (double)pixel_at(img, x, y + 1);
-	normal = tuple_normalize(vector_new(2 * (center_r - center_l), 2 *  (center_d - center_u), -4));
-	return (normal);
+	uv = obj->matter.pattern.uv_mapping(local_point);
+	px = (int)round(uv.x * img->img_width);
+	py = (int)round(img->img_height - uv.y * img->img_height);
+	dh_du = height_at(img, px + 1, py) - height_at(img, px - 1, py);
+	dh_dv = height_at(img, px, py + 1) - height_at(img, px, py - 1);
+	tangent_n = tuple_normalize(vector_new(-dh_du, -dh_dv, 255.0));
+	N = tuple_normalize(obj->local_normalat(obj, local_point));
+	T = obj->local_tangent(obj, local_point);
+	B = tuple_normalize(tuple_cross(N, T));
+	return (tuple_normalize(
+		tuple_add(tuple_add(
+			tuple_multiply(T, tangent_n.x),
+			tuple_multiply(B, tangent_n.y)),
+			tuple_multiply(N, tangent_n.z))));
 }
 
 t_tuple	color_to_normal(uint32_t color)
@@ -84,25 +103,31 @@ t_tuple	normal_map(t_shape *obj, t_tuple p)
 	return (normal);
 }
 
-t_tuple	normal_at(t_shape *obj, t_tuple world_point)
+t_tuple	geom_normal_at(t_shape *obj, t_tuple world_point)
 {
 	t_tuple	normalv;
 	t_tuple	local_point;
-	t_tuple	heightv;
 
 	if (!obj->local_normalat)
 		return (obj->normal);
 	local_point = transform(obj->transform, world_point);
-	normalv = obj->local_normalat(obj, local_point);\
-	if (obj->matter.pattern.height_map.img_ptr)
-	{
-		heightv = height_normal(obj, world_point);
-		if (tuple_equal(heightv, (t_tuple){0, 0, -1, 0}))
-			return (tuple_normalize(normalv));
-		normalv = tuple_add(normalv, heightv);
-		normalv.w = 0;
-		// normalv = tuple_normalize(normal_map(obj, local_point));
-	}
+	normalv = obj->local_normalat(obj, local_point);
+	normalv = transform(matrix_transpose(obj->transform), normalv);
+	normalv.w = 0;
+	return (tuple_normalize(normalv));
+}
+
+t_tuple	normal_at(t_shape *obj, t_tuple world_point)
+{
+	t_tuple	normalv;
+	t_tuple	local_point;
+
+	if (!obj->local_normalat)
+		return (obj->normal);
+	local_point = transform(obj->transform, world_point);
+	normalv = obj->local_normalat(obj, local_point);
+	if (obj->matter.pattern.height_map.img_ptr && obj->local_tangent)
+		normalv = height_normal(obj, local_point);
 	normalv = transform(matrix_transpose(obj->transform), normalv);
 	normalv.w = 0;
 	return (tuple_normalize(normalv));
