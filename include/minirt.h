@@ -6,7 +6,7 @@
 /*   By: akdovlet <akdovlet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 16:12:46 by akdovlet          #+#    #+#             */
-/*   Updated: 2025/04/28 22:11:29 by akdovlet         ###   ########.fr       */
+/*   Updated: 2026/05/21 16:31:46 by akdovlet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # include "ray.h"
 
 # define WIDTH 1920 / 2
-# define HEIGHT 1080
+# define HEIGHT 1080 / 2
 # define RAY 0
 # define PATH 1
 # define PATH_MT 2
